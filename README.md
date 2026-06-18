@@ -92,7 +92,7 @@ box-shadow:0 4px 15px rgba(0,0,0,0.3);
 
 <header>
 
-  <img src="logo.png" alt="Logo MWANA MBOKA" class="logo">
+  <img src="banniere.png" alt="banniere MWANA MBOKA" class="banner">
 <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
 
 <p>Ensemble nous irons plus loin</p>
