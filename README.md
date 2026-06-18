@@ -30,7 +30,6 @@ text-decoration:none;
 box-shadow:0 4px 10px rgba(0,0,0,0.3);
 }
 </style>
-
 body{
 margin:0;
 font-family:Arial, sans-serif;
