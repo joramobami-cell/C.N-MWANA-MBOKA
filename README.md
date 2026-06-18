@@ -16,13 +16,6 @@ background:#f5f5f5;
 color:#333;
 }
 
-header{
-background:linear-gradient(135deg,#009245,#006837);
-color:white;
-padding:60px 20px;
-text-align:center;
-}
-
 <header>
 
 <img src="logo.png"
