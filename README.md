@@ -16,15 +16,20 @@ background:#f5f5f5;
 color:#333;
 }
 
-<header>
+header{
+background:linear-gradient(135deg,#009245,#006837);
+color:white;
+padding:60px 20px;
+text-align:center;
+}
 
-<img src="logo.png"
-alt="Logo MWANA MBOKA"
-class="logo">
+header h1{
+font-size:40px;
+margin-bottom:10px;
+}
 
-<h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
-
-<p>Ensemble nous irons plus loin</p>
+header p{
+font-size:20px;
 }
 
 .btn{
@@ -71,22 +76,13 @@ padding:20px;
 
 <header>
 
-  <img src="banniere.png" alt="banniere MWANA MBOKA" class="banner">
 <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
 
 <p>Ensemble nous irons plus loin</p>
 
 <a class="btn" href="https://wa.me/242065447541">
 Rejoindre la communauté
-</a>.logo{
-width:180px;
-height:auto;
-margin-bottom:20px;
-background:white;
-padding:10px;
-border-radius:20px;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
+</a>
 
 </header>
 
@@ -178,51 +174,8 @@ et créer des opportunités économiques durables.
 COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
 
 <strong>Ensemble nous irons plus loin.</strong>
-<section>
-
-<h2>Devenir membre</h2>
-
-<div class="card">
-
-Rejoignez une communauté dynamique fondée sur l'entraide,
-la formation, l'investissement et le développement des opportunités.
-
-<br><br>
-
-<a class="btn"
-href="https://wa.me/242065447541">
-
-Adhérer maintenant
-
-</a>
-
-</div>
-
-</section>
 
 </footer>
-<a href="https://wa.me/242065447541" class="whatsapp">
-📱
-</a>
-
-<style>
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-font-size:30px;
-width:60px;
-height:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-text-decoration:none;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
-</style>
 
 </body>
 </html>
