@@ -8,28 +8,7 @@
 <title>MWANA MBOKA</title>
 
 <style>
-<a href="https://wa.me/242065447541" class="whatsapp">
-📱
-</a>
 
-<style>
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-font-size:30px;
-width:60px;
-height:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-text-decoration:none;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
-</style>
 body{
 margin:0;
 font-family:Arial, sans-serif;
@@ -81,27 +60,6 @@ box-shadow:0 3px 10px rgba(0,0,0,0.1);
 h2{
 color:#009245;
 }
-<section>
-
-<h2>Devenir membre</h2>
-
-<div class="card">
-
-Rejoignez une communauté dynamique fondée sur l'entraide,
-la formation, l'investissement et le développement des opportunités.
-
-<br><br>
-
-<a class="btn"
-href="https://wa.me/242065447541">
-
-Adhérer maintenant
-
-</a>
-
-</div>
-
-</section>
 
 footer{
 background:#222;
