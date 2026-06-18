@@ -70,14 +70,12 @@ text-align:center;
 padding:20px;
 }
 
-</style>
-header{
+</style>header{
 background:linear-gradient(135deg,#009245,#006837);
 color:white;
 padding:60px 20px;
 text-align:center;
-}
-.logo{
+}.logo{
 width:180px;
 max-width:80%;
 margin-bottom:20px;
