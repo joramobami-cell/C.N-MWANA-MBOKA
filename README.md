@@ -176,6 +176,27 @@ COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
 <strong>Ensemble nous irons plus loin.</strong>
 
 </footer>
+<a href="https://wa.me/242065447541" class="whatsapp">
+📱
+</a>
 
+<style>
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+font-size:30px;
+width:60px;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+</style>
 </body>
 </html>
