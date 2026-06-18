@@ -25,7 +25,7 @@ text-align:center;
 
 <header>
 
-<img src="logo%20png.png"
+<img src="logo.png"
 alt="Logo MWANA MBOKA"
 class="logo">
 
