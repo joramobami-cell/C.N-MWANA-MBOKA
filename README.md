@@ -50,10 +50,20 @@ text-transform:uppercase;
 margin-top:20px;
 margin-bottom:10px;
 text-shadow:3px 3px 8px rgba(0,0,0,0.4);
-  }
+}
+
+header h3{
+font-size:20px;
+font-weight:300;
+letter-spacing:6px;
+margin-top:-10px;
+margin-bottom:20px;
+}
 
 header p{
-font-size:20px;
+font-size:24px;
+font-weight:bold;
+letter-spacing:1px;
 }
 
 .btn{
@@ -106,7 +116,9 @@ class="logo">
 
 <img src="banniere.png" alt="Bannière MWANA MBOKA" class="banner">
 
-<h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
+<h1>MWANA MBOKA</h1>
+
+<h3>COMMUNAUTÉ NUMÉRIQUE</h3>
 
 <p>Ensemble nous irons plus loin</p>
 
