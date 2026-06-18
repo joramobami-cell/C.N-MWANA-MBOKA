@@ -77,9 +77,7 @@ background:linear-gradient(135deg,#009245,#006837);
 color:white;
 padding:60px 20px;
 text-align:center;
-}
-
-.logo{
+}.logo{
 width:180px;
 max-width:80%;
 margin-bottom:20px;
@@ -101,7 +99,15 @@ box-shadow:0 4px 15px rgba(0,0,0,0.3);
 
 <a class="btn" href="https://wa.me/242065447541">
 Rejoindre la communauté
-</a>
+</a>.logo{
+width:180px;
+height:auto;
+margin-bottom:20px;
+background:white;
+padding:10px;
+border-radius:20px;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
 
 </header>
 
