@@ -96,11 +96,26 @@ color:#333;
 }
 
 footer{
+
 background:#222;
 color:white;
 text-align:center;
 padding:20px;
 }
+nav{
+background:white;
+padding:15px;
+text-align:center;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav a{
+margin:15px;
+text-decoration:none;
+font-weight:bold;
+color:#009245;
+font-size:18px;
+  }
 
 </style>
 
@@ -127,6 +142,14 @@ Rejoindre la communauté
 </a>
 
 </header>
+
+<nav>
+
+<a href="index.html">Accueil</a>
+
+<a href="projets.html">Projets</a>
+
+</nav>
 
 <section>
 
