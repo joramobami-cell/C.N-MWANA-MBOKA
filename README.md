@@ -23,13 +23,15 @@ padding:60px 20px;
 text-align:center;
 }
 
-header h1{
-font-size:40px;
-margin-bottom:10px;
-}
+<header>
 
-header p{
-font-size:20px;
+<img src="logo%20png.png"
+alt="Logo MWANA MBOKA"
+class="logo">
+
+<h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
+
+<p>Ensemble nous irons plus loin</p>
 }
 
 .btn{
