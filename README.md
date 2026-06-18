@@ -1,35 +1,181 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MWANA MBOKA</title>
-<meta charset="utf-8">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#f5f5f5;
+color:#333;
+}
+
+header{
+background:linear-gradient(135deg,#009245,#006837);
+color:white;
+padding:60px 20px;
+text-align:center;
+}
+
+header h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+header p{
+font-size:20px;
+}
+
+.btn{
+display:inline-block;
+background:#FFD700;
+color:#000;
+padding:15px 25px;
+margin-top:20px;
+text-decoration:none;
+font-weight:bold;
+border-radius:30px;
+}
+
+section{
+padding:50px 20px;
+max-width:1000px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:25px;
+margin:15px 0;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+color:#009245;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+</style>
+
 </head>
 
 <body>
 
+<header>
+
 <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
 
-<h2>Ensemble nous irons plus loin</h2>
+<p>Ensemble nous irons plus loin</p>
 
-<p>
-MWANA MBOKA est une communauté numérique basée sur
-l'entraide, la formation, l'investissement et les opportunités.
-</p>
+<a class="btn" href="https://wa.me/242065447541">
+Rejoindre la communauté
+</a>
 
-<h3>Nos services</h3>
+</header>
 
-<ul>
-<li>Formation</li>
-<li>Accompagnement des projets</li>
-<li>Investissement communautaire</li>
-<li>Entraide sociale</li>
-<li>Réseautage</li>
-</ul>
+<section>
 
-<h3>Contact</h3>
+<h2>À propos</h2>
 
-<p>WhatsApp : 065447541</p>
+<div class="card">
+
+MWANA MBOKA est une communauté numérique fondée sur
+l'entraide, la formation, l'investissement participatif et
+l'accompagnement des projets.
+
+Notre mission est de connecter les jeunes, développer les talents
+et créer des opportunités économiques durables.
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Nos services</h2>
+
+<div class="card">
+📚 Formation et développement des compétences
+</div>
+
+<div class="card">
+🚀 Accompagnement des projets des membres
+</div>
+
+<div class="card">
+💰 Investissement communautaire
+</div>
+
+<div class="card">
+🤝 Entraide sociale
+</div>
+
+<div class="card">
+🌍 Réseautage et opportunités
+</div>
+
+</section>
+
+<section>
+
+<h2>Pourquoi nous rejoindre ?</h2>
+
+<div class="card">
+✅ Développer vos compétences
+</div>
+
+<div class="card">
+✅ Accéder à un réseau dynamique
+</div>
+
+<div class="card">
+✅ Bénéficier d'un accompagnement
+</div>
+
+<div class="card">
+✅ Présenter vos projets
+</div>
+
+<div class="card">
+✅ Participer à une communauté solidaire
+</div>
+
+</section>
+
+<section>
+
+<h2>Contact</h2>
+
+<div class="card">
+
+📱 WhatsApp : 065447541<br><br>
+
+📧 Email : joramobami@gmail.com
+
+</div>
+
+</section>
+
+<footer>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
+
+<strong>Ensemble nous irons plus loin.</strong>
+
+</footer>
 
 </body>
-</html># C.N-MWANA-MBOKA
-Communauté numérique Mwana Mboka, ensemble nous irons plus loin 
+</html>
