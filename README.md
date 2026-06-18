@@ -76,6 +76,10 @@ padding:20px;
 
 <header>
 
+<img src="logo.png"
+alt="Logo MWANA MBOKA"
+class="logo">
+
 <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
 
 <p>Ensemble nous irons plus loin</p>
