@@ -43,9 +43,14 @@ box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
   
 header h1{
-font-size:40px;
+font-size:55px;
+font-weight:900;
+letter-spacing:3px;
+text-transform:uppercase;
+margin-top:20px;
 margin-bottom:10px;
-}
+text-shadow:3px 3px 8px rgba(0,0,0,0.4);
+  }
 
 header p{
 font-size:20px;
