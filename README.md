@@ -71,12 +71,14 @@ padding:20px;
 }
 
 </style>
+
 header{
 background:linear-gradient(135deg,#009245,#006837);
 color:white;
 padding:60px 20px;
 text-align:center;
 }
+
 .logo{
 width:180px;
 max-width:80%;
@@ -92,6 +94,7 @@ box-shadow:0 4px 15px rgba(0,0,0,0.3);
 
 <header>
 
+  <img src="logo.png" alt="Logo MWANA MBOKA" class="logo">
 <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
 
 <p>Ensemble nous irons plus loin</p>
