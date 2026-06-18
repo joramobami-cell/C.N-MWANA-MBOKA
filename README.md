@@ -65,20 +65,6 @@ padding:20px;
 
 </style>
 
-header{
-background:linear-gradient(135deg,#009245,#006837);
-color:white;
-padding:60px 20px;
-text-align:center;
-}.logo{
-width:180px;
-max-width:80%;
-margin-bottom:20px;
-border-radius:20px;
-background:white;
-padding:10px;
-box-shadow:0 4px 15px rgba(0,0,0,0.3);
-}
 </head>
 
 <body>
