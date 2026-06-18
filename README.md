@@ -168,7 +168,27 @@ et créer des opportunités économiques durables.
 </div>
 
 </section>
+<section>
 
+<h2>Devenir membre</h2>
+
+<div class="card">
+
+Rejoignez une communauté dynamique fondée sur l'entraide,
+la formation, l'investissement et le développement des opportunités.
+
+<br><br>
+
+<a class="btn"
+href="https://wa.me/242065447541">
+
+Adhérer maintenant
+
+</a>
+
+</div>
+
+</section>
 <footer>
 
 COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
