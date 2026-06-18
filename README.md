@@ -99,8 +99,6 @@ padding:20px;
 alt="Logo MWANA MBOKA"
 class="logo">
 
-<header>
-
 <img src="banniere.png" alt="Bannière MWANA MBOKA" class="banner">
 
 <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
