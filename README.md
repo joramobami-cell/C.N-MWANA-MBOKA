@@ -18,7 +18,7 @@ color:#333;
 
 header{
 background:linear-gradient(135deg,#009245,#006837);
-color:white;
+color🟦;
 padding:60px 20px;
 text-align:center;
 }
