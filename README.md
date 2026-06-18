@@ -21,7 +21,9 @@ background:linear-gradient(135deg,#009245,#006837);
 color:white;
 padding:60px 20px;
 text-align:center;
-}.logo{
+}
+
+.logo{
 width:180px;
 max-width:80%;
 margin-bottom:20px;
@@ -29,8 +31,17 @@ border-radius:20px;
 background:white;
 padding:10px;
 box-shadow:0 4px 15px rgba(0,0,0,0.3);
-  }
+}
 
+.banner{
+width:100%;
+max-width:900px;
+height:auto;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+  
 header h1{
 font-size:40px;
 margin-bottom:10px;
@@ -87,6 +98,10 @@ padding:20px;
 <img src="logo.png"
 alt="Logo MWANA MBOKA"
 class="logo">
+
+<header>
+
+<img src="banniere.png" alt="Bannière MWANA MBOKA" class="banner">
 
 <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
 
