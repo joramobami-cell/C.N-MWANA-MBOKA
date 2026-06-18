@@ -54,7 +54,7 @@ font-size:20px;
 .btn{
 display:inline-block;
 background:#FFD700;
-color:#000;
+color:#333;
 padding:15px 25px;
 margin-top:20px;
 text-decoration:none;
@@ -77,7 +77,7 @@ box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 h2{
-color:#009245;
+color:#333;
 }
 
 footer{
