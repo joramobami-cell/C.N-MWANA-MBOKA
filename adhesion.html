@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Adhésion - MWANA MBOKA</title>
 
 <style>
@@ -11,17 +14,42 @@ body{
 font-family:Arial, sans-serif;
 background:#f5f5f5;
 margin:0;
+padding:0;
 }
 
 header{
 background:#009245;
 color:white;
 text-align:center;
-padding:40px;
+padding:40px 20px;
+}
+
+header h1{
+margin:0;
+font-size:40px;
+}
+
+header p{
+font-size:18px;
+}
+
+nav{
+background:white;
+padding:15px;
+text-align:center;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav a{
+margin:15px;
+text-decoration:none;
+font-weight:bold;
+color:#009245;
+font-size:18px;
 }
 
 section{
-max-width:700px;
+max-width:800px;
 margin:30px auto;
 background:white;
 padding:30px;
@@ -29,30 +57,50 @@ border-radius:15px;
 box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-input, select{
+h2{
+color:#009245;
+text-align:center;
+}
+
+label{
+display:block;
+margin-top:15px;
+margin-bottom:5px;
+font-weight:bold;
+}
+
+input,
+select{
 width:100%;
 padding:12px;
-margin-top:5px;
-margin-bottom:15px;
 border:1px solid #ccc;
 border-radius:8px;
 box-sizing:border-box;
 }
 
 button{
+width:100%;
 background:#009245;
 color:white;
 border:none;
 padding:15px;
-width:100%;
+margin-top:25px;
 border-radius:8px;
-font-size:16px;
+font-size:18px;
 font-weight:bold;
 cursor:pointer;
 }
 
 button:hover{
 background:#006837;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:30px;
 }
 
 </style>
@@ -62,36 +110,91 @@ background:#006837;
 <body>
 
 <header>
-<h1>Formulaire d'Adhésion</h1>
-<p>Rejoignez la Communauté Numérique MWANA MBOKA</p>
+
+<h1>MWANA MBOKA</h1>
+
+<p>Formulaire officiel d'adhésion</p>
+
 </header>
 
+<nav>
+
+<a href="index.html">Accueil</a>
+
+<a href="projets.html">Projets</a>
+
+<a href="adhesion.html">Adhésion</a>
+
+</nav>
+
 <section>
+
+<h2>Demande d'adhésion</h2>
 
 <form>
 
 <label>Nom complet</label>
-<input type="text" placeholder="Votre nom complet">
+<input type="text" placeholder="Nom et prénom">
+
+<label>Date de naissance</label>
+<input type="date">
+
+<label>Lieu de naissance</label>
+<input type="text" placeholder="Lieu de naissance">
+
+<label>Nationalité</label>
+<input type="text" placeholder="Nationalité">
+
+<label>Sexe</label>
+<select>
+<option>Sélectionner</option>
+<option>Masculin</option>
+<option>Féminin</option>
+</select>
 
 <label>Téléphone</label>
-<input type="tel" placeholder="Votre numéro">
+<input type="tel" placeholder="Numéro de téléphone">
+
+<label>Email (facultatif)</label>
+<input type="email" placeholder="Adresse email">
+
+<label>Adresse de résidence</label>
+<input type="text" placeholder="Ville ou quartier">
 
 <label>Profession</label>
-<input type="text" placeholder="Votre profession">
+<input type="text" placeholder="Profession">
 
-<label>Ville</label>
-<input type="text" placeholder="Votre ville">
+<label>Type de pièce d'identité</label>
+<select>
+<option>Sélectionner</option>
+<option>Carte Nationale d'Identité</option>
+<option>Passeport</option>
+<option>Permis de conduire</option>
+<option>Autre</option>
+</select>
 
-<label>Nom du parrain</label>
-<input type="text" placeholder="Nom du parrain">
+<label>Numéro de la pièce d'identité</label>
+<input type="text" placeholder="Numéro du document">
+
+<label>Matricule du parrain</label>
+<input type="text" placeholder="Exemple : MMB-F001">
 
 <button type="submit">
-Envoyer la demande
+Envoyer la demande d'adhésion
 </button>
 
 </form>
 
 </section>
 
+<footer>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
+
+<strong>Ensemble nous irons plus loin.</strong>
+
+</footer>
+
 </body>
+
   </html>
