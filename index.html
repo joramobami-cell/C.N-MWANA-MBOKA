@@ -21,31 +21,40 @@ display:flex;
 min-height:100vh;
 }
 
-/* MENU GAUCHE */
+/* MENU */
 
 .sidebar{
-width:250px;
+width:180px;
 background:white;
 border-right:2px solid #dddddd;
+}
+
+.logo-box{
+background:#009245;
 padding:20px;
-box-shadow:2px 0 10px rgba(0,0,0,0.1);
-}
-
-.logo{
 text-align:center;
-margin-bottom:30px;
 }
 
-.logo img{
-width:120px;
+.logo-box img{
+width:80px;
+background:white;
+padding:8px;
+border-radius:15px;
+}
+
+.logo-box p{
+color:white;
+font-size:12px;
+font-weight:bold;
+margin-top:10px;
 }
 
 .sidebar a{
 display:block;
-padding:15px;
+padding:18px;
 text-decoration:none;
-font-weight:bold;
 color:#009245;
+font-weight:bold;
 border-bottom:1px solid #eeeeee;
 }
 
@@ -57,7 +66,7 @@ background:#f5f5f5;
 
 .content{
 flex:1;
-padding:20px;
+padding:15px;
 }
 
 .banniere{
@@ -69,17 +78,34 @@ margin-bottom:20px;
 .card{
 background:white;
 padding:25px;
+border-radius:20px;
 margin-bottom:20px;
-border-radius:15px;
 box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 h1{
 color:#009245;
+font-size:45px;
+margin-bottom:10px;
 }
 
 h2{
 color:#009245;
+}
+
+.btn{
+display:inline-block;
+background:#009245;
+color:white;
+padding:15px 30px;
+text-decoration:none;
+font-weight:bold;
+border-radius:12px;
+margin-top:20px;
+}
+
+.btn:hover{
+background:#006837;
 }
 
 ul{
@@ -89,20 +115,9 @@ line-height:2;
 footer{
 background:#222;
 color:white;
+padding:25px;
 text-align:center;
-padding:20px;
-border-radius:15px;
-}
-
-.btn{
-display:inline-block;
-background:#009245;
-color:white;
-padding:15px 25px;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-margin-top:15px;
+border-radius:20px;
 }
 
 </style>
@@ -115,8 +130,15 @@ margin-top:15px;
 
 <div class="sidebar">
 
-<div class="logo">
+<div class="logo-box">
+
 <img src="logo.png">
+
+<p>
+MWANA MBOKA<br>
+Ensemble nous irons plus loin
+</p>
+
 </div>
 
 <a href="index.html">Accueil</a>
@@ -145,13 +167,16 @@ margin-top:15px;
 <h2>Ensemble nous irons plus loin</h2>
 
 <p>
-MWANA MBOKA est une communauté numérique basée sur l'entraide,
-la formation, l'investissement, l'accompagnement des projets
-et le développement des opportunités.
+
+MWANA MBOKA est une communauté numérique fondée sur l'entraide,
+la formation, l'investissement, les opportunités et le développement des projets.
+
 </p>
 
-<a class="btn" href="adhesion.html">
+<a href="adhesion.html" class="btn">
+
 Adhérer maintenant
+
 </a>
 
 </div>
@@ -161,8 +186,9 @@ Adhérer maintenant
 <h2>Notre mission</h2>
 
 <p>
-Former, accompagner et soutenir les membres dans leurs projets
-afin de contribuer au développement individuel et collectif.
+
+Former, accompagner et soutenir les membres afin de contribuer au développement individuel et collectif.
+
 </p>
 
 </div>
@@ -172,23 +198,53 @@ afin de contribuer au développement individuel et collectif.
 <h2>Nos domaines d'action</h2>
 
 <ul>
+
 <li>Formation</li>
+
 <li>Investissement communautaire</li>
+
 <li>Entraide sociale</li>
+
 <li>Entrepreneuriat</li>
+
 <li>Opportunités professionnelles</li>
+
 <li>Développement des projets</li>
+
 </ul>
 
 </div>
 
 <div class="card">
 
-<h2>Actualité</h2>
+<h2>Notre communauté</h2>
+
+<p>👤 Fondateur : 1</p>
+
+<p>🤝 Membres : En croissance</p>
+
+<p>📂 Projets : En développement</p>
+
+<p>🌍 Vision : Nationale et internationale</p>
+
+</div>
+
+<div class="card">
+
+<h2>Actualités</h2>
 
 <p>
-Les adhésions à la Communauté Numérique MWANA MBOKA sont ouvertes.
-Rejoignez-nous dès aujourd'hui.
+
+📢 Les adhésions sont ouvertes.
+
+<br><br>
+
+🚀 Développement de la plateforme numérique.
+
+<br><br>
+
+🤝 Recrutement des premiers membres.
+
 </p>
 
 </div>
@@ -196,6 +252,14 @@ Rejoignez-nous dès aujourd'hui.
 <footer>
 
 COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065447541
+
+<br>
+
+📧 joramobami@gmail.com
 
 <br><br>
 
