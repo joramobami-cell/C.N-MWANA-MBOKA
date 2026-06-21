@@ -1,52 +1,126 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Projets - MWANA MBOKA</title>
 
 <style>
 
 body{
-font-family:Arial, sans-serif;
 margin:0;
-background:#f5f5f5;
-color:#333;
+font-family:Arial,sans-serif;
+background:#f3f5f7;
 }
 
-header{
-background:#009245;
-color:white;
-text-align:center;
-padding:40px 20px;
+.container{
+display:flex;
+min-height:100vh;
 }
 
-nav{
+.sidebar{
+width:170px;
 background:white;
-padding:15px;
+border-right:2px solid #e0e0e0;
+box-shadow:2px 0 10px rgba(0,0,0,0.1);
+}
+
+.logo-box{
+background:#009245;
+padding:20px;
 text-align:center;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-nav a{
-margin:15px;
-text-decoration:none;
+.logo-box img{
+width:75px;
+background:white;
+padding:8px;
+border-radius:15px;
+}
+
+.logo-box p{
+color:white;
+font-size:13px;
 font-weight:bold;
-color:#009245;
 }
 
-section{
-max-width:1000px;
-margin:auto;
-padding:30px 20px;
+.sidebar a{
+display:block;
+padding:16px;
+text-decoration:none;
+color:#009245;
+font-weight:bold;
+border-bottom:1px solid #eeeeee;
+}
+
+.sidebar a:hover{
+background:#f4f4f4;
+}
+
+.content{
+flex:1;
+padding:20px;
 }
 
 .card{
 background:white;
-padding:25px;
+padding:30px;
+border-radius:20px;
 margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+h1{
+color:#009245;
+font-size:38px;
+}
+
+h2{
+color:#009245;
+}
+
+.status{
+display:inline-block;
+background:#009245;
+color:white;
+padding:8px 15px;
+border-radius:20px;
+font-size:14px;
+margin-top:10px;
+}
+
+footer{
+background:#003b1f;
+color:white;
+padding:30px;
+text-align:center;
+border-radius:20px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+width:65px;
+height:65px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:35px;
+text-decoration:none;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+z-index:999;
 }
 
 </style>
@@ -55,42 +129,122 @@ box-shadow:0 3px 10px rgba(0,0,0,0.1);
 
 <body>
 
-<header>
-<h1>Nos Projets</h1>
-<p>Construisons l'avenir ensemble</p>
-</header>
+<div class="container">
 
-<nav>
+<div class="sidebar">
 
-<a href="index.html">Accueil</a>
+<div class="logo-box">
 
-<a href="projets.html">Projets</a>
+<img src="logo.png">
 
-</nav>
+<p>
+MWANA MBOKA<br>
+Ensemble nous irons plus loin
+</p>
 
-<section>
+</div>
+
+<a href="index.html">🏠 Accueil</a>
+<a href="projets.html">📁 Projets</a>
+
+</div>
+
+<div class="content">
 
 <div class="card">
-<h2>🌽 Agriculture</h2>
-<p>Financement et accompagnement des projets agricoles des membres.</p>
+
+<h1>NOS PROJETS</h1>
+
+<p>
+La Communauté Numérique MWANA MBOKA développe des projets destinés à améliorer les conditions de vie des membres et à créer des opportunités durables.
+</p>
+
 </div>
 
 <div class="card">
-<h2>🏪 Commerce</h2>
-<p>Soutien aux activités commerciales et aux petites entreprises.</p>
+
+<h2>Plateforme numérique MWANA MBOKA</h2>
+
+<p>
+Développement du site internet et des outils numériques de la communauté.
+</p>
+
+<span class="status">En cours</span>
+
 </div>
 
 <div class="card">
-<h2>💻 Numérique</h2>
-<p>Développement de projets technologiques et numériques.</p>
+
+<h2>Programme de formation</h2>
+
+<p>
+Organisation de formations dans différents domaines afin de renforcer les compétences des membres.
+</p>
+
+<span class="status">À venir</span>
+
 </div>
 
 <div class="card">
-<h2>🚀 Entrepreneuriat</h2>
-<p>Accompagnement des porteurs de projets et des jeunes entrepreneurs.</p>
+
+<h2>Fonds communautaire</h2>
+
+<p>
+Mise en place d'un mécanisme d'investissement et de soutien aux projets des adhérents.
+</p>
+
+<span class="status">Projet</span>
+
 </div>
 
-</section>
+<div class="card">
+
+<h2>Accompagnement des entrepreneurs</h2>
+
+<p>
+Soutenir les membres dans la création et le développement de leurs activités.
+</p>
+
+<span class="status">Projet</span>
+
+</div>
+
+<div class="card">
+
+<h2>Vision à long terme</h2>
+
+<p>
+Créer une communauté forte capable de générer des opportunités économiques, sociales et professionnelles pour ses membres.
+</p>
+
+</div>
+
+<footer>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065447541
+
+<br>
+
+📧 Email : joramobami@gmail.com
+
+<br><br>
+
+<strong>Ensemble nous irons plus loin.</strong>
+
+</footer>
+
+</div>
+
+</div>
+
+<a href="https://wa.me/242065447541" class="whatsapp">
+💬
+</a>
 
 </body>
-</html>
+
+  </html>
