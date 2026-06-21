@@ -24,7 +24,7 @@ min-height:100vh;
 /* MENU */
 
 .sidebar{
-width:190px;
+width:170px;
 background:#ffffff;
 border-right:2px solid #e0e0e0;
 box-shadow:2px 0 10px rgba(0,0,0,0.1);
@@ -37,7 +37,7 @@ text-align:center;
 }
 
 .logo-box img{
-width:80px;
+width:75px;
 background:white;
 padding:8px;
 border-radius:15px;
@@ -53,7 +53,7 @@ line-height:1.5;
 
 .sidebar a{
 display:block;
-padding:18px;
+padding:16px;
 text-decoration:none;
 color:#009245;
 font-weight:bold;
@@ -82,7 +82,7 @@ margin-bottom:20px;
 
 .photo-card{
 background:white;
-padding:15px;
+padding:20px;
 border-radius:20px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
 margin-bottom:20px;
@@ -91,8 +91,9 @@ text-align:center;
 
 .mbote{
 width:100%;
-max-width:500px;
-border-radius:15px;
+max-width:350px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
 .card{
@@ -101,11 +102,19 @@ padding:30px;
 border-radius:20px;
 margin-bottom:20px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
 }
 
 h1{
 color:#009245;
-font-size:45px;
+font-size:38px;
+text-transform:uppercase;
+letter-spacing:2px;
 margin-bottom:10px;
 }
 
@@ -127,6 +136,7 @@ transition:0.3s;
 
 .btn:hover{
 background:#006837;
+transform:scale(1.05);
 }
 
 .stats{
@@ -183,15 +193,15 @@ background:#1da851;
 @media(max-width:900px){
 
 .sidebar{
-width:160px;
+width:150px;
 }
 
 h1{
-font-size:35px;
+font-size:30px;
 }
 
 .logo-box img{
-width:70px;
+width:65px;
 }
 
 }
@@ -239,6 +249,12 @@ Ensemble nous irons plus loin
 <div class="photo-card">
 
 <img src="images/images/mbote.png" class="mbote">
+
+<h2>Mboté et bienvenue chez nous</h2>
+
+<p>
+Une communauté fondée sur l'entraide, la formation, l'investissement et les opportunités.
+</p>
 
 </div>
 
@@ -327,11 +343,41 @@ Vision
 
 <div class="card">
 
-<h2>Notre devise</h2>
+<h2>Pourquoi nous rejoindre ?</h2>
+
+<div class="stats">
+
+<div class="stat">
+<h3>🎓</h3>
+Formation
+</div>
+
+<div class="stat">
+<h3>🤝</h3>
+Solidarité
+</div>
+
+<div class="stat">
+<h3>💼</h3>
+Opportunités
+</div>
+
+<div class="stat">
+<h3>🚀</h3>
+Développement
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
 
 <center>
 
-<h2>"Ensemble nous irons plus loin"</h2>
+<h1 style="font-size:30px;">
+« Ensemble nous irons plus loin »
+</h1>
 
 </center>
 
