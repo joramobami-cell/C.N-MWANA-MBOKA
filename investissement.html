@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,48 +11,120 @@
 <style>
 
 body{
-font-family:Arial, sans-serif;
 margin:0;
-background:#f5f5f5;
+font-family:Arial,sans-serif;
+background:#f3f5f7;
 }
 
-header{
-background:#009245;
-color:white;
-text-align:center;
-padding:40px;
+.container{
+display:flex;
+min-height:100vh;
 }
 
-nav{
+.sidebar{
+width:170px;
 background:white;
-padding:15px;
+border-right:2px solid #e0e0e0;
+box-shadow:2px 0 10px rgba(0,0,0,0.1);
+}
+
+.logo-box{
+background:#009245;
+padding:20px;
 text-align:center;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-nav a{
-margin:15px;
-text-decoration:none;
+.logo-box img{
+width:75px;
+background:white;
+padding:8px;
+border-radius:15px;
+}
+
+.logo-box p{
+color:white;
+font-size:13px;
 font-weight:bold;
-color:#009245;
 }
 
-section{
-max-width:1000px;
-margin:auto;
+.sidebar a{
+display:block;
+padding:16px;
+text-decoration:none;
+color:#009245;
+font-weight:bold;
+border-bottom:1px solid #eeeeee;
+}
+
+.sidebar a:hover{
+background:#f4f4f4;
+}
+
+.content{
+flex:1;
 padding:20px;
 }
 
 .card{
 background:white;
-padding:25px;
+padding:30px;
+border-radius:20px;
 margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+h1{
+color:#009245;
+font-size:38px;
 }
 
 h2{
 color:#009245;
+}
+
+ul{
+line-height:2;
+}
+
+.status{
+display:inline-block;
+background:#009245;
+color:white;
+padding:8px 15px;
+border-radius:20px;
+font-size:14px;
+margin-top:10px;
+}
+
+footer{
+background:#003b1f;
+color:white;
+padding:30px;
+text-align:center;
+border-radius:20px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+width:65px;
+height:65px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:35px;
+text-decoration:none;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+z-index:999;
 }
 
 </style>
@@ -60,69 +133,134 @@ color:#009245;
 
 <body>
 
-<header>
+<div class="container">
 
-<h1>Investissement Communautaire</h1>
+<div class="sidebar">
 
-<p>Investir ensemble pour construire l'avenir</p>
+<div class="logo-box">
 
-</header>
+<img src="logo.png">
 
-<nav>
+<p>
+MWANA MBOKA<br>
+Ensemble nous irons plus loin
+</p>
 
-<a href="index.html">Accueil</a>
+</div>
 
-<a href="investissement.html">Investissement</a>
+<a href="index.html">🏠 Accueil</a>
+<a href="investissement.html">📈 Investissement</a>
 
-</nav>
+</div>
 
-<section>
+<div class="content">
 
 <div class="card">
 
-<h2>🌱 Financement des projets</h2>
+<h1>INVESTISSEMENT</h1>
 
 <p>
-La communauté accompagne les membres dans la recherche de financement
-pour leurs projets agricoles, commerciaux, numériques et entrepreneuriaux.
+La Communauté Numérique MWANA MBOKA encourage l'investissement collectif, l'entrepreneuriat et le financement des projets portés par ses membres.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>🤝 Investissement collectif</h2>
+<h2>Notre vision</h2>
 
 <p>
-Les membres peuvent participer à des projets communs afin de mutualiser
-les ressources et partager les opportunités.
+Créer une dynamique économique permettant aux membres de développer leurs activités et de participer au développement communautaire.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>📈 Développement économique</h2>
+<h2>Nos objectifs</h2>
+
+<ul>
+<li>Soutenir les projets des membres.</li>
+<li>Encourager l'épargne communautaire.</li>
+<li>Promouvoir l'entrepreneuriat.</li>
+<li>Créer des opportunités économiques.</li>
+<li>Développer des investissements collectifs.</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>Domaines d'investissement</h2>
+
+<ul>
+<li>Entrepreneuriat.</li>
+<li>Commerce.</li>
+<li>Agriculture.</li>
+<li>Numérique.</li>
+<li>Formation.</li>
+<li>Projets communautaires.</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>Fonds communautaire</h2>
 
 <p>
-MWANA MBOKA encourage la création de richesse par l'investissement,
-la formation et l'accompagnement des porteurs de projets.
+À long terme, MWANA MBOKA ambitionne de mettre en place un fonds communautaire destiné à accompagner les initiatives et projets des membres.
+</p>
+
+<span class="status">Projet futur</span>
+
+</div>
+
+<div class="card">
+
+<h2>Opportunités</h2>
+
+<p>
+Les membres pourront bénéficier d'un accompagnement, de conseils et d'un réseau favorisant le développement de leurs activités.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>🛡️ Transparence</h2>
+<h2>Notre engagement</h2>
 
 <p>
-Chaque projet soutenu fait l'objet d'un suivi afin de garantir une gestion
-responsable et transparente.
+Nous croyons que l'investissement collectif constitue un puissant levier de développement économique et social.
 </p>
 
 </div>
 
-</section>
+<footer>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065447541
+
+<br>
+
+📧 Email : joramobami@gmail.com
+
+<br><br>
+
+<strong>Ensemble nous irons plus loin.</strong>
+
+</footer>
+
+</div>
+
+</div>
+
+<a href="https://wa.me/242065447541" class="whatsapp">
+💬
+</a>
 
 </body>
 
