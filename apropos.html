@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,58 +11,128 @@
 <style>
 
 body{
-font-family:Arial,sans-serif;
 margin:0;
-background:#f5f5f5;
-color:#333;
+font-family:Arial,sans-serif;
+background:#f3f5f7;
 }
 
-header{
-background:linear-gradient(135deg,#009245,#006837);
-color:white;
-text-align:center;
-padding:50px 20px;
+.container{
+display:flex;
+min-height:100vh;
 }
 
-nav{
+.sidebar{
+width:170px;
 background:white;
-padding:15px;
+border-right:2px solid #e0e0e0;
+box-shadow:2px 0 10px rgba(0,0,0,0.1);
+}
+
+.logo-box{
+background:#009245;
+padding:20px;
 text-align:center;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-nav a{
-margin:15px;
-text-decoration:none;
+.logo-box img{
+width:75px;
+background:white;
+padding:8px;
+border-radius:15px;
+}
+
+.logo-box p{
+color:white;
+font-size:13px;
 font-weight:bold;
-color:#009245;
-font-size:18px;
+margin-top:10px;
 }
 
-section{
-max-width:1000px;
-margin:auto;
+.sidebar a{
+display:block;
+padding:16px;
+text-decoration:none;
+color:#009245;
+font-weight:bold;
+border-bottom:1px solid #eeeeee;
+}
+
+.sidebar a:hover{
+background:#f4f4f4;
+}
+
+.content{
+flex:1;
 padding:20px;
 }
 
 .card{
 background:white;
-padding:25px;
+padding:30px;
+border-radius:20px;
 margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card:hover{
+transform:translateY(-5px);
+transition:0.3s;
+}
+
+h1{
+color:#009245;
+font-size:38px;
 }
 
 h2{
 color:#009245;
 }
 
-footer{
-background:#222;
-color:white;
+.stats{
+display:flex;
+justify-content:space-around;
+flex-wrap:wrap;
 text-align:center;
+}
+
+.stat{
 padding:20px;
-margin-top:30px;
+}
+
+.stat h3{
+font-size:35px;
+color:#009245;
+margin:0;
+}
+
+ul{
+line-height:2;
+}
+
+footer{
+background:#003b1f;
+color:white;
+padding:30px;
+text-align:center;
+border-radius:20px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+width:65px;
+height:65px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:35px;
+text-decoration:none;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+z-index:999;
 }
 
 </style>
@@ -70,29 +141,48 @@ margin-top:30px;
 
 <body>
 
-<header>
+<div class="container">
+
+<div class="sidebar">
+
+<div class="logo-box">
+
+<img src="logo.png">
+
+<p>
+MWANA MBOKA<br>
+Ensemble nous irons plus loin
+</p>
+
+</div>
+
+<a href="index.html">🏠 Accueil</a>
+<a href="apropos.html">👥 À propos</a>
+
+</div>
+
+<div class="content">
+
+<div class="card">
 
 <h1>À PROPOS DE MWANA MBOKA</h1>
 
-<p>Une communauté au service du développement et de la solidarité.</p>
+<p>
+La Communauté Numérique MWANA MBOKA est une organisation communautaire fondée sur les principes de solidarité, d'entraide, de formation et de développement collectif.
+</p>
 
-</header>
+<p>
+Notre ambition est de créer une communauté forte, organisée et innovante capable d'accompagner ses membres dans leurs projets et leurs ambitions.
+</p>
 
-<nav>
-
-<a href="index.html">Accueil</a>
-<a href="apropos.html">À propos</a>
-
-</nav>
-
-<section>
+</div>
 
 <div class="card">
 
 <h2>Notre histoire</h2>
 
 <p>
-MWANA MBOKA est une communauté numérique créée afin de rassembler des personnes partageant les mêmes valeurs de solidarité, de développement et d'entraide.
+MWANA MBOKA est née de la volonté de rassembler des personnes partageant les mêmes valeurs afin de construire ensemble un avenir meilleur grâce à la coopération et au développement des compétences.
 </p>
 
 </div>
@@ -102,7 +192,7 @@ MWANA MBOKA est une communauté numérique créée afin de rassembler des person
 <h2>Notre vision</h2>
 
 <p>
-Construire une communauté forte, unie et prospère capable de créer des opportunités, d'accompagner les projets et de contribuer au développement économique et social.
+Construire une communauté forte, moderne et solidaire, capable de créer des opportunités et d'accompagner le développement de ses membres.
 </p>
 
 </div>
@@ -111,9 +201,13 @@ Construire une communauté forte, unie et prospère capable de créer des opport
 
 <h2>Notre mission</h2>
 
-<p>
-Former, accompagner, investir et soutenir les membres à travers des initiatives communautaires, des projets et des actions de solidarité.
-</p>
+<ul>
+<li>Promouvoir l'entraide.</li>
+<li>Développer les compétences.</li>
+<li>Accompagner les projets.</li>
+<li>Créer des opportunités.</li>
+<li>Encourager l'investissement.</li>
+</ul>
 
 </div>
 
@@ -121,37 +215,102 @@ Former, accompagner, investir et soutenir les membres à travers des initiatives
 
 <h2>Nos valeurs</h2>
 
+<div class="stats">
+
+<div class="stat">
+<h3>🤝</h3>
+Solidarité
+</div>
+
+<div class="stat">
+<h3>🎓</h3>
+Formation
+</div>
+
+<div class="stat">
+<h3>⚖️</h3>
+Respect
+</div>
+
+<div class="stat">
+<h3>🚀</h3>
+Innovation
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Nos objectifs</h2>
+
 <ul>
-<li>Solidarité</li>
-<li>Respect</li>
-<li>Responsabilité</li>
-<li>Innovation</li>
-<li>Transparence</li>
-<li>Développement collectif</li>
+<li>Développer une communauté dynamique.</li>
+<li>Accompagner les initiatives des membres.</li>
+<li>Favoriser les échanges d'expériences.</li>
+<li>Créer des opportunités économiques.</li>
+<li>Contribuer au développement social.</li>
 </ul>
 
 </div>
 
 <div class="card">
 
-<h2>Le fondateur</h2>
+<h2>Le mot du fondateur</h2>
 
 <p>
-La communauté MWANA MBOKA est portée par son fondateur, animé par la volonté de créer un réseau de développement, d'entraide et d'opportunités au profit des membres.
+MWANA MBOKA est un projet d'avenir fondé sur la conviction que les grandes réussites se construisent ensemble.
+</p>
+
+<p>
+Notre ambition est de créer une communauté capable de réunir les compétences, les idées et les ressources afin d'offrir de nouvelles opportunités à chacun.
+</p>
+
+<p>
+<strong>— Joram Obami, Fondateur</strong>
 </p>
 
 </div>
 
-</section>
+<div class="card">
+
+<center>
+
+<h1 style="font-size:30px;">
+« Ensemble nous irons plus loin »
+</h1>
+
+</center>
+
+</div>
 
 <footer>
 
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065447541
+
+<br>
+
+📧 Email : joramobami@gmail.com
+
+<br><br>
 
 <strong>Ensemble nous irons plus loin.</strong>
 
 </footer>
 
+</div>
+
+</div>
+
+<a href="https://wa.me/242065447541" class="whatsapp">
+💬
+</a>
+
 </body>
 
-  </html>
+</html>
