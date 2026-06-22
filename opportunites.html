@@ -2,63 +2,144 @@
 <html lang="fr">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Opportunités - MWANA MBOKA</title>
 
 <style>
 
 body{
-font-family:Arial,sans-serif;
 margin:0;
-background:#f5f5f5;
+font-family:Arial,sans-serif;
+background:#f3f5f7;
 }
 
-header{
+.container{
+display:flex;
+min-height:100vh;
+}
+
+.sidebar{
+width:170px;
+background:#ffffff;
+border-right:2px solid #e0e0e0;
+box-shadow:2px 0 10px rgba(0,0,0,0.1);
+}
+
+.logo-box{
 background:#009245;
-color:white;
-padding:50px 20px;
-text-align:center;
-}
-
-nav{
-background:white;
-padding:15px;
-text-align:center;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-nav a{
-margin:15px;
-text-decoration:none;
-font-weight:bold;
-color:#009245;
-}
-
-section{
-max-width:1000px;
-margin:auto;
 padding:20px;
+text-align:center;
+}
+
+.logo-box img{
+width:80px;
+background:white;
+padding:8px;
+border-radius:15px;
+}
+
+.logo-box p{
+color:white;
+font-size:13px;
+font-weight:bold;
+line-height:1.5;
+}
+
+.sidebar a{
+display:block;
+padding:18px;
+text-decoration:none;
+color:#009245;
+font-weight:bold;
+border-bottom:1px solid #eeeeee;
+}
+
+.sidebar a:hover{
+background:#f4f4f4;
+}
+
+.content{
+flex:1;
+padding:20px;
+}
+
+.banner{
+width:100%;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
 .card{
 background:white;
-padding:25px;
+padding:30px;
+border-radius:20px;
 margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1{
+color:#009245;
+font-size:42px;
 }
 
 h2{
 color:#009245;
 }
 
-footer{
-background:#222;
+ul{
+line-height:2;
+}
+
+.status{
+display:inline-block;
+background:#009245;
 color:white;
+padding:8px 18px;
+border-radius:20px;
+font-size:14px;
+margin-top:10px;
+}
+
+footer{
+background:#003b1f;
+color:white;
+padding:30px;
 text-align:center;
-padding:20px;
-margin-top:30px;
+border-radius:20px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+width:65px;
+height:65px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:35px;
+text-decoration:none;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+z-index:999;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+width:150px;
+}
+
+h1{
+font-size:32px;
+}
+
 }
 
 </style>
@@ -67,71 +148,126 @@ margin-top:30px;
 
 <body>
 
-<header>
+<div class="container">
 
-<h1>Opportunités</h1>
+<div class="sidebar">
 
-<p>Créer des opportunités pour les membres.</p>
+<div class="logo-box">
 
-</header>
+<img src="logo.png">
 
-<nav>
+<p>
+MWANA MBOKA<br>
+Ensemble nous irons plus loin
+</p>
 
-<a href="index.html">Accueil</a>
-<a href="opportunites.html">Opportunités</a>
+</div>
 
-</nav>
+<a href="index.html">🏠 Accueil</a>
+<a href="opportunites.html">⭐ Opportunités</a>
 
-<section>
+</div>
+
+<div class="content">
+
+<img src="banniere.png" class="banner">
 
 <div class="card">
 
-<h2>💼 Emploi</h2>
+<h1>OPPORTUNITÉS</h1>
 
 <p>
-Partage des offres d'emploi et des opportunités professionnelles.
+La Communauté Numérique MWANA MBOKA souhaite créer et partager des opportunités permettant aux membres de progresser dans leur vie professionnelle, économique et sociale.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>🚀 Entrepreneuriat</h2>
+<h2>💼 Opportunités professionnelles</h2>
 
-<p>
-Accompagnement des projets des membres et développement des activités.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>🎓 Bourses et formations</h2>
-
-<p>
-Information sur les formations, concours et programmes disponibles.
-</p>
+<ul>
+<li>Partage d'offres d'emploi.</li>
+<li>Mise en relation professionnelle.</li>
+<li>Orientation de carrière.</li>
+<li>Accompagnement des jeunes diplômés.</li>
+</ul>
 
 </div>
 
 <div class="card">
 
-<h2>🤝 Partenariats</h2>
+<h2>🚀 Opportunités entrepreneuriales</h2>
 
-<p>
-Création de réseaux entre les membres et les partenaires.
-</p>
+<ul>
+<li>Développement de projets.</li>
+<li>Création d'activités.</li>
+<li>Partenariats.</li>
+<li>Conseils en entrepreneuriat.</li>
+</ul>
 
 </div>
 
-</section>
+<div class="card">
+
+<h2>🎓 Opportunités de formation</h2>
+
+<ul>
+<li>Ateliers.</li>
+<li>Conférences.</li>
+<li>Formations en ligne.</li>
+<li>Partage des connaissances.</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>🌍 Réseau communautaire</h2>
+
+<p>
+Les membres bénéficient d'un réseau d'échanges favorisant la collaboration, le partage d'expériences et la création de nouvelles opportunités.
+</p>
+
+<span class="status">Développement continu</span>
+
+</div>
+
+<div class="card">
+
+<h2>Notre ambition</h2>
+
+<p>
+Créer un environnement où chaque membre peut trouver des opportunités lui permettant d'évoluer et de contribuer au développement de la communauté.
+</p>
+
+</div>
 
 <footer>
 
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
-Ensemble nous irons plus loin.
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065447541
+
+<br>
+
+📧 Email : joramobami@gmail.com
+
+<br><br>
+
+<strong>Ensemble nous irons plus loin.</strong>
 
 </footer>
+
+</div>
+
+</div>
+
+<a href="https://wa.me/242065447541" class="whatsapp">
+💬
+</a>
 
 </body>
 
