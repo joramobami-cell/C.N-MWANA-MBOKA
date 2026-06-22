@@ -23,7 +23,7 @@ min-height:100vh;
 
 .sidebar{
 width:170px;
-background:white;
+background:#ffffff;
 border-right:2px solid #e0e0e0;
 box-shadow:2px 0 10px rgba(0,0,0,0.1);
 }
@@ -35,7 +35,7 @@ text-align:center;
 }
 
 .logo-box img{
-width:75px;
+width:80px;
 background:white;
 padding:8px;
 border-radius:15px;
@@ -45,11 +45,12 @@ border-radius:15px;
 color:white;
 font-size:13px;
 font-weight:bold;
+line-height:1.5;
 }
 
 .sidebar a{
 display:block;
-padding:16px;
+padding:18px;
 text-decoration:none;
 color:#009245;
 font-weight:bold;
@@ -65,22 +66,24 @@ flex:1;
 padding:20px;
 }
 
+.banner{
+width:100%;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
 .card{
 background:white;
 padding:30px;
 border-radius:20px;
 margin-bottom:20px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
 }
 
 h1{
 color:#009245;
-font-size:38px;
+font-size:42px;
 }
 
 h2{
@@ -88,9 +91,10 @@ color:#009245;
 }
 
 .date{
-color:gray;
+color:#777;
 font-size:14px;
-margin-bottom:15px;
+margin-bottom:10px;
+font-weight:bold;
 }
 
 footer{
@@ -117,6 +121,18 @@ text-decoration:none;
 color:white;
 box-shadow:0 5px 15px rgba(0,0,0,0.3);
 z-index:999;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+width:150px;
+}
+
+h1{
+font-size:32px;
+}
+
 }
 
 </style>
@@ -147,12 +163,14 @@ Ensemble nous irons plus loin
 
 <div class="content">
 
+<img src="banniere.png" class="banner">
+
 <div class="card">
 
 <h1>ACTUALITÉS</h1>
 
 <p>
-Retrouvez ici les informations, annonces et activités de la Communauté Numérique MWANA MBOKA.
+Retrouvez ici les dernières informations et les activités de la Communauté Numérique MWANA MBOKA.
 </p>
 
 </div>
@@ -164,7 +182,7 @@ Retrouvez ici les informations, annonces et activités de la Communauté Numéri
 <h2>Ouverture officielle des adhésions</h2>
 
 <p>
-Les adhésions à la Communauté Numérique MWANA MBOKA sont désormais ouvertes à toutes les personnes partageant notre vision.
+Les adhésions à la Communauté Numérique MWANA MBOKA sont désormais ouvertes. Les premiers membres peuvent rejoindre la communauté et participer à son développement.
 </p>
 
 </div>
@@ -176,19 +194,7 @@ Les adhésions à la Communauté Numérique MWANA MBOKA sont désormais ouvertes
 <h2>Lancement du site officiel</h2>
 
 <p>
-Le site internet de MWANA MBOKA est désormais accessible afin de présenter la communauté et ses activités.
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="date">2026</div>
-
-<h2>Développement de la plateforme numérique</h2>
-
-<p>
-De nouvelles fonctionnalités seront progressivement ajoutées afin d'améliorer les services proposés aux membres.
+Le site internet de MWANA MBOKA est désormais accessible afin de présenter la communauté, ses projets et ses activités.
 </p>
 
 </div>
@@ -197,24 +203,39 @@ De nouvelles fonctionnalités seront progressivement ajoutées afin d'améliorer
 
 <div class="date">Prochainement</div>
 
-<h2>Première campagne de recrutement</h2>
+<h2>Recrutement des premiers membres</h2>
 
 <p>
-Une campagne de recrutement des premiers membres sera organisée afin de renforcer la communauté.
+Une campagne de recrutement sera organisée afin de constituer la première génération des membres de la communauté.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>Prochaines activités</h2>
+<div class="date">À venir</div>
 
-<ul>
-<li>Recrutement des membres.</li>
-<li>Création des cartes de membres.</li>
-<li>Organisation des premières formations.</li>
-<li>Développement des projets communautaires.</li>
-</ul>
+<h2>Organisation des premières formations</h2>
+
+<p>
+Des formations et ateliers seront progressivement proposés aux membres dans plusieurs domaines.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Prochaines étapes</h2>
+
+<p>
+✅ Développement de la plateforme numérique.<br><br>
+
+✅ Recrutement des membres.<br><br>
+
+✅ Création des cartes de membre.<br><br>
+
+✅ Mise en place des premiers projets communautaires.
+</p>
 
 </div>
 
