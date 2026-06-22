@@ -2,7 +2,6 @@
 <html lang="fr">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -35,7 +34,7 @@ text-align:center;
 }
 
 .logo-box img{
-width:75px;
+width:80px;
 background:white;
 padding:8px;
 border-radius:15px;
@@ -45,12 +44,12 @@ border-radius:15px;
 color:white;
 font-size:13px;
 font-weight:bold;
-margin-top:10px;
+line-height:1.5;
 }
 
 .sidebar a{
 display:block;
-padding:16px;
+padding:18px;
 text-decoration:none;
 color:#009245;
 font-weight:bold;
@@ -66,6 +65,13 @@ flex:1;
 padding:20px;
 }
 
+.banner{
+width:100%;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
 .card{
 background:white;
 padding:30px;
@@ -74,39 +80,24 @@ margin-bottom:20px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
-.card:hover{
-transform:translateY(-5px);
-transition:0.3s;
-}
-
 h1{
 color:#009245;
-font-size:38px;
+font-size:42px;
 }
 
 h2{
 color:#009245;
 }
 
-.stats{
-display:flex;
-justify-content:space-around;
-flex-wrap:wrap;
-text-align:center;
-}
-
-.stat{
-padding:20px;
-}
-
-.stat h3{
-font-size:35px;
-color:#009245;
-margin:0;
-}
-
 ul{
 line-height:2;
+}
+
+.quote{
+font-size:28px;
+color:#009245;
+font-weight:bold;
+text-align:center;
 }
 
 footer{
@@ -133,6 +124,18 @@ text-decoration:none;
 color:white;
 box-shadow:0 5px 15px rgba(0,0,0,0.3);
 z-index:999;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+width:150px;
+}
+
+h1{
+font-size:32px;
+}
+
 }
 
 </style>
@@ -163,26 +166,18 @@ Ensemble nous irons plus loin
 
 <div class="content">
 
+<img src="banniere.png" class="banner">
+
 <div class="card">
 
 <h1>À PROPOS DE MWANA MBOKA</h1>
 
 <p>
-La Communauté Numérique MWANA MBOKA est une organisation communautaire fondée sur les principes de solidarité, d'entraide, de formation et de développement collectif.
+La Communauté Numérique MWANA MBOKA est une organisation communautaire fondée sur la solidarité, la formation, l'entraide et le développement des opportunités.
 </p>
 
 <p>
-Notre ambition est de créer une communauté forte, organisée et innovante capable d'accompagner ses membres dans leurs projets et leurs ambitions.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Notre histoire</h2>
-
-<p>
-MWANA MBOKA est née de la volonté de rassembler des personnes partageant les mêmes valeurs afin de construire ensemble un avenir meilleur grâce à la coopération et au développement des compétences.
+Notre ambition est de rassembler les compétences, les idées et les ressources afin de construire une communauté forte et tournée vers l'avenir.
 </p>
 
 </div>
@@ -192,7 +187,7 @@ MWANA MBOKA est née de la volonté de rassembler des personnes partageant les m
 <h2>Notre vision</h2>
 
 <p>
-Construire une communauté forte, moderne et solidaire, capable de créer des opportunités et d'accompagner le développement de ses membres.
+Créer une communauté moderne, solidaire et innovante capable d'accompagner ses membres dans leurs projets personnels et professionnels.
 </p>
 
 </div>
@@ -215,42 +210,12 @@ Construire une communauté forte, moderne et solidaire, capable de créer des op
 
 <h2>Nos valeurs</h2>
 
-<div class="stats">
-
-<div class="stat">
-<h3>🤝</h3>
-Solidarité
-</div>
-
-<div class="stat">
-<h3>🎓</h3>
-Formation
-</div>
-
-<div class="stat">
-<h3>⚖️</h3>
-Respect
-</div>
-
-<div class="stat">
-<h3>🚀</h3>
-Innovation
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Nos objectifs</h2>
-
 <ul>
-<li>Développer une communauté dynamique.</li>
-<li>Accompagner les initiatives des membres.</li>
-<li>Favoriser les échanges d'expériences.</li>
-<li>Créer des opportunités économiques.</li>
-<li>Contribuer au développement social.</li>
+<li>🤝 Solidarité</li>
+<li>🎓 Formation</li>
+<li>⚖ Respect</li>
+<li>🚀 Innovation</li>
+<li>🌍 Développement</li>
 </ul>
 
 </div>
@@ -260,28 +225,23 @@ Innovation
 <h2>Le mot du fondateur</h2>
 
 <p>
-MWANA MBOKA est un projet d'avenir fondé sur la conviction que les grandes réussites se construisent ensemble.
+MWANA MBOKA est née de la conviction que les plus grandes réussites se construisent ensemble. Notre objectif est d'offrir à chacun des opportunités d'évolution, de formation et de développement.
 </p>
 
 <p>
-Notre ambition est de créer une communauté capable de réunir les compétences, les idées et les ressources afin d'offrir de nouvelles opportunités à chacun.
-</p>
-
-<p>
-<strong>— Joram Obami, Fondateur</strong>
+<strong>Joram Obami</strong><br>
+Fondateur de MWANA MBOKA
 </p>
 
 </div>
 
 <div class="card">
 
-<center>
+<div class="quote">
 
-<h1 style="font-size:30px;">
 « Ensemble nous irons plus loin »
-</h1>
 
-</center>
+</div>
 
 </div>
 
@@ -313,4 +273,4 @@ COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
 
 </body>
 
-</html>
+  </html>
