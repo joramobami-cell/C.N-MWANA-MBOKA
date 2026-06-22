@@ -2,56 +2,144 @@
 <html lang="fr">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Entraide Sociale - MWANA MBOKA</title>
+<title>Entraide - MWANA MBOKA</title>
 
 <style>
 
 body{
-font-family:Arial, sans-serif;
 margin:0;
-background:#f5f5f5;
+font-family:Arial,sans-serif;
+background:#f3f5f7;
 }
 
-header{
+.container{
+display:flex;
+min-height:100vh;
+}
+
+.sidebar{
+width:170px;
+background:#ffffff;
+border-right:2px solid #e0e0e0;
+box-shadow:2px 0 10px rgba(0,0,0,0.1);
+}
+
+.logo-box{
 background:#009245;
-color:white;
-text-align:center;
-padding:40px;
-}
-
-nav{
-background:white;
-padding:15px;
-text-align:center;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-nav a{
-margin:15px;
-text-decoration:none;
-font-weight:bold;
-color:#009245;
-}
-
-section{
-max-width:1000px;
-margin:auto;
 padding:20px;
+text-align:center;
+}
+
+.logo-box img{
+width:80px;
+background:white;
+padding:8px;
+border-radius:15px;
+}
+
+.logo-box p{
+color:white;
+font-size:13px;
+font-weight:bold;
+line-height:1.5;
+}
+
+.sidebar a{
+display:block;
+padding:18px;
+text-decoration:none;
+color:#009245;
+font-weight:bold;
+border-bottom:1px solid #eeeeee;
+}
+
+.sidebar a:hover{
+background:#f4f4f4;
+}
+
+.content{
+flex:1;
+padding:20px;
+}
+
+.banner{
+width:100%;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
 .card{
 background:white;
-padding:25px;
+padding:30px;
+border-radius:20px;
 margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1{
+color:#009245;
+font-size:42px;
 }
 
 h2{
 color:#009245;
+}
+
+ul{
+line-height:2;
+}
+
+.status{
+display:inline-block;
+background:#009245;
+color:white;
+padding:8px 18px;
+border-radius:20px;
+font-size:14px;
+margin-top:10px;
+}
+
+footer{
+background:#003b1f;
+color:white;
+padding:30px;
+text-align:center;
+border-radius:20px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+width:65px;
+height:65px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:35px;
+text-decoration:none;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+z-index:999;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+width:150px;
+}
+
+h1{
+font-size:32px;
+}
+
 }
 
 </style>
@@ -60,65 +148,125 @@ color:#009245;
 
 <body>
 
-<header>
+<div class="container">
 
-<h1>Entraide Sociale</h1>
+<div class="sidebar">
 
-<p>La solidarité au cœur de notre communauté</p>
+<div class="logo-box">
 
-</header>
+<img src="logo.png">
 
-<nav>
+<p>
+MWANA MBOKA<br>
+Ensemble nous irons plus loin
+</p>
 
-<a href="index.html">Accueil</a>
+</div>
 
-<a href="entraide.html">Entraide</a>
+<a href="index.html">🏠 Accueil</a>
+<a href="entraide.html">🤝 Entraide</a>
 
-</nav>
+</div>
 
-<section>
+<div class="content">
+
+<img src="banniere.png" class="banner">
 
 <div class="card">
 
-<h2>🤝 Assistance aux membres</h2>
+<h1>ENTRAIDE</h1>
 
 <p>
-La communauté apporte un soutien moral, matériel et organisationnel aux membres selon les possibilités disponibles.
+L'entraide est l'une des valeurs fondamentales de la Communauté Numérique MWANA MBOKA. Nous croyons que la solidarité constitue la force d'une communauté durable.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>❤️ Fonds de solidarité</h2>
+<h2>🤝 Notre mission</h2>
 
 <p>
-Des mécanismes de solidarité peuvent être mis en place pour accompagner les membres confrontés à des situations difficiles.
+Favoriser l'assistance mutuelle entre les membres afin de créer un environnement de soutien, d'écoute et de collaboration.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>👨‍👩‍👧‍👦 Soutien communautaire</h2>
+<h2>🎯 Objectifs de l'entraide</h2>
 
-<p>
-Les membres bénéficient d'un réseau d'entraide favorisant le partage d'expériences, de conseils et d'opportunités.
-</p>
+<ul>
+<li>Soutenir les membres en difficulté.</li>
+<li>Partager les expériences et les conseils.</li>
+<li>Renforcer la solidarité communautaire.</li>
+<li>Accompagner certains projets.</li>
+<li>Créer un esprit de famille au sein de la communauté.</li>
+</ul>
 
 </div>
 
 <div class="card">
 
-<h2>🌍 Actions sociales</h2>
+<h2>🫂 Formes d'entraide</h2>
 
-<p>
-La communauté encourage les initiatives sociales, humanitaires et citoyennes au profit des membres et de la société.
-</p>
+<ul>
+<li>Soutien moral.</li>
+<li>Conseils et accompagnement.</li>
+<li>Partage des connaissances.</li>
+<li>Aide communautaire.</li>
+<li>Mobilisation des membres.</li>
+</ul>
 
 </div>
 
-</section>
+<div class="card">
+
+<h2>🌍 Notre vision</h2>
+
+<p>
+Une communauté forte est une communauté où chacun peut compter sur les autres dans les moments importants de la vie.
+</p>
+
+<span class="status">Solidarité & Unité</span>
+
+</div>
+
+<div class="card">
+
+<h2>Notre devise</h2>
+
+<center>
+<h2>"Ensemble nous irons plus loin"</h2>
+</center>
+
+</div>
+
+<footer>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065447541
+
+<br>
+
+📧 Email : joramobami@gmail.com
+
+<br><br>
+
+<strong>Ensemble nous irons plus loin.</strong>
+
+</footer>
+
+</div>
+
+</div>
+
+<a href="https://wa.me/242065447541" class="whatsapp">
+💬
+</a>
 
 </body>
 
