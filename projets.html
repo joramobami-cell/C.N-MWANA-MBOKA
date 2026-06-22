@@ -23,7 +23,7 @@ min-height:100vh;
 
 .sidebar{
 width:170px;
-background:white;
+background:#ffffff;
 border-right:2px solid #e0e0e0;
 box-shadow:2px 0 10px rgba(0,0,0,0.1);
 }
@@ -35,7 +35,7 @@ text-align:center;
 }
 
 .logo-box img{
-width:75px;
+width:80px;
 background:white;
 padding:8px;
 border-radius:15px;
@@ -45,11 +45,12 @@ border-radius:15px;
 color:white;
 font-size:13px;
 font-weight:bold;
+line-height:1.5;
 }
 
 .sidebar a{
 display:block;
-padding:16px;
+padding:18px;
 text-decoration:none;
 color:#009245;
 font-weight:bold;
@@ -65,22 +66,24 @@ flex:1;
 padding:20px;
 }
 
+.banner{
+width:100%;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
 .card{
 background:white;
 padding:30px;
 border-radius:20px;
 margin-bottom:20px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
 }
 
 h1{
 color:#009245;
-font-size:38px;
+font-size:42px;
 }
 
 h2{
@@ -91,7 +94,7 @@ color:#009245;
 display:inline-block;
 background:#009245;
 color:white;
-padding:8px 15px;
+padding:8px 18px;
 border-radius:20px;
 font-size:14px;
 margin-top:10px;
@@ -123,6 +126,18 @@ box-shadow:0 5px 15px rgba(0,0,0,0.3);
 z-index:999;
 }
 
+@media(max-width:900px){
+
+.sidebar{
+width:150px;
+}
+
+h1{
+font-size:32px;
+}
+
+}
+
 </style>
 
 </head>
@@ -151,22 +166,24 @@ Ensemble nous irons plus loin
 
 <div class="content">
 
+<img src="banniere.png" class="banner">
+
 <div class="card">
 
 <h1>NOS PROJETS</h1>
 
 <p>
-La Communauté Numérique MWANA MBOKA développe des projets destinés à améliorer les conditions de vie des membres et à créer des opportunités durables.
+La Communauté Numérique MWANA MBOKA développe des projets visant à favoriser le progrès, la solidarité et le développement des membres.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>Plateforme numérique MWANA MBOKA</h2>
+<h2>🌐 Plateforme numérique MWANA MBOKA</h2>
 
 <p>
-Développement du site internet et des outils numériques de la communauté.
+Développement du site officiel et des outils numériques destinés aux membres.
 </p>
 
 <span class="status">En cours</span>
@@ -175,10 +192,22 @@ Développement du site internet et des outils numériques de la communauté.
 
 <div class="card">
 
-<h2>Programme de formation</h2>
+<h2>🎓 Programme de formation</h2>
 
 <p>
-Organisation de formations dans différents domaines afin de renforcer les compétences des membres.
+Organisation des formations et ateliers pour renforcer les compétences des membres.
+</p>
+
+<span class="status">Prochainement</span>
+
+</div>
+
+<div class="card">
+
+<h2>💼 Accompagnement des projets</h2>
+
+<p>
+Accompagner les membres dans la réalisation de leurs idées et de leurs activités.
 </p>
 
 <span class="status">À venir</span>
@@ -187,34 +216,22 @@ Organisation de formations dans différents domaines afin de renforcer les comp�
 
 <div class="card">
 
-<h2>Fonds communautaire</h2>
+<h2>🤝 Fonds communautaire</h2>
 
 <p>
-Mise en place d'un mécanisme d'investissement et de soutien aux projets des adhérents.
+Créer un mécanisme d'entraide et de soutien aux initiatives des membres.
 </p>
 
-<span class="status">Projet</span>
+<span class="status">Projet futur</span>
 
 </div>
 
 <div class="card">
 
-<h2>Accompagnement des entrepreneurs</h2>
+<h2>🚀 Vision à long terme</h2>
 
 <p>
-Soutenir les membres dans la création et le développement de leurs activités.
-</p>
-
-<span class="status">Projet</span>
-
-</div>
-
-<div class="card">
-
-<h2>Vision à long terme</h2>
-
-<p>
-Créer une communauté forte capable de générer des opportunités économiques, sociales et professionnelles pour ses membres.
+Construire une communauté forte capable de créer des opportunités économiques, sociales et professionnelles pour tous ses membres.
 </p>
 
 </div>
