@@ -2,124 +2,88 @@
 <html lang="fr">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>FAQ - MWANA MBOKA</title>
 
 <style>
-
-body{
-font-family:Arial,sans-serif;
-margin:0;
-background:#f5f5f5;
-}
-
-header{
-background:#009245;
-color:white;
-text-align:center;
-padding:50px 20px;
-}
-
-nav{
-background:white;
-padding:15px;
-text-align:center;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-nav a{
-margin:15px;
-text-decoration:none;
-font-weight:bold;
-color:#009245;
-}
-
-section{
-max-width:1000px;
-margin:auto;
-padding:20px;
-}
-
-.question{
-background:white;
-padding:25px;
-margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
-}
-
-h2{
-color:#009245;
-}
-
-footer{
-background:#222;
-color:white;
-text-align:center;
-padding:20px;
-margin-top:30px;
-}
-
+body{margin:0;font-family:Arial;background:#f3f5f7;}
+.container{display:flex;min-height:100vh;}
+.sidebar{width:170px;background:#fff;border-right:2px solid #e0e0e0;}
+.logo-box{background:#009245;padding:20px;text-align:center;}
+.logo-box img{width:80px;background:white;padding:8px;border-radius:15px;}
+.logo-box p{color:white;font-weight:bold;}
+.sidebar a{display:block;padding:18px;text-decoration:none;color:#009245;font-weight:bold;}
+.content{flex:1;padding:20px;}
+.banner{width:100%;border-radius:20px;margin-bottom:20px;}
+.card{background:white;padding:30px;border-radius:20px;margin-bottom:20px;}
+h1,h2{color:#009245;}
+footer{background:#003b1f;color:white;padding:30px;text-align:center;border-radius:20px;}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;width:65px;height:65px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:35px;text-decoration:none;color:white;}
 </style>
 
 </head>
 
 <body>
 
-<header>
+<div class="container">
 
-<h1>Questions Fréquentes</h1>
+<div class="sidebar">
 
-<p>Trouvez rapidement les réponses à vos questions.</p>
-
-</header>
-
-<nav>
-
-<a href="index.html">Accueil</a>
-<a href="faq.html">FAQ</a>
-
-</nav>
-
-<section>
-
-<div class="question">
-<h2>Qui peut adhérer à MWANA MBOKA ?</h2>
-<p>Toute personne partageant les valeurs de la communauté peut adhérer.</p>
+<div class="logo-box">
+<img src="logo.png">
+<p>MWANA MBOKA<br>Ensemble nous irons plus loin</p>
 </div>
 
-<div class="question">
-<h2>L'adhésion est-elle obligatoire ?</h2>
-<p>L'adhésion est nécessaire pour bénéficier pleinement des services et activités de la communauté.</p>
+<a href="index.html">🏠 Accueil</a>
+<a href="faq.html">❓ FAQ</a>
+
 </div>
 
-<div class="question">
-<h2>Comment obtenir son matricule ?</h2>
-<p>Le matricule est attribué après validation de l'adhésion.</p>
+<div class="content">
+
+<img src="banniere.png" class="banner">
+
+<div class="card">
+<h1>QUESTIONS FRÉQUENTES</h1>
 </div>
 
-<div class="question">
+<div class="card">
+<h2>Comment adhérer ?</h2>
+<p>Contactez-nous par WhatsApp.</p>
+</div>
+
+<div class="card">
+<h2>L'adhésion est-elle ouverte ?</h2>
+<p>Oui, les adhésions sont ouvertes.</p>
+</div>
+
+<div class="card">
+<h2>Quels sont les domaines d'activité ?</h2>
+<p>Formation, entraide, investissement, projets et opportunités.</p>
+</div>
+
+<div class="card">
 <h2>Comment participer aux projets ?</h2>
-<p>Les membres sont informés des projets via les actualités et les communications officielles.</p>
+<p>En devenant membre de la communauté.</p>
 </div>
-
-<div class="question">
-<h2>Comment contacter la communauté ?</h2>
-<p>Par WhatsApp ou via la page Contact du site.</p>
-</div>
-
-</section>
 
 <footer>
 
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA<br>
-<strong>Ensemble nous irons plus loin.</strong>
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065447541
 
 </footer>
 
+</div>
+
+</div>
+
+<a href="https://wa.me/242065447541" class="whatsapp">💬</a>
+
 </body>
 
-  </html>
+</html>
