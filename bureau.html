@@ -4,69 +4,238 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bureau - MWANA MBOKA</title>
+<title>Bureau dirigeant - MWANA MBOKA</title>
 
 <style>
 
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f3f5f7;
+    background:#f4f6f8;
+}
+
+header{
+    background:linear-gradient(135deg,#008f45,#005d2c);
+    color:white;
+    text-align:center;
+    padding:50px 20px;
+}
+
+header h1{
+    margin:0;
+    font-size:42px;
+}
+
+header p{
+    font-size:20px;
 }
 
 .container{
-    display:flex;
-    min-height:100vh;
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:40px 0;
 }
 
-.sidebar{
-    width:180px;
-    background:#fff;
-    border-right:2px solid #e5e5e5;
-    box-shadow:2px 0 10px rgba(0,0,0,0.1);
-}
-
-.logo-box{
-    background:#009245;
-    text-align:center;
-    padding:20px;
-}
-
-.logo-box img{
-    width:80px;
+.org-box{
     background:white;
-    padding:8px;
-    border-radius:15px;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom:30px;
 }
 
-.logo-box p{
+.position{
+    background:#009245;
     color:white;
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    font-size:24px;
     font-weight:bold;
-    font-size:13px;
+    margin:20px auto;
+    max-width:350px;
 }
 
-.sidebar a{
-    display:block;
-    padding:18px;
-    text-decoration:none;
-    color:#009245;
-    font-weight:bold;
-    border-bottom:1px solid #eeeeee;
+.level{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    margin-top:30px;
 }
 
-.sidebar a:hover{
-    background:#f4f4f4;
-}
-
-.content{
-    flex:1;
+.card{
+    background:white;
+    width:280px;
     padding:25px;
+    border-radius:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    border-top:6px solid #009245;
 }
 
-.banner{
-    background:linear-gradient(135deg,#009245,#005d2d);
+.card h2{
+    color:#009245;
+    margin-top:0;
+    text-align:center;
+}
+
+.card ul{
+    padding-left:20px;
+    line-height:1.8;
+}
+
+.section-title{
+    text-align:center;
+    color:#009245;
+    font-size:34px;
+    margin-bottom:30px;
+}
+
+.organigramme{
+    text-align:center;
+    margin-top:40px;
+}
+
+.organigramme img{
+    width:100%;
+    max-width:900px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+footer{
+    background:#003b1f;
     color:white;
     text-align:center;
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 
+    padding:30px;
+    margin-top:40px;
+}
+
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    color:white;
+    font-size:32px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+@media(max-width:768px){
+
+header h1{
+    font-size:30px;
+}
+
+.position{
+    font-size:20px;
+}
+
+.card{
+    width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>BUREAU DIRIGEANT</h1>
+    <p>Communauté Numérique MWANA MBOKA</p>
+</header>
+
+<div class="container">
+
+    <div class="org-box">
+
+        <div class="position">
+            PRÉSIDENT FONDATEUR
+            <br>
+            Joram Obami
+        </div>
+
+        <div class="level">
+
+            <div class="card">
+                <h2>Secrétariat Général</h2>
+
+                <ul>
+                    <li>Coordonne les départements.</li>
+                    <li>Assure le fonctionnement général.</li>
+                    <li>Applique les décisions.</li>
+                    <li>Organise les activités.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Conseil Administratif</h2>
+
+                <ul>
+                    <li>Conseiller administratif.</li>
+                    <li>Conseiller juridique.</li>
+                    <li>Conseiller financier.</li>
+                    <li>Conseiller technique.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Direction Financière</h2>
+
+                <ul>
+                    <li>Trésorerie.</li>
+                    <li>Comptabilité.</li>
+                    <li>Économie.</li>
+                    <li>Études des investissements.</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <h2 class="section-title">
+        Organigramme officiel
+    </h2>
+
+    <div class="organigramme">
+
+        <!-- Remplace organigramme.png par ton image -->
+
+        <img src="organigramme.png" alt="Organigramme MWANA MBOKA">
+
+    </div>
+
+</div>
+
+<footer>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+📱 WhatsApp : 065 447 541
+
+<br>
+
+🌐 Ensemble nous irons plus loin
+
+</footer>
+
+<a href="https://wa.me/242065447541" class="whatsapp">
+💬
+</a>
+
+</body>
+    </html>
