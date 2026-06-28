@@ -146,7 +146,75 @@ header h1{
 }
 
 </style>
+.organigramme{
+    margin-top:40px;
+    text-align:center;
+}
 
+.niveau{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.box{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    width:250px;
+    border-top:5px solid #009245;
+}
+
+.box ul{
+    padding-left:20px;
+    text-align:left;
+}
+
+.president-box{
+    background:#009245;
+    color:white;
+    font-size:22px;
+    width:300px;
+}
+
+.sg{
+    border-top:5px solid #009245;
+}
+
+.conseil{
+    border-top:5px solid #f1c40f;
+}
+
+.finance{
+    border-top:5px solid #c0392b;
+}
+
+.dep{
+    width:180px;
+    font-weight:bold;
+}
+
+.ligne{
+    width:4px;
+    height:40px;
+    background:#009245;
+    margin:auto;
+}
+
+@media(max-width:900px){
+
+    .box{
+        width:90%;
+    }
+
+    .dep{
+        width:90%;
+    }
+
+}
 </head>
 
 <body>
