@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Espace membre - MWANA MBOKA</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f5f7;
+}
+
+.header{
+background:#009245;
+padding:20px;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.logo{
+display:flex;
+align-items:center;
+}
+
+.logo img{
+width:70px;
+background:white;
+padding:6px;
+border-radius:15px;
+margin-right:15px;
+}
+
+.profile{
+text-align:right;
+}
+
+.profile img{
+width:70px;
+height:70px;
+border-radius:50%;
+border:3px solid white;
+object-fit:cover;
+}
+
+.container{
+padding:20px;
+}
+
+.welcome{
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+.welcome h2{
+color:#009245;
+margin-top:0;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+gap:20px;
+margin-bottom:20px;
+}
+
+.stat{
+background:white;
+padding:20px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.stat h3{
+color:#009245;
+font-size:30px;
+margin:0;
+}
+
+.menu{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3{
+color:#009245;
+}
+
+.btn{
+display:inline-block;
+margin-top:15px;
+padding:12px 20px;
+background:#009245;
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-weight:bold;
+}
+
+.logout{
+background:#c0392b;
+}
+
+footer{
+background:#003b1f;
+color:white;
+padding:20px;
+text-align:center;
+margin-top:30px;
+}
+
+@media(max-width:768px){
+
+.header{
+flex-direction:column;
+text-align:center;
+}
+
+.profile{
+margin-top:15px;
+text-align:center;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+
+<img src="logo.png">
+
+<div>
+<h2>MWANA MBOKA</h2>
+<p>Espace membre</p>
+</div>
+
+</div>
+
+<div class="profile">
+
+<img src="photo.jpg">
+
+<p><strong>Joram Obami</strong></p>
+
+<p>MMB-0001</p>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="welcome">
+
+<h2>Bienvenue Joram</h2>
+
+<p>
+Bienvenue dans votre espace personnel de la Communauté Numérique MWANA MBOKA.
+</p>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h3>1</h3>
+<p>Carte</p>
+</div>
+
+<div class="stat">
+<h3>0</h3>
+<p>Formations</p>
+</div>
+
+<div class="stat">
+<h3>0</h3>
+<p>Parrainages</p>
+</div>
+
+<div class="stat">
+<h3>Actif</h3>
+<p>Statut</p>
+</div>
+
+</div>
+
+<div class="menu">
+
+<div class="card">
+<h3>🪪 Carte membre</h3>
+<p>Consulter votre carte numérique.</p>
+<a href="carte.html" class="btn">
+Ouvrir
+</a>
+</div>
+
+<div class="card">
+<h3>🎓 Formations</h3>
+<p>Accéder aux formations.</p>
+<a href="formations.html" class="btn">
+Voir
+</a>
+</div>
+
+<div class="card">
+<h3>📄 Documents</h3>
+<p>Télécharger les documents.</p>
+<a href="documents.html" class="btn">
+Consulter
+</a>
+</div>
+
+<div class="card">
+<h3>💰 Cotisations</h3>
+<p>Suivi des contributions.</p>
+<a href="#" class="btn">
+Voir
+</a>
+</div>
+
+<div class="card">
+<h3>👥 Parrainages</h3>
+<p>Vos filleuls et parrainages.</p>
+<a href="#" class="btn">
+Voir
+</a>
+</div>
+
+<div class="card">
+<h3>💬 Messages</h3>
+<p>Informations de la communauté.</p>
+<a href="messages.html" class="btn">
+Lire
+</a>
+</div>
+
+<div class="card">
+<h3>🚪 Déconnexion</h3>
+<p>Retour à la connexion.</p>
+<a href="connexion.html" class="btn logout">
+Quitter
+</a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br><br>
+
+« Ensemble nous irons plus loin »
+
+</footer>
+
+</body>
+
+  </html>
