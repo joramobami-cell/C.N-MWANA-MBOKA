@@ -1,119 +1,103 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connexion MWANA MBOKA</title>
+<title>Connexion - MWANA MBOKA</title>
 
 <style>
 
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:linear-gradient(180deg,#009245,#004d26);
-    min-height:100vh;
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#003b1f,#009245);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
 }
 
-.header{
-    text-align:center;
-    padding-top:30px;
+.container{
+width:100%;
+max-width:500px;
 }
 
 .banner{
-    width:90%;
-    max-width:500px;
-    border-radius:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+width:100%;
+border-radius:25px;
+margin-bottom:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 .card{
-    width:90%;
-    max-width:420px;
-    background:white;
-    margin: -30px auto 30px;
-    border-radius:30px;
-    padding:35px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.25);
-    text-align:center;
+background:white;
+padding:40px;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+text-align:center;
 }
 
 .logo{
-    width:100px;
-    background:white;
-    padding:10px;
-    border-radius:20px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+width:100px;
+background:white;
+padding:10px;
+border-radius:20px;
+margin-bottom:15px;
 }
 
 h1{
-    color:#009245;
-    margin-top:20px;
-    margin-bottom:10px;
+color:#009245;
 }
 
-.subtitle{
-    color:#777;
-    margin-bottom:25px;
+p{
+color:#666;
 }
 
-.input{
-    width:100%;
-    padding:18px;
-    margin-top:15px;
-    border:none;
-    border-radius:15px;
-    background:#f3f5f7;
-    font-size:16px;
-    box-sizing:border-box;
+input{
+width:100%;
+padding:16px;
+margin-top:15px;
+border:2px solid #dddddd;
+border-radius:15px;
+font-size:16px;
+box-sizing:border-box;
 }
 
-.login{
-    width:100%;
-    margin-top:25px;
-    padding:18px;
-    border:none;
-    border-radius:15px;
-    background:#009245;
-    color:white;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
+button{
+width:100%;
+padding:16px;
+margin-top:20px;
+background:#009245;
+color:white;
+border:none;
+border-radius:15px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.member{
-    display:block;
-    margin-top:15px;
-    padding:18px;
-    border-radius:15px;
-    background:#f1c40f;
-    color:black;
-    text-decoration:none;
-    font-weight:bold;
+button:hover{
+background:#007537;
 }
 
-.home{
-    display:block;
-    margin-top:15px;
-    padding:18px;
-    border-radius:15px;
-    background:#e5e5e5;
-    color:black;
-    text-decoration:none;
-    font-weight:bold;
+.btn-member{
+display:block;
+margin-top:15px;
+padding:15px;
+background:#f1c40f;
+color:black;
+text-decoration:none;
+border-radius:15px;
+font-weight:bold;
 }
 
 .footer{
-    margin-top:25px;
-    color:#666;
-    font-size:14px;
-}
-
-.version{
-    margin-top:10px;
-    color:#999;
-    font-size:12px;
+margin-top:20px;
+font-size:14px;
+color:#777;
 }
 
 </style>
@@ -122,65 +106,112 @@ h1{
 
 <body>
 
-<div class="header">
+<div class="container">
 
 <img src="banniere.png" class="banner">
-
-</div>
 
 <div class="card">
 
 <img src="logo.png" class="logo">
 
-<h1>MWANA MBOKA</h1>
+<h1>Connexion Membre</h1>
 
-<div class="subtitle">
-Espace membre sécurisé
-</div>
+<p>
+Bienvenue dans l'espace membre MWANA MBOKA.
+</p>
 
-<input type="text" class="input"
-placeholder="🆔 Matricule">
+<input type="text"
+id="matricule"
+placeholder="Matricule">
 
-<input type="password" class="input"
-placeholder="🔒 Mot de passe">
+<input type="password"
+id="motdepasse"
+placeholder="Mot de passe">
 
-<button class="login"
-onclick="connexion()">
-
-SE CONNECTER
-
+<button onclick="connexion()">
+Se connecter
 </button>
 
-<a href="adhesion.html" class="member">
-🤝 Devenir membre
-</a>
-
-<a href="index.html" class="home">
-🏠 Retour à l'accueil
+<a href="adhesion.html" class="btn-member">
+Devenir membre
 </a>
 
 <div class="footer">
-
 Ensemble nous irons plus loin.
-
-<div class="version">
-Version 1.0
 </div>
 
 </div>
 
 </div>
 
-<script>
+<script type="module">
 
-function connexion(){
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 
-    window.location.href="espace.html";
+import {
+getDatabase,
+ref,
+get
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
+authDomain: "c-n-mwana-mboka.firebaseapp.com",
+databaseURL: "https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app/",
+projectId: "c-n-mwana-mboka",
+storageBucket: "c-n-mwana-mboka.firebasestorage.app",
+messagingSenderId: "757726608581",
+appId: "1:757726608581:web:27fa7003ffa955188304ac"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const database = getDatabase(app);
+
+window.connexion = async function(){
+
+const matricule =
+document.getElementById("matricule").value;
+
+const motdepasse =
+document.getElementById("motdepasse").value;
+
+const membreRef =
+ref(database,"membres/" + matricule);
+
+const snapshot =
+await get(membreRef);
+
+if(snapshot.exists()){
+
+const membre = snapshot.val();
+
+if(membre.motdepasse === motdepasse){
+
+localStorage.setItem("nom",membre.nom);
+localStorage.setItem("matricule",membre.matricule);
+localStorage.setItem("telephone",membre.telephone);
+localStorage.setItem("statut",membre.statut);
+
+window.location.href="espace.html";
+
+}else{
+
+alert("Mot de passe incorrect.");
+
+}
+
+}else{
+
+alert("Matricule introuvable.");
+
+}
 
 }
 
 </script>
 
 </body>
-
 </html>
