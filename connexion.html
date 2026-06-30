@@ -188,7 +188,7 @@ if(snapshot.exists()){
 
 const membre = snapshot.val();
 
-if(membre.motdepasse === motdepasse){
+if(String(membre.motdepasse) === motdepasse){
 
 localStorage.setItem("nom",membre.nom);
 localStorage.setItem("matricule",membre.matricule);
