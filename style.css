@@ -1,519 +1,114 @@
-/* ===========================
-   MWANA MBOKA - STYLE.CSS
-=========================== */
+/* ==========================================
+   MWANA MBOKA V2
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Poppins',sans-serif;
+}
+
+:root{
+
+--vert:#009245;
+--vert2:#006c34;
+--or:#f4c430;
+--fond:#f5f7fb;
+--blanc:#ffffff;
+--texte:#2f3542;
+--gris:#8a8f98;
+--ombre:0 10px 25px rgba(0,0,0,.08);
+
 }
 
 body{
-background:#f4f6f9;
-color:#333;
-}
 
-.banner{
-width:100%;
-height:180px;
-object-fit:cover;
-display:block;
-box-shadow:0 4px 15px rgba(0,0,0,.2);
-}
+background:var(--fond);
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:20px;
-}
+color:var(--texte);
 
-/* ===========================
-   Carte Profil
-=========================== */
-
-.profile-card{
-background:#fff;
-margin-top:-60px;
-border-radius:25px;
-padding:25px;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,.12);
-}
-
-.photo{
-.profile-photo{
-width:80px;
-height:80px;
-border-radius:50%;
-object-fit:cover;
-border:5px solid #009245;
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
-margin:20px auto;
-display:block;
-background:white;
-}
-
-.profile-card h2{
-margin-top:15px;
-font-size:28px;
-color:#009245;
-}
-
-.matricule{
-margin-top:8px;
-font-size:18px;
-font-weight:bold;
-color:#555;
-}
-
-.statut{
-margin-top:10px;
-display:inline-block;
-padding:8px 18px;
-background:#dff6e7;
-color:#009245;
-border-radius:30px;
-font-weight:bold;
-}
-
-/* ===========================
-   Statistiques
-=========================== */
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-gap:20px;
-margin-top:30px;
-}
-
-.box{
-background:white;
-border-radius:20px;
-padding:25px;
-text-align:center;
-box-shadow:0 5px 18px rgba(0,0,0,.1);
-transition:.3s;
-}
-
-.box:hover{
-transform:translateY(-6px);
-}
-
-.box h3{
-font-size:35px;
-color:#009245;
-margin-bottom:10px;
-}
-
-.box p{
-font-size:16px;
-font-weight:bold;
-color:#666;
-}
-
-/* ===========================
-   Titre
-=========================== */
-
-.titre{
-margin:35px 0 20px;
-font-size:28px;
-color:#009245;
-text-align:center;
-  }
-
-/* ===========================
-   Menu
-=========================== */
-
-.menu{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:20px;
-margin-top:20px;
-}
-
-.card{
-background:#ffffff;
-border-radius:20px;
-padding:25px 15px;
-text-align:center;
-text-decoration:none;
-color:#333;
-box-shadow:0 5px 18px rgba(0,0,0,.10);
-transition:all .3s ease;
-}
-
-.card:hover{
-background:#009245;
-color:white;
-transform:translateY(-5px);
-}
-
-.card{
-font-size:45px;
-}
-
-.card span{
-display:block;
-margin-top:12px;
-font-size:16px;
-font-weight:bold;
-}
-
-.logout{
-background:#e53935;
-color:white;
-}
-
-.logout:hover{
-background:#b71c1c;
-}
-
-/* ===========================
-   Footer
-=========================== */
-
-footer{
-margin-top:40px;
-background:#003b1f;
-color:white;
-padding:30px;
-text-align:center;
-border-radius:20px 20px 0 0;
-font-size:15px;
-line-height:1.8;
-}
-
-/* ===========================
-   Responsive
-=========================== */
-
-@media(max-width:768px){
-
-.banner{
-height:150px;
-}
-
-.profile-card{
-margin-top:-40px;
-padding:20px;
-}
-
-.photo{
-width:90px;
-height:90px;
-}
-
-.profile-card h2{
-font-size:22px;
-}
-
-.stats{
-grid-template-columns:repeat(2,1fr);
-}
-
-.menu{
-grid-template-columns:repeat(2,1fr);
-}
-
-.box h3{
-font-size:28px;
-}
-
-.card{
-padding:20px 10px;
-}
-
-.card{
-font-size:35px;
-}
+padding-bottom:100px;
 
 }
 
-@media(max-width:480px){
+/*==============================
+HEADER
+==============================*/
 
-.stats{
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
+.topbar{
 
-.menu{
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
+height:85px;
 
-.box{
-padding:18px;
-}
+background:linear-gradient(135deg,var(--vert),var(--vert2));
 
-.card{
-padding:18px 10px;
-}
+padding:18px 22px;
 
-.card span{
-font-size:14px;
-}
-
-.profile-card h2{
-font-size:20px;
-}
-
-.matricule{
-font-size:16px;
-}
-
-  }
-
-/* ===========================
-   ICÔNES DES CARTES
-=========================== */
-
-.icon{
-font-size:42px;
-margin-bottom:12px;
-transition:.3s;
-}
-
-.card:hover .icon{
-transform:scale(1.15);
-}
-
-/* ===========================
-   BARRE DE NAVIGATION
-=========================== */
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-height:75px;
-background:#ffffff;
 display:flex;
-justify-content:space-around;
+
+justify-content:space-between;
+
 align-items:center;
-box-shadow:0 -5px 20px rgba(0,0,0,.15);
-z-index:999;
+
+color:white;
+
+box-shadow:0 8px 20px rgba(0,0,0,.18);
+
 }
 
-.bottom-nav a{
+.logo-zone{
+
 display:flex;
-flex-direction:column;
+
 align-items:center;
-justify-content:center;
-text-decoration:none;
-color:#666;
+
+gap:15px;
+
+}
+
+.logo-app{
+
+width:55px;
+
+height:55px;
+
+border-radius:15px;
+
+background:white;
+
+padding:6px;
+
+}
+
+.logo-zone h2{
+
+font-size:21px;
+
+font-weight:700;
+
+}
+
+.logo-zone p{
+
 font-size:13px;
-font-weight:bold;
-transition:.3s;
+
+opacity:.9;
+
 }
 
-.bottom-nav a:hover{
-color:#009245;
-}
-
-.bottom-nav .active{
-color:#009245;
-}
-
-.bottom-nav a{
-font-size:14px;
-}
-
-.bottom-nav a::first-line{
-font-size:26px;
-}
-
-/* ===========================
-   ESPACE EN BAS
-=========================== */
-
-body{
-padding-bottom:90px;
-}
-
-/* ===========================
-   CARTE BIENVENUE
-=========================== */
-
-.profile-card{
-transition:.3s;
-}
-
-.profile-card:hover{
-transform:translateY(-4px);
-}
-
-/* ===========================
-   EFFET SUR LES CARTES
-=========================== */
-
-.box{
-border-left:5px solid #009245;
-}
-
-.card{
-border-top:4px solid transparent;
-}
-
-.card:hover{
-border-top:4px solid #f1c40f;
-}
-
-/* ===========================
-   RESPONSIVE
-=========================== */
-
-@media(max-width:600px){
-
-.bottom-nav{
-height:70px;
-}
-
-.bottom-nav a{
-font-size:11px;
-}
-
-.icon{
-font-size:34px;
-}
-
-.card{
-padding:18px 10px;
-}
-
-.box h3{
-font-size:26px;
-}
-
-.profile-card h2{
-font-size:22px;
-}
-
-   }
-
-/* =====================================
-   BARRE DE NAVIGATION
-===================================== */
-
-.bottom-nav{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-width:100%;
-
-height:75px;
-
-background:#ffffff;
+.top-icons{
 
 display:flex;
 
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:0 -5px 20px rgba(0,0,0,.15);
-
-z-index:999;
-
-}
-
-.bottom-nav a{
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-text-decoration:none;
-
-color:#777;
-
-font-size:12px;
-
-font-weight:bold;
-
-transition:.3s;
-
-width:20%;
-
-height:100%;
-
-}
-
-.bottom-nav a:hover{
-
-color:#009245;
-
-}
-
-.bottom-nav a.active{
-
-color:#009245;
-
-}
-
-.bottom-nav a i{
+gap:18px;
 
 font-size:24px;
 
-margin-bottom:4px;
-
 }
 
-/* =====================================
-   FOOTER
-===================================== */
-
-footer{
-
-margin-top:40px;
-
-padding:25px;
-
-background:#003b1f;
-
-color:white;
-
-text-align:center;
-
-font-size:14px;
-
-border-radius:25px 25px 0 0;
-
-line-height:1.8;
-
-}
-
-/* =====================================
-   BOUTONS
-===================================== */
-
-button{
-
-background:#009245;
-
-color:white;
-
-border:none;
-
-padding:14px 25px;
-
-border-radius:12px;
-
-font-size:16px;
-
-font-weight:bold;
+.top-icons i{
 
 cursor:pointer;
 
@@ -521,39 +116,608 @@ transition:.3s;
 
 }
 
-button:hover{
+.top-icons i:hover{
 
-background:#007537;
+transform:scale(1.15);
 
-transform:translateY(-2px);
+color:var(--or);
 
 }
 
-/* =====================================
-   LIENS
-===================================== */
+/*==============================
+CONTENEUR
+==============================*/
 
-a{
+.container{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+/*==============================
+CARTE DE BIENVENUE
+==============================*/
+
+.welcome-card{
+
+background:linear-gradient(135deg,#00a651,#009245);
+
+border-radius:25px;
+
+padding:25px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:white;
+
+margin-top:20px;
+
+box-shadow:var(--ombre);
+
+}
+
+.welcome-card h1{
+
+font-size:28px;
+
+margin-bottom:8px;
+
+}
+
+.welcome-card p{
+
+font-size:15px;
+
+opacity:.95;
+
+}
+
+.welcome-icon{
+
+font-size:55px;
+
+opacity:.9;
+
+   }
+/*==============================
+CARTE MEMBRE PREMIUM
+==============================*/
+
+.member-card{
+
+margin-top:25px;
+
+background:linear-gradient(135deg,#ffffff,#f7f9fc);
+
+border-radius:25px;
+
+padding:25px;
+
+display:flex;
+
+align-items:center;
+
+gap:25px;
+
+box-shadow:var(--ombre);
+
+transition:.35s;
+
+}
+
+.member-card:hover{
+
+transform:translateY(-4px);
+
+}
+
+.member-left{
+
+width:110px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.member-photo{
+
+width:90px;
+
+height:90px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+background:#fff;
+
+padding:4px;
+
+border:4px solid var(--vert);
+
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+.member-right{
+
+flex:1;
+
+}
+
+.member-right h2{
+
+font-size:25px;
+
+font-weight:700;
+
+color:var(--vert);
+
+margin-bottom:10px;
+
+}
+
+.member-id,
+
+.member-status,
+
+.member-phone{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+margin-top:10px;
+
+font-size:15px;
+
+color:#555;
+
+}
+
+.member-id i{
+
+color:#1976d2;
+
+}
+
+.member-status i{
+
+color:#00b050;
+
+}
+
+.member-phone i{
+
+color:#ff9800;
+
+}
+
+/*==============================
+STATISTIQUES
+==============================*/
+
+.dashboard{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+
+gap:18px;
+
+margin-top:30px;
+
+}
+
+.dash-box{
+
+background:#ffffff;
+
+border-radius:22px;
+
+padding:22px;
+
+text-align:center;
+
+box-shadow:var(--ombre);
+
+transition:.35s;
+
+cursor:pointer;
+
+}
+
+.dash-box:hover{
+
+transform:translateY(-8px);
+
+}
+
+.dash-box i{
+
+font-size:35px;
+
+color:var(--vert);
+
+margin-bottom:15px;
+
+}
+
+.dash-box h2{
+
+font-size:30px;
+
+color:var(--vert);
+
+margin-bottom:8px;
+
+}
+
+.dash-box p{
+
+font-size:15px;
+
+color:var(--gris);
+
+font-weight:600;
+
+}
+
+/*==============================
+TITRE SECTION
+==============================*/
+
+.section-title{
+
+margin:35px 0 20px;
+
+font-size:24px;
+
+font-weight:700;
+
+color:var(--vert);
+
+   }
+/*==============================
+MENU PREMIUM
+==============================*/
+
+.menu-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:20px;
+
+margin-top:15px;
+
+}
+
+.menu-card{
+
+background:#ffffff;
+
+border-radius:22px;
+
+padding:25px 18px;
 
 text-decoration:none;
 
+color:var(--texte);
+
+text-align:center;
+
+box-shadow:var(--ombre);
+
+transition:.35s;
+
+border-top:5px solid transparent;
+
+overflow:hidden;
+
+position:relative;
+
 }
 
-/* =====================================
-   ANIMATIONS
-===================================== */
+.menu-card::before{
 
-@keyframes apparition{
+content:"";
 
-from{
+position:absolute;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:5px;
+
+background:linear-gradient(90deg,var(--vert),var(--or));
+
+transform:scaleX(0);
+
+transition:.35s;
+
+}
+
+.menu-card:hover::before{
+
+transform:scaleX(1);
+
+}
+
+.menu-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.menu-card i{
+
+font-size:42px;
+
+color:var(--vert);
+
+margin-bottom:15px;
+
+transition:.3s;
+
+}
+
+.menu-card:hover i{
+
+transform:scale(1.15);
+
+color:var(--or);
+
+}
+
+.menu-card h3{
+
+font-size:19px;
+
+margin-bottom:8px;
+
+font-weight:600;
+
+}
+
+.menu-card p{
+
+font-size:14px;
+
+color:var(--gris);
+
+line-height:1.5;
+
+}
+
+.menu-card:hover p{
+
+color:#555;
+
+}
+
+/*==============================
+CARTE DÉCONNEXION
+==============================*/
+
+.logout-card{
+
+background:linear-gradient(135deg,#ff4b4b,#d63031);
+
+color:white;
+
+}
+
+.logout-card i{
+
+color:white;
+
+}
+
+.logout-card h3{
+
+color:white;
+
+}
+
+.logout-card p{
+
+color:#ffeaea;
+
+}
+
+.logout-card:hover{
+
+background:linear-gradient(135deg,#d63031,#b71c1c);
+
+}
+
+.logout-card:hover i{
+
+color:#ffffff;
+
+   }
+/*==========================================
+  BARRE DE NAVIGATION
+==========================================*/
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+height:75px;
+
+background:#ffffff;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:0 -8px 20px rgba(0,0,0,.12);
+
+border-top-left-radius:22px;
+
+border-top-right-radius:22px;
+
+z-index:999;
+
+}
+
+.bottom-nav a{
+
+flex:1;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-decoration:none;
+
+color:#7d7d7d;
+
+transition:.3s;
+
+height:100%;
+
+}
+
+.bottom-nav a i{
+
+font-size:22px;
+
+margin-bottom:5px;
+
+}
+
+.bottom-nav a span{
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+.bottom-nav a.active{
+
+color:var(--vert);
+
+}
+
+.bottom-nav a:hover{
+
+color:var(--vert);
+
+transform:translateY(-4px);
+
+}
+
+/*==========================================
+FOOTER
+==========================================*/
+
+.footer-app{
+
+margin-top:45px;
+
+padding:30px 20px;
+
+text-align:center;
+
+}
+
+.footer-logo{
+
+width:70px;
+
+height:70px;
+
+border-radius:18px;
+
+background:#ffffff;
+
+padding:6px;
+
+box-shadow:var(--ombre);
+
+margin-bottom:15px;
+
+}
+
+.footer-app h3{
+
+font-size:20px;
+
+color:var(--vert);
+
+margin-bottom:8px;
+
+}
+
+.footer-app p{
+
+color:var(--gris);
+
+font-size:15px;
+
+}
+
+.copyright{
+
+margin-top:15px;
+
+font-size:13px;
+
+color:#999;
+
+}
+
+/*==========================================
+ANIMATIONS
+==========================================*/
+
+@keyframes fadeUp{
+
+0%{
 
 opacity:0;
 
-transform:translateY(20px);
+transform:translateY(25px);
 
 }
 
-to{
+100%{
 
 opacity:1;
 
@@ -563,169 +727,125 @@ transform:translateY(0);
 
 }
 
-.profile-card,
-.box,
-.card{
+.welcome-card,
 
-animation:apparition .6s ease;
+.member-card,
 
-       }
-/* =====================================
-   PAGE PROFIL
-===================================== */
+.dash-box,
 
-.infos{
+.menu-card{
 
-margin-top:25px;
-
-background:#ffffff;
-
-border-radius:20px;
-
-padding:20px;
-
-box-shadow:0 6px 18px rgba(0,0,0,.08);
+animation:fadeUp .6s ease;
 
 }
 
-.ligne{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:15px 10px;
-
-border-bottom:1px solid #eeeeee;
-
-font-size:16px;
-
-}
-
-.ligne:last-child{
-
-border-bottom:none;
-
-}
-
-.ligne span{
-
-font-weight:bold;
-
-color:#444;
-
-}
-
-.ligne b{
-
-color:#009245;
-
-text-align:right;
-
-}
-
-/* =====================================
-   BADGE
-===================================== */
-
-.badge{
-
-display:inline-block;
-
-padding:8px 18px;
-
-border-radius:25px;
-
-background:#dff6e7;
-
-color:#009245;
-
-font-weight:bold;
-
-margin-top:10px;
-
-}
-
-/* =====================================
-   RESPONSIVE
-===================================== */
+/*==========================================
+RESPONSIVE
+==========================================*/
 
 @media(max-width:768px){
 
-.banner{
+.logo-app{
 
-height:140px;
+width:45px;
 
-}
-
-.container{
-
-padding:15px;
+height:45px;
 
 }
 
-.profile-card{
+.logo-zone h2{
 
-margin-top:-35px;
-
-padding:20px;
+font-size:18px;
 
 }
 
-.photo,
-.profile-photo{
+.logo-zone p{
 
-width:80px;
-
-height:80px;
+font-size:11px;
 
 }
 
-.profile-card h2{
+.top-icons{
+
+font-size:20px;
+
+gap:14px;
+
+}
+
+.welcome-card{
+
+flex-direction:column;
+
+text-align:center;
+
+gap:15px;
+
+}
+
+.welcome-card h1{
 
 font-size:22px;
 
 }
 
-.stats{
+.member-card{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.member-photo{
+
+width:85px;
+
+height:85px;
+
+}
+
+.dashboard{
 
 grid-template-columns:repeat(2,1fr);
 
-gap:15px;
-
 }
 
-.menu{
+.menu-grid{
 
 grid-template-columns:repeat(2,1fr);
 
-gap:15px;
+}
+
+.menu-card{
+
+padding:20px 12px;
 
 }
 
-.box{
-
-padding:18px;
-
-}
-
-.box h3{
-
-font-size:28px;
-
-}
-
-.card{
-
-padding:20px 10px;
-
-}
-
-.icon{
+.menu-card i{
 
 font-size:34px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.dashboard{
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+}
+
+.menu-grid{
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
 
 }
 
@@ -735,88 +855,204 @@ height:70px;
 
 }
 
-.bottom-nav a{
-
-font-size:11px;
-
-}
-
-}
-
-@media(max-width:480px){
-
-.stats{
-
-grid-template-columns:1fr 1fr;
-
-}
-
-.menu{
-
-grid-template-columns:1fr 1fr;
-
-}
-
-.profile-card{
-
-padding:18px;
-
-}
-
-.photo,
-.profile-photo{
-
-width:70px;
-
-height:70px;
-
-}
-
-.profile-card h2{
+.bottom-nav a i{
 
 font-size:20px;
 
 }
 
-.ligne{
+.bottom-nav a span{
 
-flex-direction:column;
+font-size:11px;
 
-align-items:flex-start;
+}
 
-gap:6px;
+.section-title{
+
+font-size:20px;
+
+}
+
+.member-right h2{
+
+font-size:20px;
+
+}
+
+   }
+/*==========================================
+  FINITIONS PREMIUM
+==========================================*/
+
+/* Barre de défilement */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#eef2f7;
+}
+
+::-webkit-scrollbar-thumb{
+background:linear-gradient(var(--vert),var(--vert2));
+border-radius:20px;
+}
+
+/* Sélection du texte */
+
+::selection{
+background:var(--vert);
+color:#fff;
+}
+
+/* Effet verre */
+
+.glass{
+
+background:rgba(255,255,255,.20);
+
+backdrop-filter:blur(15px);
+
+border:1px solid rgba(255,255,255,.25);
+
+}
+
+/* Cartes */
+
+.member-card,
+.menu-card,
+.dash-box{
+
+border:1px solid rgba(0,0,0,.05);
+
+}
+
+/* Halo */
+
+.member-card:hover,
+.menu-card:hover,
+.dash-box:hover{
+
+box-shadow:
+0 15px 35px rgba(0,146,69,.18);
+
+}
+
+/* Boutons */
+
+button{
+
+background:linear-gradient(135deg,var(--vert),var(--vert2));
+
+color:white;
+
+border:none;
+
+padding:14px 24px;
+
+border-radius:15px;
 
 font-size:15px;
 
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
 }
 
-.ligne b{
+button:hover{
 
-text-align:left;
+transform:translateY(-3px);
+
+box-shadow:0 10px 25px rgba(0,146,69,.25);
 
 }
 
-footer{
+/* Champs */
+
+input,
+select,
+textarea{
+
+width:100%;
+
+padding:14px;
+
+border:2px solid #e6e6e6;
+
+border-radius:14px;
+
+outline:none;
+
+font-size:15px;
+
+transition:.3s;
+
+margin-top:8px;
+
+margin-bottom:15px;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+border-color:var(--vert);
+
+box-shadow:0 0 0 4px rgba(0,146,69,.10);
+
+}
+
+/* Badges */
+
+.badge{
+
+padding:8px 18px;
+
+border-radius:30px;
 
 font-size:13px;
 
-padding:20px;
+font-weight:600;
+
+display:inline-block;
 
 }
 
+.badge.actif{
+
+background:#dff7e8;
+
+color:#009245;
+
 }
 
-/* =====================================
-   COULEURS DE LA COMMUNAUTÉ
-===================================== */
+.badge.inactif{
 
-:root{
+background:#ffe3e3;
 
---vert:#009245;
---vert-fonce:#006633;
---or:#f1c40f;
---blanc:#ffffff;
---gris:#f4f6f9;
---texte:#333333;
+color:#d63031;
+
+}
+
+/* Animation */
+
+.menu-card,
+.member-card,
+.dash-box{
+
+transition:all .35s ease;
+
+}
+
+/* Copyright */
+
+.footer-app{
+
+padding-bottom:90px;
 
    }
