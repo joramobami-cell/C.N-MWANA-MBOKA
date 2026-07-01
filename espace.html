@@ -14,31 +14,43 @@
 
 <body>
 
-<header>
+<!-- BANNIÈRE -->
 
 <img src="banniere.png" class="banner">
 
-</header>
-
 <div class="container">
+
+<!-- CARTE MEMBRE -->
 
 <div class="profile-card">
 
-<img src="logo.png" class="photo" id="photo">
+<img src="logo.png"
+id="photo"
+class="photo">
 
 <h2 id="nom">
 Chargement...
 </h2>
 
-<p class="matricule" id="matricule">
-Matricule
-</p>
+<div class="matricule"
+id="matricule">
+--------
+</div>
 
-<p class="statut" id="statut">
+<div class="statut"
+id="statut">
 🟢 Actif
-</p>
+</div>
 
 </div>
+
+<!-- BIENVENUE -->
+
+<h2 class="titre">
+Bienvenue dans votre espace membre
+</h2>
+
+<!-- STATISTIQUES -->
 
 <div class="stats">
 
@@ -86,78 +98,129 @@ Matricule
 
 <h2 class="titre">
 Accès rapide
-</h2>
+  </h2>
+  <!-- MENU -->
 
 <div class="menu">
 
 <a href="profil.html" class="card">
-👤
+<div class="icon">👤</div>
 <span>Mon Profil</span>
 </a>
 
 <a href="carte.html" class="card">
-💳
+<div class="icon">💳</div>
 <span>Ma Carte</span>
 </a>
 
 <a href="formations.html" class="card">
-🎓
+<div class="icon">🎓</div>
 <span>Formations</span>
 </a>
 
 <a href="documents.html" class="card">
-📚
+<div class="icon">📚</div>
 <span>Documents</span>
 </a>
 
 <a href="cotisations.html" class="card">
-💰
+<div class="icon">💰</div>
 <span>Cotisations</span>
 </a>
 
 <a href="parrainage.html" class="card">
-🤝
+<div class="icon">🤝</div>
 <span>Parrainage</span>
 </a>
 
 <a href="messages.html" class="card">
-💬
+<div class="icon">💬</div>
 <span>Messages</span>
 </a>
 
 <a href="annonces.html" class="card">
-📢
+<div class="icon">📢</div>
 <span>Actualités</span>
 </a>
 
 <a href="parametres.html" class="card">
-⚙️
+<div class="icon">⚙️</div>
 <span>Paramètres</span>
 </a>
 
 <a href="#" onclick="deconnexion()" class="card logout">
-🚪
+<div class="icon">🚪</div>
 <span>Déconnexion</span>
 </a>
 
 </div>
 
+<!-- CARTE COMMUNAUTÉ -->
+
+<div class="profile-card" style="margin-top:30px;">
+
+<h2 style="color:#009245;">
+COMMUNAUTÉ NUMÉRIQUE
+</h2>
+
+<h3>
+MWANA MBOKA
+</h3>
+
+<p style="margin-top:15px;">
+Ensemble nous irons plus loin.
+</p>
+
+</div>
+
+<!-- Barre de navigation -->
+
+<nav class="bottom-nav">
+
+<a href="espace.html" class="active">
+🏠
+<span>Accueil</span>
+</a>
+
+<a href="messages.html">
+💬
+<span>Messages</span>
+</a>
+
+<a href="annonces.html">
+🔔
+<span>Actus</span>
+</a>
+
+<a href="profil.html">
+👤
+<span>Profil</span>
+</a>
+
+<a href="parametres.html">
+⚙️
+<span>Réglages</span>
+</a>
+
+</nav>
+
+<!-- Pied de page -->
+
 <footer>
 
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+<p>
+© 2026 Communauté Numérique MWANA MBOKA
+</p>
 
-<br><br>
-
-<strong>
-Ensemble nous irons plus loin.
-</strong>
+<p>
+<strong>Ensemble nous irons plus loin.</strong>
+</p>
 
 </footer>
 
 </div>
 
-<script src="espace.js" type="module"></script>
+<script type="module" src="espace.js"></script>
 
 </body>
-
-</html>
+  </html>
