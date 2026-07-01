@@ -262,3 +262,131 @@ font-size:16px;
 }
 
   }
+
+/* ===========================
+   ICÔNES DES CARTES
+=========================== */
+
+.icon{
+font-size:42px;
+margin-bottom:12px;
+transition:.3s;
+}
+
+.card:hover .icon{
+transform:scale(1.15);
+}
+
+/* ===========================
+   BARRE DE NAVIGATION
+=========================== */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:75px;
+background:#ffffff;
+display:flex;
+justify-content:space-around;
+align-items:center;
+box-shadow:0 -5px 20px rgba(0,0,0,.15);
+z-index:999;
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+color:#666;
+font-size:13px;
+font-weight:bold;
+transition:.3s;
+}
+
+.bottom-nav a:hover{
+color:#009245;
+}
+
+.bottom-nav .active{
+color:#009245;
+}
+
+.bottom-nav a{
+font-size:14px;
+}
+
+.bottom-nav a::first-line{
+font-size:26px;
+}
+
+/* ===========================
+   ESPACE EN BAS
+=========================== */
+
+body{
+padding-bottom:90px;
+}
+
+/* ===========================
+   CARTE BIENVENUE
+=========================== */
+
+.profile-card{
+transition:.3s;
+}
+
+.profile-card:hover{
+transform:translateY(-4px);
+}
+
+/* ===========================
+   EFFET SUR LES CARTES
+=========================== */
+
+.box{
+border-left:5px solid #009245;
+}
+
+.card{
+border-top:4px solid transparent;
+}
+
+.card:hover{
+border-top:4px solid #f1c40f;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:600px){
+
+.bottom-nav{
+height:70px;
+}
+
+.bottom-nav a{
+font-size:11px;
+}
+
+.icon{
+font-size:34px;
+}
+
+.card{
+padding:18px 10px;
+}
+
+.box h3{
+font-size:26px;
+}
+
+.profile-card h2{
+font-size:22px;
+}
+
+   }
