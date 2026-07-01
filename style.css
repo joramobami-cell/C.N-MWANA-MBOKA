@@ -394,3 +394,429 @@ font-size:22px;
 }
 
    }
+
+/* =====================================
+   BARRE DE NAVIGATION
+===================================== */
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+height:75px;
+
+background:#ffffff;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:0 -5px 20px rgba(0,0,0,.15);
+
+z-index:999;
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-decoration:none;
+
+color:#777;
+
+font-size:12px;
+
+font-weight:bold;
+
+transition:.3s;
+
+width:20%;
+
+height:100%;
+
+}
+
+.bottom-nav a:hover{
+
+color:#009245;
+
+}
+
+.bottom-nav a.active{
+
+color:#009245;
+
+}
+
+.bottom-nav a i{
+
+font-size:24px;
+
+margin-bottom:4px;
+
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer{
+
+margin-top:40px;
+
+padding:25px;
+
+background:#003b1f;
+
+color:white;
+
+text-align:center;
+
+font-size:14px;
+
+border-radius:25px 25px 0 0;
+
+line-height:1.8;
+
+}
+
+/* =====================================
+   BOUTONS
+===================================== */
+
+button{
+
+background:#009245;
+
+color:white;
+
+border:none;
+
+padding:14px 25px;
+
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#007537;
+
+transform:translateY(-2px);
+
+}
+
+/* =====================================
+   LIENS
+===================================== */
+
+a{
+
+text-decoration:none;
+
+}
+
+/* =====================================
+   ANIMATIONS
+===================================== */
+
+@keyframes apparition{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+.profile-card,
+.box,
+.card{
+
+animation:apparition .6s ease;
+
+       }
+/* =====================================
+   PAGE PROFIL
+===================================== */
+
+.infos{
+
+margin-top:25px;
+
+background:#ffffff;
+
+border-radius:20px;
+
+padding:20px;
+
+box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+}
+
+.ligne{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 10px;
+
+border-bottom:1px solid #eeeeee;
+
+font-size:16px;
+
+}
+
+.ligne:last-child{
+
+border-bottom:none;
+
+}
+
+.ligne span{
+
+font-weight:bold;
+
+color:#444;
+
+}
+
+.ligne b{
+
+color:#009245;
+
+text-align:right;
+
+}
+
+/* =====================================
+   BADGE
+===================================== */
+
+.badge{
+
+display:inline-block;
+
+padding:8px 18px;
+
+border-radius:25px;
+
+background:#dff6e7;
+
+color:#009245;
+
+font-weight:bold;
+
+margin-top:10px;
+
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width:768px){
+
+.banner{
+
+height:140px;
+
+}
+
+.container{
+
+padding:15px;
+
+}
+
+.profile-card{
+
+margin-top:-35px;
+
+padding:20px;
+
+}
+
+.photo,
+.profile-photo{
+
+width:80px;
+
+height:80px;
+
+}
+
+.profile-card h2{
+
+font-size:22px;
+
+}
+
+.stats{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+}
+
+.menu{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+}
+
+.box{
+
+padding:18px;
+
+}
+
+.box h3{
+
+font-size:28px;
+
+}
+
+.card{
+
+padding:20px 10px;
+
+}
+
+.icon{
+
+font-size:34px;
+
+}
+
+.bottom-nav{
+
+height:70px;
+
+}
+
+.bottom-nav a{
+
+font-size:11px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.stats{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.menu{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.profile-card{
+
+padding:18px;
+
+}
+
+.photo,
+.profile-photo{
+
+width:70px;
+
+height:70px;
+
+}
+
+.profile-card h2{
+
+font-size:20px;
+
+}
+
+.ligne{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:6px;
+
+font-size:15px;
+
+}
+
+.ligne b{
+
+text-align:left;
+
+}
+
+footer{
+
+font-size:13px;
+
+padding:20px;
+
+}
+
+}
+
+/* =====================================
+   COULEURS DE LA COMMUNAUTÉ
+===================================== */
+
+:root{
+
+--vert:#009245;
+--vert-fonce:#006633;
+--or:#f1c40f;
+--blanc:#ffffff;
+--gris:#f4f6f9;
+--texte:#333333;
+
+   }
