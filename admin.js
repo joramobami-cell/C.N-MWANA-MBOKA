@@ -53,7 +53,7 @@ get(adminRef).then((snapshot) => {
 
     const admin = snapshot.val();
 
-    if (admin.role !== "admin") {
+    if ((membre.role || "").toLowerCase() !== "admin") {
 
         alert("Accès réservé à l'administrateur.");
 
