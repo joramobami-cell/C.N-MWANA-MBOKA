@@ -1056,3 +1056,89 @@ transition:all .35s ease;
 padding-bottom:90px;
 
    }
+
+/* ===========================
+   BOUTONS ACTIONS PROFIL
+=========================== */
+
+.action-buttons{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+margin:25px 0 35px;
+
+}
+
+.btn-action{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:10px;
+
+padding:16px;
+
+background:#ffffff;
+
+border-radius:18px;
+
+text-decoration:none;
+
+color:#009245;
+
+font-weight:700;
+
+font-size:16px;
+
+box-shadow:0 8px 20px rgba(0,0,0,.10);
+
+transition:.3s;
+
+}
+
+.btn-action:hover{
+
+background:#009245;
+
+color:#ffffff;
+
+transform:translateY(-4px);
+
+}
+
+.btn-action i{
+
+font-size:22px;
+
+}
+
+.retour{
+
+background:#e53935;
+
+color:#ffffff;
+
+}
+
+.retour:hover{
+
+background:#c62828;
+
+}
+
+@media(max-width:600px){
+
+.action-buttons{
+
+grid-template-columns:1fr;
+
+}
+
+   }
