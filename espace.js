@@ -37,7 +37,19 @@ async function chargerProfil() {
         document.getElementById("matricule").textContent = membre.matricule || "";
         document.getElementById("telephone").textContent = membre.telephone || "";
         document.getElementById("statut").textContent = membre.statut || "";
+// Sauvegarder le rôle
+localStorage.setItem("role", membre.role || "membre");
 
+// Afficher la carte Administration uniquement pour l'administrateur
+if (membre.role === "admin") {
+
+    const adminCard = document.getElementById("adminCard");
+
+    if (adminCard) {
+        adminCard.style.display = "block";
+    }
+
+}
         if (membre.photo) {
             document.getElementById("photo").src = membre.photo;
         }
