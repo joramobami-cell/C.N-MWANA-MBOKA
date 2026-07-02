@@ -10,8 +10,14 @@
 
 <link rel="stylesheet" href="style.css">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
@@ -48,11 +54,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div>
 
 <h1>
-Panneau Administrateur
+Bienvenue Administrateur
 </h1>
 
 <p>
-Gérez la Communauté Numérique MWANA MBOKA.
+Gérez les membres et les activités de la Communauté Numérique MWANA MBOKA.
 </p>
 
 </div>
@@ -79,17 +85,17 @@ Gérez la Communauté Numérique MWANA MBOKA.
 
 <div class="dash-box">
 
-<i class="fa-solid fa-bullhorn"></i>
+<i class="fa-solid fa-user-check"></i>
 
-<h2 id="nbAnnonces">0</h2>
+<h2 id="nbActifs">0</h2>
 
-<p>Annonces</p>
+<p>Actifs</p>
 
 </div>
 
 <div class="dash-box">
 
-<i class="fa-solid fa-comments"></i>
+<i class="fa-solid fa-envelope"></i>
 
 <h2 id="nbMessages">0</h2>
 
@@ -99,11 +105,11 @@ Gérez la Communauté Numérique MWANA MBOKA.
 
 <div class="dash-box">
 
-<i class="fa-solid fa-graduation-cap"></i>
+<i class="fa-solid fa-bullhorn"></i>
 
-<h2 id="nbFormations">0</h2>
+<h2 id="nbAnnonces">0</h2>
 
-<p>Formations</p>
+<p>Annonces</p>
 
 </div>
 
@@ -111,133 +117,24 @@ Gérez la Communauté Numérique MWANA MBOKA.
 
 <h2 class="section-title">
 
-Administration
+Gestion des membres
 
   </h2>
 
-  <section class="menu-grid">
+<section class="member-card">
 
-<a href="ajouter-membre.html" class="menu-card">
+<h3 style="margin-bottom:20px;color:#009245;">
 
 <i class="fa-solid fa-user-plus"></i>
 
-<h3>Ajouter un membre</h3>
+Ajouter / Modifier un membre
 
-<p>Créer un nouveau compte membre.</p>
-
-</a>
-<h2 class="section-title">
-
-Liste des membres
-
-</h2>
-
-<div id="listeMembres" class="members-list">
-
-<!-- Les cartes des membres seront ajoutées automatiquement ici -->
-
-</div>
-
-</a>
-
-<a href="modifier-membre.html" class="menu-card">
-
-<i class="fa-solid fa-user-pen"></i>
-
-<h3>Modifier un membre</h3>
-
-<p>Mettre à jour les informations.</p>
-
-</a>
-
-<a href="supprimer-membre.html" class="menu-card">
-
-<i class="fa-solid fa-user-xmark"></i>
-
-<h3>Supprimer un membre</h3>
-
-<p>Retirer un membre de la communauté.</p>
-
-</a>
-
-<a href="annonces-admin.html" class="menu-card">
-
-<i class="fa-solid fa-bullhorn"></i>
-
-<h3>Annonces</h3>
-
-<p>Publier une annonce générale.</p>
-
-</a>
-
-<a href="messages-admin.html" class="menu-card">
-
-<i class="fa-solid fa-comments"></i>
-
-<h3>Messages</h3>
-
-<p>Envoyer un message à un membre.</p>
-
-</a>
-
-<a href="formations-admin.html" class="menu-card">
-
-<i class="fa-solid fa-graduation-cap"></i>
-
-<h3>Formations</h3>
-
-<p>Ajouter et gérer les formations.</p>
-
-</a>
-
-<a href="documents-admin.html" class="menu-card">
-
-<i class="fa-solid fa-folder-open"></i>
-
-<h3>Documents</h3>
-
-<p>Publier des documents.</p>
-
-</a>
-
-<a href="cotisations-admin.html" class="menu-card">
-
-<i class="fa-solid fa-wallet"></i>
-
-<h3>Cotisations</h3>
-
-<p>Suivre les paiements des membres.</p>
-
-</a>
-
-<a href="parametres-admin.html" class="menu-card">
-
-<i class="fa-solid fa-gears"></i>
-
-<h3>Paramètres</h3>
-
-<p>Configuration de l'application.</p>
-
-</a>
-
-  </section>
-
-<!-- ==========================
-     FORMULAIRE AJOUT MEMBRE
-========================== -->
-
-<h2 class="section-title">
-
-Ajouter un membre
-
-</h2>
-
-<div class="member-card">
+</h3>
 
 <input
 type="text"
 id="matricule"
-placeholder="Matricule">
+placeholder="Matricule (Ex : MMB-F002)">
 
 <input
 type="text"
@@ -254,6 +151,21 @@ type="password"
 id="motdepasse"
 placeholder="Mot de passe">
 
+<input
+type="text"
+id="profession"
+placeholder="Profession">
+
+<input
+type="text"
+id="adresse"
+placeholder="Adresse">
+
+<input
+type="text"
+id="parrain"
+placeholder="Matricule du parrain">
+
 <select id="statut">
 
 <option value="Actif">Actif</option>
@@ -262,7 +174,11 @@ placeholder="Mot de passe">
 
 </select>
 
-<button onclick="ajouterMembre()">
+<div style="display:flex;gap:15px;flex-wrap:wrap;margin-top:20px;">
+
+<button
+id="btnAjouter"
+onclick="ajouterMembre()">
 
 <i class="fa-solid fa-user-plus"></i>
 
@@ -270,43 +186,107 @@ Ajouter le membre
 
 </button>
 
-  </div>
+<button
+id="btnAnnuler"
+type="button"
+style="background:#757575;display:none;">
+
+<i class="fa-solid fa-xmark"></i>
+
+Annuler
+
+</button>
+
+</div>
+
+</section>
+
 <h2 class="section-title">
 
 Liste des membres
 
 </h2>
 
-<div class="member-card">
+<div id="listeMembres" class="members-list">
 
-<table id="tableMembres" style="width:100%;border-collapse:collapse;">
-
-<thead>
-
-<tr>
-
-<th>Matricule</th>
-
-<th>Nom</th>
-
-<th>Téléphone</th>
-
-<th>Statut</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody id="listeMembres">
-
-</tbody>
-
-</table>
+<!-- Les membres seront affichés ici automatiquement -->
 
   </div>
+
   <!-- ==========================
+     RECHERCHE
+========================== -->
+
+<h2 class="section-title">
+
+Recherche
+
+</h2>
+
+<div class="member-card">
+
+<input
+type="text"
+id="recherche"
+placeholder="Rechercher par nom, matricule ou téléphone...">
+
+</div>
+
+<!-- ==========================
+     STATISTIQUES
+========================== -->
+
+<h2 class="section-title">
+
+Statistiques
+
+</h2>
+
+<section class="dashboard">
+
+<div class="dash-box">
+
+<i class="fa-solid fa-users"></i>
+
+<h2 id="statTotal">0</h2>
+
+<p>Total membres</p>
+
+</div>
+
+<div class="dash-box">
+
+<i class="fa-solid fa-user-check"></i>
+
+<h2 id="statActifs">0</h2>
+
+<p>Membres actifs</p>
+
+</div>
+
+<div class="dash-box">
+
+<i class="fa-solid fa-user-xmark"></i>
+
+<h2 id="statInactifs">0</h2>
+
+<p>Membres inactifs</p>
+
+</div>
+
+<div class="dash-box">
+
+<i class="fa-solid fa-user-shield"></i>
+
+<h2 id="statAdmins">0</h2>
+
+<p>Administrateurs</p>
+
+</div>
+
+  </section>
+
+<!-- ==========================
      NAVIGATION BAS
 ========================== -->
 
@@ -317,24 +297,24 @@ Liste des membres
 <span>Accueil</span>
 </a>
 
-<a href="liste-membres.html">
+<a href="#">
 <i class="fa-solid fa-users"></i>
 <span>Membres</span>
 </a>
 
-<a href="annonces-admin.html">
+<a href="#">
 <i class="fa-solid fa-bullhorn"></i>
 <span>Annonces</span>
 </a>
 
-<a href="messages-admin.html">
+<a href="#">
 <i class="fa-solid fa-comments"></i>
 <span>Messages</span>
 </a>
 
-<a href="parametres-admin.html">
-<i class="fa-solid fa-gear"></i>
-<span>Réglages</span>
+<a href="espace.html">
+<i class="fa-solid fa-arrow-left"></i>
+<span>Espace membre</span>
 </a>
 
 </nav>
@@ -343,27 +323,26 @@ Liste des membres
      FOOTER
 ========================== -->
 
-<div class="footer-app">
+<footer class="footer-app">
 
 <img src="logo.png" class="footer-logo">
 
 <h3>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h3>
 
 <p>
-Panneau d'administration
+Panneau d'administration sécurisé.
 </p>
 
-<div class="copyright">
+<p class="copyright">
+© 2026 MWANA MBOKA - Tous droits réservés.
+</p>
 
-© 2026 MWANA MBOKA
-
-</div>
-
-</div>
+</footer>
 
 </div>
 
 <script type="module" src="admin.js"></script>
 
 </body>
+
   </html>
