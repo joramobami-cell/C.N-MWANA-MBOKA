@@ -18,6 +18,37 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+// ===========================
+// SÉCURITÉ ADMINISTRATEUR
+// ===========================
+
+const matricule = localStorage.getItem("matricule");
+
+if (!matricule) {
+    window.location.href = "connexion.html";
+}
+
+const adminRef = ref(db, "membres/" + matricule);
+
+get(adminRef).then((snapshot) => {
+
+    if (!snapshot.exists()) {
+        window.location.href = "connexion.html";
+        return;
+    }
+
+    const membre = snapshot.val();
+
+    if (membre.role !== "admin") {
+
+        alert("Accès refusé. Réservé à l'administrateur.");
+
+        window.location.href = "espace.html";
+
+        return;
+    }
+
+});
 window.ajouterMembre = async function () {
 
   const matricule = document.getElementById("matricule").value.trim();
