@@ -28,6 +28,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
+let membreEnCours = null;
+
 // ===========================
 // SECURITE ADMIN
 // ===========================
@@ -351,3 +353,29 @@ onValue(listeRef, (snapshot) => {
     document.getElementById("statTotal").innerText = total;
 
 });
+
+window.modifierMembre = async function (matricule) {
+
+    const membreRef = ref(db, "membres/" + matricule);
+
+    const snapshot = await get(membreRef);
+
+    if (!snapshot.exists()) {
+        alert("Membre introuvable.");
+        return;
+    }
+
+    const membre = snapshot.val();
+
+    membreEnCours = matricule;
+
+    document.getElementById("matricule").value = membre.matricule || "";
+    document.getElementById("nom").value = membre.nom || "";
+    document.getElementById("telephone").value = membre.telephone || "";
+    document.getElementById("motdepasse").value = membre.motdepasse || "";
+    document.getElementById("statut").value = membre.statut || "Actif";
+
+    document.getElementById("nom").scrollIntoView({
+        behavior: "smooth"
+    });
+};
