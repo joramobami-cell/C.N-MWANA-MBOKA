@@ -87,57 +87,44 @@ window.ajouterMembre = async function () {
     const statut = document.getElementById("statut").value;
 
     if (!matricule || !nom || !telephone || !motdepasse) {
-
         alert("Veuillez remplir tous les champs.");
-
         return;
-
     }
 
-    // Vérifier si le membre existe déjà
-
-    const membreRef = ref(db, "membres/" + matricule);
-
-    const snapshot = await get(membreRef);
-
-    if (snapshot.exists()) {
-
-        alert("Ce matricule existe déjà.");
-
-        return;
-
-    }
-
-    // Enregistrer le nouveau membre
-
-    await set(membreRef, {
-
-        matricule: matricule,
-        nom: nom,
-        telephone: telephone,
-        motdepasse: motdepasse,
-        statut: statut,
-        role: "membre",
-
+    const donnees = {
+        matricule,
+        nom,
+        telephone,
+        motdepasse,
+        statut,
         profession: "",
         adresse: "",
         parrain: "",
-        dateadhesion: new Date().toLocaleDateString("fr-FR"),
-        photo: ""
+        dateadhesion: new Date().toLocaleDateString("fr-FR")
+    };
 
-    });
+    if (membreEnCours) {
 
-    alert("✅ Membre ajouté avec succès.");
+        await update(ref(db, "membres/" + membreEnCours), donnees);
 
-    // Réinitialiser le formulaire
+        alert("✅ Membre modifié avec succès.");
+
+        membreEnCours = null;
+
+    } else {
+
+        await set(ref(db, "membres/" + matricule), donnees);
+
+        alert("✅ Membre ajouté avec succès.");
+    }
 
     document.getElementById("matricule").value = "";
     document.getElementById("nom").value = "";
     document.getElementById("telephone").value = "";
     document.getElementById("motdepasse").value = "";
     document.getElementById("statut").value = "Actif";
-
 };
+
 // ===========================
 // CHARGER LA LISTE DES MEMBRES
 // ===========================
