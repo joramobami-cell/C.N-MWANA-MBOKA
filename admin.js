@@ -291,3 +291,63 @@ window.supprimerMembre = async function(matricule){
     }
 
 };
+
+// ===========================
+// AFFICHER LA LISTE DES MEMBRES
+// ===========================
+
+const listeRef = ref(db, "membres");
+
+onValue(listeRef, (snapshot) => {
+
+    const liste = document.getElementById("listeMembres");
+
+    liste.innerHTML = "";
+
+    let total = 0;
+
+    snapshot.forEach((item) => {
+
+        total++;
+
+        const membre = item.val();
+
+        liste.innerHTML += `
+
+        <div class="member-card">
+
+            <h3>${membre.nom}</h3>
+
+            <p><b>Matricule :</b> ${membre.matricule}</p>
+
+            <p><b>Téléphone :</b> ${membre.telephone}</p>
+
+            <p><b>Statut :</b> ${membre.statut}</p>
+
+            <div style="margin-top:15px;display:flex;gap:10px;">
+
+                <button onclick="modifierMembre('${membre.matricule}')">
+
+                    ✏️ Modifier
+
+                </button>
+
+                <button onclick="supprimerMembre('${membre.matricule}')"
+                style="background:#d32f2f;">
+
+                    🗑️ Supprimer
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById("nbMembres").innerText = total;
+    document.getElementById("statTotal").innerText = total;
+
+});
