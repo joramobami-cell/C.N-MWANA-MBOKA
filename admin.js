@@ -304,33 +304,49 @@ onValue(listeRef, (snapshot) => {
         const membre = item.val();
         
         tousLesMembres.push(membre);
-        
-        liste.innerHTML += `
 
-        <div class="member-card carte-membre">
+        listeMembres.innerHTML += `
+<div class="carte-membre">
 
-            <h3>${membre.nom}</h3>
+<div class="photo-zone">
+<img src="${membre.photo || 'logo.png'}" class="photo-membre-admin">
+</div>
 
-            <p><b>Matricule :</b> ${membre.matricule}</p>
+<h2>${membre.nom}</h2>
 
-            <p><b>Téléphone :</b> ${membre.telephone}</p>
+<p><strong>Matricule :</strong> ${membre.matricule}</p>
 
-            <p><b>Statut :</b> ${membre.statut}</p>
+<p><strong>Téléphone :</strong> ${membre.telephone}</p>
 
-            <div style="margin-top:15px;display:flex;gap:10px;">
+<p><strong>Profession :</strong> ${membre.profession || "-"}</p>
 
-                <button onclick="modifierMembre('${membre.matricule}')">
+<p><strong>Adresse :</strong> ${membre.adresse || "-"}</p>
 
-                    ✏️ Modifier
+<p><strong>Date d'adhésion :</strong> ${membre.dateadhesion || "-"}</p>
 
-                </button>
+<p>
+<strong>Statut :</strong>
+<span class="${membre.statut === 'Actif' ? 'badge-actif' : 'badge-inactif'}">
+${membre.statut}
+</span>
+</p>
 
-                <button onclick="supprimerMembre('${membre.matricule}')"
-                style="background:#d32f2f;">
+<div class="actions-admin">
 
-                    🗑️ Supprimer
+<button onclick="modifierMembre('${membre.matricule}')">
+✏️ Modifier
+</button>
 
-                </button>
+<button class="btn-danger"
+onclick="supprimerMembre('${membre.matricule}')">
+🗑️ Supprimer
+</button>
+
+</div>
+
+</div>
+`;
+
 
             </div>
 
