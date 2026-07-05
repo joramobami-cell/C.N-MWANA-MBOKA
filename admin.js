@@ -9,10 +9,14 @@ import {
     ref,
     set,
     get,
-    onValue,
+    update,
     remove,
-    update
+    onValue
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+// ===========================
+// CONFIGURATION FIREBASE
+// ===========================
 
 const firebaseConfig = {
     apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
@@ -25,22 +29,25 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getDatabase(app);
+
+// ===========================
+// VARIABLES GLOBALES
+// ===========================
 
 let membreEnCours = null;
 let tousLesMembres = [];
 
+const listeMembres = document.getElementById("listeMembres");
+
 // ===========================
-// SECURITE ADMIN
+// SÉCURITÉ ADMINISTRATEUR
 // ===========================
 
 const matriculeAdmin = localStorage.getItem("matricule");
 
 if (!matriculeAdmin) {
-
     window.location.href = "connexion.html";
-
 }
 
 const adminRef = ref(db, "membres/" + matriculeAdmin);
@@ -48,87 +55,27 @@ const adminRef = ref(db, "membres/" + matriculeAdmin);
 get(adminRef).then((snapshot) => {
 
     if (!snapshot.exists()) {
-
         window.location.href = "connexion.html";
         return;
-
     }
 
     const admin = snapshot.val();
 
-    if ((membre.role || "").toLowerCase() !== "admin") {
+    if ((admin.role || "").toLowerCase() !== "admin") {
 
         alert("Accès réservé à l'administrateur.");
 
         window.location.href = "espace.html";
 
         return;
-
     }
 
-});
+}).catch(() => {
 
-// ===========================
-// VARIABLES
-// ===========================
+    window.location.href = "connexion.html";
 
-const liste = document.getElementById("listeMembres");
-
-tousLesMembres = [];
-
-// ===========================
-// AJOUTER UN MEMBRE
-// ===========================
-
-window.ajouterMembre = async function () {
-
-    const matricule = document.getElementById("matricule").value.trim();
-    const nom = document.getElementById("nom").value.trim();
-    const telephone = document.getElementById("telephone").value.trim();
-    const motdepasse = document.getElementById("motdepasse").value.trim();
-    const statut = document.getElementById("statut").value;
-
-    if (!matricule || !nom || !telephone || !motdepasse) {
-        alert("Veuillez remplir tous les champs.");
-        return;
-    }
-
-    const donnees = {
-        matricule,
-        nom,
-        telephone,
-        motdepasse,
-        statut,
-        profession: "",
-        adresse: "",
-        parrain: "",
-        dateadhesion: new Date().toLocaleDateString("fr-FR")
-    };
-
-    if (membreEnCours) {
-
-        await update(ref(db, "membres/" + membreEnCours), donnees);
-
-        alert("✅ Membre modifié avec succès.");
-
-        membreEnCours = null;
-
-    } else {
-
-        await set(ref(db, "membres/" + matricule), donnees);
-
-        alert("✅ Membre ajouté avec succès.");
-    }
-
-    document.getElementById("matricule").value = "";
-    document.getElementById("nom").value = "";
-    document.getElementById("telephone").value = "";
-    document.getElementById("motdepasse").value = "";
-    document.getElementById("statut").value = "Actif";
-};
-
-// ===========================
-// CHARGER LA LISTE DES MEMBRES
+});// ===========================
+// CHARGER LES MEMBRES
 // ===========================
 
 function chargerMembres() {
@@ -139,177 +86,43 @@ function chargerMembres() {
 
         listeMembres.innerHTML = "";
 
+        tousLesMembres = [];
+
+        let total = 0;
+        let actifs = 0;
+        let inactifs = 0;
+        let admins = 0;
+
         if (!snapshot.exists()) {
 
             listeMembres.innerHTML =
-            "<p>Aucun membre enregistré.</p>";
+            "<p style='text-align:center;'>Aucun membre enregistré.</p>";
 
             return;
-
         }
 
-        snapshot.forEach((data) => {
+        snapshot.forEach((item) => {
 
-            const membre = data.val();
+            total++;
 
-            const carte = document.createElement("div");
+            const membre = item.val();
 
-            carte.className = "member-card";
+            tousLesMembres.push(membre);
 
-            carte.innerHTML = `
+            if ((membre.statut || "") === "Actif") actifs++;
+            else inactifs++;
 
-            <div class="member-left">
+            if ((membre.role || "").toLowerCase() === "admin") admins++;
 
-                <img src="${membre.photo || 'logo.png'}"
-                class="member-photo">
+            listeMembres.innerHTML += `
 
-            </div>
-
-            <div class="member-right">
-
-                <h3>${membre.nom}</h3>
-
-                <p><strong>Matricule :</strong> ${membre.matricule}</p>
-
-                <p><strong>Téléphone :</strong> ${membre.telephone}</p>
-
-                <p><strong>Statut :</strong> ${membre.statut}</p>
-
-                <div style="margin-top:15px;display:flex;gap:10px;">
-
-                    <button onclick="modifierMembre('${membre.matricule}')">
-
-                        ✏️ Modifier
-
-                    </button>
-
-                    <button
-                    style="background:#e53935;color:white;"
-                    onclick="supprimerMembre('${membre.matricule}')">
-
-                        🗑️ Supprimer
-
-                    </button>
-
-                </div>
-
-            </div>
-
-            `;
-
-            listeMembres.appendChild(carte);
-
-        });
-
-    });
-
-}
-
-chargerMembres();
-
-// ===========================
-// MODIFIER UN MEMBRE
-// ===========================
-
-window.modifierMembre = async function(matricule){
-
-    const membreRef = ref(db, "membres/" + matricule);
-
-    const snapshot = await get(membreRef);
-
-    if(!snapshot.exists()){
-
-        alert("Membre introuvable.");
-
-        return;
-
-    }
-
-    const membre = snapshot.val();
-
-    document.getElementById("matricule").value = membre.matricule;
-    document.getElementById("nom").value = membre.nom;
-    document.getElementById("telephone").value = membre.telephone;
-    document.getElementById("motdepasse").value = membre.motdepasse;
-    document.getElementById("statut").value = membre.statut;
-
-    const bouton = document.querySelector("button");
-
-    bouton.innerHTML = "💾 Enregistrer les modifications";
-
-    bouton.onclick = async function(){
-
-        await update(ref(db,"membres/" + matricule),{
-
-            nom: document.getElementById("nom").value.trim(),
-            telephone: document.getElementById("telephone").value.trim(),
-            motdepasse: document.getElementById("motdepasse").value.trim(),
-            statut: document.getElementById("statut").value
-
-        });
-
-        alert("✅ Membre modifié avec succès.");
-
-        location.reload();
-
-    };
-
-};
-// ===========================
-// SUPPRIMER UN MEMBRE
-// ===========================
-
-window.supprimerMembre = async function(matricule){
-
-    if(!confirm("Voulez-vous vraiment supprimer ce membre ?")){
-
-        return;
-
-    }
-
-    try{
-
-        await remove(ref(db,"membres/" + matricule));
-
-        alert("✅ Membre supprimé avec succès.");
-
-    }catch(error){
-
-        console.error(error);
-
-        alert("Erreur lors de la suppression.");
-
-    }
-
-};
-
-// ===========================
-// AFFICHER LA LISTE DES MEMBRES
-// ===========================
-
-const listeRef = ref(db, "membres");
-
-onValue(listeRef, (snapshot) => {
-
-    const liste = document.getElementById("listeMembres");
-
-    liste.innerHTML = "";
-
-    let total = 0;
-
-    snapshot.forEach((item) => {
-
-        total++;
-
-        const membre = item.val();
-        
-        tousLesMembres.push(membre);
-
-        listeMembres.innerHTML += `
 <div class="carte-membre">
 
 <div class="photo-zone">
-<img src="${membre.photo || 'logo.png'}" class="photo-membre-admin">
+
+<img src="${membre.photo || 'logo.png'}"
+class="photo-membre-admin">
+
 </div>
 
 <h2>${membre.nom}</h2>
@@ -325,90 +138,184 @@ onValue(listeRef, (snapshot) => {
 <p><strong>Date d'adhésion :</strong> ${membre.dateadhesion || "-"}</p>
 
 <p>
+
 <strong>Statut :</strong>
-<span class="${membre.statut === 'Actif' ? 'badge-actif' : 'badge-inactif'}">
+
+<span class="${membre.statut === "Actif" ? "badge-actif" : "badge-inactif"}">
+
 ${membre.statut}
+
 </span>
+
 </p>
 
 <div class="actions-admin">
 
 <button onclick="modifierMembre('${membre.matricule}')">
+
 ✏️ Modifier
+
 </button>
 
 <button class="btn-danger"
+
 onclick="supprimerMembre('${membre.matricule}')">
+
 🗑️ Supprimer
+
 </button>
 
 </div>
 
 </div>
+
 `;
 
+        });
 
-            </div>
+        document.getElementById("nbMembres").innerText = total;
 
-        </div>
+        document.getElementById("statTotal").innerText = total;
 
-        `;
+        document.getElementById("statActifs").innerText = actifs;
+
+        document.getElementById("statInactifs").innerText = inactifs;
+
+        document.getElementById("statAdmins").innerText = admins;
 
     });
 
-    document.getElementById("nbMembres").innerText = total;
-    document.getElementById("statTotal").innerText = total;
+}
 
-});
+chargerMembres();
+
+// ===========================
+// AJOUTER OU MODIFIER UN MEMBRE
+// ===========================
+
+window.ajouterMembre = async function () {
+
+    const matricule = document.getElementById("matricule").value.trim();
+    const nom = document.getElementById("nom").value.trim();
+    const telephone = document.getElementById("telephone").value.trim();
+    const motdepasse = document.getElementById("motdepasse").value.trim();
+    const profession = document.getElementById("profession").value.trim();
+    const adresse = document.getElementById("adresse").value.trim();
+    const parrain = document.getElementById("parrain").value.trim();
+    const statut = document.getElementById("statut").value;
+
+    if (!matricule || !nom || !telephone || !motdepasse) {
+
+        alert("Veuillez remplir tous les champs obligatoires.");
+
+        return;
+    }
+
+    const donnees = {
+
+        matricule,
+        nom,
+        telephone,
+        motdepasse,
+        profession,
+        adresse,
+        parrain,
+        statut,
+
+        role: "membre",
+
+        photo: "",
+
+        dateadhesion: new Date().toLocaleDateString("fr-FR")
+
+    };
+
+    if (membreEnCours !== null) {
+
+        donnees.dateadhesion =
+        document.getElementById("dateadhesion")?.value ||
+        donnees.dateadhesion;
+
+        await update(
+            ref(db, "membres/" + membreEnCours),
+            donnees
+        );
+
+        alert("✅ Membre modifié avec succès.");
+
+        membreEnCours = null;
+
+        document.querySelector("#btnAjouter").innerHTML =
+        '<i class="fa-solid fa-user-plus"></i> Ajouter le membre';
+
+    } else {
+
+        const existe = await get(ref(db, "membres/" + matricule));
+
+        if (existe.exists()) {
+
+            alert("Ce matricule existe déjà.");
+
+            return;
+
+        }
+
+        await set(ref(db, "membres/" + matricule), donnees);
+
+        alert("✅ Nouveau membre ajouté.");
+
+    }
+
+    document.getElementById("matricule").value = "";
+    document.getElementById("nom").value = "";
+    document.getElementById("telephone").value = "";
+    document.getElementById("motdepasse").value = "";
+    document.getElementById("profession").value = "";
+    document.getElementById("adresse").value = "";
+    document.getElementById("parrain").value = "";
+    document.getElementById("statut").value = "Actif";
+
+};
+
+// ===========================
+// CHARGER UN MEMBRE
+// ===========================
 
 window.modifierMembre = async function (matricule) {
 
-    const membreRef = ref(db, "membres/" + matricule);
-
-    const snapshot = await get(membreRef);
+    const snapshot = await get(ref(db, "membres/" + matricule));
 
     if (!snapshot.exists()) {
+
         alert("Membre introuvable.");
+
         return;
+
     }
 
     const membre = snapshot.val();
 
     membreEnCours = matricule;
 
-    document.getElementById("matricule").value = membre.matricule || "";
-    document.getElementById("nom").value = membre.nom || "";
-    document.getElementById("telephone").value = membre.telephone || "";
-    document.getElementById("motdepasse").value = membre.motdepasse || "";
-    document.getElementById("statut").value = membre.statut || "Actif";
+    document.getElementById("matricule").value = membre.matricule;
+    document.getElementById("nom").value = membre.nom;
+    document.getElementById("telephone").value = membre.telephone;
+    document.getElementById("motdepasse").value = membre.motdepasse;
+    document.getElementById("profession").value = membre.profession || "";
+    document.getElementById("adresse").value = membre.adresse || "";
+    document.getElementById("parrain").value = membre.parrain || "";
+    document.getElementById("statut").value = membre.statut;
 
-    document.getElementById("nom").scrollIntoView({
+    document.querySelector("#btnAjouter").innerHTML =
+    '<i class="fa-solid fa-floppy-disk"></i> Enregistrer';
+
+    window.scrollTo({
+
+        top: 0,
+
         behavior: "smooth"
+
     });
+
 };
 
-// ===========================
-// RECHERCHE MEMBRE
-// ===========================
-
-document.getElementById("recherche").addEventListener("input", function () {
-
-    const texte = this.value.toLowerCase();
-
-    const cartes = document.querySelectorAll(".carte-membre");
-
-    cartes.forEach(carte => {
-
-        if (carte.innerText.toLowerCase().includes(texte)) {
-
-            carte.style.display = "block";
-
-        } else {
-
-            carte.style.display = "none";
-
-        }
-
-    });
-
-});
