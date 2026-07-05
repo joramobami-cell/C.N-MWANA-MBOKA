@@ -307,7 +307,7 @@ onValue(listeRef, (snapshot) => {
         
         liste.innerHTML += `
 
-        <div class="member-card">
+        <div class="member-card carte-membre">
 
             <h3>${membre.nom}</h3>
 
@@ -379,7 +379,7 @@ document.getElementById("recherche").addEventListener("input", function () {
 
     const texte = this.value.toLowerCase();
 
-    const cartes = document.querySelectorAll(".member-card");
+    const cartes = document.querySelectorAll(".carte-membre");
 
     cartes.forEach(carte => {
 
