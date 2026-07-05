@@ -319,3 +319,99 @@ window.modifierMembre = async function (matricule) {
 
 };
 
+// ===========================
+// SUPPRIMER UN MEMBRE
+// ===========================
+
+window.supprimerMembre = async function (matricule) {
+
+    const confirmation = confirm(
+        "Voulez-vous vraiment supprimer ce membre ?"
+    );
+
+    if (!confirmation) return;
+
+    try {
+
+        await remove(ref(db, "membres/" + matricule));
+
+        alert("✅ Membre supprimé.");
+
+    } catch (erreur) {
+
+        console.error(erreur);
+
+        alert("Erreur lors de la suppression.");
+
+    }
+
+};
+
+// ===========================
+// RECHERCHE EN TEMPS RÉEL
+// ===========================
+
+const champRecherche = document.getElementById("recherche");
+
+if (champRecherche) {
+
+    champRecherche.addEventListener("input", function () {
+
+        const texte = this.value.toLowerCase();
+
+        document.querySelectorAll(".carte-membre").forEach((carte) => {
+
+            const contenu = carte.innerText.toLowerCase();
+
+            carte.style.display =
+                contenu.includes(texte) ? "block" : "none";
+
+        });
+
+    });
+
+}
+
+// ===========================
+// BOUTON ANNULER
+// ===========================
+
+const btnAnnuler = document.getElementById("btnAnnuler");
+
+if (btnAnnuler) {
+
+    btnAnnuler.onclick = function () {
+
+        membreEnCours = null;
+
+        document.getElementById("matricule").value = "";
+        document.getElementById("nom").value = "";
+        document.getElementById("telephone").value = "";
+        document.getElementById("motdepasse").value = "";
+        document.getElementById("profession").value = "";
+        document.getElementById("adresse").value = "";
+        document.getElementById("parrain").value = "";
+        document.getElementById("statut").value = "Actif";
+
+        document.getElementById("btnAjouter").innerHTML =
+            '<i class="fa-solid fa-user-plus"></i> Ajouter le membre';
+
+        btnAnnuler.style.display = "none";
+
+    };
+
+}
+
+// ===========================
+// AFFICHER LE BOUTON ANNULER
+// ===========================
+
+const ancienModifier = window.modifierMembre;
+
+window.modifierMembre = async function (matricule) {
+
+    await ancienModifier(matricule);
+
+    document.getElementById("btnAnnuler").style.display = "inline-block";
+
+};
