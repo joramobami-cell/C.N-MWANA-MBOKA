@@ -29,6 +29,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let membreEnCours = null;
+let tousLesMembres = [];
 
 // ===========================
 // SECURITE ADMIN
@@ -71,8 +72,9 @@ get(adminRef).then((snapshot) => {
 // VARIABLES
 // ===========================
 
-const listeMembres =
-document.getElementById("listeMembres");
+const liste = document.getElementById("listeMembres");
+
+tousLesMembres = [];
 
 // ===========================
 // AJOUTER UN MEMBRE
@@ -300,7 +302,9 @@ onValue(listeRef, (snapshot) => {
         total++;
 
         const membre = item.val();
-
+        
+        tousLesMembres.push(membre);
+        
         liste.innerHTML += `
 
         <div class="member-card">
@@ -366,3 +370,29 @@ window.modifierMembre = async function (matricule) {
         behavior: "smooth"
     });
 };
+
+// ===========================
+// RECHERCHE MEMBRE
+// ===========================
+
+document.getElementById("recherche").addEventListener("input", function () {
+
+    const texte = this.value.toLowerCase();
+
+    const cartes = document.querySelectorAll(".member-card");
+
+    cartes.forEach(carte => {
+
+        if (carte.innerText.toLowerCase().includes(texte)) {
+
+            carte.style.display = "block";
+
+        } else {
+
+            carte.style.display = "none";
+
+        }
+
+    });
+
+});
