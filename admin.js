@@ -370,7 +370,7 @@ if (membreEnModification) {
 
 const membre = {
 
-    matricule,
+    matricule: membreEnModification || matricule,
     nom,
     telephone,
     motdepasse,
@@ -391,12 +391,6 @@ const membre = {
             membre
         );
 
-        // Si le matricule a été modifié par erreur (normalement il est bloqué)
-if (matricule !== membreEnModification) {
-
-    await remove(ref(db, "membres/" + matricule));
-
-}
         
         alert("✅ Membre modifié avec succès.");
 
