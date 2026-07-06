@@ -1207,3 +1207,15 @@ grid-template-columns:1fr;
 .actions-admin .btn-danger{
     background:#d62828;
 }
+
+.btn-admin{
+
+background:#f4b400;
+
+color:#fff;
+
+margin-top:10px;
+
+width:100%;
+
+   }
