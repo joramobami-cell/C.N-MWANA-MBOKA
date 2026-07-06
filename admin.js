@@ -247,31 +247,33 @@ ${membre.role || "membre"}
 
         </p>
 
-        <div class="actions-admin">
+<div class="actions-admin">
 
-            <button
-                class="btn-modifier"
-                onclick="modifierMembre('${membre.matricule}')">
+<button
+class="btn-modifier"
+onclick="modifierMembre('${membre.matricule}')">
 
-                ✏️ Modifier
+✏️ Modifier
 
-            </button>
+</button>
 
-            <button
-                class="btn-danger"
-                onclick="supprimerMembre('${membre.matricule}')">
+<button
+class="btn-danger"
+onclick="supprimerMembre('${membre.matricule}')">
 
-                🗑️ Supprimer
+🗑️ Supprimer
 
-            </button>
+</button>
 
 <button
 class="btn-admin"
-onclick="changerRole('${membre.matricule}','${membre.role || "membre"}')">
+onclick="changerRole('${membre.matricule}')">
 
 👑 Changer le rôle
 
 </button>
+
+</div>
 
         </div>
 
