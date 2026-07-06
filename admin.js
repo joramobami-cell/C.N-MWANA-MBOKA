@@ -228,6 +228,21 @@ function afficherCarte(membre) {
 
                 ${membre.statut}
 
+<p>
+
+<strong>Rôle :</strong>
+
+<span class="${
+(membre.role || "membre") === "admin"
+? "badge-actif"
+: "badge-inactif"
+}">
+
+${membre.role || "membre"}
+
+</span>
+
+</p>
             </span>
 
         </p>
@@ -249,6 +264,14 @@ function afficherCarte(membre) {
                 🗑️ Supprimer
 
             </button>
+
+<button
+class="btn-admin"
+onclick="changerRole('${membre.matricule}','${membre.role || "membre"}')">
+
+👑 Changer le rôle
+
+</button>
 
         </div>
 
