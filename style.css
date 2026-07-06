@@ -1219,3 +1219,15 @@ margin-top:10px;
 width:100%;
 
    }
+
+.btn-admin{
+    background:#f4b400;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:12px;
+    cursor:pointer;
+    margin-top:10px;
+    width:100%;
+    font-weight:bold;
+   }
