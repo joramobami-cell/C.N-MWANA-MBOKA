@@ -269,7 +269,9 @@ onclick="supprimerMembre('${membre.matricule}')">
 class="btn-admin"
 onclick="changerRole('${membre.matricule}')">
 
-👑 Changer le rôle
+${(membre.role || "membre") === "admin"
+? "👤 Retirer le rôle administrateur"
+: "👑 Nommer administrateur"}
 
 </button>
 
