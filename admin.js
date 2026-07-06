@@ -454,7 +454,9 @@ window.modifierMembre = async function (matricule) {
     membreEnModification = matricule;
 
     document.getElementById("matricule").value = membre.matricule;
-    document.getElementById("nom").value = membre.nom;
+document.getElementById("matricule").disabled = true;
+
+document.getElementById("nom").value = membre.nom;
     document.getElementById("telephone").value = membre.telephone;
     document.getElementById("motdepasse").value = membre.motdepasse;
     document.getElementById("profession").value = membre.profession || "";
