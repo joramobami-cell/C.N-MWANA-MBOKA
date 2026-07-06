@@ -1,82 +1,109 @@
-// ===========================
-// FIREBASE
-// ===========================
+// ========================================
+// ADMIN.JS - COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+// Partie 1 : Firebase + Sécurité administrateur
+// ========================================
+
+// ==========================
+// IMPORT FIREBASE
+// ==========================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 
 import {
     getDatabase,
     ref,
-    set,
     get,
+    set,
     update,
     remove,
     onValue
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
-// ===========================
+// ==========================
 // CONFIGURATION FIREBASE
-// ===========================
+// ==========================
 
 const firebaseConfig = {
+
     apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
+
     authDomain: "c-n-mwana-mboka.firebaseapp.com",
+
     databaseURL: "https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app/",
+
     projectId: "c-n-mwana-mboka",
+
     storageBucket: "c-n-mwana-mboka.firebasestorage.app",
+
     messagingSenderId: "757726608581",
+
     appId: "1:757726608581:web:27fa7003ffa955188304ac"
+
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getDatabase(app);
 
-// ===========================
+// ==========================
 // VARIABLES GLOBALES
-// ===========================
+// ==========================
 
-let membreEnCours = null;
+let membreEnModification = null;
+
 let tousLesMembres = [];
 
-const listeMembres = document.getElementById("listeMembres");
-
-// ===========================
+// ==========================
 // SÉCURITÉ ADMINISTRATEUR
-// ===========================
+// ==========================
 
 const matriculeAdmin = localStorage.getItem("matricule");
 
 if (!matriculeAdmin) {
+
     window.location.href = "connexion.html";
+
 }
 
 const adminRef = ref(db, "membres/" + matriculeAdmin);
 
-get(adminRef).then((snapshot) => {
+const adminSnap = await get(adminRef);
 
-    if (!snapshot.exists()) {
-        window.location.href = "connexion.html";
-        return;
-    }
-
-    const admin = snapshot.val();
-
-    if ((admin.role || "").toLowerCase() !== "admin") {
-
-        alert("Accès réservé à l'administrateur.");
-
-        window.location.href = "espace.html";
-
-        return;
-    }
-
-}).catch(() => {
+if (!adminSnap.exists()) {
 
     window.location.href = "connexion.html";
 
-});// ===========================
+}
+
+const admin = adminSnap.val();
+
+if ((admin.role || "").toLowerCase() !== "admin") {
+
+    alert("Accès réservé à l'administrateur.");
+
+    window.location.href = "espace.html";
+
+}
+
+// ==========================
+// RACCOURCIS HTML
+// ==========================
+
+const listeMembres = document.getElementById("listeMembres");
+
+const champRecherche = document.getElementById("recherche");
+
+const btnAjouter = document.getElementById("btnAjouter");
+
+const btnAnnuler = document.getElementById("btnAnnuler");
+
+// ========================================
+// PARTIE 2 : STATISTIQUES + CHARGEMENT
+// ========================================
+
+// ==========================
 // CHARGER LES MEMBRES
-// ===========================
+// ==========================
 
 function chargerMembres() {
 
@@ -84,114 +111,219 @@ function chargerMembres() {
 
     onValue(membresRef, (snapshot) => {
 
-        listeMembres.innerHTML = "";
-
         tousLesMembres = [];
+
+        listeMembres.innerHTML = "";
 
         let total = 0;
         let actifs = 0;
         let inactifs = 0;
-        let admins = 0;
 
         if (!snapshot.exists()) {
 
-            listeMembres.innerHTML =
-            "<p style='text-align:center;'>Aucun membre enregistré.</p>";
+            listeMembres.innerHTML = `
+            <p style="text-align:center">
+                Aucun membre enregistré.
+            </p>
+            `;
 
             return;
+
         }
 
         snapshot.forEach((item) => {
-
-            total++;
 
             const membre = item.val();
 
             tousLesMembres.push(membre);
 
-            if ((membre.statut || "") === "Actif") actifs++;
-            else inactifs++;
+            total++;
 
-            if ((membre.role || "").toLowerCase() === "admin") admins++;
+            if ((membre.statut || "").toLowerCase() === "actif") {
 
-            listeMembres.innerHTML += `
+                actifs++;
 
-<div class="carte-membre">
+            } else {
 
-<div class="photo-zone">
+                inactifs++;
 
-<img src="${membre.photo || 'logo.png'}"
-class="photo-membre-admin">
+            }
 
-</div>
-
-<h2>${membre.nom}</h2>
-
-<p><strong>Matricule :</strong> ${membre.matricule}</p>
-
-<p><strong>Téléphone :</strong> ${membre.telephone}</p>
-
-<p><strong>Profession :</strong> ${membre.profession || "-"}</p>
-
-<p><strong>Adresse :</strong> ${membre.adresse || "-"}</p>
-
-<p><strong>Date d'adhésion :</strong> ${membre.dateadhesion || "-"}</p>
-
-<p>
-
-<strong>Statut :</strong>
-
-<span class="${membre.statut === "Actif" ? "badge-actif" : "badge-inactif"}">
-
-${membre.statut}
-
-</span>
-
-</p>
-
-<div class="actions-admin">
-
-<button onclick="modifierMembre('${membre.matricule}')">
-
-✏️ Modifier
-
-</button>
-
-<button class="btn-danger"
-
-onclick="supprimerMembre('${membre.matricule}')">
-
-🗑️ Supprimer
-
-</button>
-
-</div>
-
-</div>
-
-`;
+            afficherCarte(membre);
 
         });
 
-        document.getElementById("nbMembres").innerText = total;
+        // ==========================
+        // STATISTIQUES
+        // ==========================
 
-        document.getElementById("statTotal").innerText = total;
+        if (document.getElementById("nbMembres")) {
 
-        document.getElementById("statActifs").innerText = actifs;
+            document.getElementById("nbMembres").innerText = total;
 
-        document.getElementById("statInactifs").innerText = inactifs;
+        }
 
-        document.getElementById("statAdmins").innerText = admins;
+        if (document.getElementById("statTotal")) {
+
+            document.getElementById("statTotal").innerText = total;
+
+        }
+
+        if (document.getElementById("statActifs")) {
+
+            document.getElementById("statActifs").innerText = actifs;
+
+        }
+
+        if (document.getElementById("statInactifs")) {
+
+            document.getElementById("statInactifs").innerText = inactifs;
+
+        }
+
+    });
+
+            }
+
+// ========================================
+// PARTIE 3 : AFFICHAGE DES CARTES MEMBRES
+// ========================================
+
+function afficherCarte(membre) {
+
+    const carte = document.createElement("div");
+
+    carte.className = "carte-membre";
+
+    carte.innerHTML = `
+
+        <div class="photo-zone">
+
+            <img src="${membre.photo || "logo.png"}"
+            class="photo-membre-admin">
+
+        </div>
+
+        <h2>${membre.nom}</h2>
+
+        <p><strong>Matricule :</strong> ${membre.matricule}</p>
+
+        <p><strong>Téléphone :</strong> ${membre.telephone}</p>
+
+        <p><strong>Profession :</strong> ${membre.profession || "-"}</p>
+
+        <p><strong>Adresse :</strong> ${membre.adresse || "-"}</p>
+
+        <p><strong>Date d'adhésion :</strong> ${membre.dateadhesion || "-"}</p>
+
+        <p>
+
+            <strong>Statut :</strong>
+
+            <span class="${
+                (membre.statut || "").toLowerCase() === "actif"
+                ? "badge-actif"
+                : "badge-inactif"
+            }">
+
+                ${membre.statut}
+
+            </span>
+
+        </p>
+
+        <div class="actions-admin">
+
+            <button
+                class="btn-modifier"
+                onclick="modifierMembre('${membre.matricule}')">
+
+                ✏️ Modifier
+
+            </button>
+
+            <button
+                class="btn-danger"
+                onclick="supprimerMembre('${membre.matricule}')">
+
+                🗑️ Supprimer
+
+            </button>
+
+        </div>
+
+    `;
+
+    listeMembres.appendChild(carte);
+
+}
+
+// ========================================
+// PARTIE 4 : RECHERCHE DES MEMBRES
+// ========================================
+
+function afficherListe(liste) {
+
+    listeMembres.innerHTML = "";
+
+    if (liste.length === 0) {
+
+        listeMembres.innerHTML = `
+            <p style="text-align:center;padding:20px;">
+                Aucun membre trouvé.
+            </p>
+        `;
+
+        return;
+    }
+
+    liste.forEach((membre) => {
+
+        afficherCarte(membre);
 
     });
 
 }
 
-chargerMembres();
+// ==========================
+// RECHERCHE EN TEMPS RÉEL
+// ==========================
 
-// ===========================
-// AJOUTER OU MODIFIER UN MEMBRE
-// ===========================
+if (champRecherche) {
+
+    champRecherche.addEventListener("input", function () {
+
+        const texte = this.value.trim().toLowerCase();
+
+        if (texte === "") {
+
+            afficherListe(tousLesMembres);
+
+            return;
+
+        }
+
+        const resultat = tousLesMembres.filter((membre) => {
+
+            return (
+                (membre.nom || "").toLowerCase().includes(texte) ||
+                (membre.matricule || "").toLowerCase().includes(texte) ||
+                (membre.telephone || "").toLowerCase().includes(texte) ||
+                (membre.profession || "").toLowerCase().includes(texte) ||
+                (membre.adresse || "").toLowerCase().includes(texte)
+            );
+
+        });
+
+        afficherListe(resultat);
+
+    });
+
+                      }
+
+// ========================================
+// PARTIE 5 : AJOUT ET MODIFICATION
+// ========================================
 
 window.ajouterMembre = async function () {
 
@@ -209,9 +341,10 @@ window.ajouterMembre = async function () {
         alert("Veuillez remplir tous les champs obligatoires.");
 
         return;
+
     }
 
-    const donnees = {
+    const membre = {
 
         matricule,
         nom,
@@ -221,36 +354,31 @@ window.ajouterMembre = async function () {
         adresse,
         parrain,
         statut,
-
         role: "membre",
-
         photo: "",
-
         dateadhesion: new Date().toLocaleDateString("fr-FR")
 
     };
 
-    if (membreEnCours !== null) {
-
-        donnees.dateadhesion =
-        document.getElementById("dateadhesion")?.value ||
-        donnees.dateadhesion;
+    if (membreEnModification) {
 
         await update(
-            ref(db, "membres/" + membreEnCours),
-            donnees
+            ref(db, "membres/" + membreEnModification),
+            membre
         );
 
         alert("✅ Membre modifié avec succès.");
 
-        membreEnCours = null;
+        membreEnModification = null;
 
-        document.querySelector("#btnAjouter").innerHTML =
+        btnAjouter.innerHTML =
         '<i class="fa-solid fa-user-plus"></i> Ajouter le membre';
 
     } else {
 
-        const existe = await get(ref(db, "membres/" + matricule));
+        const existe = await get(
+            ref(db, "membres/" + matricule)
+        );
 
         if (existe.exists()) {
 
@@ -260,7 +388,10 @@ window.ajouterMembre = async function () {
 
         }
 
-        await set(ref(db, "membres/" + matricule), donnees);
+        await set(
+            ref(db, "membres/" + matricule),
+            membre
+        );
 
         alert("✅ Nouveau membre ajouté.");
 
@@ -277,9 +408,9 @@ window.ajouterMembre = async function () {
 
 };
 
-// ===========================
+// ==========================
 // CHARGER UN MEMBRE
-// ===========================
+// ==========================
 
 window.modifierMembre = async function (matricule) {
 
@@ -295,7 +426,7 @@ window.modifierMembre = async function (matricule) {
 
     const membre = snapshot.val();
 
-    membreEnCours = matricule;
+    membreEnModification = matricule;
 
     document.getElementById("matricule").value = membre.matricule;
     document.getElementById("nom").value = membre.nom;
@@ -306,8 +437,8 @@ window.modifierMembre = async function (matricule) {
     document.getElementById("parrain").value = membre.parrain || "";
     document.getElementById("statut").value = membre.statut;
 
-    document.querySelector("#btnAjouter").innerHTML =
-    '<i class="fa-solid fa-floppy-disk"></i> Enregistrer';
+    btnAjouter.innerHTML =
+    '<i class="fa-solid fa-floppy-disk"></i> Enregistrer les modifications';
 
     window.scrollTo({
 
@@ -319,9 +450,13 @@ window.modifierMembre = async function (matricule) {
 
 };
 
-// ===========================
+// ========================================
+// PARTIE 6 : SUPPRESSION + INITIALISATION
+// ========================================
+
+// ==========================
 // SUPPRIMER UN MEMBRE
-// ===========================
+// ==========================
 
 window.supprimerMembre = async function (matricule) {
 
@@ -335,54 +470,27 @@ window.supprimerMembre = async function (matricule) {
 
         await remove(ref(db, "membres/" + matricule));
 
-        alert("✅ Membre supprimé.");
+        alert("✅ Membre supprimé avec succès.");
 
     } catch (erreur) {
 
         console.error(erreur);
 
-        alert("Erreur lors de la suppression.");
+        alert("Une erreur est survenue lors de la suppression.");
 
     }
 
 };
 
-// ===========================
-// RECHERCHE EN TEMPS RÉEL
-// ===========================
-
-const champRecherche = document.getElementById("recherche");
-
-if (champRecherche) {
-
-    champRecherche.addEventListener("input", function () {
-
-        const texte = this.value.toLowerCase();
-
-        document.querySelectorAll(".carte-membre").forEach((carte) => {
-
-            const contenu = carte.innerText.toLowerCase();
-
-            carte.style.display =
-                contenu.includes(texte) ? "block" : "none";
-
-        });
-
-    });
-
-}
-
-// ===========================
-// BOUTON ANNULER
-// ===========================
-
-const btnAnnuler = document.getElementById("btnAnnuler");
+// ==========================
+// ANNULER UNE MODIFICATION
+// ==========================
 
 if (btnAnnuler) {
 
-    btnAnnuler.onclick = function () {
+    btnAnnuler.addEventListener("click", () => {
 
-        membreEnCours = null;
+        membreEnModification = null;
 
         document.getElementById("matricule").value = "";
         document.getElementById("nom").value = "";
@@ -393,25 +501,17 @@ if (btnAnnuler) {
         document.getElementById("parrain").value = "";
         document.getElementById("statut").value = "Actif";
 
-        document.getElementById("btnAjouter").innerHTML =
-            '<i class="fa-solid fa-user-plus"></i> Ajouter le membre';
+        btnAjouter.innerHTML =
+        '<i class="fa-solid fa-user-plus"></i> Ajouter le membre';
 
-        btnAnnuler.style.display = "none";
-
-    };
+    });
 
 }
 
-// ===========================
-// AFFICHER LE BOUTON ANNULER
-// ===========================
+// ==========================
+// DÉMARRAGE
+// ==========================
 
-const ancienModifier = window.modifierMembre;
+chargerMembres();
 
-window.modifierMembre = async function (matricule) {
-
-    await ancienModifier(matricule);
-
-    document.getElementById("btnAnnuler").style.display = "inline-block";
-
-};
+console.log("✅ Admin.js chargé avec succès.");
