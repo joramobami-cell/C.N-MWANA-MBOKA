@@ -423,6 +423,7 @@ const membre = {
 
     document.getElementById("matricule").value = "";
     document.getElementById("nom").value = "";
+    document.getElementById("matricule").disabled = false;
     document.getElementById("telephone").value = "";
     document.getElementById("motdepasse").value = "";
     document.getElementById("profession").value = "";
@@ -517,6 +518,8 @@ if (btnAnnuler) {
         membreEnModification = null;
 
         document.getElementById("matricule").value = "";
+        document.getElementById("matricule").disabled = false;
+
         document.getElementById("nom").value = "";
         document.getElementById("telephone").value = "";
         document.getElementById("motdepasse").value = "";
