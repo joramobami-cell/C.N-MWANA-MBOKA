@@ -350,21 +350,39 @@ window.ajouterMembre = async function () {
 
     }
 
-    const membre = {
+    let role = "membre";
+let photo = "";
+let dateadhesion = new Date().toLocaleDateString("fr-FR");
 
-        matricule,
-        nom,
-        telephone,
-        motdepasse,
-        profession,
-        adresse,
-        parrain,
-        statut,
-        role: "membre",
-        photo: "",
-        dateadhesion: new Date().toLocaleDateString("fr-FR")
+if (membreEnModification) {
 
-    };
+    const ancien = await get(ref(db, "membres/" + membreEnModification));
+
+    if (ancien.exists()) {
+
+        role = ancien.val().role || "membre";
+        photo = ancien.val().photo || "";
+        dateadhesion = ancien.val().dateadhesion || dateadhesion;
+
+    }
+
+}
+
+const membre = {
+
+    matricule,
+    nom,
+    telephone,
+    motdepasse,
+    profession,
+    adresse,
+    parrain,
+    statut,
+    role,
+    photo,
+    dateadhesion
+
+};
 
     if (membreEnModification) {
 
