@@ -185,6 +185,7 @@ function chargerMembres() {
 
             }
 
+
 // ========================================
 // PARTIE 3 : AFFICHAGE DES CARTES MEMBRES
 // ========================================
@@ -198,10 +199,8 @@ function afficherCarte(membre) {
     carte.innerHTML = `
 
         <div class="photo-zone">
-
             <img src="${membre.photo || "logo.png"}"
-            class="photo-membre-admin">
-
+                 class="photo-membre-admin">
         </div>
 
         <h2>${membre.nom}</h2>
@@ -217,65 +216,45 @@ function afficherCarte(membre) {
         <p><strong>Date d'adhésion :</strong> ${membre.dateadhesion || "-"}</p>
 
         <p>
-
             <strong>Statut :</strong>
-
-            <span class="${
-                (membre.statut || "").toLowerCase() === "actif"
+            <span class="${(membre.statut || "").toLowerCase() === "actif"
                 ? "badge-actif"
-                : "badge-inactif"
-            }">
-
-                ${membre.statut}
-
-<p>
-
-<strong>Rôle :</strong>
-
-<span class="${
-(membre.role || "membre") === "admin"
-? "badge-actif"
-: "badge-inactif"
-}">
-
-${membre.role || "membre"}
-
-</span>
-
-</p>
+                : "badge-inactif"}">
+                ${membre.statut || "Inactif"}
             </span>
-
         </p>
 
-<div class="actions-admin">
+        <p>
+            <strong>Rôle :</strong>
+            <span class="${(membre.role || "membre") === "admin"
+                ? "badge-actif"
+                : "badge-inactif"}">
+                ${(membre.role || "membre") === "admin"
+                    ? "Administrateur"
+                    : "Membre"}
+            </span>
+        </p>
 
-<button
-class="btn-modifier"
-onclick="modifierMembre('${membre.matricule}')">
+        <div class="actions-admin">
 
-✏️ Modifier
+            <button class="btn-modifier"
+                onclick="modifierMembre('${membre.matricule}')">
+                ✏️ Modifier
+            </button>
 
-</button>
+            <button class="btn-danger"
+                onclick="supprimerMembre('${membre.matricule}')">
+                🗑️ Supprimer
+            </button>
 
-<button
-class="btn-danger"
-onclick="supprimerMembre('${membre.matricule}')">
+            <button class="btn-admin"
+                onclick="changerRole('${membre.matricule}')">
 
-🗑️ Supprimer
+                ${(membre.role || "membre") === "admin"
+                    ? "👤 Retirer administrateur"
+                    : "👑 Nommer administrateur"}
 
-</button>
-
-<button
-class="btn-admin"
-onclick="changerRole('${membre.matricule}')">
-
-${(membre.role || "membre") === "admin"
-? "👤 Retirer le rôle administrateur"
-: "👑 Nommer administrateur"}
-
-</button>
-
-</div>
+            </button>
 
         </div>
 
@@ -283,7 +262,7 @@ ${(membre.role || "membre") === "admin"
 
     listeMembres.appendChild(carte);
 
-}
+                            }
 
 // ========================================
 // PARTIE 4 : RECHERCHE DES MEMBRES
