@@ -391,12 +391,20 @@ const membre = {
             membre
         );
 
+        // Si le matricule a été modifié par erreur (normalement il est bloqué)
+if (matricule !== membreEnModification) {
+
+    await remove(ref(db, "membres/" + matricule));
+
+}
+        
         alert("✅ Membre modifié avec succès.");
 
         membreEnModification = null;
 
         btnAjouter.innerHTML =
         '<i class="fa-solid fa-user-plus"></i> Ajouter le membre';
+        document.getElementById("matricule").disabled = false;
 
     } else {
 
