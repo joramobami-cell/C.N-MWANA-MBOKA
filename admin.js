@@ -537,6 +537,56 @@ if (btnAnnuler) {
 // DÉMARRAGE
 // ==========================
 
+// ========================================
+// CHANGER LE RÔLE D'UN MEMBRE
+// ========================================
+
+window.changerRole = async function (matricule) {
+
+    // Empêche l'administrateur connecté de perdre son propre rôle
+    if (matricule === matriculeAdmin) {
+
+        alert("Vous ne pouvez pas modifier votre propre rôle.");
+
+        return;
+
+    }
+
+    const membreRef = ref(db, "membres/" + matricule);
+
+    const snapshot = await get(membreRef);
+
+    if (!snapshot.exists()) {
+
+        alert("Membre introuvable.");
+
+        return;
+
+    }
+
+    const membre = snapshot.val();
+
+    const nouveauRole =
+        (membre.role || "membre") === "admin"
+        ? "membre"
+        : "admin";
+
+    const confirmation = confirm(
+        `Voulez-vous attribuer le rôle "${nouveauRole}" à ${membre.nom} ?`
+    );
+
+    if (!confirmation) return;
+
+    await update(membreRef, {
+
+        role: nouveauRole
+
+    });
+
+    alert("✅ Rôle mis à jour avec succès.");
+
+};
+
 chargerMembres();
 
 console.log("✅ Admin.js chargé avec succès.");
