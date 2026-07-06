@@ -386,7 +386,7 @@ const membre = {
 
     if (membreEnModification) {
 
-        await update(
+        await set(
             ref(db, "membres/" + membreEnModification),
             membre
         );
