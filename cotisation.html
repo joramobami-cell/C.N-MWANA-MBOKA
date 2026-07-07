@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cotisations | Communauté Numérique MWANA MBOKA</title>
+
+<link rel="stylesheet" href="cotisations.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Gestion des cotisations</h1>
+
+<p>Communauté Numérique MWANA MBOKA</p>
+
+</header>
+
+<section class="tableau-bord">
+
+<div class="carte">
+<h2 id="nbCotisants">0</h2>
+<p>Membres ayant payé</p>
+</div>
+
+<div class="carte">
+<h2 id="totalCotisations">0 FCFA</h2>
+<p>Total encaissé</p>
+</div>
+
+<div class="carte">
+<h2 id="totalParrains">0 FCFA</h2>
+<p>Part des parrains</p>
+</div>
+
+<div class="carte">
+<h2 id="totalCommunaute">0 FCFA</h2>
+<p>Caisse communautaire</p>
+</div>
+
+</section>
+
+<section class="formulaire">
+
+<h2>Nouvelle cotisation</h2>
+
+<div class="groupe">
+
+<label>Membre</label>
+
+<select id="membre">
+
+<option value="">Sélectionner un membre</option>
+
+</select>
+
+</div>
+
+<div class="groupe">
+
+<label>Montant</label>
+
+<input
+type="number"
+id="montant"
+value="2000">
+
+</div>
+
+<div class="groupe">
+
+<label>Date</label>
+
+<input
+type="date"
+id="date">
+
+</div>
+
+<div class="groupe">
+
+<label>Statut</label>
+
+<select id="statut">
+
+<option value="Payé">Payé</option>
+
+<option value="En attente">En attente</option>
+
+</select>
+
+</div>
+
+<div class="boutons">
+
+<button id="btnEnregistrer"
+onclick="enregistrerCotisation()">
+
+<i class="fa-solid fa-money-bill-wave"></i>
+
+Enregistrer
+
+</button>
+
+<button id="btnAnnuler">
+
+Annuler
+
+</button>
+
+</div>
+
+</section>
+
+<section class="liste">
+
+<h2>Historique des cotisations</h2>
+
+<input
+type="text"
+id="recherche"
+placeholder="Rechercher un membre...">
+
+<div id="listeCotisations">
+
+</div>
+
+</section>
+
+<script type="module" src="cotisations.js"></script>
+
+</body>
+  </html>
