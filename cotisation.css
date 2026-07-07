@@ -1,0 +1,317 @@
+/* ==========================================
+   COTISATIONS.CSS
+   COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#333;
+}
+
+/* ===========================
+   EN-TÊTE
+=========================== */
+
+header{
+    background:#0d6efd;
+    color:white;
+    text-align:center;
+    padding:25px;
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+
+header h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+header p{
+    opacity:.9;
+}
+
+/* ===========================
+   TABLEAU DE BORD
+=========================== */
+
+.tableau-bord{
+    width:95%;
+    margin:25px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.carte{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.12);
+}
+
+.carte h2{
+    color:#0d6efd;
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.carte p{
+    color:#666;
+    font-weight:bold;
+}
+
+/* ===========================
+   FORMULAIRE
+=========================== */
+
+.formulaire{
+
+    width:95%;
+    max-width:850px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+
+}
+
+.formulaire h2{
+
+    text-align:center;
+    color:#0d6efd;
+    margin-bottom:20px;
+
+}
+
+.groupe{
+
+    margin-bottom:18px;
+
+}
+
+.groupe label{
+
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+
+}
+
+.groupe input,
+.groupe select{
+
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+
+}
+
+.groupe input:focus,
+.groupe select:focus{
+
+    border-color:#0d6efd;
+    outline:none;
+
+}
+
+/* ===========================
+   BOUTONS
+=========================== */
+
+.boutons{
+
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:25px;
+
+}
+
+button{
+
+    padding:12px 22px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+
+}
+
+#btnEnregistrer{
+
+    background:#198754;
+    color:white;
+
+}
+
+#btnEnregistrer:hover{
+
+    background:#157347;
+
+}
+
+#btnAnnuler{
+
+    background:#dc3545;
+    color:white;
+
+}
+
+#btnAnnuler:hover{
+
+    background:#bb2d3b;
+
+}
+
+/* ===========================
+   LISTE
+=========================== */
+
+.liste{
+
+    width:95%;
+    margin:30px auto;
+
+}
+
+.liste h2{
+
+    color:#0d6efd;
+    margin-bottom:20px;
+
+}
+
+#recherche{
+
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin-bottom:20px;
+    font-size:16px;
+
+}
+
+/* ===========================
+   CARTE COTISATION
+=========================== */
+
+.carte-cotisation{
+
+    background:white;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+
+}
+
+.carte-cotisation h3{
+
+    color:#0d6efd;
+    margin-bottom:10px;
+
+}
+
+.carte-cotisation p{
+
+    margin:6px 0;
+
+}
+
+.actions{
+
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+
+}
+
+.btn-modifier{
+
+    background:#ffc107;
+    color:#222;
+
+}
+
+.btn-modifier:hover{
+
+    background:#e0a800;
+
+}
+
+.btn-supprimer{
+
+    background:#dc3545;
+    color:white;
+
+}
+
+.btn-supprimer:hover{
+
+    background:#bb2d3b;
+
+}
+
+/* ===========================
+   BADGES
+=========================== */
+
+.badge-paye{
+
+    background:#198754;
+    color:white;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:13px;
+
+}
+
+.badge-attente{
+
+    background:#ffc107;
+    color:#222;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:13px;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+header h1{
+
+    font-size:24px;
+
+}
+
+.carte h2{
+
+    font-size:24px;
+
+}
+
+button{
+
+    width:100%;
+
+}
+
+}
