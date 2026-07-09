@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Finance - Communauté Numérique MWANA MBOKA
+</title>
+
+
+<link rel="stylesheet" href="finance.css">
+
+
+<!-- Font Awesome -->
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================
+HEADER
+========================== -->
+
+
+<header class="header-finance">
+
+
+<h1>
+<i class="fa-solid fa-chart-line"></i>
+
+Finance MWANA MBOKA
+
+</h1>
+
+
+<p>
+Gestion financière communautaire sécurisée
+</p>
+
+
+</header>
+
+
+
+<!-- ==========================
+MENU FINANCE
+========================== -->
+
+
+<nav class="menu-finance">
+
+
+<button onclick="location.href='espace.html'">
+
+<i class="fa-solid fa-house"></i>
+Accueil
+
+</button>
+
+
+<button onclick="chargerDashboardPresident()">
+
+<i class="fa-solid fa-gauge"></i>
+Dashboard
+
+</button>
+
+
+<button onclick="chargerJournal()">
+
+<i class="fa-solid fa-book"></i>
+Journal
+
+</button>
+
+
+<button onclick="chargerTresorerie()">
+
+<i class="fa-solid fa-wallet"></i>
+Trésorerie
+
+</button>
+
+
+</nav>
+
+
+
+
+
+<!-- ==========================
+TABLEAU DE BORD PRESIDENT
+========================== -->
+
+
+<section>
+
+
+<h2>
+<i class="fa-solid fa-user-tie"></i>
+
+Tableau de bord Président
+
+</h2>
+
+
+<div id="dashboardPresident">
+
+Chargement...
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+ALERTES
+========================== -->
+
+
+<section>
+
+
+<h2>
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+Alertes financières
+
+</h2>
+
+
+<div id="alertesPresident">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+BUDGET GENERAL
+========================== -->
+
+
+<section>
+
+
+<h2>
+<i class="fa-solid fa-coins"></i>
+
+Budget général
+
+</h2>
+
+
+<div id="budgetGeneral">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+TRESORERIE
+========================== -->
+
+
+<section>
+
+
+<h2>
+
+<i class="fa-solid fa-building-columns"></i>
+
+Trésorerie disponible
+
+</h2>
+
+
+<div id="tresorerie">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+INVESTISSEMENTS
+========================== -->
+
+
+<section>
+
+
+<h2>
+
+<i class="fa-solid fa-chart-pie"></i>
+
+Investissements
+
+</h2>
+
+
+<div id="listeInvestissements">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+PAIEMENTS PARRAINS
+========================== -->
+
+
+<section>
+
+
+<h2>
+
+<i class="fa-solid fa-hand-holding-dollar"></i>
+
+Paiements des parrains
+
+</h2>
+
+
+
+<button class="btn-action"
+onclick="genererPaiementsParrains()">
+
+Générer les paiements
+
+</button>
+
+
+
+<div id="listePaiementsParrains">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+FILE MOBILE MONEY
+========================== -->
+
+
+<section>
+
+
+<h2>
+
+<i class="fa-solid fa-mobile-screen"></i>
+
+Paiements Mobile Money
+
+</h2>
+
+
+
+<button class="btn-action"
+onclick="preparerPaiementsMobiles()">
+
+Préparer les paiements
+
+</button>
+
+
+
+<button class="btn-validation"
+onclick="envoyerPaiementsMobiles()">
+
+Envoyer après validation Président
+
+</button>
+
+
+
+<div id="listeFilePaiements">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+PREVISIONS
+========================== -->
+
+
+<section>
+
+
+<h2>
+
+<i class="fa-solid fa-chart-column"></i>
+
+Prévisions financières
+
+</h2>
+
+
+<div id="previsionsFinance">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+JOURNAL AUDIT
+========================== -->
+
+
+<section>
+
+
+<h2>
+
+<i class="fa-solid fa-shield-halved"></i>
+
+Journal de sécurité
+
+</h2>
+
+
+<button class="btn-action"
+onclick="exporterJournal()">
+
+Exporter journal
+
+</button>
+
+
+<div id="journalFinance">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ==========================
+SCRIPTS
+========================== -->
+
+
+<script type="module" src="finance.js"></script>
+
+
+</body>
+
+
+</html>
