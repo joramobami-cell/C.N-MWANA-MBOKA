@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bureau Numérique du Président | MWANA MBOKA</title>
+
+    <link rel="stylesheet" href="prbureau.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="bureau-container">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <img src="logo.png" class="logo">
+
+            <div>
+
+                <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
+
+                <p>Ensemble nous irons plus loin.</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="date-box">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <span id="date"></span>
+
+            </div>
+
+            <div class="time-box">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <span id="heure"></span>
+
+            </div>
+
+            <button class="logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Déconnexion
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- BUREAU DU PRÉSIDENT -->
+
+    <section class="president-card">
+
+        <div class="photo">
+
+            <img src="president.png" alt="Président">
+
+        </div>
+
+        <div class="president-info">
+
+            <h2>
+
+                Welcome to the President's Digital Office
+
+            </h2>
+
+            <h3>
+
+                Président Joram Obami
+
+            </h3>
+
+            <p>
+
+                Fondateur & Président
+
+            </p>
+
+            <p>
+
+                COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+            </p>
+
+            <div class="badge">
+
+                <i class="fa-solid fa-crown"></i>
+
+                Niveau d'autorisation : Président
+
+            </div>
+
+        </div>
+
+    </section>
+
+      <!-- MENU LATÉRAL -->
+
+    <aside class="sidebar">
+
+        <h2>
+            <i class="fa-solid fa-bars"></i>
+            Navigation
+        </h2>
+
+        <ul>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    Tableau de bord
+                </a>
+            </li>
+
+            <li>
+                <a href="membres.html">
+                    <i class="fa-solid fa-users"></i>
+                    Membres
+                </a>
+            </li>
+
+            <li>
+                <a href="finance.html">
+                    <i class="fa-solid fa-wallet"></i>
+                    Finance
+                </a>
+            </li>
+
+            <li>
+                <a href="projets.html">
+                    <i class="fa-solid fa-folder-open"></i>
+                    Projets
+                </a>
+            </li>
+
+            <li>
+                <a href="formations.html">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Formations
+                </a>
+            </li>
+
+            <li>
+                <a href="investissements.html">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Investissements
+                </a>
+            </li>
+
+            <li>
+                <a href="entraides.html">
+                    <i class="fa-solid fa-handshake-angle"></i>
+                    Entraides
+                </a>
+            </li>
+
+            <li>
+                <a href="administrateurs.html">
+                    <i class="fa-solid fa-user-shield"></i>
+                    Administrateurs
+                </a>
+            </li>
+
+            <li>
+                <a href="parametres.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Paramètres
+                </a>
+            </li>
+
+            <li>
+                <a href="statistiques.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    Statistiques
+                </a>
+            </li>
+
+            <li>
+                <a href="journal.html">
+                    <i class="fa-solid fa-book-open"></i>
+                    Journal d'activités
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Sécurité
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- CONTENU PRINCIPAL -->
+
+    <main class="main-content">
+
+          <!-- TABLEAU DE BORD -->
+
+    <section class="dashboard">
+
+        <div class="card">
+
+            <i class="fa-solid fa-users"></i>
+
+            <h3>Membres</h3>
+
+            <h2 id="totalMembres">0</h2>
+
+            <span>Total des membres</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <i class="fa-solid fa-money-bill-trend-up"></i>
+
+            <h3>Solde Général</h3>
+
+            <h2 id="soldeGeneral">0 FCFA</h2>
+
+            <span>Trésorerie communautaire</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <i class="fa-solid fa-coins"></i>
+
+            <h3>Cotisations</h3>
+
+            <h2 id="cotisationsMois">0</h2>
+
+            <span>Cotisations du mois</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <h3>Projets</h3>
+
+            <h2 id="projetsAttente">0</h2>
+
+            <span>En attente de validation</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            <h3>Formations</h3>
+
+            <h2 id="formationsActives">0</h2>
+
+            <span>Sessions en cours</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>Investissements</h3>
+
+            <h2 id="investissementsActifs">0</h2>
+
+            <span>Investissements actifs</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <i class="fa-solid fa-handshake-angle"></i>
+
+            <h3>Entraides</h3>
+
+            <h2 id="entraidesAttente">0</h2>
+
+            <span>Demandes en attente</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <i class="fa-solid fa-bell"></i>
+
+            <h3>Notifications</h3>
+
+            <h2 id="notifications">0</h2>
+
+            <span>Nouveaux messages</span>
+
+        </div>
+
+              </section>
+
+    <!-- CENTRE DE COMMANDEMENT -->
+
+    <section class="command-center">
+
+        <!-- ACTIVITÉS RÉCENTES -->
+
+        <div class="panel">
+
+            <h2>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                Activités Récentes
+            </h2>
+
+            <div id="activites">
+
+                <p>Aucune activité récente.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALERTES -->
+
+        <div class="panel">
+
+            <h2>
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Alertes Prioritaires
+            </h2>
+
+            <div id="alertes">
+
+                <p>Aucune alerte.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROJETS -->
+
+        <div class="panel">
+
+            <h2>
+                <i class="fa-solid fa-folder-open"></i>
+                Derniers Projets
+            </h2>
+
+            <div id="listeProjets">
+
+                <p>Aucun projet enregistré.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMBRES -->
+
+        <div class="panel">
+
+            <h2>
+                <i class="fa-solid fa-user-plus"></i>
+                Nouveaux Membres
+            </h2>
+
+            <div id="nouveauxMembres">
+
+                <p>Aucun nouveau membre.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAIEMENTS -->
+
+        <div class="panel">
+
+            <h2>
+                <i class="fa-solid fa-money-check-dollar"></i>
+                Paiements à Valider
+            </h2>
+
+            <div id="paiementsValidation">
+
+                <p>Aucun paiement en attente.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- AGENDA -->
+
+        <div class="panel">
+
+            <h2>
+                <i class="fa-solid fa-calendar-check"></i>
+                Agenda du Président
+            </h2>
+
+            <div id="agenda">
+
+                <p>Aucun événement programmé.</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+          <!-- ACCÈS RAPIDE -->
+
+    <section class="quick-access">
+
+        <h2>
+            <i class="fa-solid fa-bolt"></i>
+            Accès Rapide
+        </h2>
+
+        <div class="quick-grid">
+
+            <a href="finance.html" class="quick-card">
+                <i class="fa-solid fa-wallet"></i>
+                <h3>Finance</h3>
+                <p>Gérer les finances de la communauté.</p>
+            </a>
+
+            <a href="membres.html" class="quick-card">
+                <i class="fa-solid fa-users"></i>
+                <h3>Membres</h3>
+                <p>Consulter et gérer les membres.</p>
+            </a>
+
+            <a href="projets.html" class="quick-card">
+                <i class="fa-solid fa-folder-tree"></i>
+                <h3>Projets</h3>
+                <p>Valider et suivre les projets.</p>
+            </a>
+
+            <a href="formations.html" class="quick-card">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h3>Formations</h3>
+                <p>Administrer les formations.</p>
+            </a>
+
+            <a href="investissements.html" class="quick-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3>Investissements</h3>
+                <p>Piloter les investissements.</p>
+            </a>
+
+            <a href="entraides.html" class="quick-card">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <h3>Entraides</h3>
+                <p>Traiter les demandes d'entraide.</p>
+            </a>
+
+            <a href="parametres.html" class="quick-card">
+                <i class="fa-solid fa-gears"></i>
+                <h3>Paramètres</h3>
+                <p>Configurer la plateforme.</p>
+            </a>
+
+            <a href="administrateurs.html" class="quick-card">
+                <i class="fa-solid fa-user-shield"></i>
+                <h3>Administrateurs</h3>
+                <p>Gérer les comptes administrateurs.</p>
+            </a>
+
+        </div>
+
+    </section>
+
+          <!-- BUREAU PRÉSIDENTIEL -->
+
+    <section class="president-office">
+
+        <h2>
+            <i class="fa-solid fa-landmark"></i>
+            Bureau Présidentiel
+        </h2>
+
+        <div class="office-grid">
+
+            <!-- CENTRE DE VALIDATION -->
+
+            <div class="office-card">
+
+                <h3>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Centre de Validation
+                </h3>
+
+                <div id="centreValidation">
+
+                    <p>Aucune validation en attente.</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SIGNATURE -->
+
+            <div class="office-card">
+
+                <h3>
+                    <i class="fa-solid fa-signature"></i>
+                    Signature Présidentielle
+                </h3>
+
+                <div class="signature-box">
+
+                    <button id="btnSigner">
+
+                        <i class="fa-solid fa-pen-fancy"></i>
+
+                        Signer une décision
+
+                    </button>
+
+                    <button id="btnCode">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        Code Président
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOÎTE DE RÉCEPTION -->
+
+            <div class="office-card">
+
+                <h3>
+                    <i class="fa-solid fa-envelope-open-text"></i>
+
+                    Boîte de Réception
+
+                </h3>
+
+                <div id="boiteReception">
+
+                    <p>Aucun nouveau message.</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DÉCISIONS -->
+
+            <div class="office-card">
+
+                <h3>
+
+                    <i class="fa-solid fa-scale-balanced"></i>
+
+                    Décisions Présidentielles
+
+                </h3>
+
+                <div id="decisionsPresident">
+
+                    <p>Aucune décision aujourd'hui.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+          <!-- JOURNAL ET SÉCURITÉ -->
+
+    <section class="bottom-section">
+
+        <!-- JOURNAL D'ACTIVITÉ -->
+
+        <div class="bottom-card">
+
+            <h2>
+                <i class="fa-solid fa-book"></i>
+                Journal Présidentiel
+            </h2>
+
+            <div id="journalPresident">
+
+                <p>Aucune activité enregistrée.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CENTRE DE SÉCURITÉ -->
+
+        <div class="bottom-card">
+
+            <h2>
+                <i class="fa-solid fa-shield-halved"></i>
+                Centre de Sécurité
+            </h2>
+
+            <div class="security-status">
+
+                <div class="security-item">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <span>Connexion sécurisée</span>
+
+                </div>
+
+                <div class="security-item">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                    <span>Président authentifié</span>
+
+                </div>
+
+                <div class="security-item">
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <span>Firebase connecté</span>
+
+                </div>
+
+                <div class="security-item">
+
+                    <i class="fa-solid fa-cloud"></i>
+
+                    <span>Sauvegarde active</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <img src="logo.png" class="footer-logo">
+
+        <h3>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h3>
+
+        <p>
+
+            Bureau Numérique du Président
+
+        </p>
+
+        <p>
+
+            © 2026 Tous droits réservés
+
+        </p>
+
+        <p>
+
+            Ensemble nous irons plus loin.
+
+        </p>
+
+    </footer>
+
+
+</main>
+
+</div>
+
+<script src="prbureau.js"></script>
+
+</body>
+</html>
