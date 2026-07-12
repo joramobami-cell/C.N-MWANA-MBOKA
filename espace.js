@@ -12,13 +12,19 @@
 
 const membre = {
 
-    nom: "Membre",
-    matricule: "MMB-0000",
-    parrain: "---",
-    statut: "Actif",
-    dateAdhesion: "--/--/----",
-    telephone: "---------",
-    photo: "logo.png"
+    nom: localStorage.getItem("nom") || "Membre",
+
+    matricule: localStorage.getItem("matricule") || "MMB-0000",
+
+    parrain: localStorage.getItem("parrain") || "---",
+
+    statut: localStorage.getItem("statut") || "Actif",
+
+    dateAdhesion: localStorage.getItem("dateAdhesion") || "--/--/----",
+
+    telephone: localStorage.getItem("telephone") || "---------",
+
+    photo: localStorage.getItem("photo") || "logo.png"
 
 };
 
