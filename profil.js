@@ -215,6 +215,24 @@ if(inputPhoto){
 
 inputPhoto.onchange = async()=>{
 
+const fichier = inputPhoto.files[0];
+
+
+if(!fichier){
+    return;
+}
+
+
+// Affichage immédiat avant Firebase
+const aperçu = URL.createObjectURL(fichier);
+
+document.getElementById("photo").src = aperçu;
+
+
+console.log("Photo sélectionnée :", fichier.name);
+
+};
+
 
 const fichier = inputPhoto.files[0];
 
