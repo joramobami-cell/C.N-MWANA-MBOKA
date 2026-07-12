@@ -183,13 +183,11 @@ function afficherNotification(message){
 
 function deconnexion(){
 
-
     localStorage.removeItem("membreConnecte");
 
-    window.location.href="connexion.html";
+    window.location.href="index.html";
 
-
-}
+                                      }
 
 
 
