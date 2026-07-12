@@ -4,28 +4,33 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mon Profil - MWANA MBOKA</title>
 
+
 <link rel="stylesheet" href="style.css">
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+
 </head>
+
 
 <body>
 
-<!-- ==========================
-     EN-TÊTE
-========================== -->
+
 
 <header class="topbar">
+
 
 <div class="logo-zone">
 
 <img src="logo.png" class="logo-app">
+
 
 <div>
 
@@ -35,7 +40,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+
 </div>
+
+
 
 <div class="top-icons">
 
@@ -43,172 +51,367 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+
+
 </header>
+
+
+
+
 
 <div class="container">
 
-<!-- ==========================
-     CARTE MEMBRE
-========================== -->
 
-<div class="member-card">
+
+
+
+<!-- CARTE PROFIL -->
+
+<section class="member-card">
+
 
 <div class="member-left">
+
 
 <img id="photo"
 src="logo.png"
 class="member-photo">
 
 
-<input type="file" id="photoInput" accept="image/*" hidden>
 
-<button class="btn-action" id="changerPhoto">
+<input type="file"
+id="photoInput"
+accept="image/*"
+hidden>
+
+
+
+<button class="btn-action"
+id="changerPhoto">
+
+
 <i class="fa-solid fa-camera"></i>
+
 Changer ma photo
+
+
 </button>
+
+
 
 </div>
 
+
+
+
+
 <div class="member-right">
 
+
 <h2 id="nom">
+
 Chargement...
+
 </h2>
 
-<div class="member-id">
+
+
+<p class="member-id">
 
 <i class="fa-solid fa-id-card"></i>
 
 <span id="matricule">
+
 MMB-0000
+
 </span>
 
-</div>
 
-<div class="member-status">
+</p>
+
+
+
+
+
+<p class="member-status">
 
 <i class="fa-solid fa-circle-check"></i>
 
 <span id="statut">
+
 Actif
+
 </span>
 
-</div>
 
-<div class="member-phone">
+</p>
+
+
+
+
+
+<p class="member-phone">
+
 
 <i class="fa-solid fa-phone"></i>
 
 <span id="telephone">
-065447541
+
+---
+
 </span>
 
-</div>
+
+</p>
+
+
 
 </div>
 
-</div>
+
+
+</section>
+
+
+
+
+
+
+
+
 
 <h2 class="section-title">
 
 Informations personnelles
 
-  </h2>
+</h2>
 
-<!-- ==========================
-     INFORMATIONS
-========================== -->
 
-<div class="dashboard">
+
+
+
+<section class="dashboard">
+
+
+
+
 
 <div class="dash-box">
+
 
 <i class="fa-solid fa-briefcase"></i>
 
-<h3>Profession</h3>
+
+<h3>
+
+Profession
+
+</h3>
+
 
 <p id="profession">
+
 Chargement...
+
 </p>
+
 
 </div>
 
+
+
+
+
+
 <div class="dash-box">
+
 
 <i class="fa-solid fa-location-dot"></i>
 
-<h3>Adresse</h3>
+
+<h3>
+
+Adresse
+
+</h3>
+
 
 <p id="adresse">
+
 Chargement...
+
 </p>
+
 
 </div>
 
+
+
+
+
+
 <div class="dash-box">
+
 
 <i class="fa-solid fa-users"></i>
 
-<h3>Parrain</h3>
+
+<h3>
+
+Parrain
+
+</h3>
+
 
 <p id="parrain">
+
 Chargement...
+
 </p>
 
+
 </div>
+
+
+
+
+
 
 <div class="dash-box">
 
+
 <i class="fa-solid fa-calendar-days"></i>
 
-<h3>Date d'adhésion</h3>
+
+<h3>
+
+Date d'adhésion
+
+</h3>
+
 
 <p id="dateadhesion">
+
 Chargement...
+
 </p>
 
-</div>
 
 </div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
 
 <h2 class="section-title">
+
 Actions
+
 </h2>
 
-<!-- ==========================
-     BOUTONS
-========================== -->
+
+
+
 
 <div class="action-buttons">
 
-<a href="espace.html" class="btn-action">
-...
+
+
+
+
+<a href="espace.html"
+class="btn-action">
+
+<i class="fa-solid fa-house"></i>
+
+Accueil
+
 </a>
 
-<a href="#" class="btn-action">
-...
+
+
+
+
+<a href="carte.html"
+class="btn-action">
+
+<i class="fa-solid fa-id-card"></i>
+
+Ma carte
+
 </a>
 
-<a href="carte.html" class="btn-action">
-...
+
+
+
+
+<a href="parametres.html"
+class="btn-action">
+
+<i class="fa-solid fa-gear"></i>
+
+Paramètres
+
 </a>
 
-<a href="javascript:history.back()" class="btn-action retour">
-...
+
+
+
+
+<a href="javascript:history.back()"
+class="btn-action retour">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Retour
+
 </a>
+
+
+
 
 </div>
 
-     
-</div>
 
-<div class="footer-app">
 
-<img src="logo.png" class="footer-logo">
 
-<h3>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h3>
 
-<p>Ensemble nous irons plus loin.</p>
+
+
+
+
+<footer class="footer-app">
+
+
+<img src="logo.png"
+class="footer-logo">
+
+
+
+<h3>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</h3>
+
+
+
+<p>
+
+Ensemble nous irons plus loin.
+
+</p>
+
+
 
 <div class="copyright">
 
@@ -216,44 +419,118 @@ Actions
 
 </div>
 
-  </div>
 
-<!-- ==========================
-     NAVIGATION BAS
-========================== -->
+
+</footer>
+
+
+
+
+
+
+
+
 
 <nav class="bottom-nav">
 
+
+
 <a href="espace.html">
+
 <i class="fa-solid fa-house"></i>
-<span>Accueil</span>
+
+<span>
+
+Accueil
+
+</span>
+
 </a>
+
+
+
+
 
 <a href="messages.html">
+
 <i class="fa-solid fa-comments"></i>
-<span>Messages</span>
+
+<span>
+
+Messages
+
+</span>
+
 </a>
+
+
+
+
 
 <a href="annonces.html">
+
 <i class="fa-solid fa-bullhorn"></i>
-<span>Actus</span>
+
+<span>
+
+Actus
+
+</span>
+
 </a>
 
-<a href="profil.html" class="active">
+
+
+
+
+<a href="profil.html"
+class="active">
+
 <i class="fa-solid fa-user"></i>
-<span>Profil</span>
+
+<span>
+
+Profil
+
+</span>
+
 </a>
+
+
+
+
 
 <a href="parametres.html">
+
 <i class="fa-solid fa-gear"></i>
-<span>Réglages</span>
+
+<span>
+
+Réglages
+
+</span>
+
 </a>
+
+
+
 
 </nav>
 
+
+
+
+
 </div>
+
+
+
+
 
 <script type="module" src="profil.js"></script>
 
+
+
 </body>
-  </html>
+
+     </html>
