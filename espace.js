@@ -213,3 +213,16 @@ Plus tard :
 Firebase remplacera les données temporaires.
 
 */
+
+
+const logout = document.getElementById("logout");
+
+if(logout){
+
+    logout.addEventListener("click", ()=>{
+
+        localStorage.removeItem("membreConnecte");
+
+    });
+
+           }
