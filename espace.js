@@ -1,74 +1,217 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+/* =================================
+   MWANA MBOKA
+   ESPACE MEMBRE JAVASCRIPT
+================================= */
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
-  authDomain: "c-n-mwana-mboka.firebaseapp.com",
-  databaseURL: "https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app/",
-  projectId: "c-n-mwana-mboka",
-  storageBucket: "c-n-mwana-mboka.firebasestorage.app",
-  messagingSenderId: "757726608581",
-  appId: "1:757726608581:web:27fa7003ffa955188304ac"
+
+/* ================================
+   DONNEES MEMBRE (TEMPORAIRE)
+   Remplacées plus tard par Firebase
+================================ */
+
+
+const membre = {
+
+    nom: "Membre",
+    matricule: "MMB-0000",
+    parrain: "---",
+    statut: "Actif",
+    dateAdhesion: "--/--/----",
+    telephone: "---------",
+    photo: "logo.png"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
-// Vérifier si le membre est connecté
-const matricule = localStorage.getItem("matricule");
 
-if (!matricule) {
-    window.location.href = "connexion.html";
-}
 
-// Charger les informations du membre
-async function chargerProfil() {
+/* ================================
+   AFFICHAGE PROFIL MEMBRE
+================================ */
 
-    const membreRef = ref(db, "membres/" + matricule);
 
-    const snapshot = await get(membreRef);
+document.addEventListener("DOMContentLoaded",()=>{
 
-    if (snapshot.exists()) {
 
-        const membre = snapshot.val();
+    const elements = {
 
-        document.getElementById("nom").textContent = membre.nom || "";
-        document.getElementById("nomMembre").textContent = membre.nom || "";
-        document.getElementById("matricule").textContent = membre.matricule || "";
-        document.getElementById("telephone").textContent = membre.telephone || "";
-        document.getElementById("statut").textContent = membre.statut || "";
-// Sauvegarder le rôle
-localStorage.setItem("role", membre.role || "membre");
 
-// Afficher la carte Administration uniquement pour l'administrateur
-if (membre.role === "admin") {
+        nom: document.getElementById("nom"),
+        nomBienvenue: document.getElementById("nomBienvenue"),
+        nomMembre: document.getElementById("nomMembre"),
 
-    const adminCard = document.getElementById("adminCard");
+        matricule: document.getElementById("matricule"),
+        matriculeCard: document.getElementById("matriculeCard"),
 
-    if (adminCard) {
-        adminCard.style.display = "block";
-    }
+        parrain: document.getElementById("parrain"),
 
-}
-        if (membre.photo) {
-            document.getElementById("photo").src = membre.photo;
+        statut: document.getElementById("statut"),
+
+        dateAdhesion: document.getElementById("dateAdhesion"),
+
+        telephone: document.getElementById("telephone"),
+
+        photo: document.getElementById("photo")
+
+    };
+
+
+
+
+    if(elements.nom)
+        elements.nom.textContent = membre.nom;
+
+
+    if(elements.nomBienvenue)
+        elements.nomBienvenue.textContent = membre.nom;
+
+
+    if(elements.nomMembre)
+        elements.nomMembre.textContent = membre.nom;
+
+
+
+    if(elements.matricule)
+        elements.matricule.textContent = membre.matricule;
+
+
+    if(elements.matriculeCard)
+        elements.matriculeCard.textContent = membre.matricule;
+
+
+
+    if(elements.parrain)
+        elements.parrain.textContent = membre.parrain;
+
+
+
+    if(elements.statut)
+        elements.statut.textContent = membre.statut;
+
+
+
+    if(elements.dateAdhesion)
+        elements.dateAdhesion.textContent = membre.dateAdhesion;
+
+
+
+    if(elements.telephone)
+        elements.telephone.textContent = membre.telephone;
+
+
+
+    if(elements.photo)
+        elements.photo.src = membre.photo;
+
+
+
+});
+
+
+
+
+
+
+/* ================================
+   COMPTEURS TABLEAU DE BORD
+================================ */
+
+
+const statistiques = {
+
+    cotisations:0,
+    filleuls:0,
+    revenus:"0 F",
+    projets:0,
+    formations:0,
+    entraides:0,
+    investissements:0,
+    notifications:0
+
+};
+
+
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+    Object.keys(statistiques).forEach(id=>{
+
+
+        const element=document.getElementById(id);
+
+
+        if(element){
+
+            element.textContent=statistiques[id];
+
         }
 
-    } else {
 
-        alert("Membre introuvable.");
+    });
 
-    }
+
+});
+
+
+
+
+
+
+
+/* ================================
+   NOTIFICATIONS
+================================ */
+
+
+function afficherNotification(message){
+
+
+    alert(message);
+
 
 }
 
-chargerProfil();
 
-// Déconnexion
-window.deconnexion = function () {
 
-    localStorage.clear();
 
-    window.location.href = "connexion.html";
+/* ================================
+   DECONNEXION
+================================ */
 
-};
+
+function deconnexion(){
+
+
+    localStorage.removeItem("membreConnecte");
+
+    window.location.href="connexion.html";
+
+
+}
+
+
+
+
+
+/* ================================
+   PREPARATION FIREBASE
+================================ */
+
+
+/*
+
+Plus tard :
+
+- récupération membre connecté
+- affichage matricule automatique
+- historique cotisations
+- gestion parrainage
+- revenus de parrainage
+- projets
+- formations
+
+Firebase remplacera les données temporaires.
+
+*/
