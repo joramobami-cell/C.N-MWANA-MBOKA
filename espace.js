@@ -1,113 +1,117 @@
-/* =================================
+/* =====================================
    MWANA MBOKA
-   ESPACE MEMBRE JAVASCRIPT
-================================= */
-
-
-/* ================================
-   DONNEES MEMBRE (TEMPORAIRE)
-   Remplacées plus tard par Firebase
-================================ */
-
-
-const membre = {
-
-    nom: localStorage.getItem("nom") || "Membre",
-
-    matricule: localStorage.getItem("matricule") || "MMB-0000",
-
-    parrain: localStorage.getItem("parrain") || "---",
-
-    statut: localStorage.getItem("statut") || "Actif",
-
-    dateAdhesion: localStorage.getItem("dateAdhesion") || "--/--/----",
-
-    telephone: localStorage.getItem("telephone") || "---------",
-
-    photo: localStorage.getItem("photo") || "logo.png"
-
-};
+   ESPACE MEMBRE
+   Chargement des informations membre
+===================================== */
 
 
 
-
-/* ================================
-   AFFICHAGE PROFIL MEMBRE
-================================ */
+document.addEventListener("DOMContentLoaded", () => {
 
 
-document.addEventListener("DOMContentLoaded",()=>{
 
+    // Récupération des données depuis la connexion Firebase
 
-    const elements = {
+    const membre = {
 
+        nom: localStorage.getItem("nom"),
 
-        nom: document.getElementById("nom"),
-        nomBienvenue: document.getElementById("nomBienvenue"),
-        nomMembre: document.getElementById("nomMembre"),
+        matricule: localStorage.getItem("matricule"),
 
-        matricule: document.getElementById("matricule"),
-        matriculeCard: document.getElementById("matriculeCard"),
+        telephone: localStorage.getItem("telephone"),
 
-        parrain: document.getElementById("parrain"),
+        statut: localStorage.getItem("statut"),
 
-        statut: document.getElementById("statut"),
+        parrain: localStorage.getItem("parrain"),
 
-        dateAdhesion: document.getElementById("dateAdhesion"),
+        dateAdhesion: localStorage.getItem("dateAdhesion"),
 
-        telephone: document.getElementById("telephone"),
+        photo: localStorage.getItem("photo")
 
-        photo: document.getElementById("photo")
 
     };
 
 
 
+    // Vérification connexion
 
-    if(elements.nom)
-        elements.nom.textContent = membre.nom;
+    if(!membre.nom || !membre.matricule){
 
+        window.location.href="connexion.html";
 
-    if(elements.nomBienvenue)
-        elements.nomBienvenue.textContent = membre.nom;
+        return;
 
-
-    if(elements.nomMembre)
-        elements.nomMembre.textContent = membre.nom;
+    }
 
 
 
-    if(elements.matricule)
-        elements.matricule.textContent = membre.matricule;
+
+    // Affichage informations membre
 
 
-    if(elements.matriculeCard)
-        elements.matriculeCard.textContent = membre.matricule;
+    const nom = document.getElementById("nom");
+    const nomBienvenue = document.getElementById("nomBienvenue");
+    const nomMembre = document.getElementById("nomMembre");
 
 
-
-    if(elements.parrain)
-        elements.parrain.textContent = membre.parrain;
-
+    const matricule = document.getElementById("matricule");
+    const matriculeCard = document.getElementById("matriculeCard");
 
 
-    if(elements.statut)
-        elements.statut.textContent = membre.statut;
+    const telephone = document.getElementById("telephone");
 
+    const statut = document.getElementById("statut");
 
+    const parrain = document.getElementById("parrain");
 
-    if(elements.dateAdhesion)
-        elements.dateAdhesion.textContent = membre.dateAdhesion;
+    const dateAdhesion = document.getElementById("dateAdhesion");
 
-
-
-    if(elements.telephone)
-        elements.telephone.textContent = membre.telephone;
+    const photo = document.getElementById("photo");
 
 
 
-    if(elements.photo)
-        elements.photo.src = membre.photo;
+
+    if(nom)
+        nom.textContent = membre.nom;
+
+
+    if(nomBienvenue)
+        nomBienvenue.textContent = membre.nom;
+
+
+    if(nomMembre)
+        nomMembre.textContent = membre.nom;
+
+
+
+    if(matricule)
+        matricule.textContent = membre.matricule;
+
+
+    if(matriculeCard)
+        matriculeCard.textContent = membre.matricule;
+
+
+
+    if(telephone)
+        telephone.textContent = membre.telephone || "---";
+
+
+    if(statut)
+        statut.textContent = membre.statut || "Actif";
+
+
+    if(parrain)
+        parrain.textContent = membre.parrain || "---";
+
+
+    if(dateAdhesion)
+        dateAdhesion.textContent = membre.dateAdhesion || "---";
+
+
+    if(photo && membre.photo)
+        photo.src = membre.photo;
+
 
 
 
@@ -118,31 +122,70 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
-/* ================================
-   COMPTEURS TABLEAU DE BORD
-================================ */
+
+/* =====================================
+   DECONNEXION
+===================================== */
+
+
+const logout = document.getElementById("logout");
+
+
+if(logout){
+
+
+    logout.addEventListener("click",()=>{
+
+
+        localStorage.clear();
+
+        window.location.href="index.html";
+
+
+    });
+
+
+}
+
+
+
+
+
+
+
+/* =====================================
+   STATISTIQUES TABLEAU DE BORD
+===================================== */
 
 
 const statistiques = {
 
-    cotisations:0,
+
+    cotisations:"0 F",
+
     filleuls:0,
+
     revenus:"0 F",
+
     projets:0,
+
     formations:0,
+
     entraides:0,
+
     investissements:0,
+
     notifications:0
 
-};
 
+};
 
 
 
 document.addEventListener("DOMContentLoaded",()=>{
 
 
-    Object.keys(statistiques).forEach(id=>{
+    Object.keys(statistiques).forEach((id)=>{
 
 
         const element=document.getElementById(id);
@@ -159,76 +202,3 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 });
-
-
-
-
-
-
-
-/* ================================
-   NOTIFICATIONS
-================================ */
-
-
-function afficherNotification(message){
-
-
-    alert(message);
-
-
-}
-
-
-
-
-/* ================================
-   DECONNEXION
-================================ */
-
-
-function deconnexion(){
-
-    localStorage.removeItem("membreConnecte");
-
-    window.location.href="index.html";
-
-                                      }
-
-
-
-
-
-/* ================================
-   PREPARATION FIREBASE
-================================ */
-
-
-/*
-
-Plus tard :
-
-- récupération membre connecté
-- affichage matricule automatique
-- historique cotisations
-- gestion parrainage
-- revenus de parrainage
-- projets
-- formations
-
-Firebase remplacera les données temporaires.
-
-*/
-
-
-const logout = document.getElementById("logout");
-
-if(logout){
-
-    logout.addEventListener("click", ()=>{
-
-        localStorage.removeItem("membreConnecte");
-
-    });
-
-           }
