@@ -539,3 +539,238 @@ afficherSynchronisation();
 
 console.log("Centre de commandement initialisé.");
 
+/*==================================================
+        ANIMATION DES CARTES
+==================================================*/
+
+const cartes = document.querySelectorAll(
+".card, .panel, .quick-card, .office-card, .bottom-card"
+);
+
+cartes.forEach((carte,index)=>{
+
+    carte.style.opacity="0";
+    carte.style.transform="translateY(30px)";
+
+    setTimeout(()=>{
+
+        carte.style.transition="all .6s ease";
+        carte.style.opacity="1";
+        carte.style.transform="translateY(0)";
+
+    },index*120);
+
+});
+
+
+/*==================================================
+        NOTIFICATIONS VISUELLES
+==================================================*/
+
+function creerNotification(message,type="info"){
+
+    const notification=document.createElement("div");
+
+    notification.className="notification "+type;
+
+    notification.innerHTML=`
+        <i class="fa-solid fa-bell"></i>
+        <span>${message}</span>
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(()=>{
+
+        notification.classList.add("show");
+
+    },100);
+
+    setTimeout(()=>{
+
+        notification.classList.remove("show");
+
+        setTimeout(()=>{
+
+            notification.remove();
+
+        },500);
+
+    },5000);
+
+}
+
+
+/*==================================================
+        BARRE DE CHARGEMENT
+==================================================*/
+
+function afficherChargement(){
+
+    const loader=document.createElement("div");
+
+    loader.id="loaderPresident";
+
+    loader.innerHTML=`
+
+        <div class="loader-bar"></div>
+
+    `;
+
+    document.body.appendChild(loader);
+
+}
+
+function masquerChargement(){
+
+    const loader=document.getElementById("loaderPresident");
+
+    if(loader){
+
+        loader.remove();
+
+    }
+
+}
+
+
+/*==================================================
+      SIGNATURE PRÉSIDENTIELLE
+==================================================*/
+
+const btnSigner=document.getElementById("btnSigner");
+
+if(btnSigner){
+
+    btnSigner.addEventListener("click",()=>{
+
+        creerNotification(
+
+            "Décision présidentielle signée.",
+
+            "success"
+
+        );
+
+        enregistrerAction(
+
+            "Une décision a été signée."
+
+        );
+
+    });
+
+}
+
+
+/*==================================================
+      CODE PRÉSIDENT
+==================================================*/
+
+const btnCode=document.getElementById("btnCode");
+
+if(btnCode){
+
+    btnCode.addEventListener("click",()=>{
+
+        const code=prompt(
+
+            "Entrez votre Code Président"
+
+        );
+
+        if(code===null) return;
+
+        if(code==="1234"){
+
+            creerNotification(
+
+                "Code accepté.",
+
+                "success"
+
+            );
+
+        }
+
+        else{
+
+            creerNotification(
+
+                "Code incorrect.",
+
+                "error"
+
+            );
+
+        }
+
+    });
+
+}
+
+
+/*==================================================
+      SAUVEGARDE AUTOMATIQUE
+==================================================*/
+
+setInterval(()=>{
+
+    console.log("Sauvegarde automatique.");
+
+},300000);
+
+
+/*==================================================
+      DÉMARRAGE
+==================================================*/
+
+window.addEventListener("load",()=>{
+
+    afficherChargement();
+
+    setTimeout(()=>{
+
+        masquerChargement();
+
+        creerNotification(
+
+            "Bienvenue Monsieur le Président.",
+
+            "success"
+
+        );
+
+        actualiserBureau();
+
+    },1500);
+
+});
+
+
+/*==================================================
+      FERMETURE
+==================================================*/
+
+window.addEventListener("beforeunload",()=>{
+
+    console.log("Fermeture du Bureau Président.");
+
+});
+
+
+/*==================================================
+      VERSION
+==================================================*/
+
+console.log("================================");
+
+console.log("COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA");
+
+console.log("Bureau Numérique du Président");
+
+console.log("Version 2.0");
+
+console.log("Statut : Opérationnel");
+
+console.log("================================");
