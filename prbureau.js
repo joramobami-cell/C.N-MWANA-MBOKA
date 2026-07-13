@@ -5,11 +5,12 @@
 ==================================================*/
 
 import { db, auth, storage } from "./firebase-config.js";
+import { db, auth, storage } from "./firebase-config.js";
 
 import {
-collection,
-onSnapshot
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+    collection,
+    onSnapshot
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 /*==================================================
                 INITIALISATION
