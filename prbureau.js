@@ -175,19 +175,7 @@ console.log("Session Président vérifiée.");
 // Initialisation Firebase
 // Le fichier firebase-config.js sera créé plus tard.
 
-let db = null;
-
-if (typeof firebase !== "undefined") {
-
-    db = firebase.firestore();
-
-    console.log("Firebase connecté.");
-
-} else {
-
-    console.log("Firebase non connecté.");
-
-}
+import { db, auth, storage } from "./firebase-config.js";
 
 /*==========================================
       TABLEAU DE BORD
