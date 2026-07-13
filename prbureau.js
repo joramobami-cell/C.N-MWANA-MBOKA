@@ -1,39 +1,81 @@
-/*==========================================
+/*==================================================
    BUREAU NUMÉRIQUE DU PRÉSIDENT
    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-==========================================*/
+   Version 2.0
+==================================================*/
 
-// ==============================
-// DATE
-// ==============================
+import { db, auth, storage } from "./firebase-config.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+/*==================================================
+                INITIALISATION
+==================================================*/
+
+console.clear();
+
+console.log("======================================");
+console.log("COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA");
+console.log("Bureau Numérique du Président");
+console.log("Version 2.0");
+console.log("======================================");
+
+/*==================================================
+            VÉRIFICATION SESSION
+==================================================*/
+
+const utilisateur = localStorage.getItem("utilisateurConnecte");
+
+if (!utilisateur) {
+
+    window.location.href = "connexion.html";
+
+}
+
+/*==================================================
+                DATE
+==================================================*/
 
 const dateElement = document.getElementById("date");
 
-const aujourdhui = new Date();
+function afficherDate() {
 
-dateElement.textContent = aujourdhui.toLocaleDateString("fr-FR", {
+    if (!dateElement) return;
 
-    weekday: "long",
+    const aujourdhui = new Date();
 
-    day: "numeric",
+    dateElement.textContent = aujourdhui.toLocaleDateString("fr-FR", {
 
-    month: "long",
+        weekday: "long",
 
-    year: "numeric"
+        day: "numeric",
 
-});
+        month: "long",
 
-// ==============================
-// HEURE EN TEMPS RÉEL
-// ==============================
+        year: "numeric"
 
-function afficherHeure(){
+    });
 
-    const maintenant = new Date();
+}
 
-    const heure = maintenant.toLocaleTimeString("fr-FR");
+afficherDate();
 
-    document.getElementById("heure").textContent = heure;
+/*==================================================
+                HEURE
+==================================================*/
+
+const heureElement = document.getElementById("heure");
+
+function afficherHeure() {
+
+    if (!heureElement) return;
+
+    heureElement.textContent =
+
+    new Date().toLocaleTimeString("fr-FR");
 
 }
 
@@ -41,9 +83,45 @@ setInterval(afficherHeure,1000);
 
 afficherHeure();
 
-// ==============================
-// ANNÉE DU FOOTER
-// ==============================
+/*==================================================
+            MESSAGE DE BIENVENUE
+==================================================*/
+
+const titre = document.querySelector(".president-info h2");
+
+if(titre){
+
+    const heure = new Date().getHours();
+
+    if(heure < 12){
+
+        titre.textContent =
+
+        "Bonjour Monsieur le Président";
+
+    }
+
+    else if(heure < 18){
+
+        titre.textContent =
+
+        "Bon après-midi Monsieur le Président";
+
+    }
+
+    else{
+
+        titre.textContent =
+
+        "Bonsoir Monsieur le Président";
+
+    }
+
+}
+
+/*==================================================
+              ANNÉE DU FOOTER
+==================================================*/
 
 const annee = document.getElementById("annee");
 
@@ -53,70 +131,21 @@ if(annee){
 
 }
 
-// ==============================
-// MESSAGE DE BIENVENUE
-// ==============================
-
-const titre = document.querySelector(".president-info h2");
-
-const heureActuelle = new Date().getHours();
-
-if(titre){
-
-    if(heureActuelle < 12){
-
-        titre.textContent =
-        "Bonjour Monsieur le Président";
-
-    }
-
-    else if(heureActuelle < 18){
-
-        titre.textContent =
-        "Bon après-midi Monsieur le Président";
-
-    }
-
-    else{
-
-        titre.textContent =
-        "Bonsoir Monsieur le Président";
-
-    }
-
-}
-
-console.log("Bureau Président chargé avec succès.");
-
-/*==========================================
-   SESSION DU PRÉSIDENT
-==========================================*/
-
-// Vérification de la session
-
-const utilisateur = localStorage.getItem("utilisateurConnecte");
-
-if(!utilisateur){
-
-    window.location.href = "connexion.html";
-
-}
-
-/*==========================================
-   DÉCONNEXION
-==========================================*/
+/*==================================================
+              DÉCONNEXION
+==================================================*/
 
 const btnLogout = document.getElementById("logoutBtn");
 
 if(btnLogout){
 
-    btnLogout.addEventListener("click", function(){
+    btnLogout.addEventListener("click",()=>{
 
-        if(confirm("Voulez-vous vraiment vous déconnecter ?")){
+        if(confirm("Voulez-vous quitter le Bureau Numérique ?")){
 
             localStorage.removeItem("utilisateurConnecte");
 
-            window.location.href = "connexion.html";
+            window.location.href="connexion.html";
 
         }
 
@@ -124,103 +153,227 @@ if(btnLogout){
 
 }
 
-/*==========================================
-   BIENVENUE
-==========================================*/
+console.log("Initialisation terminée.");
 
-window.addEventListener("load", function(){
+/*==================================================
+          TABLEAU DE BORD FIREBASE
+==================================================*/
 
-    setTimeout(function(){
+async function chargerMembres(){
 
-        alert("Bienvenue dans le Bureau Numérique du Président.");
+    try{
 
-    },500);
+        const snapshot = await getDocs(collection(db,"membres"));
 
-});
+        document.getElementById("totalMembres").textContent =
+        snapshot.size;
 
-/*==========================================
-   ANIMATION D'OUVERTURE
-==========================================*/
+    }
 
-const cartes = document.querySelectorAll(
+    catch(erreur){
 
-".card, .panel, .quick-card, .office-card, .bottom-card"
+        console.error("Erreur Membres :",erreur);
 
-);
-
-cartes.forEach(function(carte,index){
-
-    carte.style.opacity="0";
-
-    carte.style.transform="translateY(30px)";
-
-    setTimeout(function(){
-
-        carte.style.transition="all .6s ease";
-
-        carte.style.opacity="1";
-
-        carte.style.transform="translateY(0)";
-
-    },index*120);
-
-});
-
-console.log("Session Président vérifiée.");
-
-/*==========================================
-        FIREBASE
-==========================================*/
-
-// Initialisation Firebase
-// Le fichier firebase-config.js sera créé plus tard.
-
-import { db, auth, storage } from "./firebase-config.js";
-
-/*==========================================
-      TABLEAU DE BORD
-==========================================*/
-
-function mettreAJourDashboard() {
-
-    // Ces valeurs seront remplacées
-    // automatiquement par Firebase.
-
-    document.getElementById("totalMembres").textContent = "0";
-
-    document.getElementById("soldeGeneral").textContent = "0 FCFA";
-
-    document.getElementById("cotisationsMois").textContent = "0";
-
-    document.getElementById("projetsAttente").textContent = "0";
-
-    document.getElementById("formationsActives").textContent = "0";
-
-    document.getElementById("investissementsActifs").textContent = "0";
-
-    document.getElementById("entraidesAttente").textContent = "0";
-
-    document.getElementById("notifications").textContent = "0";
+    }
 
 }
 
-mettreAJourDashboard();
 
-console.log("Tableau de bord initialisé.");
+async function chargerProjets(){
 
-/*==========================================
+    try{
+
+        const snapshot = await getDocs(collection(db,"projets"));
+
+        document.getElementById("projetsAttente").textContent =
+        snapshot.size;
+
+    }
+
+    catch(erreur){
+
+        console.error("Erreur Projets :",erreur);
+
+    }
+
+}
+
+
+async function chargerFormations(){
+
+    try{
+
+        const snapshot = await getDocs(collection(db,"formations"));
+
+        document.getElementById("formationsActives").textContent =
+        snapshot.size;
+
+    }
+
+    catch(erreur){
+
+        console.error("Erreur Formations :",erreur);
+
+    }
+
+}
+
+
+async function chargerEntraides(){
+
+    try{
+
+        const snapshot = await getDocs(collection(db,"entraides"));
+
+        document.getElementById("entraidesAttente").textContent =
+        snapshot.size;
+
+    }
+
+    catch(erreur){
+
+        console.error("Erreur Entraides :",erreur);
+
+    }
+
+}
+
+
+async function chargerInvestissements(){
+
+    try{
+
+        const snapshot = await getDocs(collection(db,"investissements"));
+
+        document.getElementById("investissementsActifs").textContent =
+        snapshot.size;
+
+    }
+
+    catch(erreur){
+
+        console.error("Erreur Investissements :",erreur);
+
+    }
+
+}
+
+
+async function chargerNotifications(){
+
+    try{
+
+        const snapshot = await getDocs(collection(db,"notifications"));
+
+        document.getElementById("notifications").textContent =
+        snapshot.size;
+
+    }
+
+    catch(erreur){
+
+        console.error("Erreur Notifications :",erreur);
+
+    }
+
+}
+
+
+async function chargerCotisations(){
+
+    try{
+
+        const snapshot = await getDocs(collection(db,"cotisations"));
+
+        document.getElementById("cotisationsMois").textContent =
+        snapshot.size;
+
+    }
+
+    catch(erreur){
+
+        console.error("Erreur Cotisations :",erreur);
+
+    }
+
+}
+
+
+async function chargerFinance(){
+
+    try{
+
+        const snapshot = await getDocs(collection(db,"finance"));
+
+        let total = 0;
+
+        snapshot.forEach((doc)=>{
+
+            const data = doc.data();
+
+            total += Number(data.montant || 0);
+
+        });
+
+        document.getElementById("soldeGeneral").textContent =
+        total.toLocaleString("fr-FR")+" FCFA";
+
+    }
+
+    catch(erreur){
+
+        console.error("Erreur Finance :",erreur);
+
+    }
+
+}
+
+
+/*==================================================
+        SYNCHRONISATION GÉNÉRALE
+==================================================*/
+
+async function synchroniserBureau(){
+
+    await Promise.all([
+
+        chargerMembres(),
+
+        chargerFinance(),
+
+        chargerCotisations(),
+
+        chargerProjets(),
+
+        chargerFormations(),
+
+        chargerInvestissements(),
+
+        chargerEntraides(),
+
+        chargerNotifications()
+
+    ]);
+
+    console.log("Tableau de bord synchronisé.");
+
+}
+
+synchroniserBureau();
+
+/*==================================================
         CENTRE DE COMMANDEMENT
-==========================================*/
+==================================================*/
 
 function chargerCentreCommande(){
 
     document.getElementById("activites").innerHTML=`
 
-        <p>✅ Bureau Président chargé.</p>
+        <p>✅ Bureau Président opérationnel.</p>
 
-        <p>📊 Tableau de bord opérationnel.</p>
+        <p>🟢 Firebase connecté.</p>
 
-        <p>🔒 Système sécurisé.</p>
+        <p>📊 Tableau de bord synchronisé.</p>
 
     `;
 
@@ -232,19 +385,19 @@ function chargerCentreCommande(){
 
     document.getElementById("listeProjets").innerHTML=`
 
-        <p>Aucun projet en attente.</p>
+        <p>Aucun projet nécessitant une validation.</p>
 
     `;
 
     document.getElementById("nouveauxMembres").innerHTML=`
 
-        <p>Aucun nouveau membre aujourd'hui.</p>
+        <p>Aucune nouvelle adhésion aujourd'hui.</p>
 
     `;
 
     document.getElementById("paiementsValidation").innerHTML=`
 
-        <p>Aucun paiement à valider.</p>
+        <p>Aucun paiement en attente.</p>
 
     `;
 
@@ -256,364 +409,89 @@ function chargerCentreCommande(){
 
 }
 
-chargerCentreCommande();
+/*==================================================
+            JOURNAL PRÉSIDENTIEL
+==================================================*/
 
+function ajouterJournal(message){
 
-/*==========================================
-      DERNIÈRE SYNCHRONISATION
-==========================================*/
+    const journal=document.getElementById("journalPresident");
+
+    if(!journal) return;
+
+    const heure=new Date().toLocaleTimeString("fr-FR");
+
+    journal.innerHTML=`
+
+        <p><strong>${heure}</strong> — ${message}</p>
+
+    `+journal.innerHTML;
+
+}
+
+/*==================================================
+        ENREGISTREMENT D'ACTIONS
+==================================================*/
+
+function enregistrerAction(action){
+
+    console.log(action);
+
+    ajouterJournal(action);
+
+}
+
+/*==================================================
+            NOTIFICATIONS
+==================================================*/
+
+function afficherNotification(message,type="info"){
+
+    console.log("["+type.toUpperCase()+"] "+message);
+
+}
+
+/*==================================================
+          DERNIÈRE SYNCHRONISATION
+==================================================*/
 
 function afficherSynchronisation(){
 
-    const maintenant=new Date();
-
     console.log(
 
-        "Dernière synchronisation : " +
+        "Dernière synchronisation : "+
 
-        maintenant.toLocaleString("fr-FR")
+        new Date().toLocaleString("fr-FR")
 
     );
 
 }
 
-afficherSynchronisation();
+/*==================================================
+        ACTUALISATION DU BUREAU
+==================================================*/
 
-/*==========================================
-        BUREAU PRÉSIDENTIEL
-==========================================*/
+async function actualiserBureau(){
 
-// Centre de validation
+    await synchroniserBureau();
 
-document.getElementById("centreValidation").innerHTML = `
+    chargerCentreCommande();
 
-    <p>✅ Aucun dossier en attente de validation.</p>
+    afficherSynchronisation();
 
-`;
+    enregistrerAction(
 
-// Boîte de réception
+        "Synchronisation du Bureau Président."
 
-document.getElementById("boiteReception").innerHTML = `
-
-    <p>📩 Aucun nouveau message.</p>
-
-`;
-
-// Décisions présidentielles
-
-document.getElementById("decisionsPresident").innerHTML = `
-
-    <p>📋 Aucune décision enregistrée aujourd'hui.</p>
-
-`;
-
-/*==========================================
-      SIGNATURE PRÉSIDENTIELLE
-==========================================*/
-
-const btnSigner = document.getElementById("btnSigner");
-
-if(btnSigner){
-
-    btnSigner.addEventListener("click", function(){
-
-        alert("Signature présidentielle enregistrée.");
-
-    });
+    );
 
 }
 
-/*==========================================
-      CODE PRÉSIDENT
-==========================================*/
-
-const btnCode = document.getElementById("btnCode");
-
-if(btnCode){
-
-    btnCode.addEventListener("click", function(){
-
-        const code = prompt("Entrez votre code Président :");
-
-        if(code === null){
-
-            return;
-
-        }
-
-        if(code === "1234"){
-
-            alert("Code Président accepté.");
-
-        }else{
-
-            alert("Code incorrect.");
-
-        }
-
-    });
-
-}
-
-console.log("Bureau Président prêt.");
-
-/*==========================================
-        JOURNAL PRÉSIDENTIEL
-==========================================*/
-
-function ajouterJournal(message){
-
-    const journal = document.getElementById("journalPresident");
-
-    const maintenant = new Date();
-
-    const heure = maintenant.toLocaleTimeString("fr-FR");
-
-    journal.innerHTML = `
-
-        <p><strong>${heure}</strong> - ${message}</p>
-
-    ` + journal.innerHTML;
-
-}
-
-// Premier événement
-
-ajouterJournal("Connexion du Président au Bureau Numérique.");
-
-
-/*==========================================
-        CENTRE DE SÉCURITÉ
-==========================================*/
-
-function verifierSecurite(){
-
-    console.log("Vérification du système...");
-
-    console.log("Connexion sécurisée.");
-
-    console.log("Président authentifié.");
-
-    console.log("Base de données disponible.");
-
-}
-
-verifierSecurite();
-
-
-/*==========================================
-        NOTIFICATIONS
-==========================================*/
-
-function notification(message){
-
-    console.log("Notification : " + message);
-
-}
-
-notification("Bienvenue Monsieur le Président.");
-
-
-/*==========================================
-        SAUVEGARDE AUTOMATIQUE
-==========================================*/
-
-function sauvegardeAuto(){
-
-    console.log("Sauvegarde automatique effectuée.");
-
-}
-
-setInterval(sauvegardeAuto,300000);
-
-
-/*==========================================
-        INITIALISATION
-==========================================*/
-
-console.log("=================================");
-
-console.log("BUREAU NUMÉRIQUE MWANA MBOKA");
-
-console.log("Président : Joram Obami");
-
-console.log("Version : 1.0");
-
-console.log("Statut : Opérationnel");
-
-console.log("=================================");
-
-/*==========================================
-      CHARGEMENT DES MEMBRES
-==========================================*/
-
-async function chargerMembres(){
-
-    if(!db){
-
-        console.log("Firebase indisponible.");
-
-        return;
-
-    }
-
-    try{
-
-        const snapshot = await db.collection("membres").get();
-
-        document.getElementById("totalMembres").textContent =
-        snapshot.size;
-
-    }
-
-    catch(erreur){
-
-        console.error(erreur);
-
-    }
-
-}
-
-
-/*==========================================
-      CHARGEMENT DES PROJETS
-==========================================*/
-
-async function chargerProjets(){
-
-    if(!db) return;
-
-    try{
-
-        const snapshot = await db.collection("projets").get();
-
-        document.getElementById("projetsAttente").textContent =
-        snapshot.size;
-
-    }
-
-    catch(erreur){
-
-        console.error(erreur);
-
-    }
-
-}
-
-
-/*==========================================
-      CHARGEMENT DES FORMATIONS
-==========================================*/
-
-async function chargerFormations(){
-
-    if(!db) return;
-
-    try{
-
-        const snapshot = await db.collection("formations").get();
-
-        document.getElementById("formationsActives").textContent =
-        snapshot.size;
-
-    }
-
-    catch(erreur){
-
-        console.error(erreur);
-
-    }
-
-}
-
-
-/*==========================================
-      CHARGEMENT DES ENTRAIDES
-==========================================*/
-
-async function chargerEntraides(){
-
-    if(!db) return;
-
-    try{
-
-        const snapshot = await db.collection("entraides").get();
-
-        document.getElementById("entraidesAttente").textContent =
-        snapshot.size;
-
-    }
-
-    catch(erreur){
-
-        console.error(erreur);
-
-    }
-
-}
-
-
-/*==========================================
-      SYNCHRONISATION
-==========================================*/
-
-async function synchroniserBureau(){
-
-    await chargerMembres();
-
-    await chargerProjets();
-
-    await chargerFormations();
-
-    await chargerEntraides();
-
-    console.log("Bureau synchronisé.");
-
-}
-
-synchroniserBureau();
-
-/*==========================================
-        ACTUALISATION AUTOMATIQUE
-==========================================*/
-
-function actualiserBureau(){
-
-    console.log("Actualisation du Bureau...");
-
-    synchroniserBureau();
-
-}
-
-/*==========================================
-        RAFRAÎCHISSEMENT
-==========================================*/
-
-// Toutes les 60 secondes
-
-setInterval(function(){
-
-    actualiserBureau();
-
-},60000);
-
-
-/*==========================================
-        NOTIFICATIONS TEMPS RÉEL
-==========================================*/
-
-function afficherNotification(message,type="info"){
-
-    console.log("[" + type.toUpperCase() + "] " + message);
-
-}
-
-
-/*==========================================
-        SURVEILLANCE DE CONNEXION
-==========================================*/
-
-window.addEventListener("online",function(){
+/*==================================================
+      SURVEILLANCE DE CONNEXION
+==================================================*/
+
+window.addEventListener("online",()=>{
 
     afficherNotification(
 
@@ -627,11 +505,11 @@ window.addEventListener("online",function(){
 
 });
 
-window.addEventListener("offline",function(){
+window.addEventListener("offline",()=>{
 
     afficherNotification(
 
-        "Connexion Internet perdue.",
+        "Connexion Internet interrompue.",
 
         "warning"
 
@@ -639,250 +517,25 @@ window.addEventListener("offline",function(){
 
 });
 
+/*==================================================
+      RAFRAÎCHISSEMENT AUTOMATIQUE
+==================================================*/
 
-/*==========================================
-        OUVERTURE DU BUREAU
-==========================================*/
+setInterval(actualiserBureau,60000);
 
-window.addEventListener("load",function(){
+/*==================================================
+          INITIALISATION
+==================================================*/
 
-    afficherNotification(
+chargerCentreCommande();
 
-        "Bienvenue dans le Bureau Numérique du Président.",
+ajouterJournal(
 
-        "success"
+    "Connexion du Président au Bureau Numérique."
 
-    );
+);
 
-    actualiserBureau();
+afficherSynchronisation();
 
-});
+console.log("Centre de commandement initialisé.");
 
-console.log("Actualisation automatique activée.");
-
-/*==========================================
-      SYSTÈME DE NOTIFICATIONS
-==========================================*/
-
-function creerNotification(message,type="info"){
-
-    const notification=document.createElement("div");
-
-    notification.className="notification "+type;
-
-    notification.innerHTML=`
-
-        <i class="fa-solid fa-bell"></i>
-
-        <span>${message}</span>
-
-    `;
-
-    document.body.appendChild(notification);
-
-    setTimeout(function(){
-
-        notification.classList.add("show");
-
-    },100);
-
-    setTimeout(function(){
-
-        notification.classList.remove("show");
-
-        setTimeout(function(){
-
-            notification.remove();
-
-        },500);
-
-    },5000);
-
-}
-
-
-/*==========================================
-      SUIVI DES ACTIONS
-==========================================*/
-
-function enregistrerAction(action){
-
-    console.log("Action :",action);
-
-    ajouterJournal(action);
-
-}
-
-
-/*==========================================
-      BARRE DE CHARGEMENT
-==========================================*/
-
-function afficherChargement(){
-
-    const loader=document.createElement("div");
-
-    loader.id="loaderPresident";
-
-    loader.innerHTML=`
-
-        <div class="loader-bar"></div>
-
-    `;
-
-    document.body.appendChild(loader);
-
-}
-
-function masquerChargement(){
-
-    const loader=document.getElementById("loaderPresident");
-
-    if(loader){
-
-        loader.remove();
-
-    }
-
-}
-
-
-/*==========================================
-      INITIALISATION
-==========================================*/
-
-window.addEventListener("load",function(){
-
-    afficherChargement();
-
-    setTimeout(function(){
-
-        masquerChargement();
-
-        creerNotification(
-
-            "Bureau Président prêt.",
-
-            "success"
-
-        );
-
-        enregistrerAction(
-
-            "Le Bureau Numérique est opérationnel."
-
-        );
-
-    },1500);
-
-});
-
-
-/*==========================================
-      EXEMPLES
-==========================================*/
-
-// Ces notifications seront remplacées
-// par Firebase plus tard.
-
-// creerNotification("Nouvelle cotisation reçue.","success");
-
-// creerNotification("Projet soumis.","info");
-
-// creerNotification("Paiement à valider.","warning");
-
-// creerNotification("Erreur réseau.","error");
-
-/*==========================================
-      INITIALISATION GÉNÉRALE
-==========================================*/
-
-document.addEventListener("DOMContentLoaded", async () => {
-
-    console.log("====================================");
-    console.log("COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA");
-    console.log("Bureau Numérique du Président");
-    console.log("Version 1.0");
-    console.log("====================================");
-
-    try{
-
-        if(typeof synchroniserBureau === "function"){
-
-            await synchroniserBureau();
-
-        }
-
-        if(typeof chargerCentreCommande === "function"){
-
-            chargerCentreCommande();
-
-        }
-
-        if(typeof mettreAJourDashboard === "function"){
-
-            mettreAJourDashboard();
-
-        }
-
-        if(typeof verifierSecurite === "function"){
-
-            verifierSecurite();
-
-        }
-
-        if(typeof ajouterJournal === "function"){
-
-            ajouterJournal("Initialisation complète du Bureau Numérique.");
-
-        }
-
-        console.log("Tous les modules sont opérationnels.");
-
-    }
-
-    catch(erreur){
-
-        console.error("Erreur :",erreur);
-
-    }
-
-});
-
-
-/*==========================================
-      SURVEILLANCE MÉMOIRE
-==========================================*/
-
-setInterval(function(){
-
-    console.log("Bureau Président actif...");
-
-},300000);
-
-
-/*==========================================
-      FERMETURE DE SESSION
-==========================================*/
-
-window.addEventListener("beforeunload",function(){
-
-    console.log("Fermeture du Bureau Président.");
-
-});
-
-
-/*==========================================
-      VERSION
-==========================================*/
-
-const VERSION_APPLICATION="1.0.0";
-
-console.log("Version :",VERSION_APPLICATION);
-
-
-/*==========================================
-      FIN
-==========================================*/
-
-console.log("Bureau Numérique du Président prêt.");
