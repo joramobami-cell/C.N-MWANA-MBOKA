@@ -8,7 +8,6 @@ import { db, auth, storage } from "./firebase-config.js";
 
 import {
     collection,
-    getDocs,
     onSnapshot
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
@@ -454,11 +453,6 @@ window.addEventListener("offline",()=>{
 
 });
 
-/*==================================================
-      RAFRAÎCHISSEMENT AUTOMATIQUE
-==================================================*/
-
-setInterval(actualiserBureau,60000);
 
 /*==================================================
           INITIALISATION
