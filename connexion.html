@@ -197,6 +197,15 @@ localStorage.setItem("statut",membre.statut);
 localStorage.setItem("parrain",membre.parrain);
 localStorage.setItem("dateAdhesion",membre.dateAdhesion);
 localStorage.setItem("photo",membre.photo);
+localStorage.setItem("utilisateurConnecte", JSON.stringify({
+
+    nom: membre.nom,
+
+    matricule: membre.matricule,
+
+    role: membre.role
+
+}));
 window.location.href="espace.html";
 
 }else{
