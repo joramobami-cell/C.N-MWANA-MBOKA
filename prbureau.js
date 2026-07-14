@@ -5,7 +5,6 @@
 ==================================================*/
 
 import { db, auth, storage } from "./firebase-config.js";
-import { db, auth, storage } from "./firebase-config.js";
 
 import {
     collection,
