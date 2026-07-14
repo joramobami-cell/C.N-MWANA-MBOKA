@@ -121,6 +121,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+/* =====================================
+   ACCÈS BUREAU PRÉSIDENT
+===================================== */
+
+
+const bureauPresident = document.getElementById("bureauPresident");
+
+
+const utilisateur = JSON.parse(
+    localStorage.getItem("utilisateurConnecte")
+);
+
+
+
+if(utilisateur && bureauPresident){
+
+
+    if(
+        utilisateur.role === "president" ||
+        utilisateur.role === "Président"
+    ){
+
+        bureauPresident.style.display="block";
+
+    }
+
+
+}
+
 
 
 /* =====================================
