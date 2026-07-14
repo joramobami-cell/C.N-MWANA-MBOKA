@@ -156,155 +156,100 @@ if(btnLogout){
 
 console.log("Initialisation terminée.");
 
+
 /*==================================================
           TABLEAU DE BORD FIREBASE
+        (Temps réel avec onSnapshot)
 ==================================================*/
 
-async function chargerMembres(){
+// MEMBRES
+function chargerMembres(){
 
-    try{
-
-        const snapshot = await getDocs(collection(db,"membres"));
+    onSnapshot(collection(db,"membres"),(snapshot)=>{
 
         document.getElementById("totalMembres").textContent =
         snapshot.size;
 
-    }
-
-    catch(erreur){
-
-        console.error("Erreur Membres :",erreur);
-
-    }
+    });
 
 }
 
+// PROJETS
+function chargerProjets(){
 
-async function chargerProjets(){
-
-    try{
-
-        const snapshot = await getDocs(collection(db,"projets"));
+    onSnapshot(collection(db,"projets"),(snapshot)=>{
 
         document.getElementById("projetsAttente").textContent =
         snapshot.size;
 
-    }
-
-    catch(erreur){
-
-        console.error("Erreur Projets :",erreur);
-
-    }
+    });
 
 }
 
+// FORMATIONS
+function chargerFormations(){
 
-async function chargerFormations(){
-
-    try{
-
-        const snapshot = await getDocs(collection(db,"formations"));
+    onSnapshot(collection(db,"formations"),(snapshot)=>{
 
         document.getElementById("formationsActives").textContent =
         snapshot.size;
 
-    }
-
-    catch(erreur){
-
-        console.error("Erreur Formations :",erreur);
-
-    }
+    });
 
 }
 
+// ENTRAIDES
+function chargerEntraides(){
 
-async function chargerEntraides(){
-
-    try{
-
-        const snapshot = await getDocs(collection(db,"entraides"));
+    onSnapshot(collection(db,"entraides"),(snapshot)=>{
 
         document.getElementById("entraidesAttente").textContent =
         snapshot.size;
 
-    }
-
-    catch(erreur){
-
-        console.error("Erreur Entraides :",erreur);
-
-    }
+    });
 
 }
 
+// INVESTISSEMENTS
+function chargerInvestissements(){
 
-async function chargerInvestissements(){
-
-    try{
-
-        const snapshot = await getDocs(collection(db,"investissements"));
+    onSnapshot(collection(db,"investissements"),(snapshot)=>{
 
         document.getElementById("investissementsActifs").textContent =
         snapshot.size;
 
-    }
-
-    catch(erreur){
-
-        console.error("Erreur Investissements :",erreur);
-
-    }
+    });
 
 }
 
+// COTISATIONS
+function chargerCotisations(){
 
-async function chargerNotifications(){
-
-    try{
-
-        const snapshot = await getDocs(collection(db,"notifications"));
-
-        document.getElementById("notifications").textContent =
-        snapshot.size;
-
-    }
-
-    catch(erreur){
-
-        console.error("Erreur Notifications :",erreur);
-
-    }
-
-}
-
-
-async function chargerCotisations(){
-
-    try{
-
-        const snapshot = await getDocs(collection(db,"cotisations"));
+    onSnapshot(collection(db,"cotisations"),(snapshot)=>{
 
         document.getElementById("cotisationsMois").textContent =
         snapshot.size;
 
-    }
-
-    catch(erreur){
-
-        console.error("Erreur Cotisations :",erreur);
-
-    }
+    });
 
 }
 
+// NOTIFICATIONS
+function chargerNotifications(){
 
-async function chargerFinance(){
+    onSnapshot(collection(db,"notifications"),(snapshot)=>{
 
-    try{
+        document.getElementById("notifications").textContent =
+        snapshot.size;
 
-        const snapshot = await getDocs(collection(db,"finance"));
+    });
+
+}
+
+// FINANCE
+function chargerFinance(){
+
+    onSnapshot(collection(db,"finance"),(snapshot)=>{
 
         let total = 0;
 
@@ -319,44 +264,35 @@ async function chargerFinance(){
         document.getElementById("soldeGeneral").textContent =
         total.toLocaleString("fr-FR")+" FCFA";
 
-    }
+    });
 
-    catch(erreur){
+           }
 
-        console.error("Erreur Finance :",erreur);
-
-    }
-
-}
 
 
 /*==================================================
         SYNCHRONISATION GÉNÉRALE
 ==================================================*/
 
-async function synchroniserBureau(){
+function synchroniserBureau(){
 
-    await Promise.all([
+    chargerMembres();
 
-        chargerMembres(),
+    chargerFinance();
 
-        chargerFinance(),
+    chargerCotisations();
 
-        chargerCotisations(),
+    chargerProjets();
 
-        chargerProjets(),
+    chargerFormations();
 
-        chargerFormations(),
+    chargerInvestissements();
 
-        chargerInvestissements(),
+    chargerEntraides();
 
-        chargerEntraides(),
+    chargerNotifications();
 
-        chargerNotifications()
-
-    ]);
-
-    console.log("Tableau de bord synchronisé.");
+    console.log("Synchronisation temps réel activée.");
 
 }
 
