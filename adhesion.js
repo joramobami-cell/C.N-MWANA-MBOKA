@@ -97,16 +97,18 @@ async function convertirPhoto() {
 
 }
 
-/*==================================================
-        ENREGISTREMENT FIREBASE
-==================================================*/
+/*==========================================
+    ENREGISTREMENT DU MEMBRE
+==========================================*/
 
-        await addDoc(
-            collection(db, "membres"),
-            membre
-        );
+const docRef = await addDoc(
+    collection(db, "membres"),
+    membre
+);
 
-        console.log("Membre enregistré avec succès.");
+console.log("Membre enregistré :", docRef.id);
+
+        
 
         afficherMessage(
             `
