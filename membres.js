@@ -542,6 +542,23 @@ function actualiserMembres(){
 }
 
 /*==================================================
+        AJOUTER UN MEMBRE
+==================================================*/
+
+const boutonAjouter = document.querySelector(".btn-add");
+
+if(boutonAjouter){
+
+    boutonAjouter.addEventListener("click",()=>{
+
+        window.location.href = "adhesion.html";
+
+    });
+
+}
+
+
+/*==================================================
         DÉMARRAGE
 ==================================================*/
 
