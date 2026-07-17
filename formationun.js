@@ -25,7 +25,7 @@ import {
 
 
 console.log("MODULE FORMATIONS CHARGÉ");
-
+console.log("FORMATION JS CHARGE");
 
 
 
