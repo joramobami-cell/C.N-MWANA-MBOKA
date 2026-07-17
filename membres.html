@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Gestion des Membres | MWANA MBOKA</title>
 
@@ -17,31 +16,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-<!-- HEADER -->
+
+<!-- ================= HEADER ================= -->
 
 <header class="header">
 
+
 <div class="logo-box">
 
-<img src="logo.png" class="logo">
+<img src="logo.png" class="logo" alt="Logo MWANA MBOKA">
+
 
 <div>
 
-<h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
+<h1>
+COMMUNAUTÉ NUMÉRIQUE
+<br>
+MWANA MBOKA
+</h1>
 
-<p>Gestion des Membres</p>
+<p>
+Gestion professionnelle des membres
+</p>
 
 </div>
 
+
 </div>
+
+
 
 <div class="header-right">
 
-<div class="date-box">
+
+<div class="info-box">
 
 <i class="fa-solid fa-calendar-days"></i>
 
@@ -49,13 +63,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
-<div class="time-box">
+
+
+<div class="info-box">
 
 <i class="fa-solid fa-clock"></i>
 
 <span id="heure"></span>
 
 </div>
+
+
 
 <button id="logoutBtn" class="logout">
 
@@ -65,13 +83,21 @@ Déconnexion
 
 </button>
 
+
 </div>
+
 
 </header>
 
-<!-- TITRE -->
+
+
+
+
+<!-- ================= TITRE PAGE ================= -->
+
 
 <section class="page-title">
+
 
 <h2>
 
@@ -81,84 +107,224 @@ Gestion des Membres
 
 </h2>
 
+
 <p>
 
-Consultez, recherchez et gérez tous les membres de la communauté.
+Administration, suivi et gestion des membres de la communauté.
 
 </p>
 
+
 </section>
 
-<!-- TABLEAU DE BORD -->
+
+
+
+
+<!-- ================= STATISTIQUES ================= -->
+
 
 <section class="dashboard">
 
+
+
 <div class="card">
+
+
+<div class="card-icon">
 
 <i class="fa-solid fa-users"></i>
 
-<h3>Total Membres</h3>
+</div>
 
-<h2 id="totalMembres">0</h2>
+
+<div>
+
+<h3>
+
+Total Membres
+
+</h3>
+
+
+<h2 id="totalMembres">
+
+0
+
+</h2>
+
 
 </div>
 
+
+</div>
+
+
+
+
+
 <div class="card">
+
+
+<div class="card-icon">
 
 <i class="fa-solid fa-user-check"></i>
 
-<h3>Membres Actifs</h3>
+</div>
 
-<h2 id="membresActifs">0</h2>
+
+<div>
+
+<h3>
+
+Membres Actifs
+
+</h3>
+
+
+<h2 id="membresActifs">
+
+0
+
+</h2>
+
 
 </div>
 
+
+</div>
+
+
+
+
+
 <div class="card">
+
+
+<div class="card-icon">
 
 <i class="fa-solid fa-user-plus"></i>
 
-<h3>Nouveaux</h3>
+</div>
 
-<h2 id="nouveauxMembres">0</h2>
+
+<div>
+
+<h3>
+
+Nouveaux Membres
+
+</h3>
+
+
+<h2 id="nouveauxMembres">
+
+0
+
+</h2>
+
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="card">
 
-<i class="fa-solid fa-user-group"></i>
 
-<h3>Parrains</h3>
+<div class="card-icon">
 
-<h2 id="totalParrains">0</h2>
+<i class="fa-solid fa-handshake"></i>
 
 </div>
+
+
+<div>
+
+<h3>
+
+Parrains
+
+</h3>
+
+
+<h2 id="totalParrains">
+
+0
+
+</h2>
+
+
+</div>
+
+
+</div>
+
+
 
 </section>
 
-<!-- RECHERCHE -->
 
-<section class="search-box">
 
-<div class="search-input">
+
+
+<!-- ================= ACTIONS ================= -->
+
+
+<section class="actions-bar">
+
+
+
+<div class="search-box">
+
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
+
 <input
+
 type="text"
+
 id="recherche"
-placeholder="Rechercher par nom, matricule, téléphone ou parrain...">
+
+placeholder="Rechercher un membre..." >
+
 
 </div>
 
-    </section>
 
-    <!-- ==========================================
-        TABLEAU DES MEMBRES
-========================================== -->
+
+
+<button class="btn-add">
+
+
+<i class="fa-solid fa-user-plus"></i>
+
+Ajouter un membre
+
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+<!-- ================= TABLEAU ================= -->
+
 
 <section class="table-section">
 
-<div class="table-header">
+
+<div class="section-header">
+
 
 <h2>
 
@@ -168,72 +334,143 @@ Liste des Membres
 
 </h2>
 
+
 </div>
+
+
 
 <div class="table-responsive">
 
+
 <table>
+
 
 <thead>
 
+
 <tr>
 
-<th>Photo</th>
 
-<th>Nom</th>
+<th>
 
-<th>Matricule</th>
+Photo
 
-<th>Téléphone</th>
+</th>
 
-<th>Parrain</th>
 
-<th>Statut</th>
+<th>
 
-<th>Adhésion</th>
+Nom
 
-<th>Actions</th>
+</th>
+
+
+<th>
+
+Matricule
+
+</th>
+
+
+<th>
+
+Téléphone
+
+</th>
+
+
+<th>
+
+Parrain
+
+</th>
+
+
+<th>
+
+Statut
+
+</th>
+
+
+<th>
+
+Adhésion
+
+</th>
+
+
+<th>
+
+Actions
+
+</th>
+
 
 </tr>
 
+
 </thead>
 
+
+
 <tbody id="listeMembres">
+
 
 <tr>
 
 <td colspan="8" class="loading">
 
+
 <i class="fa-solid fa-spinner fa-spin"></i>
 
+
 Chargement des membres...
+
 
 </td>
 
 </tr>
 
+
+
 </tbody>
+
 
 </table>
 
+
 </div>
 
-</section>
 
+    </section>
 
-<!-- ==========================================
-        MODAL DÉTAIL MEMBRE
-========================================== -->
+<!-- ================= MODAL DETAILS MEMBRE ================= -->
 
 <div id="modalMembre" class="modal">
 
+
 <div class="modal-content">
 
-<span class="close">&times;</span>
+
+<span class="close">
+
+&times;
+
+</span>
+
+
 
 <div class="modal-header">
 
-<img src="logo.png" id="photoMembre">
+
+<img 
+src="logo.png"
+id="photoMembre"
+alt="Photo membre">
+
+
+<div>
 
 <h2 id="nomDetail">
 
@@ -241,62 +478,185 @@ Nom du membre
 
 </h2>
 
+
+<p>
+
+Détails du profil membre
+
+</p>
+
+
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="modal-body">
 
-<p>
+
+<div class="detail-item">
+
+<i class="fa-solid fa-id-card"></i>
 
 <strong>Matricule :</strong>
 
 <span id="matriculeDetail"></span>
 
-</p>
 
-<p>
+</div>
+
+
+
+
+<div class="detail-item">
+
+<i class="fa-solid fa-phone"></i>
 
 <strong>Téléphone :</strong>
 
 <span id="telephoneDetail"></span>
 
-</p>
 
-<p>
+</div>
+
+
+
+
+<div class="detail-item">
+
+<i class="fa-solid fa-user-group"></i>
 
 <strong>Parrain :</strong>
 
 <span id="parrainDetail"></span>
 
-</p>
 
-<p>
+</div>
+
+
+
+
+<div class="detail-item">
+
+<i class="fa-solid fa-circle-check"></i>
 
 <strong>Statut :</strong>
 
 <span id="statutDetail"></span>
 
-</p>
 
-<p>
+</div>
+
+
+
+
+<div class="detail-item">
+
+<i class="fa-solid fa-calendar"></i>
 
 <strong>Date d'adhésion :</strong>
 
 <span id="dateDetail"></span>
 
-</p>
 
 </div>
+
+
+
+</div>
+
+
+
+
 
 <div class="modal-footer">
 
+
 <button class="btn-close">
+
+
+<i class="fa-solid fa-xmark"></i>
 
 Fermer
 
+
 </button>
 
-</div>
 
 </div>
 
-    </div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+
+
+<footer class="footer">
+
+
+<div>
+
+
+<img src="logo.png" alt="MWANA MBOKA">
+
+
+<p>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</p>
+
+
+</div>
+
+
+
+<p>
+
+© <span id="annee"></span>
+
+MWANA MBOKA -
+
+Ensemble nous irons plus loin
+
+</p>
+
+
+
+</footer>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- ================= SCRIPTS ================= -->
+
+
+<script type="module" src="membres.js"></script>
+
+
+
+</body>
+
+
+</html>
