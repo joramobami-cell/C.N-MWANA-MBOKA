@@ -1,7 +1,7 @@
 /*==================================================
     FORMATIONUN.JS
     COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-    GESTION DES FORMATIONS
+    MODULE GESTION DES FORMATIONS
 ==================================================*/
 
 
@@ -12,19 +12,19 @@ import {
 
     collection,
     addDoc,
-    getDocs,
     onSnapshot,
     query,
-    orderBy
+    orderBy,
+    serverTimestamp,
+    getDocs,
+    deleteDoc,
+    doc
 
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 
 
-console.log("================================");
-console.log("MODULE FORMATIONS MWANA MBOKA");
-console.log("Firebase :", db);
-console.log("================================");
+console.log("MODULE FORMATIONS CHARGÉ");
 
 
 
@@ -55,7 +55,6 @@ const totalSuggestions =
 document.getElementById("totalSuggestions");
 
 
-
 const message =
 document.getElementById("message");
 
@@ -65,7 +64,7 @@ document.getElementById("message");
 
 
 /*==================================================
-        MESSAGE
+        NOTIFICATION
 ==================================================*/
 
 
@@ -75,18 +74,16 @@ function afficherMessage(texte,type){
 if(!message) return;
 
 
-message.innerHTML = texte;
+message.innerHTML=texte;
 
-
-message.className = type;
-
+message.className=type;
 
 
 setTimeout(()=>{
 
-
 message.innerHTML="";
 
+message.className="";
 
 },4000);
 
@@ -99,16 +96,16 @@ message.innerHTML="";
 
 
 
-
 /*==================================================
-        CHARGEMENT FORMATIONS
+        CHARGEMENT FORMATIONS FIREBASE
 ==================================================*/
 
 
 function chargerFormations(){
 
 
-const q = query(
+
+const q=query(
 
 collection(db,"formations"),
 
@@ -118,20 +115,23 @@ orderBy("dateCreation","desc")
 
 
 
+
+
 onSnapshot(q,(snapshot)=>{
 
 
 let formations=[];
 
 
-snapshot.forEach((doc)=>{
+
+snapshot.forEach((element)=>{
 
 
 formations.push({
 
-id:doc.id,
+id:element.id,
 
-...doc.data()
+...element.data()
 
 });
 
@@ -143,20 +143,22 @@ id:doc.id,
 afficherFormations(formations);
 
 
-statistiques(formations);
+mettreAJourStatistiques(formations);
 
 
 
 },(erreur)=>{
 
 
-console.error(erreur);
+console.error(
+"Erreur chargement formations :",
+erreur
+);
 
 
 afficherMessage(
 
-"Erreur chargement formations : "
-+ erreur.message,
+"Erreur chargement formations : "+erreur.message,
 
 "error"
 
@@ -165,14 +167,18 @@ afficherMessage(
 
 });
 
+
 }
 
 
 
 
 
+
+
+
 /*==================================================
-        AFFICHAGE TABLEAU
+        AFFICHAGE
 ==================================================*/
 
 
@@ -206,9 +212,7 @@ Aucune formation disponible.
 
 `;
 
-
 return;
-
 
 }
 
@@ -225,36 +229,16 @@ listeFormations.innerHTML += `
 <tr>
 
 
-<td>
-
-${formation.titre || "-"}
-
-</td>
+<td>${formation.titre || "-"}</td>
 
 
-
-<td>
-
-${formation.domaine || "-"}
-
-</td>
+<td>${formation.domaine || "-"}</td>
 
 
-
-<td>
-
-${formation.formateur || "-"}
-
-</td>
+<td>${formation.formateur || "-"}</td>
 
 
-
-<td>
-
-${formation.dateFormation || "-"}
-
-</td>
-
+<td>${formation.dateFormation || "-"}</td>
 
 
 <td>
@@ -268,10 +252,11 @@ ${formation.statut || "Disponible"}
 </td>
 
 
-
 <td>
 
+
 <button class="btn-secondary"
+
 onclick="participerFormation('${formation.id}')">
 
 <i class="fa-solid fa-user-plus"></i>
@@ -281,12 +266,15 @@ Participer
 </button>
 
 
+
 <button class="btn-delete"
+
 onclick="supprimerFormation('${formation.id}')">
 
 <i class="fa-solid fa-trash"></i>
 
 </button>
+
 
 </td>
 
@@ -297,12 +285,13 @@ onclick="supprimerFormation('${formation.id}')">
 `;
 
 
-
 });
 
 
-
 }
+
+
+
 
 
 
@@ -314,7 +303,7 @@ onclick="supprimerFormation('${formation.id}')">
 ==================================================*/
 
 
-function statistiques(formations){
+function mettreAJourStatistiques(formations){
 
 
 if(totalFormations)
@@ -328,12 +317,11 @@ if(formationsCours)
 
 formationsCours.textContent =
 
-formations.filter(
+formations.filter(f=>
 
-f=>f.statut==="En cours"
+f.statut==="En cours"
 
 ).length;
-
 
 
 
@@ -341,142 +329,15 @@ if(formationsTerminees)
 
 formationsTerminees.textContent =
 
-formations.filter(
+formations.filter(f=>
 
-f=>f.statut==="Terminée"
+f.statut==="Terminée"
 
 ).length;
 
 
 
 }
-
-  /*==================================================
-        MODALES
-==================================================*/
-
-
-const modalFormation =
-document.getElementById("modalFormation");
-
-
-const modalSuggestion =
-document.getElementById("modalSuggestion");
-
-
-
-const btnAjouter =
-document.getElementById("btnAjouterFormation");
-
-
-const btnSuggestion =
-document.getElementById("btnSuggestion");
-
-
-
-const fermerFormation =
-document.getElementById("fermerFormation");
-
-
-const fermerSuggestion =
-document.getElementById("fermerSuggestion");
-
-
-
-
-
-
-if(btnAjouter){
-
-
-btnAjouter.onclick = ()=>{
-
-
-modalFormation.style.display="flex";
-
-
-};
-
-
-}
-
-
-
-
-if(btnSuggestion){
-
-
-btnSuggestion.onclick = ()=>{
-
-
-modalSuggestion.style.display="flex";
-
-
-};
-
-
-}
-
-
-
-
-
-if(fermerFormation){
-
-
-fermerFormation.onclick=()=>{
-
-
-modalFormation.style.display="none";
-
-
-};
-
-
-}
-
-
-
-
-if(fermerSuggestion){
-
-
-fermerSuggestion.onclick=()=>{
-
-
-modalSuggestion.style.display="none";
-
-
-};
-
-
-}
-
-
-
-
-
-window.onclick=(e)=>{
-
-
-if(e.target===modalFormation){
-
-modalFormation.style.display="none";
-
-}
-
-
-
-if(e.target===modalSuggestion){
-
-modalSuggestion.style.display="none";
-
-}
-
-
-};
-
-
 
 
 
@@ -517,7 +378,8 @@ collection(db,"formations"),
 
 titre:
 
-document.getElementById("titreFormation").value,
+document.getElementById("titreFormation").value.trim(),
+
 
 
 domaine:
@@ -525,19 +387,23 @@ domaine:
 document.getElementById("domaineFormation").value,
 
 
+
 description:
 
-document.getElementById("descriptionFormation").value,
+document.getElementById("descriptionFormation").value.trim(),
+
 
 
 formateur:
 
-document.getElementById("formateurFormation").value,
+document.getElementById("formateurFormation").value.trim(),
+
 
 
 duree:
 
-document.getElementById("dureeFormation").value,
+document.getElementById("dureeFormation").value.trim(),
+
 
 
 dateFormation:
@@ -545,15 +411,20 @@ dateFormation:
 document.getElementById("dateFormation").value,
 
 
+
 statut:"Disponible",
 
 
-dateCreation:new Date()
+
+dateCreation:
+
+serverTimestamp()
 
 
 }
 
 );
+
 
 
 
@@ -570,28 +441,19 @@ afficherMessage(
 formFormation.reset();
 
 
-modalFormation.style.display="none";
-
-
 
 }
 
 catch(erreur){
 
 
-console.error(
-
-"ERREUR CREATION FORMATION :",
-
-erreur
-
-);
+console.error(erreur);
 
 
 
 afficherMessage(
 
-"Erreur : "+erreur.message,
+"Erreur création : "+erreur.message,
 
 "error"
 
@@ -616,7 +478,81 @@ afficherMessage(
 
 
 /*==================================================
-        SUGGESTION FORMATION
+        SUPPRESSION FORMATION
+==================================================*/
+
+
+window.supprimerFormation = async function(id){
+
+
+
+const confirmation =
+confirm(
+
+"Supprimer définitivement cette formation ?"
+
+);
+
+
+
+if(!confirmation)
+return;
+
+
+
+try{
+
+
+await deleteDoc(
+
+doc(db,"formations",id)
+
+);
+
+
+
+afficherMessage(
+
+"Formation supprimée.",
+
+"success"
+
+);
+
+
+}
+
+catch(erreur){
+
+
+console.error(erreur);
+
+
+
+afficherMessage(
+
+"Erreur suppression : "+erreur.message,
+
+"error"
+
+);
+
+
+}
+
+
+};
+
+
+
+
+
+
+
+
+
+/*==================================================
+        SUGGESTIONS
 ==================================================*/
 
 
@@ -647,7 +583,8 @@ collection(db,"suggestions_formations"),
 
 titre:
 
-document.getElementById("titreSuggestion").value,
+document.getElementById("titreSuggestion").value.trim(),
+
 
 
 domaine:
@@ -655,20 +592,26 @@ domaine:
 document.getElementById("domaineSuggestion").value,
 
 
+
 description:
 
-document.getElementById("descriptionSuggestion").value,
+document.getElementById("descriptionSuggestion").value.trim(),
+
 
 
 utilite:
 
-document.getElementById("utiliteSuggestion").value,
+document.getElementById("utiliteSuggestion").value.trim(),
+
 
 
 statut:"En attente",
 
 
-dateCreation:new Date()
+
+dateCreation:
+
+serverTimestamp()
 
 
 }
@@ -679,7 +622,7 @@ dateCreation:new Date()
 
 afficherMessage(
 
-"Votre suggestion a été envoyée.",
+"Suggestion envoyée avec succès.",
 
 "success"
 
@@ -691,28 +634,18 @@ formSuggestion.reset();
 
 
 
-modalSuggestion.style.display="none";
-
-
-
 }
 
 catch(erreur){
 
 
-console.error(
-
-"ERREUR SUGGESTION :",
-
-erreur
-
-);
+console.error(erreur);
 
 
 
 afficherMessage(
 
-"Erreur : "+erreur.message,
+"Erreur suggestion : "+erreur.message,
 
 "error"
 
@@ -737,43 +670,33 @@ afficherMessage(
 
 
 /*==================================================
-        COMPTER LES SUGGESTIONS
+        COMPTEUR SUGGESTIONS
 ==================================================*/
 
 
 function chargerSuggestions(){
 
 
-const q = collection(
+onSnapshot(
 
-db,
+collection(db,"suggestions_formations"),
 
-"suggestions_formations"
-
-);
+(snapshot)=>{
 
 
-
-onSnapshot(q,(snapshot)=>{
-
-
-if(totalSuggestions){
-
+if(totalSuggestions)
 
 totalSuggestions.textContent =
-
 snapshot.size;
 
 
 }
 
 
-
-});
+);
 
 
 }
-
 
 
 
@@ -790,13 +713,12 @@ snapshot.size;
 
 chargerFormations();
 
-
 chargerSuggestions();
 
 
 
 console.log(
 
-"Module formation opérationnel."
+"FORMATIONUN.JS OPERATIONNEL"
 
 );
