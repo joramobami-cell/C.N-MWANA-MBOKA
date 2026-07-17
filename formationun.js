@@ -16,7 +16,6 @@ import {
     query,
     orderBy,
     serverTimestamp,
-    getDocs,
     deleteDoc,
     doc
 
@@ -24,17 +23,14 @@ import {
 
 
 
-console.log("MODULE FORMATIONS CHARGÉ");
-console.log("FORMATION JS CHARGE");
-console.log("FORMATION JS CHARGE");
 
-const testBouton = document.getElementById("btnAjouterFormation");
 
-if(testBouton){
-    alert("Bouton Créer une formation trouvé");
-}else{
-    alert("Bouton introuvable");
-}
+console.log("==================================");
+console.log("FORMATIONUN.JS CHARGE");
+console.log("MWANA MBOKA");
+console.log("==================================");
+
+
 
 
 
@@ -72,28 +68,34 @@ document.getElementById("message");
 
 
 /*==================================================
-        NOTIFICATION
+        MESSAGE
 ==================================================*/
 
 
-function afficherMessage(texte,type){
+function afficherMessage(texte,type="success"){
 
 
 if(!message) return;
 
 
-message.innerHTML=texte;
+message.innerHTML = texte;
 
-message.className=type;
+
+message.className = "message "+type;
+
 
 
 setTimeout(()=>{
 
+
 message.innerHTML="";
+
 
 message.className="";
 
+
 },4000);
+
 
 
 }
@@ -105,7 +107,142 @@ message.className="";
 
 
 /*==================================================
-        CHARGEMENT FORMATIONS FIREBASE
+        MODALES
+==================================================*/
+
+
+const btnAjouterFormation =
+document.getElementById("btnAjouterFormation");
+
+
+const modalFormation =
+document.getElementById("modalFormation");
+
+
+const fermerFormation =
+document.getElementById("fermerFormation");
+
+
+
+
+if(btnAjouterFormation && modalFormation){
+
+
+btnAjouterFormation.addEventListener("click",()=>{
+
+
+modalFormation.style.display="flex";
+
+
+});
+
+
+}
+
+
+
+if(fermerFormation){
+
+
+fermerFormation.addEventListener("click",()=>{
+
+
+modalFormation.style.display="none";
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+const btnSuggestion =
+document.getElementById("btnSuggestion");
+
+
+const modalSuggestion =
+document.getElementById("modalSuggestion");
+
+
+const fermerSuggestion =
+document.getElementById("fermerSuggestion");
+
+
+
+
+if(btnSuggestion && modalSuggestion){
+
+
+btnSuggestion.addEventListener("click",()=>{
+
+
+modalSuggestion.style.display="flex";
+
+
+});
+
+
+}
+
+
+
+
+if(fermerSuggestion){
+
+
+fermerSuggestion.addEventListener("click",()=>{
+
+
+modalSuggestion.style.display="none";
+
+
+});
+
+
+}
+
+
+
+
+
+window.addEventListener("click",(e)=>{
+
+
+if(e.target===modalFormation){
+
+
+modalFormation.style.display="none";
+
+
+}
+
+
+
+if(e.target===modalSuggestion){
+
+
+modalSuggestion.style.display="none";
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+/*==================================================
+        CHARGEMENT FORMATIONS
 ==================================================*/
 
 
@@ -113,7 +250,7 @@ function chargerFormations(){
 
 
 
-const q=query(
+const q = query(
 
 collection(db,"formations"),
 
@@ -128,23 +265,27 @@ orderBy("dateCreation","desc")
 onSnapshot(q,(snapshot)=>{
 
 
+
 let formations=[];
 
 
 
-snapshot.forEach((element)=>{
+
+snapshot.forEach((item)=>{
 
 
 formations.push({
 
-id:element.id,
+id:item.id,
 
-...element.data()
+...item.data()
+
+});
+
 
 });
 
 
-});
 
 
 
@@ -158,15 +299,12 @@ mettreAJourStatistiques(formations);
 },(erreur)=>{
 
 
-console.error(
-"Erreur chargement formations :",
-erreur
-);
+console.error(erreur);
 
 
 afficherMessage(
 
-"Erreur chargement formations : "+erreur.message,
+"Erreur chargement : "+erreur.message,
 
 "error"
 
@@ -174,6 +312,7 @@ afficherMessage(
 
 
 });
+
 
 
 }
@@ -184,18 +323,15 @@ afficherMessage(
 
 
 
-
 /*==================================================
-        AFFICHAGE
+        AFFICHAGE TABLEAU
 ==================================================*/
 
 
 function afficherFormations(formations){
 
 
-
-if(!listeFormations)
-return;
+if(!listeFormations) return;
 
 
 
@@ -220,7 +356,9 @@ Aucune formation disponible.
 
 `;
 
+
 return;
+
 
 }
 
@@ -229,6 +367,7 @@ return;
 
 
 formations.forEach((formation)=>{
+
 
 
 listeFormations.innerHTML += `
@@ -249,6 +388,7 @@ listeFormations.innerHTML += `
 <td>${formation.dateFormation || "-"}</td>
 
 
+
 <td>
 
 <span class="badge badge-actif">
@@ -257,7 +397,9 @@ ${formation.statut || "Disponible"}
 
 </span>
 
+
 </td>
+
 
 
 <td>
@@ -267,11 +409,14 @@ ${formation.statut || "Disponible"}
 
 onclick="participerFormation('${formation.id}')">
 
+
 <i class="fa-solid fa-user-plus"></i>
 
 Participer
 
+
 </button>
+
 
 
 
@@ -279,7 +424,9 @@ Participer
 
 onclick="supprimerFormation('${formation.id}')">
 
+
 <i class="fa-solid fa-trash"></i>
+
 
 </button>
 
@@ -293,18 +440,12 @@ onclick="supprimerFormation('${formation.id}')">
 `;
 
 
+
 });
 
 
+
 }
-
-
-
-
-
-
-
-
 
 /*==================================================
         STATISTIQUES
@@ -314,34 +455,49 @@ onclick="supprimerFormation('${formation.id}')">
 function mettreAJourStatistiques(formations){
 
 
-if(totalFormations)
 
-totalFormations.textContent =
-formations.length;
+if(totalFormations){
 
+    totalFormations.textContent =
+    formations.length;
 
-
-if(formationsCours)
-
-formationsCours.textContent =
-
-formations.filter(f=>
-
-f.statut==="En cours"
-
-).length;
+}
 
 
 
-if(formationsTerminees)
+if(formationsCours){
 
-formationsTerminees.textContent =
 
-formations.filter(f=>
+    formationsCours.textContent =
 
-f.statut==="Terminée"
+    formations.filter((f)=>
 
-).length;
+
+        f.statut==="En cours"
+
+
+    ).length;
+
+
+}
+
+
+
+if(formationsTerminees){
+
+
+    formationsTerminees.textContent =
+
+    formations.filter((f)=>
+
+
+        f.statut==="Terminée"
+
+
+    ).length;
+
+
+}
 
 
 
@@ -360,21 +516,50 @@ f.statut==="Terminée"
 
 
 const formFormation =
+
 document.getElementById("formFormation");
+
 
 
 
 if(formFormation){
 
 
+
 formFormation.addEventListener("submit",async(e)=>{
+
 
 
 e.preventDefault();
 
 
 
+const bouton =
+formFormation.querySelector("button");
+
+
+
 try{
+
+
+if(bouton){
+
+
+bouton.disabled=true;
+
+
+bouton.innerHTML=
+
+`
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+Enregistrement...
+
+`;
+
+}
+
 
 
 await addDoc(
@@ -420,7 +605,9 @@ document.getElementById("dateFormation").value,
 
 
 
-statut:"Disponible",
+statut:
+
+"Disponible",
 
 
 
@@ -436,6 +623,7 @@ serverTimestamp()
 
 
 
+
 afficherMessage(
 
 "Formation créée avec succès.",
@@ -446,7 +634,16 @@ afficherMessage(
 
 
 
+
 formFormation.reset();
+
+
+
+if(modalFormation){
+
+modalFormation.style.display="none";
+
+}
 
 
 
@@ -455,17 +652,54 @@ formFormation.reset();
 catch(erreur){
 
 
-console.error(erreur);
+
+console.error(
+
+"ERREUR CREATION FORMATION :",
+
+erreur
+
+);
 
 
 
 afficherMessage(
 
-"Erreur création : "+erreur.message,
+"Erreur : "+erreur.message,
 
 "error"
 
 );
+
+
+
+}
+
+
+
+finally{
+
+
+if(bouton){
+
+
+bouton.disabled=false;
+
+
+bouton.innerHTML=
+
+`
+
+<i class="fa-solid fa-save"></i>
+
+Enregistrer la formation
+
+`;
+
+
+
+}
+
 
 
 }
@@ -486,7 +720,7 @@ afficherMessage(
 
 
 /*==================================================
-        SUPPRESSION FORMATION
+        SUPPRESSION
 ==================================================*/
 
 
@@ -494,17 +728,15 @@ window.supprimerFormation = async function(id){
 
 
 
-const confirmation =
-confirm(
+const confirmation = confirm(
 
-"Supprimer définitivement cette formation ?"
+"Voulez-vous supprimer cette formation ?"
 
 );
 
 
 
-if(!confirmation)
-return;
+if(!confirmation) return;
 
 
 
@@ -528,9 +760,13 @@ afficherMessage(
 );
 
 
+
 }
 
+
+
 catch(erreur){
+
 
 
 console.error(erreur);
@@ -546,7 +782,35 @@ afficherMessage(
 );
 
 
+
 }
+
+
+
+};
+
+
+
+
+
+
+
+
+
+/*==================================================
+        PARTICIPATION
+==================================================*/
+
+
+window.participerFormation=function(id){
+
+
+alert(
+
+"Votre demande de participation a été enregistrée."
+
+);
+
 
 
 };
@@ -565,14 +829,19 @@ afficherMessage(
 
 
 const formSuggestion =
+
 document.getElementById("formSuggestion");
+
+
 
 
 
 if(formSuggestion){
 
 
+
 formSuggestion.addEventListener("submit",async(e)=>{
+
 
 
 e.preventDefault();
@@ -580,6 +849,7 @@ e.preventDefault();
 
 
 try{
+
 
 
 await addDoc(
@@ -613,7 +883,9 @@ document.getElementById("utiliteSuggestion").value.trim(),
 
 
 
-statut:"En attente",
+statut:
+
+"En attente",
 
 
 
@@ -625,6 +897,8 @@ serverTimestamp()
 }
 
 );
+
+
 
 
 
@@ -642,9 +916,20 @@ formSuggestion.reset();
 
 
 
+if(modalSuggestion){
+
+modalSuggestion.style.display="none";
+
 }
 
+
+
+}
+
+
+
 catch(erreur){
+
 
 
 console.error(erreur);
@@ -660,11 +945,13 @@ afficherMessage(
 );
 
 
+
 }
 
 
 
 });
+
 
 
 }
@@ -685,6 +972,7 @@ afficherMessage(
 function chargerSuggestions(){
 
 
+
 onSnapshot(
 
 collection(db,"suggestions_formations"),
@@ -692,16 +980,25 @@ collection(db,"suggestions_formations"),
 (snapshot)=>{
 
 
-if(totalSuggestions)
+
+if(totalSuggestions){
+
 
 totalSuggestions.textContent =
+
 snapshot.size;
 
 
 }
 
 
+
+}
+
+
+
 );
+
 
 
 }
@@ -720,6 +1017,7 @@ snapshot.size;
 
 
 chargerFormations();
+
 
 chargerSuggestions();
 
