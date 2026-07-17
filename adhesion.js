@@ -5,7 +5,7 @@
 
 
 import { db } from "./firebase-config.js";
-
+console.log("Firebase :", db);
 
 import {
 
@@ -119,78 +119,18 @@ lecteur.readAsDataURL(fichier);
 ==================================================*/
 
 
+
 async function genererMatricule(){
 
+    const membres = await getDocs(
+        collection(db,"membres")
+    );
 
-let dernierNumero = 0;
+    let numero = membres.size + 1;
 
+    return "MMB-" + String(numero).padStart(4,"0");
 
-
-try{
-
-
-const q = query(
-
-collection(db,"membres"),
-
-orderBy("matricule","desc"),
-
-limit(1)
-
-);
-
-
-
-const resultat = await getDocs(q);
-
-
-
-if(!resultat.empty){
-
-
-const dernier = resultat.docs[0].data().matricule;
-
-
-const numero = dernier.split("-")[1];
-
-
-dernierNumero = parseInt(numero);
-
-
-}
-
-
-
-}
-
-
-catch(erreur){
-
-
-console.error(
-
-"Erreur génération matricule",
-
-erreur
-
-);
-
-
-}
-
-
-
-
-
-dernierNumero++;
-
-
-return "MMB-" + String(dernierNumero).padStart(4,"0");
-
-
-
-}
-
+        }
 
 
 
