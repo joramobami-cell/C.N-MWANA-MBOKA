@@ -374,13 +374,15 @@ membre
 ==================================================*/
 
 
-await addDoc(
-
-    collection(db,"membres"),
-
-    membre
-
+const test = await addDoc(
+collection(db,"membres"),
+{
+test:"connexion Firebase",
+date:new Date()
+}
 );
+
+console.log("ID créé :",test.id);
 
 
 
