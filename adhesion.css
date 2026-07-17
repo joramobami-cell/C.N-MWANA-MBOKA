@@ -760,3 +760,99 @@ footer h3{
 
 
 }
+
+
+/*========================================
+        BOUTON ADHESION PREMIUM
+========================================*/
+
+.btn-submit{
+
+    width:100%;
+
+    max-width:450px;
+
+    margin:30px auto 10px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:18px 35px;
+
+    background:linear-gradient(
+        135deg,
+        #009245,
+        #006837
+    );
+
+    color:white;
+
+    border:none;
+
+    border-radius:50px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 8px 20px rgba(0,146,69,.35);
+
+    transition:.3s ease;
+
+}
+
+
+.btn-submit:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 12px 25px rgba(0,146,69,.5);
+
+}
+
+
+
+.btn-submit:active{
+
+    transform:scale(.97);
+
+}
+
+
+
+.btn-submit i{
+
+    font-size:22px;
+
+}
+
+
+
+.btn-icon{
+
+    width:40px;
+
+    height:40px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:white;
+
+    color:#009245;
+
+    border-radius:50%;
+
+    }
