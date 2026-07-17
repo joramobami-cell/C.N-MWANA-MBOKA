@@ -271,19 +271,24 @@ ${formation.statut || "Disponible"}
 
 <td>
 
+<button class="btn-secondary"
+onclick="participerFormation('${formation.id}')">
 
-<button class="btn-secondary">
+<i class="fa-solid fa-user-plus"></i>
 
-<i class="fa-solid fa-eye"></i>
-
-Voir
+Participer
 
 </button>
 
 
+<button class="btn-delete"
+onclick="supprimerFormation('${formation.id}')">
+
+<i class="fa-solid fa-trash"></i>
+
+</button>
 
 </td>
-
 
 
 </tr>
