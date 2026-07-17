@@ -5,50 +5,28 @@
 
 
 import { db } from "./firebase-config.js";
-console.log("Firebase :", db);
 
 import {
 
     collection,
-
     addDoc,
+    getDocs
 
-    getDocs,
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-    query,
 
-    orderBy,
 
-    limit
-
-}
-
-from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+console.log("=================================");
+console.log("MODULE ADHÉSION MWANA MBOKA");
+console.log("Firebase chargé :", db);
+console.log("=================================");
 
 
 
 
 
 /*==================================================
-        INITIALISATION
-==================================================*/
-
-
-console.log("================================");
-
-console.log("FORMULAIRE ADHESION");
-
-console.log("MWANA MBOKA");
-
-console.log("================================");
-
-
-
-
-
-
-/*==================================================
-        ELEMENTS
+        ELEMENTS HTML
 ==================================================*/
 
 
@@ -71,42 +49,40 @@ const message = document.getElementById("message");
 ==================================================*/
 
 
-if(photoInput){
+if(photoInput && previewPhoto){
 
 
-photoInput.addEventListener("change",(e)=>{
+    photoInput.addEventListener("change",(e)=>{
 
 
-const fichier = e.target.files[0];
+        const fichier = e.target.files[0];
 
 
-if(fichier){
+        if(fichier){
 
 
-const lecteur = new FileReader();
+            const lecteur = new FileReader();
 
 
-lecteur.onload=function(){
+            lecteur.onload = ()=>{
 
 
-previewPhoto.src = lecteur.result;
+                previewPhoto.src = lecteur.result;
 
 
-};
+            };
 
 
-lecteur.readAsDataURL(fichier);
+            lecteur.readAsDataURL(fichier);
 
+
+        }
+
+
+    });
 
 
 }
-
-
-});
-
-
-}
-
 
 
 
@@ -119,18 +95,25 @@ lecteur.readAsDataURL(fichier);
 ==================================================*/
 
 
-
 async function genererMatricule(){
 
-    const membres = await getDocs(
+
+    const resultat = await getDocs(
+
         collection(db,"membres")
+
     );
 
-    let numero = membres.size + 1;
+
+    let numero = resultat.size + 1;
+
 
     return "MMB-" + String(numero).padStart(4,"0");
 
-        }
+
+}
+
+
 
 
 
@@ -144,31 +127,27 @@ async function genererMatricule(){
 function afficherMessage(texte,type){
 
 
-if(!message) return;
+    if(!message) return;
 
 
-
-message.innerHTML = texte;
-
-
-message.className = type;
+    message.innerHTML = texte;
 
 
-
-setTimeout(()=>{
-
-
-message.innerHTML="";
-
-
-},5000);
+    message.className = type;
 
 
 
 }
 
+
+
+
+
+
+
+
 /*==================================================
-        ENREGISTREMENT ADHESION
+        ENREGISTREMENT
 ==================================================*/
 
 
@@ -181,91 +160,28 @@ formulaire.addEventListener("submit", async(e)=>{
 e.preventDefault();
 
 
-// Vérification du parrain obligatoire
 
-const parrain = document.getElementById("parrain").value.trim();
+const parrain = document
+.getElementById("parrain")
+.value
+.trim();
+
+
 
 
 if(parrain === ""){
 
+
     afficherMessage(
-        "Le matricule du parrain est obligatoire pour adhérer.",
+
+        "Le matricule du parrain est obligatoire.",
+
         "error"
+
     );
 
+
     return;
-
-    }
-
-    
-
-const bouton = formulaire.querySelector("button");
-
-
-bouton.disabled = true;
-
-
-bouton.innerHTML = `
-
-<i class="fa-solid fa-spinner fa-spin"></i>
-
-Enregistrement...
-
-`;
-
-
-
-
-
-try{
-
-
-
-/* Génération matricule */
-
-
-const matricule = await genererMatricule();
-
-
-
-
-
-
-/* Récupération photo */
-
-
-let photoURL = "logo.png";
-
-
-
-if(photoInput.files.length > 0){
-
-
-const fichier = photoInput.files[0];
-
-
-const lecteur = new FileReader();
-
-
-
-photoURL = await new Promise((resolve)=>{
-
-
-lecteur.onload=()=>{
-
-
-resolve(lecteur.result);
-
-
-};
-
-
-
-lecteur.readAsDataURL(fichier);
-
-
-
-});
 
 
 }
@@ -275,91 +191,165 @@ lecteur.readAsDataURL(fichier);
 
 
 
+const bouton = formulaire.querySelector("button");
 
 
-/* Données membre */
+
+bouton.disabled = true;
+
+
+
+bouton.innerHTML =
+
+`
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+Enregistrement...
+`;
+
+
+
+
+try{
+
+
+const matricule = await genererMatricule();
+
+
+
+console.log("Matricule créé :", matricule);
+
+
+
+
+
+let photo = "logo.png";
+
+
+
+if(photoInput.files.length > 0){
+
+
+const fichier = photoInput.files[0];
+
+const lecteur = new FileReader();
+
+
+
+photo = await new Promise((resolve)=>{
+
+
+lecteur.onload = ()=> resolve(lecteur.result);
+
+
+lecteur.readAsDataURL(fichier);
+
+
+
+});
+
+
+                }
+
+    /*==================================================
+        DONNEES DU MEMBRE
+==================================================*/
 
 
 const membre = {
 
 
-nom:
-
-document.getElementById("nom").value.trim(),
+    matricule: matricule,
 
 
+    nom:
 
-dateNaissance:
-
-document.getElementById("dateNaissance").value,
-
-
-
-lieuNaissance:
-
-document.getElementById("lieuNaissance").value.trim(),
+    document.getElementById("nom")
+    .value
+    .trim(),
 
 
 
-nationalite:
+    dateNaissance:
 
-document.getElementById("nationalite").value.trim(),
-
-
-
-sexe:
-
-document.getElementById("sexe").value,
+    document.getElementById("dateNaissance")
+    .value,
 
 
 
-telephone:
+    lieuNaissance:
 
-document.getElementById("telephone").value.trim(),
-
-
-
-profession:
-
-document.getElementById("profession").value.trim(),
+    document.getElementById("lieuNaissance")
+    .value
+    .trim(),
 
 
 
-parrain:
+    nationalite:
 
-document.getElementById("parrain").value.trim(),
-
-
-
-motivation:
-
-document.getElementById("motivation").value.trim(),
+    document.getElementById("nationalite")
+    .value
+    .trim(),
 
 
 
-photo:
+    sexe:
 
-photoURL,
-
-
-
-matricule: matricule,
+    document.getElementById("sexe")
+    .value,
 
 
 
-statut:"Actif",
+    telephone:
+
+    document.getElementById("telephone")
+    .value
+    .trim(),
 
 
 
-dateAdhesion:
+    profession:
 
-new Date().toLocaleDateString("fr-FR"),
+    document.getElementById("profession")
+    .value
+    .trim(),
 
 
 
-dateCreation:
+    parrain:
 
-new Date()
+    parrain,
+
+
+
+    motivation:
+
+    document.getElementById("motivation")
+    .value
+    .trim(),
+
+
+
+    photo: photo,
+
+
+
+    statut:"Actif",
+
+
+
+    dateAdhesion:
+
+    new Date()
+    .toLocaleDateString("fr-FR"),
+
+
+
+    dateCreation:
+
+    new Date()
+    .toISOString()
+
 
 };
 
@@ -368,19 +358,37 @@ new Date()
 
 
 
+console.log(
+"MEMBRE A ENREGISTRER :",
+membre
+);
 
 
-/* Envoi Firebase */
+
+
+
+
+
+/*==================================================
+        ENVOI FIREBASE
+==================================================*/
 
 
 await addDoc(
 
-collection(db,"membres"),
+    collection(db,"membres"),
 
-membre
+    membre
 
 );
 
+
+
+
+
+console.log(
+"MEMBRE ENREGISTRE AVEC SUCCES"
+);
 
 
 
@@ -389,10 +397,9 @@ membre
 afficherMessage(
 
 `
-
 <i class="fa-solid fa-circle-check"></i>
 
-Adhésion enregistrée avec succès.
+Adhésion réussie.
 
 <br>
 
@@ -410,12 +417,15 @@ Votre matricule :
 
 
 
-
 formulaire.reset();
 
 
-previewPhoto.src="logo.png";
 
+if(previewPhoto){
+
+    previewPhoto.src="logo.png";
+
+}
 
 
 
@@ -439,16 +449,35 @@ window.location.href="membres.html";
 
 
 
+
 catch(erreur){
 
-    console.error("ERREUR FIREBASE :", erreur);
 
-    afficherMessage(
-        "Erreur : " + erreur.message,
-        "error"
-    );
 
-    }
+console.error(
+
+"ERREUR FIREBASE :",
+
+erreur
+
+);
+
+
+
+afficherMessage(
+
+"Erreur : " + erreur.message,
+
+"error"
+
+);
+
+
+
+}
+
+
+
 
 
 
@@ -459,10 +488,10 @@ finally{
 bouton.disabled=false;
 
 
-bouton.innerHTML=
+
+bouton.innerHTML =
 
 `
-
 <i class="fa-solid fa-check"></i>
 
 Enregistrer l'adhésion
@@ -487,13 +516,9 @@ Enregistrer l'adhésion
 
 
 
-/*==================================================
-        FIN
-==================================================*/
-
 
 console.log(
 
-"Module adhésion chargé."
+"Adhesion.js opérationnel"
 
 );
