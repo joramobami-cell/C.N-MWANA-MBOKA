@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gestion Formations | MWANA MBOKA</title>
+<title>Formations | MWANA MBOKA</title>
 
 
 <link rel="stylesheet" href="formationun.css">
@@ -27,71 +27,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 
-<!-- ================= SIDEBAR ================= -->
-
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
 
 <div class="logo-box">
 
-
-<img src="logo.png" alt="Logo MWANA MBOKA">
-
+<img src="logo.png">
 
 <p>
-
-COMMUNAUTÉ NUMÉRIQUE
-
-<br>
-
-MWANA MBOKA
-
-<br>
-
+COMMUNAUTÉ NUMÉRIQUE<br>
+MWANA MBOKA<br>
 <i>Ensemble nous irons plus loin</i>
-
 </p>
-
 
 </div>
 
 
 
-
-
-<a href="index.html">
+<a href="espace.html">
 
 <i class="fa-solid fa-house"></i>
 
 Accueil
 
 </a>
-
-
-
-
-<a href="membres.html">
-
-<i class="fa-solid fa-users"></i>
-
-Membres
-
-</a>
-
-
-
-
-
-<a href="adhesion.html">
-
-<i class="fa-solid fa-user-plus"></i>
-
-Adhésion
-
-</a>
-
-
 
 
 
@@ -105,8 +66,6 @@ Formations
 
 
 
-
-
 <a href="projets.html">
 
 <i class="fa-solid fa-lightbulb"></i>
@@ -117,7 +76,6 @@ Projets
 
 
 
-
 </aside>
 
 
@@ -125,10 +83,13 @@ Projets
 
 
 
-<!-- ================= CONTENU ================= -->
-
+<!-- CONTENU -->
 
 <main class="content">
+
+
+
+<img src="banniere.png" class="banner">
 
 
 
@@ -138,7 +99,6 @@ Projets
 
 
 <div>
-
 
 <h1>
 
@@ -151,26 +111,12 @@ Gestion des formations
 
 <p>
 
-Créer, proposer et suivre les formations de la communauté.
+Apprentissage, développement des compétences et partage de connaissances.
 
 </p>
 
 
 </div>
-
-
-
-
-<div class="member-info">
-
-
-<i class="fa-solid fa-user-circle"></i>
-
-Espace membre
-
-
-</div>
-
 
 
 </header>
@@ -181,114 +127,76 @@ Espace membre
 
 
 
-<!-- ================= STATISTIQUES ================= -->
-
+<!-- STATISTIQUES -->
 
 
 <section class="stats-grid">
 
 
-
 <div class="stat-card">
-
 
 <i class="fa-solid fa-book"></i>
 
-
 <h3 id="totalFormations">
-
 0
-
 </h3>
 
-
 <p>
-
-Formations disponibles
-
+Formations
 </p>
-
 
 </div>
 
 
 
 
-
 <div class="stat-card">
-
 
 <i class="fa-solid fa-spinner"></i>
 
-
 <h3 id="formationsCours">
-
 0
-
 </h3>
 
-
 <p>
-
 En cours
-
 </p>
-
 
 </div>
 
 
 
 
-
 <div class="stat-card">
 
-
-<i class="fa-solid fa-check-circle"></i>
-
+<i class="fa-solid fa-check"></i>
 
 <h3 id="formationsTerminees">
-
 0
-
 </h3>
 
-
 <p>
-
 Terminées
-
 </p>
-
 
 </div>
 
 
 
 
-
 <div class="stat-card">
-
 
 <i class="fa-solid fa-lightbulb"></i>
 
-
 <h3 id="totalSuggestions">
-
 0
-
 </h3>
 
-
 <p>
-
-Suggestions reçues
-
+Suggestions
 </p>
 
-
 </div>
-
 
 
 </section>
@@ -299,51 +207,31 @@ Suggestions reçues
 
 
 
-<!-- ================= ACTIONS ================= -->
+
+<!-- ACTIONS -->
 
 
 <section class="actions">
 
 
-
-<button class="btn-primary" id="btnAjouterFormation">
-
+<button id="btnAjouterFormation"
+class="btn-primary">
 
 <i class="fa-solid fa-plus"></i>
 
-
 Créer une formation
-
 
 </button>
 
 
 
 
-
-<button class="btn-secondary" id="btnSuggestion">
-
+<button id="btnSuggestion"
+class="btn-secondary">
 
 <i class="fa-solid fa-lightbulb"></i>
 
-
 Proposer une formation
-
-
-</button>
-
-
-
-
-
-<button class="btn-third" id="btnMesFormations">
-
-
-<i class="fa-solid fa-user-graduate"></i>
-
-
-Mes inscriptions
-
 
 </button>
 
@@ -357,14 +245,11 @@ Mes inscriptions
 
 
 
-<!-- ================= LISTE FORMATIONS ================= -->
+
+<!-- LISTE -->
 
 
 <section class="card">
-
-
-
-<div class="card-header">
 
 
 <h2>
@@ -374,11 +259,6 @@ Mes inscriptions
 Formations disponibles
 
 </h2>
-
-
-</div>
-
-
 
 
 
@@ -393,44 +273,32 @@ Formations disponibles
 <tr>
 
 <th>
-
 Titre
-
 </th>
 
 
 <th>
-
 Domaine
-
 </th>
 
 
 <th>
-
 Formateur
-
 </th>
 
 
 <th>
-
 Date
-
 </th>
 
 
 <th>
-
 Statut
-
 </th>
 
 
 <th>
-
 Actions
-
 </th>
 
 
@@ -441,15 +309,12 @@ Actions
 
 
 
-
 <tbody id="listeFormations">
 
 
 <tr>
 
 <td colspan="6">
-
-<i class="fa-solid fa-spinner fa-spin"></i>
 
 Chargement...
 
@@ -463,23 +328,17 @@ Chargement...
 
 
 
-
 </table>
+
 
 
 </div>
 
 
 
-</section>
+  </section>
 
-
-
-
-
-
-<!-- ================= MODALE CREATION FORMATION ================= -->
-
+  <!-- ================= MODALE CREATION FORMATION ================= -->
 
 <div id="modalFormation" class="modal">
 
@@ -499,10 +358,9 @@ Chargement...
 
 <i class="fa-solid fa-plus"></i>
 
-Créer une formation
+Nouvelle formation
 
 </h2>
-
 
 
 
@@ -518,9 +376,14 @@ Titre de la formation
 </label>
 
 
-<input 
+<input
+
 type="text"
+
 id="titreFormation"
+
+placeholder="Ex : Formation informatique"
+
 required>
 
 
@@ -578,7 +441,6 @@ Autre
 
 
 
-
 <label>
 
 Description
@@ -586,7 +448,13 @@ Description
 </label>
 
 
-<textarea id="descriptionFormation"></textarea>
+<textarea
+
+id="descriptionFormation"
+
+placeholder="Décrire la formation..."
+
+required></textarea>
 
 
 
@@ -600,11 +468,13 @@ Formateur
 </label>
 
 
-<input 
+<input
+
 type="text"
-id="formateurFormation">
 
+id="formateurFormation"
 
+placeholder="Nom du formateur">
 
 
 
@@ -616,11 +486,13 @@ Durée
 </label>
 
 
-<input 
-type="text"
-id="dureeFormation"
-placeholder="Ex: 2 semaines">
+<input
 
+type="text"
+
+id="dureeFormation"
+
+placeholder="Ex : 1 mois">
 
 
 
@@ -633,20 +505,27 @@ Date de début
 </label>
 
 
-<input 
+<input
+
 type="date"
+
 id="dateFormation">
 
 
 
 
 
+<button
 
-<button type="submit" class="btn-primary">
+type="submit"
+
+class="btn-primary">
+
 
 <i class="fa-solid fa-save"></i>
 
-Enregistrer
+Enregistrer la formation
+
 
 </button>
 
@@ -659,6 +538,8 @@ Enregistrer
 
 
 </div>
+
+
 
 
 
@@ -684,11 +565,12 @@ Enregistrer
 
 
 
+
 <h2>
 
 <i class="fa-solid fa-lightbulb"></i>
 
-Proposer une formation
+Suggestion de formation
 
 </h2>
 
@@ -700,11 +582,14 @@ Proposer une formation
 
 
 
+
+
 <label>
 
-Nom de la formation
+Nom de la formation proposée
 
 </label>
+
 
 
 <input
@@ -712,6 +597,8 @@ Nom de la formation
 type="text"
 
 id="titreSuggestion"
+
+placeholder="Ex : Formation comptabilité"
 
 required>
 
@@ -726,6 +613,7 @@ required>
 Domaine
 
 </label>
+
 
 
 <select id="domaineSuggestion">
@@ -747,14 +635,14 @@ Agriculture
 
 <option>
 
-Entrepreneuriat
+Commerce
 
 </option>
 
 
 <option>
 
-Finance
+Entrepreneuriat
 
 </option>
 
@@ -773,9 +661,10 @@ Autre
 
 
 
+
 <label>
 
-Description de l'idée
+Description de votre idée
 
 </label>
 
@@ -784,9 +673,9 @@ Description de l'idée
 
 id="descriptionSuggestion"
 
-required>
+placeholder="Expliquez la formation souhaitée..."
 
-</textarea>
+required></textarea>
 
 
 
@@ -796,14 +685,16 @@ required>
 
 <label>
 
-Pourquoi cette formation est utile ?
+Pourquoi cette formation est importante ?
 
 </label>
 
 
 <textarea
 
-id="utiliteSuggestion">
+id="utiliteSuggestion"
+
+placeholder="Expliquez son utilité...">
 
 </textarea>
 
@@ -813,11 +704,14 @@ id="utiliteSuggestion">
 
 
 
-<button type="submit" class="btn-secondary">
+<button
+
+type="submit"
+
+class="btn-secondary">
 
 
 <i class="fa-solid fa-paper-plane"></i>
-
 
 Envoyer la suggestion
 
@@ -841,8 +735,8 @@ Envoyer la suggestion
 
 
 
-<!-- ================= MESSAGE ================= -->
 
+<!-- MESSAGE -->
 
 <div id="message"></div>
 
@@ -852,8 +746,7 @@ Envoyer la suggestion
 
 
 
-
-<!-- ================= FOOTER ================= -->
+<!-- FOOTER -->
 
 
 <footer>
@@ -894,6 +787,7 @@ Ensemble nous irons plus loin.
 
 
 
+
 </main>
 
 
@@ -913,4 +807,4 @@ Ensemble nous irons plus loin.
 </body>
 
 
-</html>
+  </html>
