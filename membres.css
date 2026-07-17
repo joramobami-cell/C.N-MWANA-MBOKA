@@ -1017,3 +1017,247 @@ body{
     background:#b89328;
 
 }
+
+
+/*==================================================
+                RESPONSIVE
+==================================================*/
+
+/* Tablettes */
+
+@media (max-width:1024px){
+
+.header{
+
+    flex-direction:column;
+
+    gap:20px;
+
+    text-align:center;
+
+}
+
+.header-right{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+.stats-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+.actions-rapides{
+
+    justify-content:center;
+
+}
+
+.fiche-membre{
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.photo-membre{
+
+    width:180px;
+
+    height:180px;
+
+}
+
+}
+
+/* Smartphones */
+
+@media (max-width:768px){
+
+.container{
+
+    padding:15px;
+
+}
+
+.logo{
+
+    width:55px;
+
+    height:55px;
+
+}
+
+.header-left h1{
+
+    font-size:18px;
+
+}
+
+.page-title h2{
+
+    font-size:26px;
+
+}
+
+.page-title p{
+
+    font-size:14px;
+
+}
+
+.stats-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.stat-card{
+
+    padding:22px;
+
+}
+
+.table-section{
+
+    padding:15px;
+
+}
+
+.table-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.action-btn{
+
+    width:100%;
+
+    justify-content:center;
+
+}
+
+.members-table{
+
+    min-width:900px;
+
+}
+
+.footer h3{
+
+    font-size:20px;
+
+}
+
+}
+
+/* Petits téléphones */
+
+@media (max-width:480px){
+
+.header{
+
+    padding:15px;
+
+}
+
+.header-left{
+
+    flex-direction:column;
+
+}
+
+.header-right{
+
+    width:100%;
+
+}
+
+.date-box,
+.time-box,
+.logout{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+.page-title{
+
+    margin:25px 0;
+
+}
+
+.page-title h2{
+
+    font-size:22px;
+
+}
+
+.stat-card i{
+
+    font-size:34px;
+
+}
+
+.stat-card h3{
+
+    font-size:28px;
+
+}
+
+.modal-content{
+
+    padding:20px;
+
+}
+
+.photo-membre{
+
+    width:140px;
+
+    height:140px;
+
+}
+
+.confirmation-actions{
+
+    flex-direction:column;
+
+}
+
+.btn-danger,
+.btn-secondary{
+
+    width:100%;
+
+}
+
+.footer{
+
+    padding:30px 15px;
+
+}
+
+.footer-logo{
+
+    width:65px;
+
+}
+
+}
+
+/*==================================================
+                FIN DU FICHIER
+==================================================*/
