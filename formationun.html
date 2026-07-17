@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gestion Formations | MWANA MBOKA</title>
+
+
+<link rel="stylesheet" href="formationun.css">
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+
+<!-- ================= SIDEBAR ================= -->
+
+
+<aside class="sidebar">
+
+
+<div class="logo-box">
+
+
+<img src="logo.png" alt="Logo MWANA MBOKA">
+
+
+<p>
+
+COMMUNAUTÉ NUMÉRIQUE
+
+<br>
+
+MWANA MBOKA
+
+<br>
+
+<i>Ensemble nous irons plus loin</i>
+
+</p>
+
+
+</div>
+
+
+
+
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+Accueil
+
+</a>
+
+
+
+
+<a href="membres.html">
+
+<i class="fa-solid fa-users"></i>
+
+Membres
+
+</a>
+
+
+
+
+
+<a href="adhesion.html">
+
+<i class="fa-solid fa-user-plus"></i>
+
+Adhésion
+
+</a>
+
+
+
+
+
+<a href="formationun.html" class="active">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+Formations
+
+</a>
+
+
+
+
+
+<a href="projets.html">
+
+<i class="fa-solid fa-lightbulb"></i>
+
+Projets
+
+</a>
+
+
+
+
+</aside>
+
+
+
+
+
+
+<!-- ================= CONTENU ================= -->
+
+
+<main class="content">
+
+
+
+
+
+<header class="page-header">
+
+
+<div>
+
+
+<h1>
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+Gestion des formations
+
+</h1>
+
+
+<p>
+
+Créer, proposer et suivre les formations de la communauté.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="member-info">
+
+
+<i class="fa-solid fa-user-circle"></i>
+
+Espace membre
+
+
+</div>
+
+
+
+</header>
+
+
+
+
+
+
+
+<!-- ================= STATISTIQUES ================= -->
+
+
+
+<section class="stats-grid">
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-book"></i>
+
+
+<h3 id="totalFormations">
+
+0
+
+</h3>
+
+
+<p>
+
+Formations disponibles
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-spinner"></i>
+
+
+<h3 id="formationsCours">
+
+0
+
+</h3>
+
+
+<p>
+
+En cours
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-check-circle"></i>
+
+
+<h3 id="formationsTerminees">
+
+0
+
+</h3>
+
+
+<p>
+
+Terminées
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-lightbulb"></i>
+
+
+<h3 id="totalSuggestions">
+
+0
+
+</h3>
+
+
+<p>
+
+Suggestions reçues
+
+</p>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ================= ACTIONS ================= -->
+
+
+<section class="actions">
+
+
+
+<button class="btn-primary" id="btnAjouterFormation">
+
+
+<i class="fa-solid fa-plus"></i>
+
+
+Créer une formation
+
+
+</button>
+
+
+
+
+
+<button class="btn-secondary" id="btnSuggestion">
+
+
+<i class="fa-solid fa-lightbulb"></i>
+
+
+Proposer une formation
+
+
+</button>
+
+
+
+
+
+<button class="btn-third" id="btnMesFormations">
+
+
+<i class="fa-solid fa-user-graduate"></i>
+
+
+Mes inscriptions
+
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ================= LISTE FORMATIONS ================= -->
+
+
+<section class="card">
+
+
+
+<div class="card-header">
+
+
+<h2>
+
+<i class="fa-solid fa-list"></i>
+
+Formations disponibles
+
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="table-responsive">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+
+Titre
+
+</th>
+
+
+<th>
+
+Domaine
+
+</th>
+
+
+<th>
+
+Formateur
+
+</th>
+
+
+<th>
+
+Date
+
+</th>
+
+
+<th>
+
+Statut
+
+</th>
+
+
+<th>
+
+Actions
+
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+
+
+<tbody id="listeFormations">
+
+
+<tr>
+
+<td colspan="6">
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+Chargement...
+
+</td>
+
+
+</tr>
+
+
+</tbody>
+
+
+
+
+</table>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<!-- ================= MODALE CREATION FORMATION ================= -->
+
+
+<div id="modalFormation" class="modal">
+
+
+<div class="modal-content">
+
+
+<span class="close" id="fermerFormation">
+
+&times;
+
+</span>
+
+
+
+<h2>
+
+<i class="fa-solid fa-plus"></i>
+
+Créer une formation
+
+</h2>
+
+
+
+
+
+<form id="formFormation">
+
+
+
+<label>
+
+Titre de la formation
+
+</label>
+
+
+<input 
+type="text"
+id="titreFormation"
+required>
+
+
+
+
+
+<label>
+
+Domaine
+
+</label>
+
+
+<select id="domaineFormation">
+
+
+<option value="Numérique">
+
+Numérique
+
+</option>
+
+
+<option value="Entrepreneuriat">
+
+Entrepreneuriat
+
+</option>
+
+
+<option value="Agriculture">
+
+Agriculture
+
+</option>
+
+
+<option value="Finance">
+
+Finance
+
+</option>
+
+
+<option value="Autre">
+
+Autre
+
+</option>
+
+
+</select>
+
+
+
+
+
+
+<label>
+
+Description
+
+</label>
+
+
+<textarea id="descriptionFormation"></textarea>
+
+
+
+
+
+
+<label>
+
+Formateur
+
+</label>
+
+
+<input 
+type="text"
+id="formateurFormation">
+
+
+
+
+
+
+<label>
+
+Durée
+
+</label>
+
+
+<input 
+type="text"
+id="dureeFormation"
+placeholder="Ex: 2 semaines">
+
+
+
+
+
+
+<label>
+
+Date de début
+
+</label>
+
+
+<input 
+type="date"
+id="dateFormation">
+
+
+
+
+
+
+<button type="submit" class="btn-primary">
+
+<i class="fa-solid fa-save"></i>
+
+Enregistrer
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ================= MODALE SUGGESTION ================= -->
+
+
+<div id="modalSuggestion" class="modal">
+
+
+<div class="modal-content">
+
+
+
+<span class="close" id="fermerSuggestion">
+
+&times;
+
+</span>
+
+
+
+<h2>
+
+<i class="fa-solid fa-lightbulb"></i>
+
+Proposer une formation
+
+</h2>
+
+
+
+
+
+<form id="formSuggestion">
+
+
+
+<label>
+
+Nom de la formation
+
+</label>
+
+
+<input
+
+type="text"
+
+id="titreSuggestion"
+
+required>
+
+
+
+
+
+
+
+<label>
+
+Domaine
+
+</label>
+
+
+<select id="domaineSuggestion">
+
+
+<option>
+
+Numérique
+
+</option>
+
+
+<option>
+
+Agriculture
+
+</option>
+
+
+<option>
+
+Entrepreneuriat
+
+</option>
+
+
+<option>
+
+Finance
+
+</option>
+
+
+<option>
+
+Autre
+
+</option>
+
+
+</select>
+
+
+
+
+
+
+<label>
+
+Description de l'idée
+
+</label>
+
+
+<textarea
+
+id="descriptionSuggestion"
+
+required>
+
+</textarea>
+
+
+
+
+
+
+
+<label>
+
+Pourquoi cette formation est utile ?
+
+</label>
+
+
+<textarea
+
+id="utiliteSuggestion">
+
+</textarea>
+
+
+
+
+
+
+
+<button type="submit" class="btn-secondary">
+
+
+<i class="fa-solid fa-paper-plane"></i>
+
+
+Envoyer la suggestion
+
+
+</button>
+
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ================= MESSAGE ================= -->
+
+
+<div id="message"></div>
+
+
+
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+
+
+<footer>
+
+
+<h3>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</h3>
+
+
+<p>
+
+Ensemble nous irons plus loin.
+
+</p>
+
+
+<p>
+
+📱 WhatsApp : 065447541
+
+</p>
+
+
+<p>
+
+📧 joramobami@gmail.com
+
+</p>
+
+
+</footer>
+
+
+
+
+
+
+</main>
+
+
+</div>
+
+
+
+
+
+
+
+
+<script type="module" src="formationun.js"></script>
+
+
+
+</body>
+
+
+</html>
