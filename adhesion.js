@@ -155,7 +155,7 @@ if(formulaire){
 
 
 formulaire.addEventListener("submit", async(e)=>{
-
+console.log("BOUTON ENREGISTRER CLIQUÉ");
 
 e.preventDefault();
 
