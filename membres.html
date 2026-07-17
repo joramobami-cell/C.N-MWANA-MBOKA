@@ -3,15 +3,17 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>Gestion des Membres | MWANA MBOKA</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="membres.css">
+<title>Gestion des Membres | MWANA MBOKA</title>
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="membres.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -19,354 +21,282 @@
 
 <div class="container">
 
-    <!-- HEADER -->
+<!-- HEADER -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="logo-zone">
+<div class="logo-box">
 
-            <img src="logo.png" class="logo" alt="Logo">
+<img src="logo.png" class="logo">
 
-            <div>
+<div>
 
-                <h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
+<h1>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h1>
 
-                <p>Gestion des membres</p>
-
-            </div>
-
-        </div>
-
-        <div class="header-actions">
-
-            <a href="prbureau.html" class="btn-retour">
-
-                <i class="fa-solid fa-arrow-left"></i>
-
-                Bureau Président
-
-            </a>
-
-        </div>
-
-    </header>
-
-    <!-- BANNIÈRE -->
-
-    <section class="banner">
-
-        <div class="banner-content">
-
-            <h2>
-
-                <i class="fa-solid fa-users"></i>
-
-                Gestion des Membres
-
-            </h2>
-
-            <p>
-
-                Consultez, recherchez et administrez tous les membres de la Communauté Numérique MWANA MBOKA.
-
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- STATISTIQUES -->
-
-    <section class="stats-grid">
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-users"></i>
-
-            <h3 id="totalMembres">0</h3>
-
-            <p>Total des membres</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-user-check"></i>
-
-            <h3 id="membresActifs">0</h3>
-
-            <p>Membres actifs</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-user-clock"></i>
-
-            <h3 id="membresAttente">0</h3>
-
-            <p>En attente</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-user-plus"></i>
-
-            <h3 id="nouveauxMembres">0</h3>
-
-            <p>Nouveaux aujourd'hui</p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- RECHERCHE -->
-
-    <section class="search-section">
-
-        <div class="search-box">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-                type="text"
-                id="rechercheMembre"
-                placeholder="Rechercher un membre par son nom, matricule ou téléphone...">
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ACTIONS RAPIDES -->
-
-    <section class="actions-rapides">
-
-        <button id="btnActualiser" class="action-btn">
-
-            <i class="fa-solid fa-rotate"></i>
-
-            Actualiser
-
-        </button>
-
-        <button id="btnExporter" class="action-btn">
-
-            <i class="fa-solid fa-file-export"></i>
-
-            Exporter
-
-        </button>
-
-        <button id="btnAjouter" class="action-btn">
-
-            <i class="fa-solid fa-user-plus"></i>
-
-            Nouveau membre
-
-        </button>
-
-    </section>
-
-    <!-- TABLEAU DES MEMBRES -->
-
-    <section class="table-section">
-
-        <div class="table-header">
-
-            <h2>
-
-                <i class="fa-solid fa-address-book"></i>
-
-                Liste des membres
-
-            </h2>
-
-            <span id="nombreResultats">
-
-                0 membre
-
-            </span>
-
-        </div>
-
-        <div class="table-responsive">
-
-            <table class="members-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Photo</th>
-
-                        <th>Nom complet</th>
-
-                        <th>Matricule</th>
-
-                        <th>Téléphone</th>
-
-                        <th>Parrain</th>
-
-                        <th>Statut</th>
-
-                        <th>Date d'adhésion</th>
-
-                        <th>Actions</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="tableMembres">
-
-                    <tr>
-
-                        <td colspan="8" class="loading">
-
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-
-                            Chargement des membres...
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-    <!-- FENÊTRE DÉTAILS MEMBRE -->
-
-    <div id="modalMembre" class="modal">
-
-        <div class="modal-content">
-
-            <span class="close" id="fermerModal">
-
-                &times;
-
-            </span>
-
-            <h2>
-
-                <i class="fa-solid fa-user"></i>
-
-                Fiche du membre
-
-            </h2>
-
-            <div class="fiche-membre">
-
-                <img src="logo.png" id="photoMembre" class="photo-membre">
-
-                <div class="infos-membre">
-
-                    <p><strong>Nom :</strong> <span id="ficheNom">-</span></p>
-
-                    <p><strong>Matricule :</strong> <span id="ficheMatricule">-</span></p>
-
-                    <p><strong>Téléphone :</strong> <span id="ficheTelephone">-</span></p>
-
-                    <p><strong>Email :</strong> <span id="ficheEmail">-</span></p>
-
-                    <p><strong>Sexe :</strong> <span id="ficheSexe">-</span></p>
-
-                    <p><strong>Date de naissance :</strong> <span id="ficheNaissance">-</span></p>
-
-                    <p><strong>Nationalité :</strong> <span id="ficheNationalite">-</span></p>
-
-                    <p><strong>Parrain :</strong> <span id="ficheParrain">-</span></p>
-
-                    <p><strong>Statut :</strong> <span id="ficheStatut">-</span></p>
-
-                    <p><strong>Date d'adhésion :</strong> <span id="ficheAdhesion">-</span></p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- CONFIRMATION SUPPRESSION -->
-
-    <div id="modalSuppression" class="modal">
-
-        <div class="modal-content confirmation">
-
-            <h2>
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-                Confirmation
-
-            </h2>
-
-            <p>
-
-                Voulez-vous vraiment supprimer ce membre ?
-
-            </p>
-
-            <div class="confirmation-actions">
-
-                <button id="confirmerSuppression" class="btn-danger">
-
-                    <i class="fa-solid fa-trash"></i>
-
-                    Supprimer
-
-                </button>
-
-                <button id="annulerSuppression" class="btn-secondary">
-
-                    <i class="fa-solid fa-xmark"></i>
-
-                    Annuler
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
-
-        <img src="logo.png" class="footer-logo" alt="Logo">
-
-        <h3>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</h3>
-
-        <p>Gestion des membres</p>
-
-        <p>
-            © <span id="annee"></span> Tous droits réservés
-        </p>
-
-        <p>
-            Ensemble nous irons plus loin.
-        </p>
-
-    </footer>
+<p>Gestion des Membres</p>
 
 </div>
 
-<script type="module" src="membres.js"></script>
+</div>
 
-</body>
-</html>
+<div class="header-right">
+
+<div class="date-box">
+
+<i class="fa-solid fa-calendar-days"></i>
+
+<span id="date"></span>
+
+</div>
+
+<div class="time-box">
+
+<i class="fa-solid fa-clock"></i>
+
+<span id="heure"></span>
+
+</div>
+
+<button id="logoutBtn" class="logout">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Déconnexion
+
+</button>
+
+</div>
+
+</header>
+
+<!-- TITRE -->
+
+<section class="page-title">
+
+<h2>
+
+<i class="fa-solid fa-users"></i>
+
+Gestion des Membres
+
+</h2>
+
+<p>
+
+Consultez, recherchez et gérez tous les membres de la communauté.
+
+</p>
+
+</section>
+
+<!-- TABLEAU DE BORD -->
+
+<section class="dashboard">
+
+<div class="card">
+
+<i class="fa-solid fa-users"></i>
+
+<h3>Total Membres</h3>
+
+<h2 id="totalMembres">0</h2>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-user-check"></i>
+
+<h3>Membres Actifs</h3>
+
+<h2 id="membresActifs">0</h2>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-user-plus"></i>
+
+<h3>Nouveaux</h3>
+
+<h2 id="nouveauxMembres">0</h2>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-user-group"></i>
+
+<h3>Parrains</h3>
+
+<h2 id="totalParrains">0</h2>
+
+</div>
+
+</section>
+
+<!-- RECHERCHE -->
+
+<section class="search-box">
+
+<div class="search-input">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+id="recherche"
+placeholder="Rechercher par nom, matricule, téléphone ou parrain...">
+
+</div>
+
+    </section>
+
+    <!-- ==========================================
+        TABLEAU DES MEMBRES
+========================================== -->
+
+<section class="table-section">
+
+<div class="table-header">
+
+<h2>
+
+<i class="fa-solid fa-address-book"></i>
+
+Liste des Membres
+
+</h2>
+
+</div>
+
+<div class="table-responsive">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Photo</th>
+
+<th>Nom</th>
+
+<th>Matricule</th>
+
+<th>Téléphone</th>
+
+<th>Parrain</th>
+
+<th>Statut</th>
+
+<th>Adhésion</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="listeMembres">
+
+<tr>
+
+<td colspan="8" class="loading">
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+Chargement des membres...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ==========================================
+        MODAL DÉTAIL MEMBRE
+========================================== -->
+
+<div id="modalMembre" class="modal">
+
+<div class="modal-content">
+
+<span class="close">&times;</span>
+
+<div class="modal-header">
+
+<img src="logo.png" id="photoMembre">
+
+<h2 id="nomDetail">
+
+Nom du membre
+
+</h2>
+
+</div>
+
+<div class="modal-body">
+
+<p>
+
+<strong>Matricule :</strong>
+
+<span id="matriculeDetail"></span>
+
+</p>
+
+<p>
+
+<strong>Téléphone :</strong>
+
+<span id="telephoneDetail"></span>
+
+</p>
+
+<p>
+
+<strong>Parrain :</strong>
+
+<span id="parrainDetail"></span>
+
+</p>
+
+<p>
+
+<strong>Statut :</strong>
+
+<span id="statutDetail"></span>
+
+</p>
+
+<p>
+
+<strong>Date d'adhésion :</strong>
+
+<span id="dateDetail"></span>
+
+</p>
+
+</div>
+
+<div class="modal-footer">
+
+<button class="btn-close">
+
+Fermer
+
+</button>
+
+</div>
+
+</div>
+
+    </div>
