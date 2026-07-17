@@ -26,7 +26,15 @@ import {
 
 console.log("MODULE FORMATIONS CHARGÉ");
 console.log("FORMATION JS CHARGE");
+console.log("FORMATION JS CHARGE");
 
+const testBouton = document.getElementById("btnAjouterFormation");
+
+if(testBouton){
+    alert("Bouton Créer une formation trouvé");
+}else{
+    alert("Bouton introuvable");
+}
 
 
 
