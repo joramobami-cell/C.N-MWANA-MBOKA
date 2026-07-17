@@ -7,15 +7,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Adhésion Membre | MWANA MBOKA</title>
-
+<title>Nouvelle Adhésion | MWANA MBOKA</title>
 
 <link rel="stylesheet" href="adhesion.css">
 
-
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 
 </head>
 
@@ -26,64 +23,42 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div class="container">
 
 
-
-<!-- ================= SIDEBAR ================= -->
-
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
 
 <div class="logo-box">
 
-
-<img src="logo.png" alt="Logo MWANA MBOKA">
-
+<img src="logo.png">
 
 <p>
-
 COMMUNAUTÉ NUMÉRIQUE
-
 <br>
-
 MWANA MBOKA
-
 <br>
-
-<i>Ensemble nous irons plus loin</i>
-
+Ensemble nous irons plus loin
 </p>
-
 
 </div>
 
 
-
 <a href="index.html">
-
 <i class="fa-solid fa-house"></i>
-
 Accueil
-
 </a>
 
 
 <a href="membres.html">
-
 <i class="fa-solid fa-users"></i>
-
 Membres
-
 </a>
 
 
 <a href="adhesion.html" class="active">
-
 <i class="fa-solid fa-user-plus"></i>
-
 Adhésion
-
 </a>
-
 
 
 </aside>
@@ -91,20 +66,13 @@ Adhésion
 
 
 
-
-<!-- ================= CONTENU ================= -->
+<!-- CONTENU -->
 
 
 <main class="content">
 
 
-
-<img src="banniere.png"
-class="banner"
-alt="Bannière MWANA MBOKA">
-
-
-
+<img src="banniere.png" class="banner">
 
 
 
@@ -113,22 +81,21 @@ alt="Bannière MWANA MBOKA">
 
 <h1>
 
-<i class="fa-solid fa-file-signature"></i>
+<i class="fa-solid fa-user-plus"></i>
 
-Formulaire d'adhésion
+Nouvelle adhésion
 
 </h1>
 
 
 <p>
 
-Rejoignez la Communauté Numérique MWANA MBOKA.
+Inscription officielle d'un membre de la communauté.
 
 </p>
 
 
 </section>
-
 
 
 
@@ -148,16 +115,14 @@ Rejoignez la Communauté Numérique MWANA MBOKA.
 <div class="photo-section">
 
 
-<img id="previewPhoto"
-src="logo.png"
-alt="Photo membre">
+<img id="previewPhoto" src="logo.png">
 
 
 <label for="photo">
 
 <i class="fa-solid fa-camera"></i>
 
-Choisir une photo
+Ajouter une photo
 
 </label>
 
@@ -174,15 +139,11 @@ accept="image/*">
 
 
 
-
-<!-- INFORMATIONS PERSONNELLES -->
-
-
 <h2>
 
-<i class="fa-solid fa-user"></i>
+<i class="fa-solid fa-id-card"></i>
 
-Informations personnelles
+Identité du membre
 
 </h2>
 
@@ -196,107 +157,67 @@ Informations personnelles
 
 <div class="input-group">
 
-
-<label>
-
-Nom complet
-
-</label>
-
+<label>Nom complet *</label>
 
 <input 
 type="text"
 id="nom"
-required
-placeholder="Nom et prénom">
-
+required>
 
 </div>
 
 
 
 
-
 <div class="input-group">
 
-
-<label>
-
-Date de naissance
-
-</label>
-
+<label>Date de naissance *</label>
 
 <input 
 type="date"
 id="dateNaissance"
 required>
 
-
 </div>
-
 
 
 
 
 <div class="input-group">
 
-
-<label>
-
-Lieu de naissance
-
-</label>
-
+<label>Lieu de naissance</label>
 
 <input 
 type="text"
-id="lieuNaissance"
-placeholder="Ville de naissance">
-
+id="lieuNaissance">
 
 </div>
 
 
 
 
-
 <div class="input-group">
 
-
-<label>
-
-Nationalité
-
-</label>
-
+<label>Nationalité</label>
 
 <input 
 type="text"
-id="nationalite"
-placeholder="Nationalité">
-
+id="nationalite">
 
 </div>
 
 
 
 
-
 <div class="input-group">
 
-
-<label>
-
-Sexe
-
-</label>
-
+<label>Sexe</label>
 
 <select id="sexe">
 
-
-<option value="">Choisir</option>
+<option value="">
+Choisir
+</option>
 
 <option value="Homme">
 Homme
@@ -306,9 +227,7 @@ Homme
 Femme
 </option>
 
-
 </select>
-
 
 </div>
 
@@ -317,36 +236,29 @@ Femme
 
 <div class="input-group">
 
-
-<label>
-
-Téléphone
-
-</label>
-
+<label>Téléphone *</label>
 
 <input 
 type="tel"
 id="telephone"
-required
-placeholder="06...">
-
+required>
 
 </div>
 
 
   </div>
 
-  <!-- ================= INFORMATIONS COMMUNAUTAIRES ================= -->
+  <!-- INFORMATIONS ADHESION -->
 
 
 <h2>
 
 <i class="fa-solid fa-network-wired"></i>
 
-Informations d'adhésion
+Informations communautaires
 
 </h2>
+
 
 
 
@@ -356,11 +268,8 @@ Informations d'adhésion
 
 <div class="input-group">
 
-
 <label>
-
 Profession
-
 </label>
 
 
@@ -370,8 +279,7 @@ type="text"
 
 id="profession"
 
-placeholder="Votre profession">
-
+placeholder="Votre activité">
 
 </div>
 
@@ -383,17 +291,20 @@ placeholder="Votre profession">
 
 
 <label>
-
-Matricule du parrain
-
+Matricule du parrain *
 </label>
 
 
-<input 
+<input
+
 type="text"
+
 id="parrain"
-placeholder="Ex: MMB-0001"
+
+placeholder="Exemple : MMB-0001"
+
 required>
+
 
 </div>
 
@@ -422,7 +333,7 @@ id="motivation"
 
 rows="5"
 
-placeholder="Pourquoi souhaitez-vous rejoindre MWANA MBOKA ?">
+placeholder="Expliquez votre motivation à rejoindre MWANA MBOKA">
 
 </textarea>
 
@@ -434,7 +345,8 @@ placeholder="Pourquoi souhaitez-vous rejoindre MWANA MBOKA ?">
 
 
 
-<!-- MESSAGE -->
+
+<!-- ZONE MESSAGE -->
 
 
 <div id="message"></div>
@@ -444,7 +356,8 @@ placeholder="Pourquoi souhaitez-vous rejoindre MWANA MBOKA ?">
 
 
 
-<!-- BOUTON -->
+
+<!-- BOUTON ENREGISTREMENT -->
 
 
 <button
@@ -456,10 +369,12 @@ class="btn-submit">
 
 <i class="fa-solid fa-check"></i>
 
+
 Enregistrer l'adhésion
 
 
 </button>
+
 
 
 
@@ -476,7 +391,7 @@ Enregistrer l'adhésion
 
 
 
-<!-- ================= FOOTER ================= -->
+<!-- FOOTER -->
 
 
 <footer>
@@ -515,8 +430,8 @@ Ensemble nous irons plus loin.
 
 
 
-</main>
 
+</main>
 
 
 </div>
@@ -525,16 +440,17 @@ Ensemble nous irons plus loin.
 
 
 
-<!-- ================= WHATSAPP ================= -->
+
+
+
+<!-- BOUTON WHATSAPP -->
 
 
 <a href="https://wa.me/242065447541"
 
 class="whatsapp">
 
-
 <i class="fa-brands fa-whatsapp"></i>
-
 
 </a>
 
@@ -544,7 +460,7 @@ class="whatsapp">
 
 
 
-<!-- ================= JAVASCRIPT ================= -->
+<!-- JAVASCRIPT -->
 
 
 <script type="module" src="adhesion.js"></script>
@@ -552,6 +468,8 @@ class="whatsapp">
 
 
 
+
 </body>
+
 
   </html>
