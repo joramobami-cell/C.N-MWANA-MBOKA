@@ -181,7 +181,23 @@ formulaire.addEventListener("submit", async(e)=>{
 e.preventDefault();
 
 
+// Vérification du parrain obligatoire
 
+const parrain = document.getElementById("parrain").value.trim();
+
+
+if(parrain === ""){
+
+    afficherMessage(
+        "Le matricule du parrain est obligatoire pour adhérer.",
+        "error"
+    );
+
+    return;
+
+    }
+
+    
 
 const bouton = formulaire.querySelector("button");
 
@@ -425,28 +441,14 @@ window.location.href="membres.html";
 
 catch(erreur){
 
+    console.error("ERREUR FIREBASE :", erreur);
 
-console.error(erreur);
+    afficherMessage(
+        "Erreur : " + erreur.message,
+        "error"
+    );
 
-
-
-afficherMessage(
-
-`
-
-<i class="fa-solid fa-triangle-exclamation"></i>
-
-Erreur lors de l'enregistrement.
-
-`,
-
-"error"
-
-);
-
-
-
-}
+    }
 
 
 
