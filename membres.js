@@ -613,7 +613,7 @@ return;
 
 // Vérification autorisation président
 
-const membreConnecte = localStorage.getItem("membreId");
+const matriculePresident = localStorage.getItem("matricule");
 
 
 if(!membreConnecte){
@@ -630,11 +630,8 @@ return;
 
 
 const roleRef = ref(
-
 realtime,
-
-"membres/"+membreConnecte+"/role"
-
+"membres/"+matriculePresident+"/role"
 );
 
 
