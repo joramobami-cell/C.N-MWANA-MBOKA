@@ -1,314 +1,255 @@
-/* ======================================
-   MWANA MBOKA
-   PROFIL MEMBRE
-====================================== */
+/*==================================================
+    PROFIL.JS
+    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+==================================================*/
 
 
-import { initializeApp } 
-from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { realtime, storage } from "./firebase-config.js";
 
 
 import {
-getDatabase,
+
 ref,
 get,
 update
-}
-from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
 
 import {
-getStorage,
-ref as storageRef,
+
+storageRef,
 uploadBytes,
 getDownloadURL
+
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
+
+
+
+console.log("PROFIL JS CHARGE");
+
+
+
+
+
+/*================ ELEMENTS ================*/
+
+
+const photoProfil =
+document.getElementById("photoProfil");
+
+
+const inputPhoto =
+document.getElementById("inputPhoto");
+
+
+const btnPhoto =
+document.getElementById("btnPhoto");
+
+
+const btnSauver =
+document.getElementById("btnSauver");
+
+
+const message =
+document.getElementById("message");
+
+
+
+
+
+let idMembre = null;
+
+let membreActuel = null;
+
+
+
+
+
+
+
+
+/*================ MESSAGE ================*/
+
+
+function afficherMessage(txt,type){
+
+
+if(!message)
+
+return;
+
+
+message.textContent = txt;
+
+
+message.className = type;
+
+
+setTimeout(()=>{
+
+
+message.textContent="";
+
+
+},4000);
+
+
 }
-from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
-
-
-
-/* CONFIGURATION FIREBASE */
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
-
-authDomain: "c-n-mwana-mboka.firebaseapp.com",
-
-databaseURL:
-"https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app/",
-
-projectId:"c-n-mwana-mboka",
-
-storageBucket:
-"c-n-mwana-mboka.firebasestorage.app",
-
-messagingSenderId:"757726608581",
-
-appId:"1:757726608581:web:27fa7003ffa955188304ac"
-
-};
-
-
-
-const app = initializeApp(firebaseConfig);
-
-
-const database = getDatabase(app);
-
-const storage = getStorage(app);
 
 
 
 
 
-/* MEMBRE CONNECTE */
-
-
-const matricule = localStorage.getItem("matricule");
 
 
 
-if(!matricule){
-
-window.location.href="connexion.html";
-
-}
-
-
-
-
-
-const membreRef = ref(database,"membres/"+matricule);
-
-
-
-
-
-/* ======================================
-   CHARGEMENT PROFIL
-====================================== */
+/*================ CHARGER PROFIL ================*/
 
 
 async function chargerProfil(){
+
+
+
+/*
+A adapter avec ton système de connexion
+Pour test on prend le président
+*/
+
+
+idMembre = localStorage.getItem("membreId");
+
+
+
+if(!idMembre){
+
+
+afficherMessage(
+"Aucun membre connecté",
+"error"
+);
+
+
+return;
+
+}
+
+
+
+
+
+const membreRef = ref(
+
+realtime,
+
+"membres/"+idMembre
+
+);
+
 
 
 const snapshot = await get(membreRef);
 
 
 
+
 if(snapshot.exists()){
 
 
-const membre = snapshot.val();
+membreActuel = snapshot.val();
+
+
+
+afficherProfil(membreActuel);
+
+
+
+}
+
+else{
+
+
+afficherMessage(
+"Profil introuvable",
+"error"
+);
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+/*================ AFFICHAGE ================*/
+
+
+function afficherProfil(m){
 
 
 
 document.getElementById("nom").textContent =
-membre.nom || "---";
-
+m.nom || "-";
 
 
 document.getElementById("matricule").textContent =
-membre.matricule || matricule;
-
-
-
-document.getElementById("statut").textContent =
-membre.statut || "Actif";
-
+m.matricule || "-";
 
 
 document.getElementById("telephone").textContent =
-membre.telephone || "---";
-
-
-
-document.getElementById("profession").textContent =
-membre.profession || "---";
-
-
-
-document.getElementById("adresse").textContent =
-membre.adresse || "---";
-
+m.telephone || "-";
 
 
 document.getElementById("parrain").textContent =
-membre.parrain || "---";
+m.parrain || "-";
+
+
+document.getElementById("statut").textContent =
+m.statut || "Actif";
+
+
+document.getElementById("dateAdhesion").textContent =
+m.dateAdhesion || "-";
 
 
 
-document.getElementById("dateadhesion").textContent =
-membre.dateAdhesion || "---";
+document.getElementById("editNom").value =
+m.nom || "";
+
+
+document.getElementById("editTelephone").value =
+m.telephone || "";
 
 
 
+if(m.photo)
 
-
-/* PHOTO */
-
-const photo = document.getElementById("photo");
-
-
-if(membre.photo && membre.photo !== ""){
-
-
-photo.src = membre.photo;
-
-
-}else{
-
-
-photo.src="logo.png";
-
-
-}
-
-
-
-}
+photoProfil.src = m.photo;
 
 
 }
 
 
 
-chargerProfil();
 
 
 
 
 
 
-/* ======================================
-   CHANGER PHOTO
-====================================== */
+/*================ CHOISIR PHOTO ================*/
 
 
-const boutonPhoto = document.getElementById("changerPhoto");
-
-const inputPhoto = document.getElementById("photoInput");
-
-
-
-if(boutonPhoto){
-
-
-boutonPhoto.onclick = ()=>{
+btnPhoto.addEventListener("click",()=>{
 
 
 inputPhoto.click();
 
-
-};
-
-
-}
-
-
-
-
-
-if(inputPhoto){
-
-
-inputPhoto.onchange = async()=>{
-
-const fichier = inputPhoto.files[0];
-
-
-if(!fichier){
-    return;
-}
-
-
-// Affichage immédiat avant Firebase
-const aperçu = URL.createObjectURL(fichier);
-
-document.getElementById("photo").src = aperçu;
-
-
-console.log("Photo sélectionnée :", fichier.name);
-
-};
-
-
-const fichier = inputPhoto.files[0];
-
-
-
-if(!fichier){
-
-return;
-
-}
-
-
-
-
-
-// Vérification format
-
-if(!fichier.type.startsWith("image/")){
-
-
-alert("Veuillez choisir une image.");
-
-return;
-
-
-}
-
-
-
-
-// Taille maximum 2 Mo
-
-
-if(fichier.size > 2 * 1024 * 1024){
-
-
-alert("Image trop grande. Maximum 2 Mo.");
-
-return;
-
-
-}
-
-
-
-
-
-
-try{
-
-
-const chemin = 
-"photos/membres/"+matricule;
-
-
-
-const imageRef =
-storageRef(storage,chemin);
-
-
-
-await uploadBytes(imageRef,fichier);
-
-
-
-const url =
-await getDownloadURL(imageRef);
-
-
-
-
-
-
-await update(membreRef,{
-
-photo:url
 
 });
 
@@ -316,34 +257,210 @@ photo:url
 
 
 
-document.getElementById("photo").src=url;
+
+
+/*================ ENVOYER PHOTO ================*/
+
+
+inputPhoto.addEventListener("change",async(e)=>{
 
 
 
-localStorage.setItem("photo",url);
+const fichier = e.target.files[0];
 
 
 
-alert("Votre photo a été mise à jour.");
+if(!fichier)
+
+return;
+
+
+
+
+try{
+
+
+
+afficherMessage(
+"Envoi de la photo...",
+"info"
+);
+
+
+
+
+
+const chemin =
+
+"photos/"+idMembre;
+
+
+
+const imageRef = storageRef(
+
+storage,
+
+chemin
+
+);
+
+
+
+
+await uploadBytes(
+
+imageRef,
+
+fichier
+
+);
+
+
+
+
+const url = await getDownloadURL(imageRef);
+
+
+
+
+await update(
+
+ref(realtime,"membres/"+idMembre),
+
+{
+
+photo:url
+
+}
+
+);
+
+
+
+
+photoProfil.src=url;
+
+
+
+afficherMessage(
+
+"Photo mise à jour avec succès",
+
+"success"
+
+);
 
 
 
 }
 
-catch(error){
+
+catch(erreur){
 
 
-console.error(error);
+
+console.error(erreur);
 
 
-alert("Erreur pendant l'envoi de la photo.");
+
+afficherMessage(
+
+"Erreur photo : "+erreur.message,
+
+"error"
+
+);
+
 
 
 }
 
 
 
-};
+});
 
 
-  }
+
+
+
+
+
+
+
+/*================ MODIFIER INFORMATIONS ================*/
+
+
+btnSauver.addEventListener("click",async()=>{
+
+
+try{
+
+
+await update(
+
+ref(realtime,"membres/"+idMembre),
+
+{
+
+
+nom:
+
+document.getElementById("editNom").value,
+
+
+telephone:
+
+document.getElementById("editTelephone").value
+
+
+}
+
+);
+
+
+
+afficherMessage(
+
+"Profil mis à jour",
+
+"success"
+
+);
+
+
+
+chargerProfil();
+
+
+
+}
+
+
+catch(erreur){
+
+
+console.error(erreur);
+
+
+afficherMessage(
+
+"Erreur modification : "+erreur.message,
+
+"error"
+
+);
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+chargerProfil();
