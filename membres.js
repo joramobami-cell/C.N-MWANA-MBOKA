@@ -12,7 +12,8 @@ import {
 
 ref,
 onValue,
-remove
+remove,
+get
 
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
@@ -600,11 +601,43 @@ window.supprimerMembre = async function(id){
 
 
 const confirmation = confirm(
-"Voulez-vous supprimer définitivement ce membre ?"
+"Suppression définitive de ce membre ?"
 );
 
 
-if(!confirmation) return;
+if(!confirmation)
+
+return;
+
+
+
+// Vérification autorisation président
+
+const adminRef = ref(
+realtime,
+"adminActuel"
+);
+
+
+
+const snapshot = await get(adminRef);
+
+
+
+if(!snapshot.exists() || snapshot.val().role !== "Président"){
+
+
+alert(
+"Accès refusé : seul le Président peut supprimer un membre."
+);
+
+
+return;
+
+
+}
+
+
 
 
 
@@ -612,15 +645,21 @@ try{
 
 
 await remove(
+
 ref(realtime,"membres/"+id)
+
 );
 
 
 
-alert("Membre supprimé avec succès");
+alert(
+"Membre supprimé avec succès."
+);
+
 
 
 }
+
 
 catch(erreur){
 
@@ -634,6 +673,7 @@ alert(
 
 
 }
+
 
 
 };
