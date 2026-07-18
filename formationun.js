@@ -561,6 +561,7 @@ Enregistrement...
 }
 
 
+console.log("Tentative création formation...");
 
 await addDoc(
 
