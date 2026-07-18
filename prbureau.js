@@ -1,707 +1,569 @@
 /*==================================================
-   BUREAU NUMÉRIQUE DU PRÉSIDENT
-   COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-   Version 2.0
+    PRBUREAU.JS
+    BUREAU NUMERIQUE DU PRESIDENT
+    MWANA MBOKA
 ==================================================*/
 
-import { db, auth, storage } from "./firebase-config.js";
+
+import { realtime, auth } from "./firebase-config.js";
+
 
 import {
-    collection,
-    onSnapshot
+
+    ref,
+    get,
+    onValue
+
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+
+import {
+
+    signOut
+
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+
+
+console.log("PRBUREAU JS CHARGE");
+
+
+
+
+
+
+/*==================================================
+        DATE ET HEURE
+==================================================*/
+
+
+function actualiserDateHeure(){
+
+
+const maintenant = new Date();
+
+
+
+const date = document.getElementById("date");
+
+const heure = document.getElementById("heure");
+
+
+
+if(date){
+
+date.textContent = maintenant.toLocaleDateString("fr-FR");
+
+}
+
+
+
+if(heure){
+
+heure.textContent = maintenant.toLocaleTimeString("fr-FR");
+
+}
+
+
+
+}
+
+
+
+setInterval(actualiserDateHeure,1000);
+
+actualiserDateHeure();
+
+
+
+
+
+
+
+/*==================================================
+        COMPTEUR MEMBRES REALTIME DATABASE
+==================================================*/
+
+
+function chargerNombreMembres(){
+
+
+
+const membresRef = ref(
+
+realtime,
+
+"membres"
+
+);
+
+
+
+onValue(membresRef,(snapshot)=>{
+
+
+
+let total = 0;
+
+
+
+if(snapshot.exists()){
+
+
+
+total = Object.keys(snapshot.val()).length;
+
+
+
+}
+
+
+
+const compteur = document.getElementById("totalMembres");
+
+
+
+if(compteur){
+
+
+compteur.textContent = total;
+
+
+}
+
+
+
+console.log(
+
+"Nombre membres :",
+
+total
+
+);
+
+
+
+},(erreur)=>{
+
+
+console.error(
+
+"Erreur lecture membres :",
+
+erreur
+
+);
+
+
+
+});
+
+
+
+}
+
+
+
+chargerNombreMembres();
+
+
+
+
+
+
+
+/*==================================================
+        NOUVEAUX MEMBRES
+==================================================*/
+
+
+function chargerNouveauxMembres(){
+
+
+const membresRef = ref(
+
+realtime,
+
+"membres"
+
+);
+
+
+
+onValue(membresRef,(snapshot)=>{
+
+
+
+const zone = document.getElementById(
+"nouveauxMembres"
+);
+
+
+
+if(!zone) return;
+
+
+
+zone.innerHTML="";
+
+
+
+if(!snapshot.exists()){
+
+
+zone.innerHTML="<p>Aucun nouveau membre.</p>";
+
+return;
+
+
+}
+
+
+
+const membres = snapshot.val();
+
+
+
+const liste = Object.values(membres);
+
+
+
+liste.reverse().slice(0,5).forEach((membre)=>{
+
+
+
+zone.innerHTML += `
+
+<p>
+
+<i class="fa-solid fa-user"></i>
+
+${membre.nom || "Membre"}
+
+<br>
+
+<small>
+
+${membre.matricule || ""}
+
+</small>
+
+</p>
+
+`;
+
+
+
+});
+
+
+
+});
+
+
+
+}
+
+
+
+chargerNouveauxMembres();
+
+
+/*==================================================
+        COMPTEURS MODULES FIRESTORE
+        (formations, projets, notifications...)
+==================================================*/
+
+
+import {
+
+collection,
+onSnapshot
+
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-/*==================================================
-                INITIALISATION
-==================================================*/
 
-console.clear();
+import { db } from "./firebase-config.js";
 
-console.log("======================================");
-console.log("COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA");
-console.log("Bureau Numérique du Président");
-console.log("Version 2.0");
-console.log("======================================");
 
-/*==================================================
-            VÉRIFICATION SESSION
-==================================================*/
 
-const utilisateur = localStorage.getItem("utilisateurConnecte");
 
-if (!utilisateur) {
 
-    window.location.href = "connexion.html";
 
-}
 
-/*==================================================
-                DATE
-==================================================*/
+/* FORMATIONS */
 
-const dateElement = document.getElementById("date");
+function chargerFormations(){
 
-function afficherDate() {
 
-    if (!dateElement) return;
+const zone = document.getElementById(
+"formationsActives"
+);
 
-    const aujourdhui = new Date();
 
-    dateElement.textContent = aujourdhui.toLocaleDateString("fr-FR", {
 
-        weekday: "long",
+if(!zone) return;
 
-        day: "numeric",
 
-        month: "long",
 
-        year: "numeric"
+onSnapshot(
 
-    });
+collection(db,"formations"),
+
+(snapshot)=>{
+
+
+zone.textContent = snapshot.size;
+
+
+
+},
+
+(erreur)=>{
+
+
+console.error(
+"Erreur formations :",
+erreur
+);
+
 
 }
 
-afficherDate();
+);
 
-/*==================================================
-                HEURE
-==================================================*/
 
-const heureElement = document.getElementById("heure");
-
-function afficherHeure() {
-
-    if (!heureElement) return;
-
-    heureElement.textContent =
-
-    new Date().toLocaleTimeString("fr-FR");
 
 }
 
-setInterval(afficherHeure,1000);
 
-afficherHeure();
+chargerFormations();
 
-/*==================================================
-            MESSAGE DE BIENVENUE
-==================================================*/
 
-const titre = document.querySelector(".president-info h2");
 
-if(titre){
 
-    const heure = new Date().getHours();
 
-    if(heure < 12){
 
-        titre.textContent =
 
-        "Bonjour Monsieur le Président";
+/* PROJETS */
 
-    }
+function chargerProjets(){
 
-    else if(heure < 18){
 
-        titre.textContent =
+const zone = document.getElementById(
+"projetsAttente"
+);
 
-        "Bon après-midi Monsieur le Président";
 
-    }
 
-    else{
+if(!zone) return;
 
-        titre.textContent =
 
-        "Bonsoir Monsieur le Président";
 
-    }
+onSnapshot(
+
+collection(db,"projets"),
+
+(snapshot)=>{
+
+
+zone.textContent = snapshot.size;
+
+
+
+},
+
+(erreur)=>{
+
+
+console.error(
+"Erreur projets :",
+erreur
+);
+
 
 }
 
+);
+
+
+
+}
+
+
+chargerProjets();
+
+
+
+
+
+
+
+
+/* NOTIFICATIONS */
+
+
+function chargerNotifications(){
+
+
+const zone = document.getElementById(
+"notifications"
+);
+
+
+
+if(!zone) return;
+
+
+
+onSnapshot(
+
+collection(db,"notifications"),
+
+(snapshot)=>{
+
+
+zone.textContent = snapshot.size;
+
+
+
+},
+
+(erreur)=>{
+
+
+console.error(
+"Erreur notifications :",
+erreur
+);
+
+
+}
+
+);
+
+
+
+}
+
+
+
+chargerNotifications();
+
+
+
+
+
+
+
+
+
+
 /*==================================================
-              ANNÉE DU FOOTER
+        DECONNEXION
 ==================================================*/
 
-const annee = document.getElementById("annee");
+
+const logoutBtn = document.getElementById(
+"logoutBtn"
+);
+
+
+
+if(logoutBtn){
+
+
+logoutBtn.addEventListener(
+"click",
+async()=>{
+
+
+const confirmation =
+confirm(
+"Voulez-vous vous déconnecter ?"
+);
+
+
+
+if(!confirmation)
+return;
+
+
+
+try{
+
+
+await signOut(auth);
+
+
+
+window.location.href="index.html";
+
+
+
+}
+
+catch(erreur){
+
+
+console.error(
+"Erreur déconnexion :",
+erreur
+);
+
+
+
+}
+
+
+
+}
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/*==================================================
+        ANNEE FOOTER
+==================================================*/
+
+
+const annee =
+document.getElementById("annee");
+
+
 
 if(annee){
 
-    annee.textContent = new Date().getFullYear();
+
+annee.textContent =
+new Date().getFullYear();
+
 
 }
 
-/*==================================================
-              DÉCONNEXION
-==================================================*/
-
-const btnLogout = document.getElementById("logoutBtn");
-
-if(btnLogout){
-
-    btnLogout.addEventListener("click",()=>{
-
-        if(confirm("Voulez-vous quitter le Bureau Numérique ?")){
-
-            localStorage.removeItem("utilisateurConnecte");
-
-            window.location.href="connexion.html";
-
-        }
-
-    });
-
-}
-
-console.log("Initialisation terminée.");
 
 
-/*==================================================
-          TABLEAU DE BORD FIREBASE
-        (Temps réel avec onSnapshot)
-==================================================*/
 
-// MEMBRES
-function chargerMembres(){
 
-    onSnapshot(collection(db,"membres"),(snapshot)=>{
-
-        document.getElementById("totalMembres").textContent =
-        snapshot.size;
-
-    });
-
-}
-
-// PROJETS
-function chargerProjets(){
-
-    onSnapshot(collection(db,"projets"),(snapshot)=>{
-
-        document.getElementById("projetsAttente").textContent =
-        snapshot.size;
-
-    });
-
-}
-
-// FORMATIONS
-function chargerFormations(){
-
-    onSnapshot(collection(db,"formations"),(snapshot)=>{
-
-        document.getElementById("formationsActives").textContent =
-        snapshot.size;
-
-    });
-
-}
-
-// ENTRAIDES
-function chargerEntraides(){
-
-    onSnapshot(collection(db,"entraides"),(snapshot)=>{
-
-        document.getElementById("entraidesAttente").textContent =
-        snapshot.size;
-
-    });
-
-}
-
-// INVESTISSEMENTS
-function chargerInvestissements(){
-
-    onSnapshot(collection(db,"investissements"),(snapshot)=>{
-
-        document.getElementById("investissementsActifs").textContent =
-        snapshot.size;
-
-    });
-
-}
-
-// COTISATIONS
-function chargerCotisations(){
-
-    onSnapshot(collection(db,"cotisations"),(snapshot)=>{
-
-        document.getElementById("cotisationsMois").textContent =
-        snapshot.size;
-
-    });
-
-}
-
-// NOTIFICATIONS
-function chargerNotifications(){
-
-    onSnapshot(collection(db,"notifications"),(snapshot)=>{
-
-        document.getElementById("notifications").textContent =
-        snapshot.size;
-
-    });
-
-}
-
-// FINANCE
-function chargerFinance(){
-
-    onSnapshot(collection(db,"finance"),(snapshot)=>{
-
-        let total = 0;
-
-        snapshot.forEach((doc)=>{
-
-            const data = doc.data();
-
-            total += Number(data.montant || 0);
-
-        });
-
-        document.getElementById("soldeGeneral").textContent =
-        total.toLocaleString("fr-FR")+" FCFA";
-
-    });
-
-           }
 
 
 
 /*==================================================
-        SYNCHRONISATION GÉNÉRALE
+        TEST CONNEXION
 ==================================================*/
 
-function synchroniserBureau(){
 
-    chargerMembres();
-
-    chargerFinance();
-
-    chargerCotisations();
-
-    chargerProjets();
-
-    chargerFormations();
-
-    chargerInvestissements();
-
-    chargerEntraides();
-
-    chargerNotifications();
-
-    console.log("Synchronisation temps réel activée.");
-
-}
-
-synchroniserBureau();
-
-/*==================================================
-        CENTRE DE COMMANDEMENT
-==================================================*/
-
-function chargerCentreCommande(){
-
-    document.getElementById("activites").innerHTML=`
-
-        <p>✅ Bureau Président opérationnel.</p>
-
-        <p>🟢 Firebase connecté.</p>
-
-        <p>📊 Tableau de bord synchronisé.</p>
-
-    `;
-
-    document.getElementById("alertes").innerHTML=`
-
-        <p>Aucune alerte critique.</p>
-
-    `;
-
-    document.getElementById("listeProjets").innerHTML=`
-
-        <p>Aucun projet nécessitant une validation.</p>
-
-    `;
-
-    document.getElementById("nouveauxMembres").innerHTML=`
-
-        <p>Aucune nouvelle adhésion aujourd'hui.</p>
-
-    `;
-
-    document.getElementById("paiementsValidation").innerHTML=`
-
-        <p>Aucun paiement en attente.</p>
-
-    `;
-
-    document.getElementById("agenda").innerHTML=`
-
-        <p>Aucun rendez-vous programmé.</p>
-
-    `;
-
-}
-
-/*==================================================
-            JOURNAL PRÉSIDENTIEL
-==================================================*/
-
-function ajouterJournal(message){
-
-    const journal=document.getElementById("journalPresident");
-
-    if(!journal) return;
-
-    const heure=new Date().toLocaleTimeString("fr-FR");
-
-    journal.innerHTML=`
-
-        <p><strong>${heure}</strong> — ${message}</p>
-
-    `+journal.innerHTML;
-
-}
-
-/*==================================================
-        ENREGISTREMENT D'ACTIONS
-==================================================*/
-
-function enregistrerAction(action){
-
-    console.log(action);
-
-    ajouterJournal(action);
-
-}
-
-/*==================================================
-            NOTIFICATIONS
-==================================================*/
-
-function afficherNotification(message,type="info"){
-
-    console.log("["+type.toUpperCase()+"] "+message);
-
-}
-
-/*==================================================
-          DERNIÈRE SYNCHRONISATION
-==================================================*/
-
-function afficherSynchronisation(){
-
-    console.log(
-
-        "Dernière synchronisation : "+
-
-        new Date().toLocaleString("fr-FR")
-
-    );
-
-}
-
-/*==================================================
-        ACTUALISATION DU BUREAU
-==================================================*/
-
-async function actualiserBureau(){
-
-    await synchroniserBureau();
-
-    chargerCentreCommande();
-
-    afficherSynchronisation();
-
-    enregistrerAction(
-
-        "Synchronisation du Bureau Président."
-
-    );
-
-}
-
-/*==================================================
-      SURVEILLANCE DE CONNEXION
-==================================================*/
-
-window.addEventListener("online",()=>{
-
-    afficherNotification(
-
-        "Connexion Internet rétablie.",
-
-        "success"
-
-    );
-
-    actualiserBureau();
-
-});
-
-window.addEventListener("offline",()=>{
-
-    afficherNotification(
-
-        "Connexion Internet interrompue.",
-
-        "warning"
-
-    );
-
-});
-
-
-/*==================================================
-          INITIALISATION
-==================================================*/
-
-chargerCentreCommande();
-
-ajouterJournal(
-
-    "Connexion du Président au Bureau Numérique."
-
+console.log(
+"Bureau président opérationnel"
 );
-
-afficherSynchronisation();
-
-console.log("Centre de commandement initialisé.");
-
-/*==================================================
-        ANIMATION DES CARTES
-==================================================*/
-
-const cartes = document.querySelectorAll(
-".card, .panel, .quick-card, .office-card, .bottom-card"
-);
-
-cartes.forEach((carte,index)=>{
-
-    carte.style.opacity="0";
-    carte.style.transform="translateY(30px)";
-
-    setTimeout(()=>{
-
-        carte.style.transition="all .6s ease";
-        carte.style.opacity="1";
-        carte.style.transform="translateY(0)";
-
-    },index*120);
-
-});
-
-
-/*==================================================
-        NOTIFICATIONS VISUELLES
-==================================================*/
-
-function creerNotification(message,type="info"){
-
-    const notification=document.createElement("div");
-
-    notification.className="notification "+type;
-
-    notification.innerHTML=`
-        <i class="fa-solid fa-bell"></i>
-        <span>${message}</span>
-    `;
-
-    document.body.appendChild(notification);
-
-    setTimeout(()=>{
-
-        notification.classList.add("show");
-
-    },100);
-
-    setTimeout(()=>{
-
-        notification.classList.remove("show");
-
-        setTimeout(()=>{
-
-            notification.remove();
-
-        },500);
-
-    },5000);
-
-}
-
-
-/*==================================================
-        BARRE DE CHARGEMENT
-==================================================*/
-
-function afficherChargement(){
-
-    const loader=document.createElement("div");
-
-    loader.id="loaderPresident";
-
-    loader.innerHTML=`
-
-        <div class="loader-bar"></div>
-
-    `;
-
-    document.body.appendChild(loader);
-
-}
-
-function masquerChargement(){
-
-    const loader=document.getElementById("loaderPresident");
-
-    if(loader){
-
-        loader.remove();
-
-    }
-
-}
-
-
-/*==================================================
-      SIGNATURE PRÉSIDENTIELLE
-==================================================*/
-
-const btnSigner=document.getElementById("btnSigner");
-
-if(btnSigner){
-
-    btnSigner.addEventListener("click",()=>{
-
-        creerNotification(
-
-            "Décision présidentielle signée.",
-
-            "success"
-
-        );
-
-        enregistrerAction(
-
-            "Une décision a été signée."
-
-        );
-
-    });
-
-}
-
-
-/*==================================================
-      CODE PRÉSIDENT
-==================================================*/
-
-const btnCode=document.getElementById("btnCode");
-
-if(btnCode){
-
-    btnCode.addEventListener("click",()=>{
-
-        const code=prompt(
-
-            "Entrez votre Code Président"
-
-        );
-
-        if(code===null) return;
-
-        if(code==="1234"){
-
-            creerNotification(
-
-                "Code accepté.",
-
-                "success"
-
-            );
-
-        }
-
-        else{
-
-            creerNotification(
-
-                "Code incorrect.",
-
-                "error"
-
-            );
-
-        }
-
-    });
-
-}
-
-
-/*==================================================
-      SAUVEGARDE AUTOMATIQUE
-==================================================*/
-
-setInterval(()=>{
-
-    console.log("Sauvegarde automatique.");
-
-},300000);
-
-
-/*==================================================
-      DÉMARRAGE
-==================================================*/
-
-window.addEventListener("load",()=>{
-
-    afficherChargement();
-
-    setTimeout(()=>{
-
-        masquerChargement();
-
-        creerNotification(
-
-            "Bienvenue Monsieur le Président.",
-
-            "success"
-
-        );
-
-        actualiserBureau();
-
-    },1500);
-
-});
-
-
-/*==================================================
-      FERMETURE
-==================================================*/
-
-window.addEventListener("beforeunload",()=>{
-
-    console.log("Fermeture du Bureau Président.");
-
-});
-
-
-/*==================================================
-      VERSION
-==================================================*/
-
-console.log("================================");
-
-console.log("COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA");
-
-console.log("Bureau Numérique du Président");
-
-console.log("Version 2.0");
-
-console.log("Statut : Opérationnel");
-
-console.log("================================");
