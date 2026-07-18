@@ -1,1031 +1,658 @@
-// ========================================
-// ADMIN.JS
-// COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-// PARTIE 1
-// Firebase - Sécurité - Variables
-// ========================================
+/*==================================================
+    ADMIN.JS
+    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    VERSION REALTIME DATABASE STABLE
+==================================================*/
 
-// ==========================
-// IMPORT FIREBASE
-// ==========================
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { realtime } from "./firebase-config.js";
 
 import {
-    getDatabase,
-    ref,
-    get,
-    set,
-    update,
-    remove,
-    onValue
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
-// ==========================
-// CONFIGURATION FIREBASE
-// ==========================
+ref,
+get,
+set,
+update,
+remove,
+onValue
 
-const firebaseConfig = {
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
-    apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
 
-    authDomain: "c-n-mwana-mboka.firebaseapp.com",
+console.log("ADMIN JS CHARGÉ");
 
-    databaseURL: "https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app/",
 
-    projectId: "c-n-mwana-mboka",
 
-    storageBucket: "c-n-mwana-mboka.firebasestorage.app",
+let utilisateurConnecte=null;
 
-    messagingSenderId: "757726608581",
+let matriculeAdmin="";
 
-    appId: "1:757726608581:web:27fa7003ffa955188304ac"
+let membres=[];
+
+
+
+/*================ ELEMENTS ================*/
+
+
+const listeMembres=
+document.getElementById("listeMembres");
+
+const recherche=
+document.getElementById("recherche");
+
+const total=
+document.getElementById("statTotal");
+
+const actifs=
+document.getElementById("statActifs");
+
+const admins=
+document.getElementById("statAdmins");
+
+
+
+
+
+
+
+/*================ VERIFICATION DROITS ================*/
+
+
+async function verifierAcces(){
+
+
+matriculeAdmin=
+localStorage.getItem("matricule");
+
+
+
+if(!matriculeAdmin){
+
+
+alert("Aucun utilisateur connecté.");
+
+window.location.href="connexion.html";
+
+return false;
+
+
+}
+
+
+
+const snapshot=
+await get(
+ref(realtime,"membres/"+matriculeAdmin)
+);
+
+
+
+if(!snapshot.exists()){
+
+
+alert("Utilisateur introuvable.");
+
+window.location.href="connexion.html";
+
+return false;
+
+
+}
+
+
+
+utilisateurConnecte=
+snapshot.val();
+
+
+
+const role=
+(utilisateurConnecte.role || "")
+.toLowerCase();
+
+
+
+if(
+role!=="admin" &&
+role!=="president"
+){
+
+
+alert(
+"Accès réservé aux administrateurs."
+);
+
+
+window.location.href="espace.html";
+
+
+return false;
+
+
+}
+
+
+
+return true;
+
+
+}
+
+
+
+
+
+
+
+
+/*================ CHARGEMENT MEMBRES ================*/
+
+
+function chargerMembres(){
+
+
+onValue(
+ref(realtime,"membres"),
+(snapshot)=>{
+
+
+membres=[];
+
+
+if(snapshot.exists()){
+
+
+snapshot.forEach((item)=>{
+
+
+membres.push({
+
+id:item.key,
+
+...item.val()
+
+});
+
+
+});
+
+
+}
+
+
+
+afficherMembres(membres);
+
+
+statistiques(membres);
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+/*================ AFFICHAGE ================*/
+
+
+function afficherMembres(liste){
+
+
+
+if(!listeMembres)
+return;
+
+
+
+listeMembres.innerHTML="";
+
+
+
+liste.forEach((m)=>{
+
+
+
+listeMembres.innerHTML += `
+
+
+<div class="carte-membre">
+
+
+<img src="${m.photo || "logo.png"}"
+
+
+class="photo-membre-admin">
+
+
+
+<h3>${m.nom || "-"}</h3>
+
+
+<p>
+<strong>Matricule :</strong>
+${m.matricule || m.id}
+</p>
+
+
+
+<p>
+<strong>Téléphone :</strong>
+${m.telephone || "-"}
+</p>
+
+
+
+<p>
+<strong>Rôle :</strong>
+${m.role || "membre"}
+</p>
+
+
+
+<p>
+<strong>Statut :</strong>
+${m.statut || "Actif"}
+</p>
+
+
+
+<div>
+
+
+<button
+onclick="modifierMembre('${m.id}')">
+
+<i class="fa-solid fa-pen"></i>
+
+Modifier
+
+</button>
+
+
+
+<button
+onclick="supprimerMembre('${m.id}')">
+
+<i class="fa-solid fa-trash"></i>
+
+Supprimer
+
+</button>
+
+
+
+<button
+onclick="changerRole('${m.id}')">
+
+<i class="fa-solid fa-user-shield"></i>
+
+Changer rôle
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+
+/*================ STATISTIQUES ================*/
+
+
+function statistiques(liste){
+
+
+
+if(total)
+
+total.textContent=
+liste.length;
+
+
+
+if(actifs)
+
+actifs.textContent=
+
+liste.filter(m=>
+
+(m.statut||"")
+.toLowerCase()=="actif"
+
+).length;
+
+
+
+if(admins)
+
+admins.textContent=
+
+liste.filter(m=>
+
+{
+
+let r=(m.role||"").toLowerCase();
+
+return r=="admin" || r=="president";
+
+
+}
+
+).length;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/*================ SUPPRESSION ================*/
+
+
+window.supprimerMembre=
+async function(id){
+
+
+
+const confirmation=
+confirm(
+"Supprimer ce membre définitivement ?"
+);
+
+
+
+if(!confirmation)
+return;
+
+
+
+if(id===matriculeAdmin){
+
+
+alert(
+"Vous ne pouvez pas supprimer votre propre compte."
+);
+
+
+return;
+
+
+}
+
+
+
+try{
+
+
+await remove(
+ref(realtime,"membres/"+id)
+);
+
+
+
+alert(
+"Membre supprimé."
+);
+
+
+
+}
+
+catch(e){
+
+
+console.error(e);
+
+alert(
+"Erreur suppression."
+);
+
+
+}
+
+
 
 };
 
-// ==========================
-// INITIALISATION FIREBASE
-// ==========================
 
-const app = initializeApp(firebaseConfig);
 
-const db = getDatabase(app);
 
-// ==========================
-// VARIABLES GLOBALES
-// ==========================
 
-let membreEnModification = null;
 
-let tousLesMembres = [];
 
-let administrateur = null;
 
-let matriculeAdmin = "";
 
-// ==========================
-// RACCOURCIS HTML
-// ==========================
 
-const listeMembres = document.getElementById("listeMembres");
+/*================ CHANGER ROLE ================*/
 
-const champRecherche = document.getElementById("recherche");
 
-const btnAjouter = document.getElementById("btnAjouter");
+window.changerRole=
+async function(id){
 
-const btnAnnuler = document.getElementById("btnAnnuler");
 
-// ==========================
-// VÉRIFICATION ADMINISTRATEUR
-// ==========================
 
-async function verifierAdministrateur() {
+if(id===matriculeAdmin){
 
-    try {
 
-        matriculeAdmin = localStorage.getItem("matricule");
+alert(
+"Vous ne pouvez pas modifier votre propre rôle."
+);
 
-        if (!matriculeAdmin) {
 
-            window.location.href = "connexion.html";
+return;
 
-            return false;
-
-        }
-
-        const snapshot = await get(
-            ref(db, "membres/" + matriculeAdmin)
-        );
-
-        if (!snapshot.exists()) {
-
-            localStorage.removeItem("matricule");
-
-            window.location.href = "connexion.html";
-
-            return false;
-
-        }
-
-        administrateur = snapshot.val();
-
-        if ((administrateur.role || "").toLowerCase() !== "admin") {
-
-            alert("Accès réservé à l'administrateur.");
-
-            window.location.href = "espace.html";
-
-            return false;
-
-        }
-
-        return true;
-
-    } catch (erreur) {
-
-        console.error(erreur);
-
-        alert("Impossible de vérifier les droits administrateur.");
-
-        window.location.href = "connexion.html";
-
-        return false;
-
-    }
 
 }
 
-// ========================================
-// PARTIE 2
-// CHARGEMENT DES MEMBRES
-// STATISTIQUES
-// ========================================
 
-// ==========================
-// CHARGER LES MEMBRES
-// ==========================
 
-function chargerMembres() {
+const membreRef=
+ref(realtime,"membres/"+id);
 
-    const membresRef = ref(db, "membres");
 
-    onValue(membresRef, (snapshot) => {
 
-        tousLesMembres = [];
+const snapshot=
+await get(membreRef);
 
-        listeMembres.innerHTML = "";
 
-        let total = 0;
-        let actifs = 0;
-        let inactifs = 0;
-        let admins = 0;
 
-        if (!snapshot.exists()) {
+if(!snapshot.exists())
+return;
 
-            listeMembres.innerHTML = `
-                <p style="text-align:center;padding:30px;">
-                    Aucun membre enregistré.
-                </p>
-            `;
 
-            mettreAJourStatistiques(0, 0, 0, 0);
 
-            return;
+const membre=
+snapshot.val();
 
-        }
 
-        snapshot.forEach((item) => {
 
-            const membre = item.val();
+const ancien=
+(membre.role||"membre")
+.toLowerCase();
 
-            tousLesMembres.push(membre);
 
-            total++;
 
-            if ((membre.statut || "").toLowerCase() === "actif") {
+const nouveau=
+ancien==="admin"
+?
+"membre"
+:
+"admin";
 
-                actifs++;
 
-            } else {
 
-                inactifs++;
+if(!confirm(
+"Changer le rôle de "+membre.nom+" ?"
+))
+return;
 
-            }
 
-            if ((membre.role || "").toLowerCase() === "admin") {
 
-                admins++;
-
-            }
-
-            afficherCarte(membre);
-
-        });
-
-        mettreAJourStatistiques(
-            total,
-            actifs,
-            inactifs,
-            admins
-        );
-
-    });
-
+await update(
+membreRef,
+{
+role:nouveau
 }
+);
 
-// ==========================
-// METTRE À JOUR
-// LES STATISTIQUES
-// ==========================
 
-function mettreAJourStatistiques(
-    total,
-    actifs,
-    inactifs,
-    admins
-) {
 
-    const nbMembres = document.getElementById("nbMembres");
-    const statTotal = document.getElementById("statTotal");
-    const statActifs = document.getElementById("statActifs");
-    const statInactifs = document.getElementById("statInactifs");
-    const statAdmins = document.getElementById("statAdmins");
+alert(
+"Rôle modifié."
+);
 
-    if (nbMembres) {
 
-        nbMembres.innerText = total;
-
-    }
-
-    if (statTotal) {
-
-        statTotal.innerText = total;
-
-    }
-
-    if (statActifs) {
-
-        statActifs.innerText = actifs;
-
-    }
-
-    if (statInactifs) {
-
-        statInactifs.innerText = inactifs;
-
-    }
-
-    if (statAdmins) {
-
-        statAdmins.innerText = admins;
-
-    }
-
-}
-
-// ==========================
-// INITIALISATION
-// ==========================
-
-async function initialiserAdministration() {
-
-    const autorise = await verifierAdministrateur();
-
-    if (!autorise) {
-
-        return;
-
-    }
-
-    chargerMembres();
-
-}
-
-initialiserAdministration();
-
-// ========================================
-// PARTIE 3
-// AFFICHAGE DES MEMBRES
-// ========================================
-
-// ==========================
-// AFFICHER UNE CARTE MEMBRE
-// ==========================
-
-function afficherCarte(membre) {
-
-    const carte = document.createElement("div");
-
-    carte.className = "carte-membre";
-
-    const statutClasse =
-        (membre.statut || "").toLowerCase() === "actif"
-        ? "badge-actif"
-        : "badge-inactif";
-
-    const roleClasse =
-        (membre.role || "membre").toLowerCase() === "admin"
-        ? "badge-admin"
-        : "badge-membre";
-
-    const texteRole =
-        (membre.role || "membre").toLowerCase() === "admin"
-        ? "Administrateur"
-        : "Membre";
-
-    const boutonRole =
-        (membre.role || "membre").toLowerCase() === "admin"
-        ? "👤 Retirer administrateur"
-        : "👑 Nommer administrateur";
-
-    carte.innerHTML = `
-
-        <div class="photo-zone">
-
-            <img
-                src="${membre.photo || 'logo.png'}"
-                alt="${membre.nom}"
-                class="photo-membre-admin">
-
-        </div>
-
-        <h2>${membre.nom}</h2>
-
-        <p><strong>Matricule :</strong> ${membre.matricule}</p>
-
-        <p><strong>Téléphone :</strong> ${membre.telephone}</p>
-
-        <p><strong>Profession :</strong> ${membre.profession || "-"}</p>
-
-        <p><strong>Adresse :</strong> ${membre.adresse || "-"}</p>
-
-        <p><strong>Parrain :</strong> ${membre.parrain || "-"}</p>
-
-        <p><strong>Date d'adhésion :</strong> ${membre.dateadhesion || "-"}</p>
-
-        <p>
-
-            <strong>Statut :</strong>
-
-            <span class="${statutClasse}">
-                ${membre.statut || "Inactif"}
-            </span>
-
-        </p>
-
-        <p>
-
-            <strong>Rôle :</strong>
-
-            <span class="${roleClasse}">
-                ${texteRole}
-            </span>
-
-        </p>
-
-        <div class="actions-admin">
-
-            <button
-                class="btn-modifier"
-                onclick="modifierMembre('${membre.matricule}')">
-
-                <i class="fa-solid fa-pen"></i>
-
-                Modifier
-
-            </button>
-
-            <button
-                class="btn-danger"
-                onclick="supprimerMembre('${membre.matricule}')">
-
-                <i class="fa-solid fa-trash"></i>
-
-                Supprimer
-
-            </button>
-
-            <button
-                class="btn-admin"
-                onclick="changerRole('${membre.matricule}')">
-
-                ${boutonRole}
-
-            </button>
-
-        </div>
-
-    `;
-
-    listeMembres.appendChild(carte);
-
-}
-
-// ========================================
-// PARTIE 4
-// RECHERCHE ET FILTRAGE
-// ========================================
-
-// ==========================
-// AFFICHER UNE LISTE
-// ==========================
-
-function afficherListe(liste) {
-
-    listeMembres.innerHTML = "";
-
-    if (liste.length === 0) {
-
-        listeMembres.innerHTML = `
-
-            <div class="aucun-resultat">
-
-                <h3>Aucun membre trouvé</h3>
-
-                <p>Essayez une autre recherche.</p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-    liste.forEach((membre) => {
-
-        afficherCarte(membre);
-
-    });
-
-}
-
-// ==========================
-// FILTRER LES MEMBRES
-// ==========================
-
-function rechercherMembres(texte) {
-
-    texte = texte.trim().toLowerCase();
-
-    if (texte === "") {
-
-        afficherListe(tousLesMembres);
-
-        return;
-
-    }
-
-    const resultat = tousLesMembres.filter((membre) => {
-
-        return (
-
-            (membre.nom || "")
-                .toLowerCase()
-                .includes(texte)
-
-            ||
-
-            (membre.matricule || "")
-                .toLowerCase()
-                .includes(texte)
-
-            ||
-
-            (membre.telephone || "")
-                .toLowerCase()
-                .includes(texte)
-
-            ||
-
-            (membre.profession || "")
-                .toLowerCase()
-                .includes(texte)
-
-            ||
-
-            (membre.adresse || "")
-                .toLowerCase()
-                .includes(texte)
-
-            ||
-
-            (membre.parrain || "")
-                .toLowerCase()
-                .includes(texte)
-
-            ||
-
-            (membre.role || "")
-                .toLowerCase()
-                .includes(texte)
-
-            ||
-
-            (membre.statut || "")
-                .toLowerCase()
-                .includes(texte)
-
-        );
-
-    });
-
-    afficherListe(resultat);
-
-}
-
-// ==========================
-// RECHERCHE EN TEMPS RÉEL
-// ==========================
-
-if (champRecherche) {
-
-    champRecherche.addEventListener("input", (e) => {
-
-        rechercherMembres(e.target.value);
-
-    });
-
-}
-
-// ==========================
-// RAFRAÎCHIR LA LISTE
-// ==========================
-
-function rafraichirListe() {
-
-    afficherListe(tousLesMembres);
-
-}
-
-// ========================================
-// PARTIE 5
-// AJOUT ET MODIFICATION DES MEMBRES
-// ========================================
-
-// ==========================
-// ENREGISTRER UN MEMBRE
-// ==========================
-
-window.ajouterMembre = async function () {
-
-    try {
-
-        const matricule = document.getElementById("matricule").value.trim();
-        const nom = document.getElementById("nom").value.trim();
-        const telephone = document.getElementById("telephone").value.trim();
-        const motdepasse = document.getElementById("motdepasse").value.trim();
-        const profession = document.getElementById("profession").value.trim();
-        const adresse = document.getElementById("adresse").value.trim();
-        const parrain = document.getElementById("parrain").value.trim();
-        const statut = document.getElementById("statut").value;
-
-        // Vérification
-
-        if (!matricule || !nom || !telephone || !motdepasse) {
-
-            alert("Veuillez remplir tous les champs obligatoires.");
-
-            return;
-
-        }
-
-        let membre = {};
-
-        // ==========================
-        // MODIFICATION
-        // ==========================
-
-        if (membreEnModification) {
-
-            const ancien = await get(
-                ref(db, "membres/" + membreEnModification)
-            );
-
-            if (!ancien.exists()) {
-
-                alert("Le membre est introuvable.");
-
-                return;
-
-            }
-
-            const ancienMembre = ancien.val();
-
-            membre = {
-
-                matricule: membreEnModification,
-
-                nom,
-                telephone,
-                motdepasse,
-                profession,
-                adresse,
-                parrain,
-                statut,
-
-                role: ancienMembre.role || "membre",
-
-                photo: ancienMembre.photo || "",
-
-                dateadhesion:
-                    ancienMembre.dateadhesion ||
-
-                    new Date().toLocaleDateString("fr-FR")
-
-            };
-
-            await set(
-
-                ref(db, "membres/" + membreEnModification),
-
-                membre
-
-            );
-
-            alert("✅ Membre modifié avec succès.");
-
-        }
-
-        // ==========================
-        // AJOUT
-        // ==========================
-
-        else {
-
-            const existe = await get(
-
-                ref(db, "membres/" + matricule)
-
-            );
-
-            if (existe.exists()) {
-
-                alert("Ce matricule existe déjà.");
-
-                return;
-
-            }
-
-            membre = {
-
-                matricule,
-
-                nom,
-                telephone,
-                motdepasse,
-                profession,
-                adresse,
-                parrain,
-                statut,
-
-                role: "membre",
-
-                photo: "",
-
-                dateadhesion:
-                    new Date().toLocaleDateString("fr-FR")
-
-            };
-
-            await set(
-
-                ref(db, "membres/" + matricule),
-
-                membre
-
-            );
-
-            alert("✅ Nouveau membre ajouté.");
-
-        }
-
-        reinitialiserFormulaire();
-
-    }
-
-    catch (erreur) {
-
-        console.error(erreur);
-
-        alert("Une erreur est survenue.");
-
-    }
 
 };
 
-// ========================================
-// PARTIE 6
-// MODIFIER UN MEMBRE
-// RÉINITIALISER LE FORMULAIRE
-// ========================================
 
-// ==========================
-// CHARGER UN MEMBRE
-// ==========================
 
-window.modifierMembre = async function (matricule) {
 
-    try {
 
-        const snapshot = await get(
 
-            ref(db, "membres/" + matricule)
 
-        );
 
-        if (!snapshot.exists()) {
 
-            alert("Membre introuvable.");
+/*================ MODIFICATION ================*/
 
-            return;
 
-        }
+window.modifierMembre=
+function(id){
 
-        const membre = snapshot.val();
 
-        membreEnModification = matricule;
+localStorage.setItem(
+"modifierMembre",
+id
+);
 
-        document.getElementById("matricule").value = membre.matricule;
-        document.getElementById("matricule").disabled = true;
 
-        document.getElementById("nom").value = membre.nom || "";
-        document.getElementById("telephone").value = membre.telephone || "";
-        document.getElementById("motdepasse").value = membre.motdepasse || "";
-        document.getElementById("profession").value = membre.profession || "";
-        document.getElementById("adresse").value = membre.adresse || "";
-        document.getElementById("parrain").value = membre.parrain || "";
-        document.getElementById("statut").value = membre.statut || "Actif";
+window.location.href=
+"profil.html";
 
-        btnAjouter.innerHTML =
-        '<i class="fa-solid fa-floppy-disk"></i> Enregistrer les modifications';
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
-
-    }
-
-    catch (erreur) {
-
-        console.error(erreur);
-
-        alert("Impossible de charger le membre.");
-
-    }
 
 };
 
-// ==========================
-// RÉINITIALISER LE FORMULAIRE
-// ==========================
 
-function reinitialiserFormulaire() {
 
-    membreEnModification = null;
 
-    document.getElementById("matricule").disabled = false;
 
-    document.getElementById("matricule").value = "";
-    document.getElementById("nom").value = "";
-    document.getElementById("telephone").value = "";
-    document.getElementById("motdepasse").value = "";
-    document.getElementById("profession").value = "";
-    document.getElementById("adresse").value = "";
-    document.getElementById("parrain").value = "";
-    document.getElementById("statut").value = "Actif";
 
-    btnAjouter.innerHTML =
-    '<i class="fa-solid fa-user-plus"></i> Ajouter le membre';
+
+
+/*================ RECHERCHE ================*/
+
+
+if(recherche){
+
+
+recherche.addEventListener(
+"input",
+(e)=>{
+
+
+const texte=
+e.target.value.toLowerCase();
+
+
+
+const resultat=
+membres.filter(m=>{
+
+
+return (
+
+(m.nom||"")
+.toLowerCase()
+.includes(texte)
+
+||
+
+(m.matricule||"")
+.toLowerCase()
+.includes(texte)
+
+);
+
+
+});
+
+
+
+afficherMembres(resultat);
+
+
+
+});
+
 
 }
 
-// ==========================
-// BOUTON ANNULER
-// ==========================
 
-if (btnAnnuler) {
 
-    btnAnnuler.addEventListener("click", () => {
 
-        reinitialiserFormulaire();
 
-    });
 
-    }
 
-// ========================================
-// PARTIE 7
-// SUPPRESSION ET GESTION DES ADMINISTRATEURS
-// ========================================
 
-// ==========================
-// SUPPRIMER UN MEMBRE
-// ==========================
+/*================ DEMARRAGE ================*/
 
-window.supprimerMembre = async function (matricule) {
 
-    try {
+async function demarrer(){
 
-        // Interdiction de supprimer son propre compte
-        if (matricule === matriculeAdmin) {
 
-            alert("Vous ne pouvez pas supprimer votre propre compte.");
+const ok=
+await verifierAcces();
 
-            return;
 
-        }
 
-        const confirmation = confirm(
-            "Voulez-vous vraiment supprimer ce membre ?"
-        );
+if(!ok)
+return;
 
-        if (!confirmation) return;
 
-        const membreRef = ref(db, "membres/" + matricule);
 
-        const snapshot = await get(membreRef);
+chargerMembres();
 
-        if (!snapshot.exists()) {
-
-            alert("Membre introuvable.");
-
-            return;
-
-        }
-
-        await remove(membreRef);
-
-        alert("✅ Membre supprimé avec succès.");
-
-    }
-
-    catch (erreur) {
-
-        console.error(erreur);
-
-        alert("Une erreur est survenue lors de la suppression.");
-
-    }
-
-};
-
-// ==========================
-// CHANGER LE RÔLE
-// ==========================
-
-window.changerRole = async function (matricule) {
-
-    try {
-
-        // Empêche l'administrateur connecté
-        // de modifier son propre rôle
-
-        if (matricule === matriculeAdmin) {
-
-            alert("Vous ne pouvez pas modifier votre propre rôle.");
-
-            return;
-
-        }
-
-        const membreRef = ref(db, "membres/" + matricule);
-
-        const snapshot = await get(membreRef);
-
-        if (!snapshot.exists()) {
-
-            alert("Membre introuvable.");
-
-            return;
-
-        }
-
-        const membre = snapshot.val();
-
-        const nouveauRole =
-
-            (membre.role || "membre").toLowerCase() === "admin"
-
-            ? "membre"
-
-            : "admin";
-
-        const message =
-
-            nouveauRole === "admin"
-
-            ? `Nommer ${membre.nom} administrateur ?`
-
-            : `Retirer les droits administrateur à ${membre.nom} ?`;
-
-        if (!confirm(message)) {
-
-            return;
-
-        }
-
-        await update(membreRef, {
-
-            role: nouveauRole
-
-        });
-
-        alert("✅ Le rôle a été mis à jour.");
-
-    }
-
-    catch (erreur) {
-
-        console.error(erreur);
-
-        alert("Impossible de modifier le rôle.");
-
-    }
-
-};
-
-// ==========================
-// RAFRAÎCHIR LA PAGE
-// ==========================
-
-window.actualiserAdministration = function () {
-
-    reinitialiserFormulaire();
-
-    chargerMembres();
-
-};
-
-// ========================================
-// PARTIE 8
-// INITIALISATION ET FONCTIONS UTILITAIRES
-// ========================================
-
-// ==========================
-// DÉCONNEXION
-// ==========================
-
-window.deconnexion = function () {
-
-    const confirmation = confirm(
-        "Voulez-vous vraiment vous déconnecter ?"
-    );
-
-    if (!confirmation) return;
-
-    localStorage.removeItem("matricule");
-
-    window.location.href = "connexion.html";
-
-};
-
-// ==========================
-// ACTUALISER LES STATISTIQUES
-// ==========================
-
-window.actualiser = function () {
-
-    reinitialiserFormulaire();
-
-    chargerMembres();
-
-};
-
-// ==========================
-// RECHARGER LA PAGE
-// ==========================
-
-window.rechargerPage = function () {
-
-    location.reload();
-
-};
-
-// ==========================
-// AFFICHER LE NOM DE L'ADMIN
-// ==========================
-
-function afficherAdministrateur() {
-
-    const zoneNom = document.getElementById("nomAdministrateur");
-
-    if (zoneNom && administrateur) {
-
-        zoneNom.innerHTML = administrateur.nom;
-
-    }
 
 }
 
-// ==========================
-// DÉMARRAGE DE L'APPLICATION
-// ==========================
 
-async function demarrerApplication() {
 
-    const autorise = await verifierAdministrateur();
+demarrer();
 
-    if (!autorise) return;
 
-    afficherAdministrateur();
-
-    chargerMembres();
-
-    console.log("================================");
-
-    console.log("COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA");
-
-    console.log("Administration chargée");
-
-    console.log("Administrateur :", administrateur.nom);
-
-    console.log("================================");
-
-}
-
-demarrerApplication();
+console.log(
+"ADMIN MODULE OPERATIONNEL"
+);
