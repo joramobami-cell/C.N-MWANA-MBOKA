@@ -768,27 +768,13 @@ afficherMessage(
 
 catch(erreur){
 
+console.error("ERREUR FIREBASE FORMATION :", erreur);
 
-
-console.error(erreur);
-
-
-
-afficherMessage(
-
-"Erreur suppression : "+erreur.message,
-
-"error"
-
+alert(
+"Erreur Firebase : " + erreur.message
 );
 
-
-
 }
-
-
-
-};
 
 
 
