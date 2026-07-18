@@ -11,7 +11,8 @@ import { realtime } from "./firebase-config.js";
 import {
 
 ref,
-onValue
+onValue,
+remove
 
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
@@ -289,7 +290,6 @@ ${membre.dateAdhesion || "-"}
 </td>
 
 
-
 <td>
 
 <button 
@@ -299,6 +299,16 @@ onclick='voirMembre(${JSON.stringify(membre)})'>
 <i class="fa-solid fa-eye"></i>
 
 </button>
+
+
+<button 
+class="btn-delete"
+onclick="supprimerMembre('${membre.id}')">
+
+<i class="fa-solid fa-trash"></i>
+
+</button>
+
 
 </td>
 
@@ -586,7 +596,47 @@ if(annee)
 annee.textContent =
 new Date().getFullYear();
 
+window.supprimerMembre = async function(id){
 
+
+const confirmation = confirm(
+"Voulez-vous supprimer définitivement ce membre ?"
+);
+
+
+if(!confirmation) return;
+
+
+
+try{
+
+
+await remove(
+ref(realtime,"membres/"+id)
+);
+
+
+
+alert("Membre supprimé avec succès");
+
+
+}
+
+catch(erreur){
+
+
+console.error(erreur);
+
+
+alert(
+"Erreur suppression : "+erreur.message
+);
+
+
+}
+
+
+};
 
 console.log(
 "MODULE MEMBRES OPERATIONNEL"
