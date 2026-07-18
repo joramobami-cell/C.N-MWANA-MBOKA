@@ -18,7 +18,7 @@ update
 
 import {
 
-storageRef,
+ref as storageRef,
 uploadBytes,
 getDownloadURL
 
