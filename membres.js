@@ -613,18 +613,38 @@ return;
 
 // Vérification autorisation président
 
-const adminRef = ref(
+const membreConnecte = localStorage.getItem("membreId");
+
+
+if(!membreConnecte){
+
+
+alert("Aucun membre connecté.");
+
+
+return;
+
+
+}
+
+
+
+const roleRef = ref(
+
 realtime,
-"adminActuel"
+
+"membres/"+membreConnecte+"/role"
+
 );
 
 
 
-const snapshot = await get(adminRef);
+const snapshot = await get(roleRef);
 
 
 
-const role = snapshot.val().role;
+const role = snapshot.val();
+
 
 
 if(!role || role.toLowerCase() !== "president"){
@@ -638,7 +658,7 @@ alert(
 return;
 
 
-}
+    }
 
 
 
