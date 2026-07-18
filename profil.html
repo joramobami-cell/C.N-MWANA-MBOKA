@@ -7,15 +7,14 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mon Profil - MWANA MBOKA</title>
+<title>Mon Profil | MWANA MBOKA</title>
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="profil.css">
 
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 
 </head>
 
@@ -23,352 +22,36 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <body>
 
 
+<div class="container">
 
-<header class="topbar">
+
+<header class="header">
 
 
 <div class="logo-zone">
 
-<img src="logo.png" class="logo-app">
+<img src="logo.png">
 
 
 <div>
 
-<h2>Mon Profil</h2>
-
-<p>Communauté Numérique MWANA MBOKA</p>
-
-</div>
-
-
-</div>
-
-
-
-<div class="top-icons">
-
-<i class="fa-solid fa-user"></i>
-
-</div>
-
-
-
-</header>
-
-
-
-
-
-<div class="container">
-
-
-
-
-
-<!-- CARTE PROFIL -->
-
-<section class="member-card">
-
-
-<div class="member-left">
-
-
-<img id="photo"
-src="logo.png"
-class="member-photo">
-
-
-
-<input type="file"
-id="photoInput"
-accept="image/*"
-hidden>
-
-
-
-<button class="btn-action"
-id="changerPhoto">
-
-
-<i class="fa-solid fa-camera"></i>
-
-Changer ma photo
-
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-<div class="member-right">
-
-
-<h2 id="nom">
-
-Chargement...
-
-</h2>
-
-
-
-<p class="member-id">
-
-<i class="fa-solid fa-id-card"></i>
-
-<span id="matricule">
-
-MMB-0000
-
-</span>
-
-
-</p>
-
-
-
-
-
-<p class="member-status">
-
-<i class="fa-solid fa-circle-check"></i>
-
-<span id="statut">
-
-Actif
-
-</span>
-
-
-</p>
-
-
-
-
-
-<p class="member-phone">
-
-
-<i class="fa-solid fa-phone"></i>
-
-<span id="telephone">
-
----
-
-</span>
-
-
-</p>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<h2 class="section-title">
-
-Informations personnelles
-
-</h2>
-
-
-
-
-
-<section class="dashboard">
-
-
-
-
-
-<div class="dash-box">
-
-
-<i class="fa-solid fa-briefcase"></i>
-
-
-<h3>
-
-Profession
-
-</h3>
-
-
-<p id="profession">
-
-Chargement...
-
+<h1>
+MWANA MBOKA
+</h1>
+
+<p>
+Mon espace personnel
 </p>
 
 
 </div>
 
 
-
-
-
-
-<div class="dash-box">
-
-
-<i class="fa-solid fa-location-dot"></i>
-
-
-<h3>
-
-Adresse
-
-</h3>
-
-
-<p id="adresse">
-
-Chargement...
-
-</p>
-
-
 </div>
 
 
 
-
-
-
-<div class="dash-box">
-
-
-<i class="fa-solid fa-users"></i>
-
-
-<h3>
-
-Parrain
-
-</h3>
-
-
-<p id="parrain">
-
-Chargement...
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-<div class="dash-box">
-
-
-<i class="fa-solid fa-calendar-days"></i>
-
-
-<h3>
-
-Date d'adhésion
-
-</h3>
-
-
-<p id="dateadhesion">
-
-Chargement...
-
-</p>
-
-
-</div>
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<h2 class="section-title">
-
-Actions
-
-</h2>
-
-
-
-
-
-<div class="action-buttons">
-
-
-
-
-
-<a href="espace.html"
-class="btn-action">
-
-<i class="fa-solid fa-house"></i>
-
-Accueil
-
-</a>
-
-
-
-
-
-<a href="carte.html"
-class="btn-action">
-
-<i class="fa-solid fa-id-card"></i>
-
-Ma carte
-
-</a>
-
-
-
-
-
-<a href="parametres.html"
-class="btn-action">
-
-<i class="fa-solid fa-gear"></i>
-
-Paramètres
-
-</a>
-
-
-
-
-
-<a href="javascript:history.back()"
-class="btn-action retour">
+<a href="espace.html" class="back">
 
 <i class="fa-solid fa-arrow-left"></i>
 
@@ -377,6 +60,51 @@ Retour
 </a>
 
 
+</header>
+
+
+
+
+
+<main class="profil-content">
+
+
+
+<section class="profil-card">
+
+
+
+<div class="photo-zone">
+
+
+<img 
+
+id="photoProfil"
+
+src="logo.png"
+
+alt="Photo profil">
+
+
+<input
+
+type="file"
+
+id="inputPhoto"
+
+accept="image/*"
+
+hidden>
+
+
+
+<button id="btnPhoto">
+
+<i class="fa-solid fa-camera"></i>
+
+Changer photo
+
+</button>
 
 
 </div>
@@ -386,149 +114,203 @@ Retour
 
 
 
+<div class="infos">
 
 
+<h2 id="nom">
 
-<footer class="footer-app">
+Nom du membre
 
-
-<img src="logo.png"
-class="footer-logo">
-
-
-
-<h3>
-
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-
-</h3>
+</h2>
 
 
 
 <p>
 
-Ensemble nous irons plus loin.
+<i class="fa-solid fa-id-card"></i>
+
+Matricule :
+
+<span id="matricule">
+
+MMB-0000
+
+</span>
 
 </p>
 
 
 
-<div class="copyright">
 
-© 2026 Communauté Numérique MWANA MBOKA
+<p>
+
+<i class="fa-solid fa-phone"></i>
+
+Téléphone :
+
+<span id="telephone">
+
+---
+
+</span>
+
+</p>
+
+
+
+
+<p>
+
+<i class="fa-solid fa-user-group"></i>
+
+Parrain :
+
+<span id="parrain">
+
+---
+
+</span>
+
+</p>
+
+
+
+
+<p>
+
+<i class="fa-solid fa-circle-check"></i>
+
+Statut :
+
+<span id="statut">
+
+Actif
+
+</span>
+
+</p>
+
+
+
+
+<p>
+
+<i class="fa-solid fa-calendar"></i>
+
+Adhésion :
+
+<span id="dateAdhesion">
+
+---
+
+</span>
+
+</p>
+
+
 
 </div>
 
+
+
+</section>
+
+
+
+
+
+
+
+<section class="edit-card">
+
+
+<h2>
+
+<i class="fa-solid fa-pen"></i>
+
+Modifier mes informations
+
+</h2>
+
+
+
+
+<label>
+
+Nom complet
+
+</label>
+
+
+<input 
+type="text"
+id="editNom">
+
+
+
+
+
+<label>
+
+Téléphone
+
+</label>
+
+
+<input 
+type="tel"
+id="editTelephone">
+
+
+
+
+
+<button id="btnSauver">
+
+<i class="fa-solid fa-save"></i>
+
+Enregistrer les modifications
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+<div id="message"></div>
+
+
+
+
+</main>
+
+
+
+
+
+<footer>
+
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+<br>
+
+Ensemble nous irons plus loin.
 
 
 </footer>
 
 
 
-
-
-
-
-
-
-<nav class="bottom-nav">
-
-
-
-<a href="espace.html">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-
-Accueil
-
-</span>
-
-</a>
-
-
-
-
-
-<a href="messages.html">
-
-<i class="fa-solid fa-comments"></i>
-
-<span>
-
-Messages
-
-</span>
-
-</a>
-
-
-
-
-
-<a href="annonces.html">
-
-<i class="fa-solid fa-bullhorn"></i>
-
-<span>
-
-Actus
-
-</span>
-
-</a>
-
-
-
-
-
-<a href="profil.html"
-class="active">
-
-<i class="fa-solid fa-user"></i>
-
-<span>
-
-Profil
-
-</span>
-
-</a>
-
-
-
-
-
-<a href="parametres.html">
-
-<i class="fa-solid fa-gear"></i>
-
-<span>
-
-Réglages
-
-</span>
-
-</a>
-
-
-
-
-</nav>
-
-
-
-
-
 </div>
 
 
 
-
-
 <script type="module" src="profil.js"></script>
-
 
 
 </body>
