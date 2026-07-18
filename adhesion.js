@@ -175,7 +175,9 @@ formulaire.addEventListener("submit", async (e) => {
             collection(db, "membres"),
             membre
         );
-
+        console.log("Tentative d'écriture dans Firestore...");
+        console.log(db);
+        console.log("Document créé :", docRef.id);
         console.log("Membre enregistré :", docRef.id);
 
         afficherMessage(
