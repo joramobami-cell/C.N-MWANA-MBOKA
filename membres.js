@@ -21,14 +21,10 @@ console.log("MEMBRES JS CHARGE");
 
 
 
+/*================ ELEMENTS ================*/
 
 
-/*==================================================
-        ELEMENTS
-==================================================*/
-
-
-const listeMembres = 
+const listeMembres =
 document.getElementById("listeMembres");
 
 
@@ -36,38 +32,84 @@ const totalMembres =
 document.getElementById("totalMembres");
 
 
+const membresActifs =
+document.getElementById("membresActifs");
+
+
+const nouveauxMembres =
+document.getElementById("nouveauxMembres");
+
+
+const totalParrains =
+document.getElementById("totalParrains");
+
+
 const recherche =
 document.getElementById("recherche");
 
 
 
-
-
-let tousLesMembres = [];
-
+let membresListe = [];
 
 
 
 
 
 
-/*==================================================
-        CHARGEMENT MEMBRES
-==================================================*/
+/*================ DATE HEURE ================*/
+
+
+function horloge(){
+
+
+const date =
+document.getElementById("date");
+
+
+const heure =
+document.getElementById("heure");
+
+
+
+const maintenant = new Date();
+
+
+
+if(date)
+
+date.textContent =
+maintenant.toLocaleDateString("fr-FR");
+
+
+
+if(heure)
+
+heure.textContent =
+maintenant.toLocaleTimeString("fr-FR");
+
+}
+
+
+
+setInterval(horloge,1000);
+
+horloge();
+
+
+
+
+
+
+
+/*================ CHARGEMENT MEMBRES ================*/
 
 
 function chargerMembres(){
 
 
 
-const membresRef = ref(
-
-realtime,
-
-"membres"
-
-);
-
+const membresRef =
+ref(realtime,"membres");
 
 
 
@@ -75,7 +117,7 @@ onValue(membresRef,(snapshot)=>{
 
 
 
-tousLesMembres = [];
+membresListe = [];
 
 
 
@@ -83,21 +125,36 @@ if(snapshot.exists()){
 
 
 
-const donnees = snapshot.val();
+const data =
+snapshot.val();
 
 
 
-Object.keys(donnees).forEach((id)=>{
+Object.keys(data).forEach((id)=>{
 
 
-
-tousLesMembres.push({
+membresListe.push({
 
 id:id,
 
-...donnees[id]
+...data[id]
 
 });
+
+
+});
+
+
+}
+
+
+
+
+afficherMembres(membresListe);
+
+
+actualiserStatistiques(membresListe);
+
 
 
 });
@@ -108,21 +165,7 @@ id:id,
 
 
 
-
-
-// tri par matricule
-
-tousLesMembres.sort((a,b)=>{
-
-return a.matricule.localeCompare(b.matricule);
-
-});
-
-
-
-
-
-afficherMembres(tousLesMembres);
+chargerMembres();
 
 
 
@@ -130,57 +173,8 @@ afficherMembres(tousLesMembres);
 
 
 
-if(totalMembres){
 
-
-totalMembres.textContent = 
-
-tousLesMembres.length;
-
-
-}
-
-
-
-
-
-console.log(
-
-"Membres chargés :",
-
-tousLesMembres.length
-
-);
-
-
-
-},(erreur)=>{
-
-
-console.error(
-
-"Erreur chargement membres :",
-
-erreur
-
-);
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-/*==================================================
-        AFFICHAGE
-==================================================*/
+/*================ AFFICHAGE TABLEAU ================*/
 
 
 function afficherMembres(liste){
@@ -197,17 +191,14 @@ listeMembres.innerHTML="";
 
 
 
-
-
 if(liste.length===0){
-
 
 
 listeMembres.innerHTML=`
 
 <tr>
 
-<td colspan="6">
+<td colspan="8">
 
 Aucun membre enregistré.
 
@@ -217,12 +208,10 @@ Aucun membre enregistré.
 
 `;
 
+
 return;
 
-
 }
-
-
 
 
 
@@ -235,13 +224,10 @@ liste.forEach((membre)=>{
 listeMembres.innerHTML += `
 
 
-
 <tr>
 
 
-
 <td>
-
 
 <img src="${membre.photo || "logo.png"}"
 
@@ -249,11 +235,10 @@ width="50"
 
 height="50"
 
-style="border-radius:50%;object-fit:cover;">
+style="border-radius:50%;object-fit:cover">
 
 
 </td>
-
 
 
 
@@ -265,15 +250,11 @@ ${membre.nom || "-"}
 
 
 
-
-
 <td>
 
 ${membre.matricule || "-"}
 
 </td>
-
-
 
 
 
@@ -285,8 +266,6 @@ ${membre.telephone || "-"}
 
 
 
-
-
 <td>
 
 ${membre.parrain || "-"}
@@ -295,15 +274,31 @@ ${membre.parrain || "-"}
 
 
 
+<td>
+
+${membre.statut || "Actif"}
+
+</td>
+
 
 
 <td>
 
-<span>
+${membre.dateAdhesion || "-"}
 
-${membre.statut || "Actif"}
+</td>
 
-</span>
+
+
+<td>
+
+<button 
+class="btn-view"
+onclick='voirMembre(${JSON.stringify(membre)})'>
+
+<i class="fa-solid fa-eye"></i>
+
+</button>
 
 </td>
 
@@ -316,7 +311,6 @@ ${membre.statut || "Actif"}
 `;
 
 
-
 });
 
 
@@ -331,50 +325,131 @@ ${membre.statut || "Actif"}
 
 
 
-/*==================================================
-        RECHERCHE
-==================================================*/
+/*================ STATISTIQUES ================*/
+
+
+function actualiserStatistiques(liste){
+
+
+
+if(totalMembres)
+
+totalMembres.textContent =
+liste.length;
+
+
+
+if(membresActifs)
+
+membresActifs.textContent =
+
+liste.filter(m=>
+
+m.statut==="Actif"
+
+).length;
+
+
+
+
+if(nouveauxMembres)
+
+nouveauxMembres.textContent =
+
+liste.slice(-5).length;
+
+
+
+
+if(totalParrains){
+
+
+
+let parrains = [];
+
+
+liste.forEach(m=>{
+
+
+if(m.parrain && !parrains.includes(m.parrain)){
+
+
+parrains.push(m.parrain);
+
+
+}
+
+
+});
+
+
+
+totalParrains.textContent =
+parrains.length;
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/*================ RECHERCHE ================*/
 
 
 if(recherche){
 
 
 
-recherche.addEventListener(
-
-"input",
-
-()=>{
+recherche.addEventListener("input",()=>{
 
 
 
-const texte = 
+const texte =
 
 recherche.value.toLowerCase();
 
 
 
-const resultat = 
+const resultat =
 
-tousLesMembres.filter((m)=>{
-
+membresListe.filter(m=>{
 
 
 return (
 
-m.nom?.toLowerCase().includes(texte)
+(m.nom || "")
+.toLowerCase()
+.includes(texte)
+
 
 ||
 
-m.matricule?.toLowerCase().includes(texte)
+
+(m.matricule || "")
+.toLowerCase()
+.includes(texte)
+
+
+||
+
+
+(m.telephone || "")
+.includes(texte)
+
 
 );
 
 
-
 });
-
-
 
 
 
@@ -382,12 +457,7 @@ afficherMembres(resultat);
 
 
 
-}
-
-
-
-);
-
+});
 
 
 }
@@ -400,16 +470,124 @@ afficherMembres(resultat);
 
 
 
-/*==================================================
-        DEMARRAGE
-==================================================*/
+
+/*================ DETAILS MEMBRE ================*/
 
 
-chargerMembres();
+window.voirMembre=function(membre){
+
+
+
+const modal =
+document.getElementById("modalMembre");
+
+
+
+if(!modal)
+
+return;
+
+
+
+document.getElementById("photoMembre").src =
+membre.photo || "logo.png";
+
+
+document.getElementById("nomDetail").textContent =
+membre.nom || "-";
+
+
+document.getElementById("matriculeDetail").textContent =
+membre.matricule || "-";
+
+
+document.getElementById("telephoneDetail").textContent =
+membre.telephone || "-";
+
+
+document.getElementById("parrainDetail").textContent =
+membre.parrain || "-";
+
+
+document.getElementById("statutDetail").textContent =
+membre.statut || "-";
+
+
+document.getElementById("dateDetail").textContent =
+membre.dateAdhesion || "-";
+
+
+
+modal.style.display="flex";
+
+
+};
+
+
+
+
+
+
+
+/*================ FERMETURE MODAL ================*/
+
+
+const closeBtn =
+document.querySelector(".close");
+
+
+const btnClose =
+document.querySelector(".btn-close");
+
+
+
+function fermerModal(){
+
+
+const modal =
+document.getElementById("modalMembre");
+
+
+if(modal)
+
+modal.style.display="none";
+
+
+}
+
+
+
+if(closeBtn)
+
+closeBtn.onclick =
+fermerModal;
+
+
+
+if(btnClose)
+
+btnClose.onclick =
+fermerModal;
+
+
+
+
+
+
+/*================ FOOTER ================*/
+
+
+const annee =
+document.getElementById("annee");
+
+
+if(annee)
+
+annee.textContent =
+new Date().getFullYear();
+
 
 
 console.log(
-
 "MODULE MEMBRES OPERATIONNEL"
-
 );
