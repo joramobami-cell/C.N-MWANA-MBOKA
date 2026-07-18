@@ -624,11 +624,14 @@ const snapshot = await get(adminRef);
 
 
 
-if(!snapshot.exists() || snapshot.val().role !== "Président"){
+const role = snapshot.val().role;
+
+
+if(!role || role.toLowerCase() !== "president"){
 
 
 alert(
-"Accès refusé : seul le Président peut supprimer un membre."
+"Accès refusé : seul le président peut supprimer un membre."
 );
 
 
@@ -636,7 +639,6 @@ return;
 
 
 }
-
 
 
 
