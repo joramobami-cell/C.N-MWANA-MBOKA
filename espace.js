@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const membre = {
 
+       id: localStorage.getItem("membreId")
+          
         nom: localStorage.getItem("nom"),
 
         matricule: localStorage.getItem("matricule"),
