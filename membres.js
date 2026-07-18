@@ -1,25 +1,23 @@
 /*==================================================
     MEMBRES.JS
     COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-    VERSION REALTIME DATABASE
+    VERSION REALTIME DATABASE STABLE
 ==================================================*/
 
 
 import { realtime } from "./firebase-config.js";
 
-
 import {
 
 ref,
 onValue,
-remove,
-get
+get,
+remove
 
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
 
-
-console.log("MEMBRES JS CHARGE");
+console.log("MEMBRES JS CONNECTÉ");
 
 
 
@@ -51,52 +49,36 @@ document.getElementById("recherche");
 
 
 
-let membresListe = [];
+let membresListe=[];
 
 
 
-
-
-
-/*================ DATE HEURE ================*/
+/*================ HORLOGE ================*/
 
 
 function horloge(){
 
+const date=document.getElementById("date");
+const heure=document.getElementById("heure");
 
-const date =
-document.getElementById("date");
-
-
-const heure =
-document.getElementById("heure");
-
-
-
-const maintenant = new Date();
-
+const maintenant=new Date();
 
 
 if(date)
-
-date.textContent =
+date.textContent=
 maintenant.toLocaleDateString("fr-FR");
 
 
-
 if(heure)
-
-heure.textContent =
+heure.textContent=
 maintenant.toLocaleTimeString("fr-FR");
 
 }
 
 
-
 setInterval(horloge,1000);
 
 horloge();
-
 
 
 
@@ -109,8 +91,7 @@ horloge();
 function chargerMembres(){
 
 
-
-const membresRef =
+const membresRef=
 ref(realtime,"membres");
 
 
@@ -118,28 +99,20 @@ ref(realtime,"membres");
 onValue(membresRef,(snapshot)=>{
 
 
-
-membresListe = [];
-
+membresListe=[];
 
 
 if(snapshot.exists()){
 
 
-
-const data =
-snapshot.val();
-
-
-
-Object.keys(data).forEach((id)=>{
+snapshot.forEach((element)=>{
 
 
 membresListe.push({
 
-id:id,
+id:element.key,
 
-...data[id]
+...element.val()
 
 });
 
@@ -151,11 +124,10 @@ id:id,
 
 
 
-
 afficherMembres(membresListe);
 
 
-actualiserStatistiques(membresListe);
+mettreAJourStatistiques(membresListe);
 
 
 
@@ -175,16 +147,13 @@ chargerMembres();
 
 
 
-
-/*================ AFFICHAGE TABLEAU ================*/
+/*================ AFFICHAGE ================*/
 
 
 function afficherMembres(liste){
 
 
-
 if(!listeMembres)
-
 return;
 
 
@@ -218,9 +187,7 @@ return;
 
 
 
-
 liste.forEach((membre)=>{
-
 
 
 listeMembres.innerHTML += `
@@ -239,62 +206,34 @@ height="50"
 
 style="border-radius:50%;object-fit:cover">
 
-
 </td>
+
+
+
+<td>${membre.nom || "-"}</td>
+
+
+<td>${membre.matricule || membre.id}</td>
+
+
+<td>${membre.telephone || "-"}</td>
+
+
+<td>${membre.parrain || "-"}</td>
+
+
+<td>${membre.statut || "Actif"}</td>
+
+
+<td>${membre.dateadhesion || membre.dateAdhesion || "-"}</td>
 
 
 
 <td>
 
-${membre.nom || "-"}
 
-</td>
+<button class="btn-view"
 
-
-
-<td>
-
-${membre.matricule || "-"}
-
-</td>
-
-
-
-<td>
-
-${membre.telephone || "-"}
-
-</td>
-
-
-
-<td>
-
-${membre.parrain || "-"}
-
-</td>
-
-
-
-<td>
-
-${membre.statut || "Actif"}
-
-</td>
-
-
-
-<td>
-
-${membre.dateAdhesion || "-"}
-
-</td>
-
-
-<td>
-
-<button 
-class="btn-view"
 onclick='voirMembre(${JSON.stringify(membre)})'>
 
 <i class="fa-solid fa-eye"></i>
@@ -302,8 +241,9 @@ onclick='voirMembre(${JSON.stringify(membre)})'>
 </button>
 
 
-<button 
-class="btn-delete"
+
+<button class="btn-delete"
+
 onclick="supprimerMembre('${membre.id}')">
 
 <i class="fa-solid fa-trash"></i>
@@ -311,19 +251,18 @@ onclick="supprimerMembre('${membre.id}')">
 </button>
 
 
-</td>
 
+</td>
 
 
 </tr>
 
 
-
 `;
 
 
-});
 
+});
 
 
 }
@@ -339,63 +278,54 @@ onclick="supprimerMembre('${membre.id}')">
 /*================ STATISTIQUES ================*/
 
 
-function actualiserStatistiques(liste){
+function mettreAJourStatistiques(liste){
 
 
 
 if(totalMembres)
 
-totalMembres.textContent =
+totalMembres.textContent=
 liste.length;
 
 
 
 if(membresActifs)
 
-membresActifs.textContent =
+membresActifs.textContent=
 
 liste.filter(m=>
 
-m.statut==="Actif"
+(m.statut||"").toLowerCase()=="actif"
 
 ).length;
 
 
 
-
 if(nouveauxMembres)
 
-nouveauxMembres.textContent =
-
-liste.slice(-5).length;
-
+nouveauxMembres.textContent=
+Math.min(liste.length,5);
 
 
 
 if(totalParrains){
 
 
-
-let parrains = [];
+let parrains=[];
 
 
 liste.forEach(m=>{
 
 
-if(m.parrain && !parrains.includes(m.parrain)){
-
+if(m.parrain && !parrains.includes(m.parrain))
 
 parrains.push(m.parrain);
-
-
-}
 
 
 });
 
 
-
-totalParrains.textContent =
+totalParrains.textContent=
 parrains.length;
 
 
@@ -413,55 +343,46 @@ parrains.length;
 
 
 
+
 /*================ RECHERCHE ================*/
 
 
 if(recherche){
 
 
-
 recherche.addEventListener("input",()=>{
 
 
-
-const texte =
-
+const texte=
 recherche.value.toLowerCase();
 
 
 
-const resultat =
-
+const resultat=
 membresListe.filter(m=>{
 
 
 return (
 
-(m.nom || "")
+(m.nom||"")
 .toLowerCase()
 .includes(texte)
 
-
 ||
 
-
-(m.matricule || "")
+(m.matricule||"")
 .toLowerCase()
 .includes(texte)
 
-
 ||
 
-
-(m.telephone || "")
+(m.telephone||"")
 .includes(texte)
-
 
 );
 
 
 });
-
 
 
 afficherMembres(resultat);
@@ -480,53 +401,47 @@ afficherMembres(resultat);
 
 
 
-
-
-/*================ DETAILS MEMBRE ================*/
+/*================ PROFIL DETAIL ================*/
 
 
 window.voirMembre=function(membre){
 
 
-
-const modal =
+const modal=
 document.getElementById("modalMembre");
 
 
-
 if(!modal)
-
 return;
 
 
 
-document.getElementById("photoMembre").src =
+document.getElementById("photoMembre").src=
 membre.photo || "logo.png";
 
 
-document.getElementById("nomDetail").textContent =
+document.getElementById("nomDetail").textContent=
 membre.nom || "-";
 
 
-document.getElementById("matriculeDetail").textContent =
-membre.matricule || "-";
+document.getElementById("matriculeDetail").textContent=
+membre.matricule || membre.id;
 
 
-document.getElementById("telephoneDetail").textContent =
+document.getElementById("telephoneDetail").textContent=
 membre.telephone || "-";
 
 
-document.getElementById("parrainDetail").textContent =
+document.getElementById("parrainDetail").textContent=
 membre.parrain || "-";
 
 
-document.getElementById("statutDetail").textContent =
+document.getElementById("statutDetail").textContent=
 membre.statut || "-";
 
 
-document.getElementById("dateDetail").textContent =
-membre.dateAdhesion || "-";
-
+document.getElementById("dateDetail").textContent=
+membre.dateadhesion || membre.dateAdhesion || "-";
 
 
 modal.style.display="flex";
@@ -540,87 +455,32 @@ modal.style.display="flex";
 
 
 
-/*================ FERMETURE MODAL ================*/
+/*================ SUPPRESSION PRESIDENT ================*/
 
 
-const closeBtn =
-document.querySelector(".close");
+window.supprimerMembre=async function(id){
 
 
-const btnClose =
-document.querySelector(".btn-close");
-
-
-
-function fermerModal(){
-
-
-const modal =
-document.getElementById("modalMembre");
-
-
-if(modal)
-
-modal.style.display="none";
-
-
-}
-
-
-
-if(closeBtn)
-
-closeBtn.onclick =
-fermerModal;
-
-
-
-if(btnClose)
-
-btnClose.onclick =
-fermerModal;
-
-
-
-
-
-
-/*================ FOOTER ================*/
-
-
-const annee =
-document.getElementById("annee");
-
-
-if(annee)
-
-annee.textContent =
-new Date().getFullYear();
-
-window.supprimerMembre = async function(id){
-
-
-const confirmation = confirm(
-"Suppression définitive de ce membre ?"
+const confirmation=
+confirm(
+"Supprimer définitivement ce membre ?"
 );
 
 
 if(!confirmation)
-
 return;
 
 
 
-// Vérification autorisation président
+const matriculeConnecte=
+localStorage.getItem("matricule");
 
-const matriculePresident = localStorage.getItem("matricule");
 
 
-if(!membreConnecte){
+if(!matriculeConnecte){
 
 
 alert("Aucun membre connecté.");
-
 
 return;
 
@@ -629,22 +489,26 @@ return;
 
 
 
-const roleRef = ref(
+
+const roleRef=
+ref(
 realtime,
-"membres/"+matriculePresident+"/role"
+"membres/"+matriculeConnecte+"/role"
 );
 
 
 
-const snapshot = await get(roleRef);
+const roleSnapshot=
+await get(roleRef);
 
 
 
-const role = snapshot.val();
+const role=
+roleSnapshot.val();
 
 
 
-if(!role || role.toLowerCase() !== "president"){
+if(!role || role.toLowerCase()!=="president"){
 
 
 alert(
@@ -655,8 +519,7 @@ alert(
 return;
 
 
-    }
-
+}
 
 
 
@@ -664,9 +527,7 @@ try{
 
 
 await remove(
-
 ref(realtime,"membres/"+id)
-
 );
 
 
@@ -678,7 +539,6 @@ alert(
 
 
 }
-
 
 catch(erreur){
 
@@ -697,6 +557,65 @@ alert(
 
 };
 
-console.log(
-"MODULE MEMBRES OPERATIONNEL"
-);
+
+
+
+
+
+
+/*================ FERMETURE MODAL ================*/
+
+
+const close=
+document.querySelector(".close");
+
+
+const btnClose=
+document.querySelector(".btn-close");
+
+
+
+function fermerModal(){
+
+
+const modal=
+document.getElementById("modalMembre");
+
+
+if(modal)
+
+modal.style.display="none";
+
+
+}
+
+
+
+if(close)
+close.onclick=fermerModal;
+
+
+if(btnClose)
+btnClose.onclick=fermerModal;
+
+
+
+
+
+
+
+/*================ ANNEE FOOTER ================*/
+
+
+const annee=
+document.getElementById("annee");
+
+
+if(annee)
+
+annee.textContent=
+new Date().getFullYear();
+
+
+
+console.log("MODULE MEMBRES OPERATIONNEL");
