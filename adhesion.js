@@ -11,20 +11,27 @@ import {
     getDocs
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-console.log("ADHESION.JS chargé");
+/*==================================================
+    INITIALISATION
+==================================================*/
 
-/*=========================
+console.clear();
+console.log("==================================");
+console.log("MODULE ADHÉSION MWANA MBOKA");
+console.log("==================================");
+
+/*==================================================
     ÉLÉMENTS HTML
-=========================*/
+==================================================*/
 
 const formulaire = document.getElementById("formAdhesion");
 const photoInput = document.getElementById("photo");
 const previewPhoto = document.getElementById("previewPhoto");
 const message = document.getElementById("message");
 
-/*=========================
+/*==================================================
     APERÇU PHOTO
-=========================*/
+==================================================*/
 
 if (photoInput && previewPhoto) {
 
@@ -46,9 +53,22 @@ if (photoInput && previewPhoto) {
 
 }
 
-/*=========================
-    GÉNÉRATION MATRICULE
-=========================*/
+/*==================================================
+    MESSAGE
+==================================================*/
+
+function afficherMessage(texte, type) {
+
+    if (!message) return;
+
+    message.className = type;
+    message.innerHTML = texte;
+
+}
+
+/*==================================================
+    GÉNÉRATION DU MATRICULE
+==================================================*/
 
 async function genererMatricule() {
 
@@ -60,27 +80,16 @@ async function genererMatricule() {
 
 }
 
-/*=========================
-    MESSAGE
-=========================*/
-
-function afficherMessage(texte, type) {
-
-    if (!message) return;
-
-    message.className = type;
-    message.innerHTML = texte;
-
-}
-
-/*=========================
-    PHOTO BASE64
-=========================*/
+/*==================================================
+    CONVERSION PHOTO BASE64
+==================================================*/
 
 async function convertirPhoto() {
 
     if (!photoInput.files.length) {
+
         return "logo.png";
+
     }
 
     return new Promise((resolve) => {
@@ -88,7 +97,9 @@ async function convertirPhoto() {
         const lecteur = new FileReader();
 
         lecteur.onload = () => {
+
             resolve(lecteur.result);
+
         };
 
         lecteur.readAsDataURL(photoInput.files[0]);
@@ -97,25 +108,83 @@ async function convertirPhoto() {
 
 }
 
-/*==========================================
-    ENREGISTREMENT DU MEMBRE
-==========================================*/
+/*==================================================
+    SOUMISSION DU FORMULAIRE
+==================================================*/
 
-const docRef = await addDoc(
-    collection(db, "membres"),
-    membre
-);
+if (formulaire) {
 
-console.log("Membre enregistré :", docRef.id);
+formulaire.addEventListener("submit", async (e) => {
 
-        
+    e.preventDefault();
+
+    const bouton = formulaire.querySelector("button");
+
+    bouton.disabled = true;
+
+    bouton.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Enregistrement...
+    `;
+
+    try {
+
+        const matricule = await genererMatricule();
+
+        const photo = await convertirPhoto();
+
+        const membre = {
+
+            matricule,
+
+            nom: document.getElementById("nom").value.trim(),
+
+            dateNaissance: document.getElementById("dateNaissance").value,
+
+            lieuNaissance: document.getElementById("lieuNaissance").value.trim(),
+
+            nationalite: document.getElementById("nationalite").value.trim(),
+
+            sexe: document.getElementById("sexe").value,
+
+            telephone: document.getElementById("telephone").value.trim(),
+
+            profession: document.getElementById("profession").value.trim(),
+
+            parrain: document.getElementById("parrain").value.trim(),
+
+            motivation: document.getElementById("motivation").value.trim(),
+
+            photo,
+
+            statut: "Actif",
+
+            dateAdhesion: new Date().toLocaleDateString("fr-FR"),
+
+            dateCreation: new Date().toISOString()
+
+        };
+
+        console.log("Membre à enregistrer :", membre);
+
+        /*==========================================
+            ENREGISTREMENT FIRESTORE
+        ==========================================*/
+
+        const docRef = await addDoc(
+            collection(db, "membres"),
+            membre
+        );
+
+        console.log("Membre enregistré :", docRef.id);
 
         afficherMessage(
             `
-            <i class="fa-solid fa-circle-check"></i>
-            Adhésion réussie.<br>
-            Votre matricule :
-            <strong>${matricule}</strong>
+            <i class="fa-solid fa-circle-check"></i><br><br>
+
+            Adhésion enregistrée avec succès.<br><br>
+
+            <strong>Matricule : ${matricule}</strong>
             `,
             "success"
         );
@@ -123,23 +192,35 @@ console.log("Membre enregistré :", docRef.id);
         formulaire.reset();
 
         if (previewPhoto) {
+
             previewPhoto.src = "logo.png";
+
         }
 
         setTimeout(() => {
+
             window.location.href = "membres.html";
+
         }, 2000);
 
-    } catch (erreur) {
+    }
+
+    catch (erreur) {
 
         console.error("ERREUR FIREBASE :", erreur);
 
         afficherMessage(
-            erreur.message,
+            `
+            <i class="fa-solid fa-circle-xmark"></i><br><br>
+
+            ${erreur.message}
+            `,
             "error"
         );
 
-    } finally {
+    }
+
+    finally {
 
         bouton.disabled = false;
 
@@ -154,4 +235,6 @@ console.log("Membre enregistré :", docRef.id);
 
 }
 
-console.log("Adhesion.js opérationnel");
+console.log("==================================");
+console.log("ADHESION.JS OPÉRATIONNEL");
+console.log("==================================");
