@@ -9,43 +9,32 @@
         IMPORT FIREBASE
 ==============================*/
 
-
-import { 
+import {
     realtime,
     db,
     auth
-
 } from "./firebase-config.js";
 
 
-
 import {
-
     ref,
     onValue
-
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
 
-
 import {
-
     collection,
     onSnapshot
-
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 
-
 import {
-
     signOut
-
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 
 
-console.log("PRBUREAU JS chargé");
+console.log("Bureau Président chargé");
 
 
 
@@ -56,16 +45,18 @@ console.log("PRBUREAU JS chargé");
 ==============================*/
 
 
-function actualiserDateHeure(){
+function actualiserHorloge(){
 
 
 const maintenant = new Date();
 
 
+const date =
+document.getElementById("date");
 
-const date = document.getElementById("date");
 
-const heure = document.getElementById("heure");
+const heure =
+document.getElementById("heure");
 
 
 
@@ -86,43 +77,12 @@ maintenant.toLocaleTimeString("fr-FR");
 }
 
 
-
 }
 
 
+setInterval(actualiserHorloge,1000);
 
-setInterval(actualiserDateHeure,1000);
-
-actualiserDateHeure();
-
-
-
-
-
-
-
-
-/*==============================
-        SYSTEME OPERATIONNEL
-==============================*/
-
-
-const systemStatus =
-document.querySelector(".system-status");
-
-
-
-if(systemStatus){
-
-systemStatus.innerHTML = `
-
-<i class="fa-solid fa-circle"></i>
-
-Système opérationnel
-
-`;
-
-}
+actualiserHorloge();
 
 
 
@@ -137,9 +97,8 @@ Système opérationnel
 ==============================*/
 
 
-const mobileBtn =
+const menuBtn =
 document.getElementById("mobileMenuBtn");
-
 
 
 const sidebar =
@@ -147,18 +106,16 @@ document.getElementById("presidentSidebar");
 
 
 
-if(mobileBtn && sidebar){
+if(menuBtn && sidebar){
 
 
-mobileBtn.addEventListener(
-"click",
-()=>{
+menuBtn.onclick = ()=>{
 
 
 sidebar.classList.toggle("active");
 
 
-});
+};
 
 
 }
@@ -172,23 +129,19 @@ sidebar.classList.toggle("active");
 
 
 /*==============================
-        MEMBRES REALTIME DATABASE
+        MEMBRES
 ==============================*/
 
 
 function chargerMembres(){
 
 
-const membresRef =
+const membres =
 ref(realtime,"membres");
 
 
 
-onValue(
-
-membresRef,
-
-(snapshot)=>{
+onValue(membres,(snapshot)=>{
 
 
 let total = 0;
@@ -197,9 +150,129 @@ let total = 0;
 
 if(snapshot.exists()){
 
-
 total =
 Object.keys(snapshot.val()).length;
+
+}
+
+
+
+const zone =
+document.getElementById("totalMembres");
+
+
+
+if(zone){
+
+zone.textContent = total;
+
+}
+
+
+});
+
+
+}
+
+
+chargerMembres();
+
+
+
+
+
+
+
+
+
+/*==============================
+        GS ORGANIGRAMME
+==============================*/
+
+
+function chargerOrganigramme(){
+
+
+const organigramme =
+ref(realtime,"organigramme");
+
+
+
+onValue(organigramme,(snapshot)=>{
+
+
+let total = 0;
+
+let liste = "";
+
+
+
+if(snapshot.exists()){
+
+
+function parcourir(obj){
+
+
+Object.keys(obj).forEach(cle=>{
+
+
+let item=obj[cle];
+
+
+
+if(typeof item==="object"){
+
+
+
+if(item.responsableMatricule){
+
+
+total++;
+
+
+liste += `
+
+<div class="responsable-item">
+
+<b>
+${item.fonction || cle}
+</b>
+
+<br>
+
+Matricule :
+${item.responsableMatricule}
+
+<br>
+
+Domaine :
+${item.domaine || "Non défini"}
+
+</div>
+
+`;
+
+
+
+}
+
+
+
+parcourir(item);
+
+
+}
+
+
+});
+
+
+}
+
+
+
+parcourir(snapshot.val());
+
 
 
 }
@@ -207,46 +280,141 @@ Object.keys(snapshot.val()).length;
 
 
 const compteur =
-document.getElementById("totalMembres");
+document.getElementById(
+"responsablesActifs"
+);
 
 
 
 if(compteur){
 
-compteur.textContent = total;
+compteur.textContent =
+total;
 
 }
 
 
 
-console.log(
-"Membres:",
-total
+const affichage =
+document.getElementById(
+"listeResponsables"
 );
 
 
 
-},
+if(affichage){
 
-(error)=>{
-
-
-console.error(
-"Erreur membres:",
-error
-);
-
-
-}
-
-);
-
+affichage.innerHTML =
+liste || "Aucun responsable nommé.";
 
 }
 
 
 
-chargerMembres();
+});
+
+
+}
+
+
+chargerOrganigramme();
+
+
+
+
+
+
+
+
+
+/*==============================
+        NOMINATIONS
+==============================*/
+
+
+function chargerNominations(){
+
+
+const nominations =
+ref(realtime,"nominations_attente");
+
+
+
+onValue(nominations,(snapshot)=>{
+
+
+const zone =
+document.getElementById(
+"nominationsAttente"
+);
+
+
+
+if(!zone)
+return;
+
+
+
+let html="";
+
+
+
+if(snapshot.exists()){
+
+
+
+Object.values(snapshot.val())
+.forEach(n=>{
+
+
+html += `
+
+<div class="nomination-item">
+
+
+<b>
+${n.poste}
+</b>
+
+
+<br>
+
+Matricule :
+${n.matricule}
+
+
+<br>
+
+Statut :
+En attente
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+
+}
+
+
+zone.innerHTML =
+html || 
+"Aucune nomination en attente.";
+
+
+
+});
+
+
+}
+
+
+chargerNominations();
 
 
 
@@ -264,14 +432,15 @@ chargerMembres();
 function chargerFormations(){
 
 
-const compteur =
+const zone =
 document.getElementById(
 "formationsActives"
 );
 
 
 
-if(!compteur) return;
+if(!zone)
+return;
 
 
 
@@ -282,28 +451,14 @@ collection(db,"formations"),
 (snapshot)=>{
 
 
-compteur.textContent =
+zone.textContent =
 snapshot.size;
 
 
-},
-
-(error)=>{
-
-
-console.error(
-"Erreur formations:",
-error
-);
+});
 
 
 }
-
-);
-
-
-}
-
 
 
 chargerFormations();
@@ -324,14 +479,15 @@ chargerFormations();
 function chargerProjets(){
 
 
-const compteur =
+const zone =
 document.getElementById(
 "projetsAttente"
 );
 
 
 
-if(!compteur) return;
+if(!zone)
+return;
 
 
 
@@ -342,29 +498,14 @@ collection(db,"projets"),
 (snapshot)=>{
 
 
-compteur.textContent =
+zone.textContent =
 snapshot.size;
 
 
-},
-
-(error)=>{
-
-
-console.error(
-"Erreur projets:",
-error
-);
+});
 
 
 }
-
-);
-
-
-
-}
-
 
 
 chargerProjets();
@@ -385,14 +526,15 @@ chargerProjets();
 function chargerNotifications(){
 
 
-const compteur =
+const zone =
 document.getElementById(
 "notifications"
 );
 
 
 
-if(!compteur) return;
+if(!zone)
+return;
 
 
 
@@ -403,28 +545,14 @@ collection(db,"notifications"),
 (snapshot)=>{
 
 
-compteur.textContent =
+zone.textContent =
 snapshot.size;
 
 
-},
-
-(error)=>{
-
-
-console.error(
-"Erreur notifications:",
-error
-);
+});
 
 
 }
-
-);
-
-
-}
-
 
 
 chargerNotifications();
@@ -438,37 +566,23 @@ chargerNotifications();
 
 
 /*==============================
-        FINANCE (PREPARATION)
+        FINANCE
 ==============================*/
 
 
-function chargerFinance(){
-
-
-const zone =
+const finance =
 document.getElementById(
 "soldeGeneral"
 );
 
 
 
-if(!zone) return;
+if(finance){
 
-
-
-zone.textContent =
+finance.textContent =
 "0 FCFA";
 
-
-
 }
-
-
-
-chargerFinance();
-
-
-
 
 
 
@@ -480,30 +594,19 @@ chargerFinance();
 ==============================*/
 
 
-function chargerCotisations(){
-
-
-const zone =
+const cotisation =
 document.getElementById(
 "cotisationsMois"
 );
 
 
 
-if(!zone) return;
+if(cotisation){
 
-
-
-zone.textContent =
+cotisation.textContent =
 "0";
 
-
 }
-
-
-
-chargerCotisations();
-
 
 
 
@@ -517,319 +620,19 @@ chargerCotisations();
 ==============================*/
 
 
-function chargerInvestissements(){
-
-
-const zone =
+const investissement =
 document.getElementById(
 "investissementsActifs"
 );
 
 
 
-if(!zone) return;
+if(investissement){
 
-
-
-zone.textContent =
+investissement.textContent =
 "0";
 
-
 }
-
-
-
-chargerInvestissements();
-
-
-
-
-
-
-
-/*==============================
-        GS ORGANIGRAMME
-        RESPONSABLES ACTIFS
-==============================*/
-
-
-function chargerOrganigramme(){
-
-
-const organigrammeRef =
-ref(realtime,"organigramme");
-
-
-
-onValue(
-
-organigrammeRef,
-
-(snapshot)=>{
-
-
-let responsables = 0;
-
-let liste = "";
-
-
-
-if(snapshot.exists()){
-
-
-const data = snapshot.val();
-
-
-
-function parcourir(objet){
-
-
-Object.keys(objet).forEach(cle=>{
-
-
-const element = objet[cle];
-
-
-
-if(
-typeof element === "object"
-){
-
-if(element.responsableMatricule){
-
-
-responsables++;
-
-
-liste += `
-
-<div class="responsable-item">
-
-<strong>${element.fonction || cle}</strong>
-
-<br>
-
-Matricule :
-${element.responsableMatricule}
-
-<br>
-
-Domaine :
-${element.domaine || cle}
-
-</div>
-
-`;
-
-}
-
-
-parcourir(element);
-
-
-}
-
-
-});
-
-
-}
-
-
-
-parcourir(data);
-
-
-}
-
-
-
-
-
-const compteur =
-document.getElementById(
-"responsablesActifs"
-);
-
-
-
-if(compteur){
-
-compteur.textContent =
-responsables;
-
-}
-
-
-
-
-const zone =
-document.getElementById(
-"listeResponsables"
-);
-
-
-
-if(zone){
-
-
-zone.innerHTML =
-liste || "Aucun responsable nommé.";
-
-
-}
-
-
-
-console.log(
-"Responsables actifs :",
-responsables
-);
-
-
-
-},
-
-
-(error)=>{
-
-
-console.error(
-"Erreur organigramme :",
-error
-);
-
-
-}
-
-
-);
-
-
-}
-
-
-
-chargerOrganigramme();
-
-
-
-
-
-
-
-
-
-/*==============================
-        NOMINATIONS EN ATTENTE
-==============================*/
-
-
-function chargerNominations(){
-
-
-const nominationsRef =
-ref(
-realtime,
-"nominations_attente"
-);
-
-
-
-onValue(
-
-nominationsRef,
-
-(snapshot)=>{
-
-
-const zone =
-document.getElementById(
-"nominationsAttente"
-);
-
-
-
-if(!zone)
-return;
-
-
-
-if(snapshot.exists()){
-
-
-let html = "";
-
-
-
-Object.values(snapshot.val())
-.forEach(nomination=>{
-
-
-html += `
-
-<div class="nomination-item">
-
-<b>${nomination.poste}</b>
-
-<br>
-
-Matricule :
-${nomination.matricule}
-
-<br>
-
-Statut :
-En attente validation Président
-
-</div>
-
-`;
-
-
-});
-
-
-
-zone.innerHTML = html;
-
-
-}
-
-else{
-
-
-zone.innerHTML =
-"Aucune nomination en attente.";
-
-
-}
-
-
-
-},
-
-
-(error)=>{
-
-
-console.error(
-"Erreur nominations :",
-error
-);
-
-
-}
-
-
-);
-
-
-}
-
-
-
-chargerNominations();
 
 
 
@@ -844,22 +647,15 @@ chargerNominations();
 ==============================*/
 
 
-function chargerJournalPresident(){
+function chargerJournal(){
 
 
-const journalRef =
-ref(
-realtime,
-"journal"
-);
+const journal =
+ref(realtime,"journal_activites");
 
 
 
-onValue(
-
-journalRef,
-
-(snapshot)=>{
+onValue(journal,(snapshot)=>{
 
 
 const zone =
@@ -874,17 +670,18 @@ return;
 
 
 
-if(snapshot.exists()){
-
-
 let html="";
+
+
+
+if(snapshot.exists()){
 
 
 
 Object.values(snapshot.val())
 .slice(-5)
 .reverse()
-.forEach(action=>{
+.forEach(j=>{
 
 
 html += `
@@ -893,7 +690,7 @@ html += `
 
 <i class="fa-solid fa-clock"></i>
 
-${action.message || "Action enregistrée"}
+${j.message}
 
 </p>
 
@@ -903,102 +700,111 @@ ${action.message || "Action enregistrée"}
 });
 
 
+}
 
-zone.innerHTML = html;
+
+
+zone.innerHTML =
+html ||
+"Aucune activité.";
+
+});
 
 
 }
 
 
-
-},
-
-
-(error)=>{
+chargerJournal();
 
 
-console.error(
-"Erreur journal:",
-error
+
+
+
+
+
+
+
+/*==============================
+        SIGNATURE PRESIDENTIELLE
+==============================*/
+
+
+const signer =
+document.getElementById(
+"btnSigner"
+);
+
+
+
+if(signer){
+
+
+signer.onclick=()=>{
+
+
+let code =
+prompt(
+"Code présidentiel"
+);
+
+
+
+if(code){
+
+
+alert(
+"Validation présidentielle enregistrée."
 );
 
 
 }
 
 
-);
+};
 
 
 }
 
 
 
-chargerJournalPresident();
+
+
+
+
+
 
 /*==============================
         DECONNEXION
 ==============================*/
 
 
-const logoutBtn =
+const logout =
 document.getElementById(
 "logoutBtn"
 );
 
 
 
-if(logoutBtn){
+if(logout){
 
 
-logoutBtn.addEventListener(
-
-"click",
-
-async()=>{
+logout.onclick=async()=>{
 
 
-const confirmation =
-confirm(
-"Voulez-vous vous déconnecter ?"
-);
-
-
-
-if(!confirmation)
-return;
-
-
-
-try{
+if(confirm("Déconnexion ?")){
 
 
 await signOut(auth);
-
 
 
 window.location.href =
 "index.html";
 
 
-
-}
-
-catch(error){
-
-
-console.error(
-"Erreur déconnexion:",
-error
-);
-
-
-
 }
 
 
-}
-
-);
+};
 
 
 }
@@ -1012,23 +818,18 @@ error
 
 
 /*==============================
-        ANNEE FOOTER
+        ANNEE
 ==============================*/
 
 
 const annee =
-document.getElementById(
-"annee"
-);
-
+document.getElementById("annee");
 
 
 if(annee){
 
-
 annee.textContent =
 new Date().getFullYear();
-
 
 }
 
@@ -1036,15 +837,6 @@ new Date().getFullYear();
 
 
 
-
-
-
-
-/*==============================
-        FIN
-==============================*/
-
-
 console.log(
-"Bureau Président opérationnel"
+"Bureau Numérique Président opérationnel"
 );
