@@ -4,9 +4,10 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GS Organigramme | Bureau du Président</title>
+<title>GS Organigramme | MWANA MBOKA</title>
 
 <link rel="stylesheet" href="gsorganigramme.css">
 
@@ -19,161 +20,242 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <body>
 
 
+<div class="organigramme-container">
+
+
+
+<!-- HEADER -->
+
 <header class="header">
 
-    <div class="logo-box">
-        <img src="images/logo.png" alt="MWANA MBOKA">
-    </div>
 
-    <div class="title">
+<div class="header-logo">
 
-        <h1>GS ORGANIGRAMME</h1>
-        <p>Gestion Stratégique de la Structure</p>
-
-    </div>
+<img src="logo.png" alt="Logo MWANA MBOKA">
 
 
-    <button onclick="window.location.href='prbureau.html'">
-        <i class="fa-solid fa-arrow-left"></i>
-        Bureau Président
-    </button>
+</div>
+
+
+
+<div class="header-title">
+
+
+<h1>
+
+GS ORGANIGRAMME
+
+</h1>
+
+
+<p>
+
+Gestion Stratégique de l'Organisation
+
+<br>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</p>
+
+
+</div>
+
+
+
+<div class="president-badge">
+
+<i class="fa-solid fa-crown"></i>
+
+Président Fondateur
+
+<br>
+
+AMOUR JORAM OBAMI
+
+</div>
+
 
 
 </header>
 
 
 
-<main class="container">
-
-
-<section class="president-card">
-
-    <i class="fa-solid fa-crown"></i>
-
-    <h2>PRÉSIDENT FONDATEUR</h2>
-
-    <h3>AMOUR JORAM OBAMI</h3>
-
-    <p>
-        Centre de commandement du système<br>
-        Toutes autorisations et validations présidentielles
-    </p>
-
-
-</section>
 
 
 
 
-<section class="organigramme">
 
 
-<!-- SECRETARIAT GENERAL -->
+<!-- RETOUR BUREAU PRESIDENT -->
 
-<div class="bloc">
+
+<a href="prbureau.html" class="return-btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Retour Bureau Président
+
+</a>
+
+
+
+
+
+
+
+
+
+<!-- ORGANIGRAMME OFFICIEL -->
+
+
+<section class="organigramme-section">
+
+
+<div class="section-title">
 
 <h2>
+
+<i class="fa-solid fa-sitemap"></i>
+
+Organigramme officiel
+
+</h2>
+
+
+<p>
+
+Le Président est le centre de commandement et valide toutes les nominations.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="tree">
+
+
+
+<div class="node president">
+
+
+<i class="fa-solid fa-crown"></i>
+
+<h3>
+
+PRÉSIDENT FONDATEUR
+
+</h3>
+
+
+<strong>
+
+AMOUR JORAM OBAMI
+
+</strong>
+
+
+<p>
+
+Toutes autorisations + validation présidentielle
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="line"></div>
+
+
+
+
+
+
+
+<div class="node">
+
+
 <i class="fa-solid fa-file-signature"></i>
+
+
+<h3>
+
 SECRÉTARIAT GÉNÉRAL
-</h2>
 
-<p class="tutelle">
+</h3>
+
+
+<p>
+
 Sous tutelle directe du Président
+
 </p>
 
 
-<div class="services">
+
+<div class="children">
 
 
-<div class="service-card">
+<div class="child">
 
-<h3>Secrétariat & Administration</h3>
+Secrétariat & Administration
 
-<p>
-Gestion administrative<br>
-Gestion des membres<br>
-Dossiers et archives
-</p>
+<br>
 
-<span class="responsable">
-Responsable : Non nommé
-</span>
-
-<button onclick="ouvrirNomination('administration')">
-Nommer un responsable
-</button>
+Gestion membres
 
 </div>
 
 
 
-<div class="service-card">
+<div class="child">
 
-<h3>Formation</h3>
+Formation
 
-<p>
-Gestion des formations<br>
-Programmes<br>
-Participants
-</p>
+<br>
 
-<span class="responsable">
-Responsable : Non nommé
-</span>
-
-<button onclick="ouvrirNomination('formation')">
-Nommer un responsable
-</button>
+Gestion formations
 
 </div>
 
 
 
+<div class="child">
 
-<div class="service-card">
+Communication
 
-<h3>Communication</h3>
+<br>
 
-<p>
-Marketing<br>
-Pages officielles<br>
-Publications
-</p>
-
-<span class="responsable">
-Responsable : Président
-</span>
-
+Marketing et publications
 
 </div>
 
 
 
+<div class="child">
 
-<div class="service-card">
+Projets
 
-<h3>Projets</h3>
+<br>
 
-<p>
-Suivi des projets<br>
-Accompagnement des membres
-</p>
-
-
-<span class="responsable">
-Responsable : Non nommé
-</span>
-
-
-<button onclick="ouvrirNomination('projets')">
-Nommer un responsable
-</button>
-
+Suivi accompagnement
 
 </div>
 
 
 </div>
+
+
 
 </div>
 
@@ -182,134 +264,389 @@ Nommer un responsable
 
 
 
-<!-- CONSEIL ADMINISTRATIF -->
 
 
-<div class="bloc">
 
-<h2>
+<div class="node">
+
+
 <i class="fa-solid fa-scale-balanced"></i>
+
+
+<h3>
+
 CONSEIL ADMINISTRATIF
-</h2>
+
+</h3>
 
 
-<p class="tutelle">
-Présidé et supervisé par le Président
+<p>
+
+Supervisé par le Président
+
 </p>
 
 
-<div class="services">
+<div class="children">
 
 
-<div class="service-card">
-<h3>Conseiller administratif</h3>
-<button onclick="ouvrirNomination('conseil_administratif')">
-Nommer
-</button>
+<div class="child">
+
+Conseiller administratif
+
 </div>
 
 
-<div class="service-card">
-<h3>Conseiller juridique</h3>
-<button onclick="ouvrirNomination('juridique')">
-Nommer
-</button>
+<div class="child">
+
+Conseiller juridique
+
 </div>
 
 
-<div class="service-card">
-<h3>Conseiller financier</h3>
-<button onclick="ouvrirNomination('conseil_financier')">
-Nommer
-</button>
+<div class="child">
+
+Conseiller financier
+
 </div>
 
 
-<div class="service-card">
-<h3>Conseiller technique</h3>
-<button onclick="ouvrirNomination('technique')">
-Nommer
-</button>
+<div class="child">
+
+Conseiller technique
+
 </div>
 
 
 </div>
 
+
 </div>
 
 
 
 
 
-<!-- FINANCES -->
 
 
-<div class="bloc">
 
+
+<div class="node">
+
+
+<i class="fa-solid fa-wallet"></i>
+
+
+<h3>
+
+FINANCES ET ÉCONOMIE
+
+</h3>
+
+
+<p>
+
+Supervisé par le Président
+
+</p>
+
+
+<div class="children">
+
+
+<div class="child">
+
+Trésorerie
+
+</div>
+
+
+<div class="child">
+
+Comptabilité
+
+</div>
+
+
+<div class="child">
+
+Économie
+
+</div>
+
+
+<div class="child">
+
+Études des investissements
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- NOMINATION -->
+
+
+<section class="nomination-section">
+
+
+
+<div class="section-title">
 
 <h2>
-<i class="fa-solid fa-coins"></i>
-FINANCES ET ÉCONOMIE
+
+<i class="fa-solid fa-user-plus"></i>
+
+Nomination d'un responsable
+
 </h2>
 
 
-<p class="tutelle">
-Présidé et supervisé par le Président
+<p>
+
+La nomination se fait uniquement par matricule membre.
+
 </p>
 
 
+</div>
 
-<div class="services">
 
 
-<div class="service-card">
 
-<h3>Trésorerie</h3>
 
-<button onclick="ouvrirNomination('tresorerie')">
-Nommer
+
+
+<div class="search-box">
+
+
+<input 
+type="text"
+id="matriculeRecherche"
+placeholder="Entrer le matricule du membre">
+
+
+<button id="btnRecherche">
+
+<i class="fa-solid fa-search"></i>
+
+Rechercher
+
 </button>
 
+
+
 </div>
 
 
 
-<div class="service-card">
 
-<h3>Comptabilité</h3>
 
-<button onclick="ouvrirNomination('comptabilite')">
-Nommer
+
+
+
+
+<!-- PROFIL MEMBRE -->
+
+
+<div id="profilMembre" class="profil-membre">
+
+
+<p>
+
+Aucun membre recherché.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- FORMULAIRE NOMINATION -->
+
+
+<div class="nomination-form">
+
+
+
+<h3>
+
+Attribution du domaine
+
+</h3>
+
+
+
+<select id="domaineNomination">
+
+
+<option value="">
+
+Choisir un domaine
+
+</option>
+
+
+<option value="secretariat_administration">
+
+Secrétariat & Administration
+
+</option>
+
+
+<option value="formation">
+
+Formation
+
+</option>
+
+
+<option value="communication">
+
+Communication
+
+</option>
+
+
+<option value="projets">
+
+Projets
+
+</option>
+
+
+<option value="conseil">
+
+Conseil Administratif
+
+</option>
+
+
+<option value="finance">
+
+Finance et Économie
+
+</option>
+
+
+</select>
+
+
+
+
+
+
+
+
+
+<select id="posteNomination">
+
+
+<option>
+
+Choisir le poste
+
+</option>
+
+
+<option>
+
+Directeur / Chef de service
+
+</option>
+
+
+</select>
+
+
+
+
+
+
+
+
+
+<button id="btnNommer">
+
+
+<i class="fa-solid fa-stamp"></i>
+
+Nommer ce responsable
+
 </button>
 
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- RESPONSABLES ACTUELS -->
+
+
+<section class="responsables-section">
+
+
+<div class="section-title">
+
+<h2>
+
+<i class="fa-solid fa-users-gear"></i>
+
+Responsables nommés
+
+</h2>
+
+
 </div>
 
 
 
-<div class="service-card">
 
-<h3>Économie</h3>
-
-<button onclick="ouvrirNomination('economie')">
-Nommer
-</button>
-
-</div>
+<div id="listeResponsables">
 
 
+<p>
 
-<div class="service-card">
+Chargement des responsables...
 
-<h3>Études des investissements</h3>
-
-<button onclick="ouvrirNomination('investissements')">
-Nommer
-</button>
-
-</div>
-
-
-</div>
+</p>
 
 
 </div>
@@ -319,65 +656,51 @@ Nommer
 </section>
 
 
-</main>
 
 
 
 
-<!-- FENETRE NOMINATION -->
-
-<div id="modalNomination" class="modal">
-
-
-<div class="modal-content">
-
-
-<h2>Nomination</h2>
-
-
-<p id="posteChoisi"></p>
-
-
-<label>
-Matricule du membre
-</label>
-
-
-<input type="text" id="matricule"
-placeholder="MB-2026-00001">
 
 
 
-<button onclick="rechercherMembre()">
-Rechercher
-</button>
+<!-- FOOTER -->
 
 
-<div id="profilMembre"></div>
+<footer>
 
 
-
-<button onclick="validerNomination()">
-Valider avec signature présidentielle
-</button>
+<img src="logo.png">
 
 
+<h3>
 
-<button onclick="fermerNomination()">
-Fermer
-</button>
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</h3>
 
 
-</div>
+<p>
+
+Ensemble nous irons plus loin.
+
+</p>
+
+
+</footer>
+
+
 
 
 </div>
 
 
 
-<script src="gsorganigramme.js"></script>
+
+
+
+<script type="module" src="gsorganigramme.js"></script>
 
 
 </body>
 
-  </html>
+    </html>
