@@ -1,42 +1,43 @@
 /*==================================================
     FORMATIONUN.JS
     COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-    MODULE GESTION DES FORMATIONS
+
+    Gestion :
+    - Propositions membres
+    - Formations publiées
+    - Statistiques
+    - Validation présidentielle
 ==================================================*/
 
 
-import { db } from "./firebase-config.js";
+import { realtime } from "./firebase-config.js";
 
 
 import {
 
-    collection,
-    addDoc,
-    onSnapshot,
-    query,
-    orderBy,
-    serverTimestamp,
-    deleteDoc,
-    doc
+ref,
+push,
+set,
+onValue,
+remove,
+update
 
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
 
 
-
-
-console.log("==================================");
-console.log("FORMATIONUN.JS CHARGE");
-console.log("MWANA MBOKA");
-console.log("==================================");
+console.log("FORMATION JS CHARGÉ");
 
 
 
 
+//==================================================
+// ELEMENTS HTML
+//==================================================
 
-/*==================================================
-        ELEMENTS
-==================================================*/
+
+const formulaire =
+document.getElementById("formFormation");
 
 
 const listeFormations =
@@ -47,574 +48,139 @@ const totalFormations =
 document.getElementById("totalFormations");
 
 
-const formationsCours =
-document.getElementById("formationsCours");
+const formationsActives =
+document.getElementById("formationsActives");
 
 
-const formationsTerminees =
-document.getElementById("formationsTerminees");
-
-
-const totalSuggestions =
-document.getElementById("totalSuggestions");
-
-
-const message =
-document.getElementById("message");
+const propositions =
+document.getElementById("propositions");
 
 
 
 
+//==================================================
+// SESSION MEMBRE
+//==================================================
 
 
-/*==================================================
-        MESSAGE
-==================================================*/
+const utilisateur = {
 
 
-function afficherMessage(texte,type="success"){
+nom:
+localStorage.getItem("nom"),
 
 
-if(!message) return;
+matricule:
+localStorage.getItem("matricule"),
 
 
-message.innerHTML = texte;
+role:
+localStorage.getItem("role")
 
 
-message.className = "message "+type;
+};
 
 
 
-setTimeout(()=>{
+
+//==================================================
+// DATE
+//==================================================
 
 
-message.innerHTML="";
+function dateActuelle(){
 
-
-message.className="";
-
-
-},4000);
-
-
+return new Date()
+.toLocaleDateString("fr-FR");
 
 }
 
 
 
 
+//==================================================
+// ENVOYER UNE PROPOSITION
+//==================================================
 
 
+if(formulaire){
 
-/*==================================================
-        MODALES
-==================================================*/
 
-
-const btnAjouterFormation =
-document.getElementById("btnAjouterFormation");
-
-
-const modalFormation =
-document.getElementById("modalFormation");
-
-
-const fermerFormation =
-document.getElementById("fermerFormation");
-
-
-
-
-if(btnAjouterFormation && modalFormation){
-
-
-btnAjouterFormation.addEventListener("click",()=>{
-
-
-modalFormation.style.display="flex";
-
-
-});
-
-
-}
-
-
-
-if(fermerFormation){
-
-
-fermerFormation.addEventListener("click",()=>{
-
-
-modalFormation.style.display="none";
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-const btnSuggestion =
-document.getElementById("btnSuggestion");
-
-
-const modalSuggestion =
-document.getElementById("modalSuggestion");
-
-
-const fermerSuggestion =
-document.getElementById("fermerSuggestion");
-
-
-
-
-if(btnSuggestion && modalSuggestion){
-
-
-btnSuggestion.addEventListener("click",()=>{
-
-
-modalSuggestion.style.display="flex";
-
-
-});
-
-
-}
-
-
-
-
-if(fermerSuggestion){
-
-
-fermerSuggestion.addEventListener("click",()=>{
-
-
-modalSuggestion.style.display="none";
-
-
-});
-
-
-}
-
-
-
-
-
-window.addEventListener("click",(e)=>{
-
-
-if(e.target===modalFormation){
-
-
-modalFormation.style.display="none";
-
-
-}
-
-
-
-if(e.target===modalSuggestion){
-
-
-modalSuggestion.style.display="none";
-
-
-}
-
-
-
-});
-
-
-
-
-
-
-
-/*==================================================
-        CHARGEMENT FORMATIONS
-==================================================*/
-
-
-function chargerFormations(){
-
-
-
-const q = query(
-
-collection(db,"formations"),
-
-orderBy("dateCreation","desc")
-
-);
-
-
-
-
-
-onSnapshot(q,(snapshot)=>{
-
-
-
-let formations=[];
-
-
-
-
-snapshot.forEach((item)=>{
-
-
-formations.push({
-
-id:item.id,
-
-...item.data()
-
-});
-
-
-});
-
-
-
-
-
-afficherFormations(formations);
-
-
-mettreAJourStatistiques(formations);
-
-
-
-},(erreur)=>{
-
-
-console.error(erreur);
-
-
-afficherMessage(
-
-"Erreur chargement : "+erreur.message,
-
-"error"
-
-);
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-/*==================================================
-        AFFICHAGE TABLEAU
-==================================================*/
-
-
-function afficherFormations(formations){
-
-
-if(!listeFormations) return;
-
-
-
-listeFormations.innerHTML="";
-
-
-
-if(formations.length===0){
-
-
-listeFormations.innerHTML=`
-
-<tr>
-
-<td colspan="6">
-
-Aucune formation disponible.
-
-</td>
-
-</tr>
-
-`;
-
-
-return;
-
-
-}
-
-
-
-
-
-formations.forEach((formation)=>{
-
-
-
-listeFormations.innerHTML += `
-
-
-<tr>
-
-
-<td>${formation.titre || "-"}</td>
-
-
-<td>${formation.domaine || "-"}</td>
-
-
-<td>${formation.formateur || "-"}</td>
-
-
-<td>${formation.dateFormation || "-"}</td>
-
-
-
-<td>
-
-<span class="badge badge-actif">
-
-${formation.statut || "Disponible"}
-
-</span>
-
-
-</td>
-
-
-
-<td>
-
-
-<button class="btn-secondary"
-
-onclick="participerFormation('${formation.id}')">
-
-
-<i class="fa-solid fa-user-plus"></i>
-
-Participer
-
-
-</button>
-
-
-
-
-<button class="btn-delete"
-
-onclick="supprimerFormation('${formation.id}')">
-
-
-<i class="fa-solid fa-trash"></i>
-
-
-</button>
-
-
-</td>
-
-
-</tr>
-
-
-`;
-
-
-
-});
-
-
-
-}
-
-/*==================================================
-        STATISTIQUES
-==================================================*/
-
-
-function mettreAJourStatistiques(formations){
-
-
-
-if(totalFormations){
-
-    totalFormations.textContent =
-    formations.length;
-
-}
-
-
-
-if(formationsCours){
-
-
-    formationsCours.textContent =
-
-    formations.filter((f)=>
-
-
-        f.statut==="En cours"
-
-
-    ).length;
-
-
-}
-
-
-
-if(formationsTerminees){
-
-
-    formationsTerminees.textContent =
-
-    formations.filter((f)=>
-
-
-        f.statut==="Terminée"
-
-
-    ).length;
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-/*==================================================
-        CREATION FORMATION
-==================================================*/
-
-
-const formFormation =
-
-document.getElementById("formFormation");
-
-
-
-
-if(formFormation){
-
-
-
-formFormation.addEventListener("submit",async(e)=>{
-
+formulaire.addEventListener("submit",async(e)=>{
 
 
 e.preventDefault();
 
 
 
-const bouton =
-formFormation.querySelector("button");
+const titre =
+document.getElementById("titreFormation").value.trim();
+
+
+const domaine =
+document.getElementById("domaineFormation").value.trim();
+
+
+const description =
+document.getElementById("descriptionFormation").value.trim();
+
+
+const duree =
+document.getElementById("dureeFormation").value.trim();
 
 
 
-try{
+if(!titre || !domaine || !description){
 
 
-if(bouton){
+alert("Veuillez remplir les champs obligatoires.");
 
 
-bouton.disabled=true;
-
-
-bouton.innerHTML=
-
-`
-
-<i class="fa-solid fa-spinner fa-spin"></i>
-
-Enregistrement...
-
-`;
+return;
 
 }
 
 
-console.log("Tentative création formation...");
 
-await addDoc(
 
-collection(db,"formations"),
+const nouvelleFormation =
+push(
+ref(realtime,"suggestionsFormations")
+);
 
+
+
+await set(
+nouvelleFormation,
 {
 
 
-titre:
-
-document.getElementById("titreFormation").value.trim(),
+titre,
 
 
-
-domaine:
-
-document.getElementById("domaineFormation").value,
+domaine,
 
 
-
-description:
-
-document.getElementById("descriptionFormation").value.trim(),
+description,
 
 
-
-formateur:
-
-document.getElementById("formateurFormation").value.trim(),
+duree,
 
 
-
-duree:
-
-document.getElementById("dureeFormation").value.trim(),
+auteur:
+utilisateur.nom || "Membre",
 
 
+matriculeAuteur:
+utilisateur.matricule || "",
 
-dateFormation:
 
-document.getElementById("dateFormation").value,
-
+date:
+dateActuelle(),
 
 
 statut:
-
-"Disponible",
-
-
-
-dateCreation:
-
-serverTimestamp()
+"En attente"
 
 
 }
@@ -623,87 +189,13 @@ serverTimestamp()
 
 
 
-
-
-afficherMessage(
-
-"Formation créée avec succès.",
-
-"success"
-
+alert(
+"Votre proposition a été envoyée au Président pour validation."
 );
 
 
 
-
-formFormation.reset();
-
-
-
-if(modalFormation){
-
-modalFormation.style.display="none";
-
-}
-
-
-
-}
-
-catch(erreur){
-
-
-
-console.error(
-
-"ERREUR CREATION FORMATION :",
-
-erreur
-
-);
-
-
-
-afficherMessage(
-
-"Erreur : "+erreur.message,
-
-"error"
-
-);
-
-
-
-}
-
-
-
-finally{
-
-
-if(bouton){
-
-
-bouton.disabled=false;
-
-
-bouton.innerHTML=
-
-`
-
-<i class="fa-solid fa-save"></i>
-
-Enregistrer la formation
-
-`;
-
-
-
-}
-
-
-
-}
+formulaire.reset();
 
 
 
@@ -717,47 +209,332 @@ Enregistrer la formation
 
 
 
+//==================================================
+// AFFICHAGE FORMATIONS PUBLIÉES
+//==================================================
+
+
+function chargerFormations(){
 
 
 
-/*==================================================
-        SUPPRESSION
-==================================================*/
-
-
-window.supprimerFormation = async function(id){
+const formationsRef =
+ref(realtime,"formations");
 
 
 
-const confirmation = confirm(
+onValue(formationsRef,(snapshot)=>{
 
-"Voulez-vous supprimer cette formation ?"
+
+if(!listeFormations)
+
+return;
+
+
+
+listeFormations.innerHTML="";
+
+
+let compteur=0;
+
+
+
+if(snapshot.exists()){
+
+
+
+snapshot.forEach((item)=>{
+
+
+const formation =
+item.val();
+
+
+
+compteur++;
+
+
+
+listeFormations.innerHTML += `
+
+<div class="formation-card">
+
+
+<h3>
+${formation.titre}
+</h3>
+
+
+<p>
+<strong>Domaine :</strong>
+${formation.domaine}
+</p>
+
+
+<p>
+${formation.description}
+</p>
+
+
+<p>
+<strong>Durée :</strong>
+${formation.duree || "-"}
+</p>
+
+
+<span class="badge">
+
+${formation.statut}
+
+</span>
+
+
+</div>
+
+`;
+
+
+
+});
+
+
+
+}else{
+
+
+listeFormations.innerHTML =
+"<p>Aucune formation publiée.</p>";
+
+
+
+}
+
+
+
+if(totalFormations)
+
+totalFormations.textContent =
+compteur;
+
+
+
+if(formationsActives)
+
+formationsActives.textContent =
+compteur;
+
+
+
+});
+
+
+
+}
+
+
+
+chargerFormations();
+
+
+
+
+
+
+//==================================================
+// PRESIDENT : VALIDATION
+//==================================================
+
+
+function chargerPropositionsPresident(){
+
+
+
+const refPropositions =
+ref(
+realtime,
+"suggestionsFormations"
+);
+
+
+
+onValue(refPropositions,(snapshot)=>{
+
+
+if(!propositions)
+
+return;
+
+
+
+propositions.innerHTML="";
+
+
+
+if(snapshot.exists()){
+
+
+
+snapshot.forEach((item)=>{
+
+
+const id =
+item.key;
+
+
+const formation =
+item.val();
+
+
+
+propositions.innerHTML += `
+
+<div class="validation-card">
+
+
+<h3>
+${formation.titre}
+</h3>
+
+
+<p>
+${formation.description}
+</p>
+
+
+<p>
+Proposé par :
+${formation.auteur}
+</p>
+
+
+<button onclick="accepterFormation('${id}')">
+
+✅ Accepter
+
+</button>
+
+
+
+<button onclick="refuserFormation('${id}')">
+
+❌ Refuser
+
+</button>
+
+
+</div>
+
+`;
+
+
+
+});
+
+
+}else{
+
+
+propositions.innerHTML =
+"<p>Aucune proposition en attente.</p>";
+
+
+}
+
+
+
+});
+
+
+}
+
+
+
+if(
+
+utilisateur.role === "president"
+
+|| utilisateur.role === "Président"
+
+){
+
+
+chargerPropositionsPresident();
+
+
+}
+
+
+
+
+
+
+
+//==================================================
+// ACCEPTATION PRESIDENT
+//==================================================
+
+
+window.accepterFormation =
+async function(id){
+
+
+
+const source =
+ref(
+realtime,
+"suggestionsFormations/"+id
+);
+
+
+
+const nouvelle =
+ref(
+realtime,
+"formations/"+id
+);
+
+
+
+onValue(source,async(snapshot)=>{
+
+
+if(snapshot.exists()){
+
+
+
+const formation =
+snapshot.val();
+
+
+
+await set(
+nouvelle,
+{
+
+
+...formation,
+
+
+statut:
+"Publié",
+
+
+validePar:
+"Président"
+
+
+}
 
 );
 
 
 
-if(!confirmation) return;
+await remove(source);
 
 
 
-try{
-
-
-await deleteDoc(
-
-doc(db,"formations",id)
-
-);
-
-
-
-afficherMessage(
-
-"Formation supprimée.",
-
-"success"
-
+alert(
+"Formation publiée avec succès."
 );
 
 
@@ -766,36 +543,55 @@ afficherMessage(
 
 
 
-catch(erreur){
+},{onlyOnce:true});
 
-console.error("ERREUR FIREBASE FORMATION :", erreur);
 
-alert(
-"Erreur Firebase : " + erreur.message
+
+};
+
+
+
+
+
+
+
+//==================================================
+// REFUS PRESIDENT
+//==================================================
+
+
+window.refuserFormation =
+async function(id){
+
+
+
+const confirmation =
+confirm(
+"Supprimer cette proposition ?"
 );
 
-}
+
+
+if(!confirmation)
+
+return;
 
 
 
+await remove(
 
+ref(
+realtime,
+"suggestionsFormations/"+id
 
+)
 
+);
 
-
-
-/*==================================================
-        PARTICIPATION
-==================================================*/
-
-
-window.participerFormation=function(id){
 
 
 alert(
-
-"Votre demande de participation a été enregistrée."
-
+"Proposition refusée et supprimée."
 );
 
 
@@ -808,210 +604,22 @@ alert(
 
 
 
+//==================================================
+// FOOTER
+//==================================================
 
 
-/*==================================================
-        SUGGESTIONS
-==================================================*/
+const annee =
+document.getElementById("annee");
 
 
-const formSuggestion =
+if(annee)
 
-document.getElementById("formSuggestion");
-
-
-
-
-
-if(formSuggestion){
-
-
-
-formSuggestion.addEventListener("submit",async(e)=>{
-
-
-
-e.preventDefault();
-
-
-
-try{
-
-
-
-await addDoc(
-
-collection(db,"suggestions_formations"),
-
-{
-
-
-titre:
-
-document.getElementById("titreSuggestion").value.trim(),
-
-
-
-domaine:
-
-document.getElementById("domaineSuggestion").value,
-
-
-
-description:
-
-document.getElementById("descriptionSuggestion").value.trim(),
-
-
-
-utilite:
-
-document.getElementById("utiliteSuggestion").value.trim(),
-
-
-
-statut:
-
-"En attente",
-
-
-
-dateCreation:
-
-serverTimestamp()
-
-
-}
-
-);
-
-
-
-
-
-afficherMessage(
-
-"Suggestion envoyée avec succès.",
-
-"success"
-
-);
-
-
-
-formSuggestion.reset();
-
-
-
-if(modalSuggestion){
-
-modalSuggestion.style.display="none";
-
-}
-
-
-
-}
-
-
-
-catch(erreur){
-
-
-
-console.error(erreur);
-
-
-
-afficherMessage(
-
-"Erreur suggestion : "+erreur.message,
-
-"error"
-
-);
-
-
-
-}
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/*==================================================
-        COMPTEUR SUGGESTIONS
-==================================================*/
-
-
-function chargerSuggestions(){
-
-
-
-onSnapshot(
-
-collection(db,"suggestions_formations"),
-
-(snapshot)=>{
-
-
-
-if(totalSuggestions){
-
-
-totalSuggestions.textContent =
-
-snapshot.size;
-
-
-}
-
-
-
-}
-
-
-
-);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/*==================================================
-        DEMARRAGE
-==================================================*/
-
-
-chargerFormations();
-
-
-chargerSuggestions();
+annee.textContent =
+new Date().getFullYear();
 
 
 
 console.log(
-
-"FORMATIONUN.JS OPERATIONNEL"
-
+"MODULE FORMATION OPÉRATIONNEL"
 );
