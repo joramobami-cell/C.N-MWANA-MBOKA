@@ -1,180 +1,682 @@
-let posteSelectionne = "";
+/*==================================================
+ GSORGANIGRAMME.JS
+ GESTION STRATEGIQUE ORGANIGRAMME
+ COMMUNAUTE NUMERIQUE MWANA MBOKA
+==================================================*/
 
 
-// OUVRIR LA FENETRE DE NOMINATION
+/*==============================
+        FIREBASE
+==============================*/
 
-function ouvrirNomination(poste){
+import {
 
-    posteSelectionne = poste;
+realtime
 
-    document.getElementById("modalNomination").style.display = "flex";
-
-    document.getElementById("posteChoisi").innerHTML =
-    "Poste à pourvoir : <b>" + poste + "</b>";
-
-    document.getElementById("profilMembre").innerHTML = "";
-
-    document.getElementById("matricule").value = "";
-
-}
+} from "./firebase-config.js";
 
 
+import {
 
-// FERMER LA FENETRE
+ref,
+get,
+set,
+update,
+onValue
 
-function fermerNomination(){
-
-    document.getElementById("modalNomination").style.display = "none";
-
-}
-
-
-
-// RECHERCHE MEMBRE PAR MATRICULE
-
-function rechercherMembre(){
-
-
-    let matricule = document.getElementById("matricule").value.trim();
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
 
 
-    if(matricule === ""){
-
-        alert("Veuillez entrer un matricule");
-
-        return;
-
-    }
+console.log("GS Organigramme chargé");
 
 
 
-    /*
-    Cette partie sera remplacée par Firebase :
-
-    firebase.database()
-    .ref("membres/"+matricule)
-    .once("value")
-    */
-
-
-    // Exemple temporaire
-
-    let membreExemple = {
-
-        nom:"OBAMI",
-        prenom:"Amour Joram",
-        matricule:matricule,
-        statut:"Membre actif"
-
-    };
 
 
 
-    afficherProfil(membreExemple);
+
+/*==============================
+        VARIABLES
+==============================*/
+
+
+let membreSelectionne = null;
 
 
 
-}
 
 
 
-// AFFICHAGE DU PROFIL
-
-function afficherProfil(membre){
 
 
-    document.getElementById("profilMembre").innerHTML = `
 
-    <div class="profil-resultat">
-
-        <h3>Profil trouvé</h3>
-
-        <p>
-        Nom :
-        ${membre.nom}
-        </p>
+/*==============================
+        RECHERCHE MEMBRE
+        PAR MATRICULE
+==============================*/
 
 
-        <p>
-        Prénom :
-        ${membre.prenom}
-        </p>
+const btnRecherche =
+document.getElementById("btnRecherche");
 
 
-        <p>
-        Matricule :
-        ${membre.matricule}
-        </p>
+
+if(btnRecherche){
 
 
-        <p>
-        Statut :
-        ${membre.statut}
-        </p>
+btnRecherche.onclick = async()=>{
 
 
-    </div>
+const matricule =
+document
+.getElementById("matriculeRecherche")
+.value
+.trim();
 
-    `;
 
+
+if(!matricule){
+
+alert(
+"Veuillez entrer un matricule."
+);
+
+return;
 
 }
 
 
 
-// VALIDATION NOMINATION
 
-function validerNomination(){
-
-
-    let matricule =
-    document.getElementById("matricule").value;
-
-
-
-    if(matricule === ""){
-
-        alert("Aucun membre sélectionné");
-
-        return;
-
-    }
+const membreRef =
+ref(
+realtime,
+"membres/"+matricule
+);
 
 
 
-    let confirmation =
-    confirm(
-    "Confirmer la nomination de ce membre avec la signature présidentielle ?"
-    );
+const snapshot =
+await get(membreRef);
 
 
 
-    if(confirmation){
 
 
-        /*
-        Enregistrement Firebase prévu :
-
-        organigramme/
-          poste/
-             responsableMatricule
-             dateNomination
-             validePar
-
-        */
-
-
-        alert(
-        "Nomination enregistrée avec succès"
-        );
-
-
-        fermerNomination();
-
-
-    }
+const zone =
+document.getElementById(
+"profilMembre"
+);
 
 
 
-    }
+
+
+if(snapshot.exists()){
+
+
+const membre =
+snapshot.val();
+
+
+
+membreSelectionne = {
+
+matricule:matricule,
+
+...membre
+
+};
+
+
+
+
+
+zone.innerHTML = `
+
+<div class="profil-box">
+
+
+<h3>
+
+${membre.nom || "Nom inconnu"}
+
+</h3>
+
+
+<p>
+
+Matricule :
+<strong>${matricule}</strong>
+
+</p>
+
+
+<p>
+
+Téléphone :
+${membre.telephone || "-"}
+
+</p>
+
+
+<p>
+
+Statut :
+Membre actif
+
+</p>
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+else{
+
+
+membreSelectionne=null;
+
+
+zone.innerHTML = `
+
+<p>
+
+Aucun membre trouvé.
+
+</p>
+
+`;
+
+
+
+}
+
+
+};
+
+
+}
+
+
+
+
+
+
+
+
+
+/*==============================
+        NOMINATION
+==============================*/
+
+
+
+const btnNommer =
+document.getElementById(
+"btnNommer"
+);
+
+
+
+
+
+if(btnNommer){
+
+
+btnNommer.onclick = async()=>{
+
+
+
+if(!membreSelectionne){
+
+
+alert(
+"Veuillez rechercher un membre avant la nomination."
+);
+
+
+return;
+
+
+}
+
+
+
+
+const domaine =
+document
+.getElementById(
+"domaineNomination"
+)
+.value;
+
+
+
+
+
+const poste =
+document
+.getElementById(
+"posteNomination"
+)
+.value;
+
+
+
+
+
+if(!domaine || !poste){
+
+
+alert(
+"Choisissez un domaine et un poste."
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+
+const confirmation =
+confirm(
+
+"Confirmer la nomination de "
++
+membreSelectionne.nom
++
+" ?"
+
+);
+
+
+
+if(!confirmation)
+return;
+
+
+
+
+
+
+const code =
+prompt(
+"Entrer le code présidentiel"
+);
+
+
+
+
+
+if(!code){
+
+alert(
+"Validation annulée."
+);
+
+return;
+
+}
+
+
+
+
+
+
+
+
+/*==============================
+    CREATION ORGANIGRAMME
+==============================*/
+
+
+const nomination = {
+
+
+nom:
+
+membreSelectionne.nom,
+
+
+matricule:
+
+membreSelectionne.matricule,
+
+
+fonction:
+
+poste,
+
+
+domaine:
+
+domaine,
+
+
+dateNomination:
+
+new Date()
+.toISOString(),
+
+
+
+statut:
+
+"Actif",
+
+
+
+
+permissions:{
+
+
+gestion:true,
+
+
+validation:false,
+
+
+suppression:false,
+
+
+rapport:true
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+await set(
+
+ref(
+
+realtime,
+
+"organigramme/"+domaine
+
+),
+
+nomination
+
+);
+
+
+
+
+
+
+
+
+
+/*==============================
+ CREATION BUREAU DIRECTEUR
+==============================*/
+
+
+await set(
+
+ref(
+
+realtime,
+
+"bureaux/"+membreSelectionne.matricule
+
+),
+
+{
+
+
+nom:
+
+membreSelectionne.nom,
+
+
+matricule:
+
+membreSelectionne.matricule,
+
+
+domaine:
+
+domaine,
+
+
+fonction:
+
+poste,
+
+
+autorisation:
+
+"Directeur",
+
+
+statut:
+
+"Actif"
+
+
+
+}
+
+);
+
+
+
+
+
+
+
+
+
+
+/*==============================
+ JOURNAL
+==============================*/
+
+
+await set(
+
+ref(
+
+realtime,
+
+"journal_activites/"+Date.now()
+
+),
+
+{
+
+
+message:
+
+"Nomination de "
++
+membreSelectionne.nom
++
+" comme "
++
+poste
++
+" dans "
++
+domaine,
+
+
+date:
+
+new Date()
+.toISOString()
+
+
+
+}
+
+);
+
+
+
+
+
+
+
+alert(
+"Nomination enregistrée avec succès."
+);
+
+
+
+};
+
+
+}
+
+
+
+
+
+
+
+
+
+/*==============================
+ RESPONSABLES ACTUELS
+==============================*/
+
+
+const listeResponsables =
+document.getElementById(
+"listeResponsables"
+);
+
+
+
+
+if(listeResponsables){
+
+
+
+onValue(
+
+ref(
+realtime,
+"organigramme"
+
+),
+
+(snapshot)=>{
+
+
+
+let html="";
+
+
+
+if(snapshot.exists()){
+
+
+
+Object.values(snapshot.val())
+.forEach(res=>{
+
+
+html += `
+
+<div class="responsable-card">
+
+
+<h3>
+
+${res.fonction}
+
+</h3>
+
+
+<p>
+
+${res.nom}
+
+</p>
+
+
+<p>
+
+Matricule :
+${res.matricule}
+
+</p>
+
+
+<p>
+
+Domaine :
+${res.domaine}
+
+</p>
+
+
+
+</div>
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+listeResponsables.innerHTML =
+
+html ||
+
+"Aucun responsable nommé.";
+
+
+
+}
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+console.log(
+
+"GS Organigramme opérationnel"
+
+);
