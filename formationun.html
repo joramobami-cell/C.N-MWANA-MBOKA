@@ -4,99 +4,79 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Formations | MWANA MBOKA</title>
-
+<title>Centre de Formation | COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</title>
 
 <link rel="stylesheet" href="formationun.css">
-
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
-
-
-<!-- SIDEBAR -->
+<!-- =========================
+SIDEBAR
+========================= -->
 
 <aside class="sidebar">
 
-
 <div class="logo-box">
 
-<img src="logo.png">
+<img src="logo.png" alt="Logo">
 
-<p>
-COMMUNAUTÉ NUMÉRIQUE<br>
-MWANA MBOKA<br>
-<i>Ensemble nous irons plus loin</i>
-</p>
+<h2>MWANA MBOKA</h2>
+
+<p>Ensemble nous irons plus loin</p>
 
 </div>
 
-
+<nav>
 
 <a href="espace.html">
-
 <i class="fa-solid fa-house"></i>
-
 Accueil
-
 </a>
-
-
 
 <a href="formationun.html" class="active">
-
 <i class="fa-solid fa-graduation-cap"></i>
-
 Formations
-
 </a>
-
-
 
 <a href="projets.html">
-
 <i class="fa-solid fa-lightbulb"></i>
-
 Projets
-
 </a>
 
+<a href="investissements.html">
+<i class="fa-solid fa-chart-line"></i>
+Investissements
+</a>
 
+<a href="entraides.html">
+<i class="fa-solid fa-handshake-angle"></i>
+Entraides
+</a>
+
+</nav>
 
 </aside>
 
-
-
-
-
-
-<!-- CONTENU -->
+<!-- =========================
+CONTENU
+========================= -->
 
 <main class="content">
 
-
-
-<img src="banniere.png" class="banner">
-
-
-
-
+<img src="banniere.png"
+class="banner"
+alt="Bannière">
 
 <header class="page-header">
-
 
 <div>
 
@@ -104,118 +84,107 @@ Projets
 
 <i class="fa-solid fa-graduation-cap"></i>
 
-Gestion des formations
+Centre de Formation
 
 </h1>
 
-
 <p>
 
-Apprentissage, développement des compétences et partage de connaissances.
+Gestion des formations de la communauté.
 
 </p>
 
+</div>
+
+<div class="membre-connecte">
+
+<img
+id="photoMembre"
+src="logo.png"
+class="photo-profil">
+
+<div>
+
+<h3 id="nomMembre">
+...
+</h3>
+
+<p id="matriculeMembre">
+...
+</p>
 
 </div>
 
+</div>
 
 </header>
 
-
-
-
-
-
-
-<!-- STATISTIQUES -->
-
+<!-- =========================
+STATISTIQUES
+========================= -->
 
 <section class="stats-grid">
-
 
 <div class="stat-card">
 
 <i class="fa-solid fa-book"></i>
 
-<h3 id="totalFormations">
+<h2 id="totalFormations">
 0
-</h3>
+</h2>
 
-<p>
-Formations
-</p>
+<p>Formations publiées</p>
 
 </div>
-
-
-
 
 <div class="stat-card">
 
 <i class="fa-solid fa-spinner"></i>
 
-<h3 id="formationsCours">
+<h2 id="formationsCours">
 0
-</h3>
+</h2>
 
-<p>
-En cours
-</p>
+<p>En cours</p>
 
 </div>
-
-
-
 
 <div class="stat-card">
 
-<i class="fa-solid fa-check"></i>
+<i class="fa-solid fa-circle-check"></i>
 
-<h3 id="formationsTerminees">
+<h2 id="formationsTerminees">
 0
-</h3>
+</h2>
 
-<p>
-Terminées
-</p>
+<p>Terminées</p>
 
 </div>
-
-
-
 
 <div class="stat-card">
 
 <i class="fa-solid fa-lightbulb"></i>
 
-<h3 id="totalSuggestions">
+<h2 id="totalSuggestions">
 0
-</h3>
+</h2>
 
-<p>
-Suggestions
-</p>
+<p>Suggestions envoyées</p>
 
 </div>
 
-
 </section>
 
-
-
-
-
-
-
-
-<!-- ACTIONS -->
-
+<!-- =========================
+ACTIONS
+========================= -->
 
 <section class="actions">
 
-
-<button id="btnAjouterFormation"
-class="btn-primary">
+<button
+id="btnAjouterFormation"
+class="btn-primary"
+style="display:none;">
 
 <i class="fa-solid fa-plus"></i>
 
@@ -223,10 +192,8 @@ Créer une formation
 
 </button>
 
-
-
-
-<button id="btnSuggestion"
+<button
+id="btnSuggestion"
 class="btn-secondary">
 
 <i class="fa-solid fa-lightbulb"></i>
@@ -235,576 +202,279 @@ Proposer une formation
 
 </button>
 
-
+<input
+type="search"
+id="rechercheFormation"
+placeholder="Rechercher une formation...">
 
 </section>
 
-
-
-
-
-
-
-
-<!-- LISTE -->
-
+<!-- =========================
+LISTE DES FORMATIONS
+========================= -->
 
 <section class="card">
 
+<div class="section-header">
 
 <h2>
 
 <i class="fa-solid fa-list"></i>
 
-Formations disponibles
+Catalogue des formations
 
 </h2>
 
-
+</div>
 
 <div class="table-responsive">
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
-<th>
-Titre
-</th>
+<th>Titre</th>
 
+<th>Domaine</th>
 
-<th>
-Domaine
-</th>
+<th>Formateur</th>
 
+<th>Date</th>
 
-<th>
-Formateur
-</th>
+<th>Statut</th>
 
-
-<th>
-Date
-</th>
-
-
-<th>
-Statut
-</th>
-
-
-<th>
-Actions
-</th>
-
+<th>Actions</th>
 
 </tr>
 
 </thead>
 
-
-
-
 <tbody id="listeFormations">
-
 
 <tr>
 
 <td colspan="6">
 
-Chargement...
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+Chargement des formations...
 
 </td>
 
+  </tr>
 
-</tr>
+              </tbody>
 
+        </table>
 
-</tbody>
+    </div>
 
+</section>
 
-
-</table>
-
-
-
-</div>
-
-
-
-  </section>
-
-  <!-- ================= MODALE CREATION FORMATION ================= -->
+<!-- =========================
+MODALE : CRÉER UNE FORMATION
+(Président uniquement)
+========================= -->
 
 <div id="modalFormation" class="modal">
 
+    <div class="modal-content">
 
-<div class="modal-content">
+        <span class="close" id="fermerFormation">&times;</span>
 
+        <h2>
 
-<span class="close" id="fermerFormation">
+            <i class="fa-solid fa-graduation-cap"></i>
 
-&times;
+            Nouvelle formation
 
-</span>
+        </h2>
 
+        <form id="formFormation">
 
+            <label>Titre</label>
 
-<h2>
+            <input
+            type="text"
+            id="titreFormation"
+            required>
 
-<i class="fa-solid fa-plus"></i>
+            <label>Domaine</label>
 
-Nouvelle formation
+            <select id="domaineFormation">
 
-</h2>
+                <option>Numérique</option>
 
+                <option>Entrepreneuriat</option>
 
+                <option>Agriculture</option>
 
+                <option>Commerce</option>
 
-<form id="formFormation">
+                <option>Finance</option>
 
+                <option>Autre</option>
 
+            </select>
 
-<label>
+            <label>Description</label>
 
-Titre de la formation
+            <textarea
+            id="descriptionFormation"
+            required></textarea>
 
-</label>
+            <label>Formateur</label>
 
+            <input
+            type="text"
+            id="formateurFormation">
 
-<input
+            <label>Durée</label>
 
-type="text"
+            <input
+            type="text"
+            id="dureeFormation">
 
-id="titreFormation"
+            <label>Date de début</label>
 
-placeholder="Ex : Formation informatique"
+            <input
+            type="date"
+            id="dateFormation">
 
-required>
+            <button
+            type="submit"
+            class="btn-primary">
 
+                <i class="fa-solid fa-save"></i>
 
+                Publier la formation
 
+            </button>
 
+        </form>
 
-<label>
-
-Domaine
-
-</label>
-
-
-<select id="domaineFormation">
-
-
-<option value="Numérique">
-
-Numérique
-
-</option>
-
-
-<option value="Entrepreneuriat">
-
-Entrepreneuriat
-
-</option>
-
-
-<option value="Agriculture">
-
-Agriculture
-
-</option>
-
-
-<option value="Finance">
-
-Finance
-
-</option>
-
-
-<option value="Autre">
-
-Autre
-
-</option>
-
-
-</select>
-
-
-
-
-
-<label>
-
-Description
-
-</label>
-
-
-<textarea
-
-id="descriptionFormation"
-
-placeholder="Décrire la formation..."
-
-required></textarea>
-
-
-
-
-
-
-<label>
-
-Formateur
-
-</label>
-
-
-<input
-
-type="text"
-
-id="formateurFormation"
-
-placeholder="Nom du formateur">
-
-
-
-
-<label>
-
-Durée
-
-</label>
-
-
-<input
-
-type="text"
-
-id="dureeFormation"
-
-placeholder="Ex : 1 mois">
-
-
-
-
-
-<label>
-
-Date de début
-
-</label>
-
-
-<input
-
-type="date"
-
-id="dateFormation">
-
-
-
-
-
-<button
-
-type="submit"
-
-class="btn-primary">
-
-
-<i class="fa-solid fa-save"></i>
-
-Enregistrer la formation
-
-
-</button>
-
-
-
-</form>
-
+    </div>
 
 </div>
 
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- ================= MODALE SUGGESTION ================= -->
-
+<!-- =========================
+MODALE : PROPOSITION
+========================= -->
 
 <div id="modalSuggestion" class="modal">
 
+    <div class="modal-content">
 
-<div class="modal-content">
+        <span class="close" id="fermerSuggestion">&times;</span>
 
+        <h2>
 
+            <i class="fa-solid fa-lightbulb"></i>
 
-<span class="close" id="fermerSuggestion">
+            Proposer une formation
 
-&times;
+        </h2>
 
-</span>
+        <form id="formSuggestion">
 
+            <label>Titre proposé</label>
 
+            <input
+            type="text"
+            id="titreSuggestion"
+            required>
 
+            <label>Domaine</label>
 
-<h2>
+            <select id="domaineSuggestion">
 
-<i class="fa-solid fa-lightbulb"></i>
+                <option>Numérique</option>
 
-Suggestion de formation
+                <option>Entrepreneuriat</option>
 
-</h2>
+                <option>Agriculture</option>
 
+                <option>Commerce</option>
 
+                <option>Finance</option>
 
+                <option>Autre</option>
 
+            </select>
 
-<form id="formSuggestion">
+            <label>Description</label>
 
+            <textarea
+            id="descriptionSuggestion"
+            required></textarea>
 
+            <label>Pourquoi cette formation ?</label>
 
+            <textarea
+            id="utiliteSuggestion"></textarea>
 
+            <button
+            type="submit"
+            class="btn-secondary">
 
-<label>
+                <i class="fa-solid fa-paper-plane"></i>
 
-Nom de la formation proposée
+                Envoyer au Président
 
-</label>
+            </button>
 
+        </form>
 
-
-<input
-
-type="text"
-
-id="titreSuggestion"
-
-placeholder="Ex : Formation comptabilité"
-
-required>
-
-
-
-
-
-
-
-<label>
-
-Domaine
-
-</label>
-
-
-
-<select id="domaineSuggestion">
-
-
-<option>
-
-Numérique
-
-</option>
-
-
-<option>
-
-Agriculture
-
-</option>
-
-
-<option>
-
-Commerce
-
-</option>
-
-
-<option>
-
-Entrepreneuriat
-
-</option>
-
-
-<option>
-
-Autre
-
-</option>
-
-
-</select>
-
-
-
-
-
-
-
-<label>
-
-Description de votre idée
-
-</label>
-
-
-<textarea
-
-id="descriptionSuggestion"
-
-placeholder="Expliquez la formation souhaitée..."
-
-required></textarea>
-
-
-
-
-
-
-
-<label>
-
-Pourquoi cette formation est importante ?
-
-</label>
-
-
-<textarea
-
-id="utiliteSuggestion"
-
-placeholder="Expliquez son utilité...">
-
-</textarea>
-
-
-
-
-
-
-
-<button
-
-type="submit"
-
-class="btn-secondary">
-
-
-<i class="fa-solid fa-paper-plane"></i>
-
-Envoyer la suggestion
-
-
-</button>
-
-
-
-
-</form>
-
+    </div>
 
 </div>
 
-
-</div>
-
-
-
-
-
-
-
-
-<!-- MESSAGE -->
+<!-- =========================
+MESSAGE
+========================= -->
 
 <div id="message"></div>
 
+<!-- =========================
+FOOTER
+========================= -->
 
+<footer class="footer">
 
+    <img
+    src="logo.png"
+    class="footer-logo">
 
+    <h3>
 
+        COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
 
+    </h3>
 
-<!-- FOOTER -->
+    <p>
 
+        Ensemble nous irons plus loin.
 
-<footer>
+    </p>
 
+    <p>
 
-<h3>
+        © <span id="annee"></span>
 
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+        Tous droits réservés.
 
-</h3>
-
-
-<p>
-
-Ensemble nous irons plus loin.
-
-</p>
-
-
-<p>
-
-📱 WhatsApp : 065447541
-
-</p>
-
-
-<p>
-
-📧 joramobami@gmail.com
-
-</p>
-
+    </p>
 
 </footer>
 
-
-
-
-
-
-
 </main>
-
 
 </div>
 
-
-
-
-
-
-
-
 <script type="module" src="formationun.js"></script>
 
-
-
 </body>
-
 
   </html>
