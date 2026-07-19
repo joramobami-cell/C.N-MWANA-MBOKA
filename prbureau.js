@@ -547,7 +547,393 @@ chargerInvestissements();
 
 
 
+/*==============================
+        GS ORGANIGRAMME
+        RESPONSABLES ACTIFS
+==============================*/
 
+
+function chargerOrganigramme(){
+
+
+const organigrammeRef =
+ref(realtime,"organigramme");
+
+
+
+onValue(
+
+organigrammeRef,
+
+(snapshot)=>{
+
+
+let responsables = 0;
+
+let liste = "";
+
+
+
+if(snapshot.exists()){
+
+
+const data = snapshot.val();
+
+
+
+function parcourir(objet){
+
+
+Object.keys(objet).forEach(cle=>{
+
+
+const element = objet[cle];
+
+
+
+if(
+typeof element === "object"
+){
+
+if(element.responsableMatricule){
+
+
+responsables++;
+
+
+liste += `
+
+<div class="responsable-item">
+
+<strong>${element.fonction || cle}</strong>
+
+<br>
+
+Matricule :
+${element.responsableMatricule}
+
+<br>
+
+Domaine :
+${element.domaine || cle}
+
+</div>
+
+`;
+
+}
+
+
+parcourir(element);
+
+
+}
+
+
+});
+
+
+}
+
+
+
+parcourir(data);
+
+
+}
+
+
+
+
+
+const compteur =
+document.getElementById(
+"responsablesActifs"
+);
+
+
+
+if(compteur){
+
+compteur.textContent =
+responsables;
+
+}
+
+
+
+
+const zone =
+document.getElementById(
+"listeResponsables"
+);
+
+
+
+if(zone){
+
+
+zone.innerHTML =
+liste || "Aucun responsable nommé.";
+
+
+}
+
+
+
+console.log(
+"Responsables actifs :",
+responsables
+);
+
+
+
+},
+
+
+(error)=>{
+
+
+console.error(
+"Erreur organigramme :",
+error
+);
+
+
+}
+
+
+);
+
+
+}
+
+
+
+chargerOrganigramme();
+
+
+
+
+
+
+
+
+
+/*==============================
+        NOMINATIONS EN ATTENTE
+==============================*/
+
+
+function chargerNominations(){
+
+
+const nominationsRef =
+ref(
+realtime,
+"nominations_attente"
+);
+
+
+
+onValue(
+
+nominationsRef,
+
+(snapshot)=>{
+
+
+const zone =
+document.getElementById(
+"nominationsAttente"
+);
+
+
+
+if(!zone)
+return;
+
+
+
+if(snapshot.exists()){
+
+
+let html = "";
+
+
+
+Object.values(snapshot.val())
+.forEach(nomination=>{
+
+
+html += `
+
+<div class="nomination-item">
+
+<b>${nomination.poste}</b>
+
+<br>
+
+Matricule :
+${nomination.matricule}
+
+<br>
+
+Statut :
+En attente validation Président
+
+</div>
+
+`;
+
+
+});
+
+
+
+zone.innerHTML = html;
+
+
+}
+
+else{
+
+
+zone.innerHTML =
+"Aucune nomination en attente.";
+
+
+}
+
+
+
+},
+
+
+(error)=>{
+
+
+console.error(
+"Erreur nominations :",
+error
+);
+
+
+}
+
+
+);
+
+
+}
+
+
+
+chargerNominations();
+
+
+
+
+
+
+
+
+
+/*==============================
+        JOURNAL PRESIDENTIEL
+==============================*/
+
+
+function chargerJournalPresident(){
+
+
+const journalRef =
+ref(
+realtime,
+"journal"
+);
+
+
+
+onValue(
+
+journalRef,
+
+(snapshot)=>{
+
+
+const zone =
+document.getElementById(
+"journalPresident"
+);
+
+
+
+if(!zone)
+return;
+
+
+
+if(snapshot.exists()){
+
+
+let html="";
+
+
+
+Object.values(snapshot.val())
+.slice(-5)
+.reverse()
+.forEach(action=>{
+
+
+html += `
+
+<p>
+
+<i class="fa-solid fa-clock"></i>
+
+${action.message || "Action enregistrée"}
+
+</p>
+
+`;
+
+
+});
+
+
+
+zone.innerHTML = html;
+
+
+}
+
+
+
+},
+
+
+(error)=>{
+
+
+console.error(
+"Erreur journal:",
+error
+);
+
+
+}
+
+
+);
+
+
+}
+
+
+
+chargerJournalPresident();
 
 /*==============================
         DECONNEXION
