@@ -1,120 +1,314 @@
-/* =====================================
-   MWANA MBOKA
-   ESPACE MEMBRE
-   Chargement des informations membre
-===================================== */
+/*==================================================
+    ESPACE.JS
+    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+    Gestion :
+    - Session membre
+    - Profil membre
+    - Accès Président
+    - Statistiques tableau de bord
+    - Déconnexion
+==================================================*/
+
+
+//==================================================
+// INITIALISATION ESPACE MEMBRE
+//==================================================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+console.log("ESPACE MEMBRE JS CHARGÉ");
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
+//==================================================
+// CHARGEMENT SESSION MEMBRE
+//==================================================
 
 
-
-    // Récupération des données depuis la connexion Firebase
-
-    const membre = {
-
-       id: localStorage.getItem("membreId")
-          
-        nom: localStorage.getItem("nom"),
-
-        matricule: localStorage.getItem("matricule"),
-
-        telephone: localStorage.getItem("telephone"),
-
-        statut: localStorage.getItem("statut"),
-
-        parrain: localStorage.getItem("parrain"),
-
-        dateAdhesion: localStorage.getItem("dateAdhesion"),
-
-        photo: localStorage.getItem("photo")
+const membre = {
 
 
-    };
+    id:
+    localStorage.getItem("membreId"),
 
 
-
-    // Vérification connexion
-
-    if(!membre.nom || !membre.matricule){
-
-        window.location.href="connexion.html";
-
-        return;
-
-    }
+    nom:
+    localStorage.getItem("nom"),
 
 
+    matricule:
+    localStorage.getItem("matricule"),
 
 
-    // Affichage informations membre
+    telephone:
+    localStorage.getItem("telephone"),
 
 
-    const nom = document.getElementById("nom");
-    const nomBienvenue = document.getElementById("nomBienvenue");
-    const nomMembre = document.getElementById("nomMembre");
+    statut:
+    localStorage.getItem("statut"),
 
 
-    const matricule = document.getElementById("matricule");
-    const matriculeCard = document.getElementById("matriculeCard");
+    parrain:
+    localStorage.getItem("parrain"),
 
 
-    const telephone = document.getElementById("telephone");
+    dateAdhesion:
+    localStorage.getItem("dateAdhesion"),
 
-    const statut = document.getElementById("statut");
 
-    const parrain = document.getElementById("parrain");
+    photo:
+    localStorage.getItem("photo"),
 
-    const dateAdhesion = document.getElementById("dateAdhesion");
 
-    const photo = document.getElementById("photo");
+    role:
+    localStorage.getItem("role")
+
+
+};
 
 
 
 
-    if(nom)
-        nom.textContent = membre.nom;
-
-
-    if(nomBienvenue)
-        nomBienvenue.textContent = membre.nom;
-
-
-    if(nomMembre)
-        nomMembre.textContent = membre.nom;
+console.log("SESSION MEMBRE :",membre);
 
 
 
-    if(matricule)
-        matricule.textContent = membre.matricule;
 
 
-    if(matriculeCard)
-        matriculeCard.textContent = membre.matricule;
+//==================================================
+// VERIFICATION CONNEXION
+//==================================================
+
+
+if(!membre.nom || !membre.matricule){
+
+
+alert("Session expirée. Veuillez vous reconnecter.");
+
+
+window.location.href="connexion.html";
+
+
+return;
+
+
+}
 
 
 
-    if(telephone)
-        telephone.textContent = membre.telephone || "---";
 
 
-    if(statut)
-        statut.textContent = membre.statut || "Actif";
+//==================================================
+// AFFICHAGE INFORMATIONS MEMBRE
+//==================================================
 
 
-    if(parrain)
-        parrain.textContent = membre.parrain || "---";
+function afficherInformation(id,valeur){
 
 
-    if(dateAdhesion)
-        dateAdhesion.textContent = membre.dateAdhesion || "---";
+const element =
+document.getElementById(id);
 
 
-    if(photo && membre.photo)
-        photo.src = membre.photo;
+if(element){
+
+element.textContent = valeur;
+
+}
 
 
+}
+
+
+
+
+
+afficherInformation(
+"nom",
+membre.nom
+);
+
+
+
+afficherInformation(
+"nomBienvenue",
+membre.nom
+);
+
+
+
+afficherInformation(
+"nomMembre",
+membre.nom
+);
+
+
+
+
+afficherInformation(
+"matricule",
+membre.matricule
+);
+
+
+
+afficherInformation(
+"matriculeCard",
+membre.matricule
+);
+
+
+
+afficherInformation(
+"telephone",
+membre.telephone || "---"
+);
+
+
+
+afficherInformation(
+"statut",
+membre.statut || "Actif"
+);
+
+
+
+afficherInformation(
+"parrain",
+membre.parrain || "---"
+);
+
+
+
+afficherInformation(
+"dateAdhesion",
+membre.dateAdhesion || "---"
+);
+
+
+
+
+
+
+//==================================================
+// PHOTO PROFIL
+//==================================================
+
+
+const photo =
+document.getElementById("photo");
+
+
+if(photo){
+
+
+photo.src =
+membre.photo || "logo.png";
+
+
+}
+
+
+
+
+//==================================================
+// ACCES BUREAU PRESIDENT
+//==================================================
+
+
+const bureauPresident =
+document.getElementById("bureauPresident");
+
+
+
+if(bureauPresident){
+
+
+if(
+
+membre.role === "president"
+
+||
+
+
+membre.role === "Président"
+
+){
+
+
+bureauPresident.style.display="block";
+
+
+}else{
+
+
+bureauPresident.style.display="none";
+
+
+}
+
+
+}
+
+
+
+
+
+//==================================================
+// STATISTIQUES TABLEAU DE BORD
+//==================================================
+
+
+const statistiques = {
+
+
+cotisations:"0 FCFA",
+
+
+filleuls:0,
+
+
+revenus:"0 FCFA",
+
+
+projets:0,
+
+
+formations:0,
+
+
+entraides:0,
+
+
+investissements:0,
+
+
+notifications:0
+
+
+};
+
+
+
+
+Object.keys(statistiques).forEach((id)=>{
+
+
+const element =
+document.getElementById(id);
+
+
+
+if(element){
+
+
+element.textContent =
+statistiques[id];
+
+
+}
 
 
 });
@@ -123,57 +317,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* =====================================
-   ACCÈS BUREAU PRÉSIDENT
-===================================== */
+//==================================================
+// DECONNEXION
+//==================================================
 
 
-const bureauPresident = document.getElementById("bureauPresident");
+const logout =
+document.getElementById("logout");
 
-
-const utilisateur = JSON.parse(
-    localStorage.getItem("utilisateurConnecte")
-);
-
-
-
-if(utilisateur && bureauPresident){
-
-
-    if(
-        utilisateur.role === "president" ||
-        utilisateur.role === "Président"
-    ){
-
-        bureauPresident.style.display="block";
-
-    }
-
-
-}
-
-
-
-/* =====================================
-   DECONNEXION
-===================================== */
-
-
-const logout = document.getElementById("logout");
 
 
 if(logout){
 
 
-    logout.addEventListener("click",()=>{
+logout.addEventListener("click",()=>{
 
 
-        localStorage.clear();
+const confirmation =
+confirm(
+"Voulez-vous vous déconnecter ?"
+);
 
-        window.location.href="index.html";
 
 
-    });
+if(!confirmation)
+
+return;
+
+
+
+localStorage.clear();
+
+
+window.location.href="connexion.html";
+
+
+});
 
 
 }
@@ -182,54 +361,15 @@ if(logout){
 
 
 
+//==================================================
+// FIN INITIALISATION
+//==================================================
 
 
-/* =====================================
-   STATISTIQUES TABLEAU DE BORD
-===================================== */
+console.log(
+"Espace membre opérationnel"
+);
 
-
-const statistiques = {
-
-
-    cotisations:"0 F",
-
-    filleuls:0,
-
-    revenus:"0 F",
-
-    projets:0,
-
-    formations:0,
-
-    entraides:0,
-
-    investissements:0,
-
-    notifications:0
-
-
-};
-
-
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-    Object.keys(statistiques).forEach((id)=>{
-
-
-        const element=document.getElementById(id);
-
-
-        if(element){
-
-            element.textContent=statistiques[id];
-
-        }
-
-
-    });
 
 
 });
