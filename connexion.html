@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connexion - MWANA MBOKA</title>
+<title>Connexion | MWANA MBOKA</title>
 
 <style>
 
@@ -15,214 +16,442 @@ font-family:Arial,sans-serif;
 background:linear-gradient(135deg,#003b1f,#009245);
 min-height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 padding:20px;
 }
+
 
 .container{
 width:100%;
 max-width:500px;
 }
 
+
 .banner{
 width:100%;
 border-radius:25px;
 margin-bottom:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
+
 
 .card{
+
 background:white;
-padding:40px;
+padding:35px;
 border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+box-shadow:0 10px 30px rgba(0,0,0,.3);
 text-align:center;
+
 }
+
 
 .logo{
+
 width:100px;
 background:white;
-padding:10px;
 border-radius:20px;
-margin-bottom:15px;
+padding:10px;
+
 }
+
 
 h1{
+
 color:#009245;
+
 }
+
 
 p{
+
 color:#666;
+
 }
 
+
 input{
+
 width:100%;
-padding:16px;
+padding:15px;
 margin-top:15px;
-border:2px solid #dddddd;
+border:2px solid #ddd;
 border-radius:15px;
 font-size:16px;
 box-sizing:border-box;
+
 }
 
+
 button{
+
 width:100%;
 padding:16px;
 margin-top:20px;
 background:#009245;
 color:white;
-border:none;
+border:0;
 border-radius:15px;
 font-size:18px;
 font-weight:bold;
-cursor:pointer;
+
 }
+
 
 button:hover{
+
 background:#007537;
+
 }
 
+
 .btn-member{
+
 display:block;
 margin-top:15px;
 padding:15px;
 background:#f1c40f;
-color:black;
+color:#000;
 text-decoration:none;
 border-radius:15px;
 font-weight:bold;
+
 }
 
-.footer{
-margin-top:20px;
-font-size:14px;
-color:#777;
+
+#message{
+
+margin-top:15px;
+font-weight:bold;
+
 }
+
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
+
 <img src="banniere.png" class="banner">
+
+
 
 <div class="card">
 
+
 <img src="logo.png" class="logo">
 
-<h1>Connexion Membre</h1>
+
+<h1>
+Connexion Membre
+</h1>
+
 
 <p>
-Bienvenue dans l'espace membre MWANA MBOKA.
+Bienvenue dans l'espace membre MWANA MBOKA
 </p>
 
-<input type="text"
-id="matricule"
-placeholder="Matricule">
 
-<input type="password"
+
+<input 
+type="text"
+id="matricule"
+placeholder="Votre matricule">
+
+
+
+<input 
+type="password"
 id="motdepasse"
-placeholder="Mot de passe">
+placeholder="Votre mot de passe">
+
+
 
 <button onclick="connexion()">
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
 Se connecter
+
 </button>
 
+
+
 <a href="adhesion.html" class="btn-member">
+
 Devenir membre
+
 </a>
 
-<div class="footer">
-Ensemble nous irons plus loin.
-</div>
+
+
+<div id="message"></div>
+
 
 </div>
 
+
 </div>
+
+
+
+
 
 <script type="module">
 
+
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
 
 import {
+
 getDatabase,
+
 ref,
+
 get
+
 }
-from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+
+
+
 
 const firebaseConfig = {
+
+
 apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
+
 authDomain: "c-n-mwana-mboka.firebaseapp.com",
-databaseURL: "https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app/",
-projectId: "c-n-mwana-mboka",
-storageBucket: "c-n-mwana-mboka.firebasestorage.app",
-messagingSenderId: "757726608581",
-appId: "1:757726608581:web:27fa7003ffa955188304ac"
+
+databaseURL:
+"https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app",
+
+projectId:"c-n-mwana-mboka",
+
+storageBucket:"c-n-mwana-mboka.firebasestorage.app",
+
+messagingSenderId:"757726608581",
+
+appId:"1:757726608581:web:27fa7003ffa955188304ac"
+
 };
+
+
+
+
 
 const app = initializeApp(firebaseConfig);
 
+
 const database = getDatabase(app);
+
+
+
+
+
 
 window.connexion = async function(){
 
+
+
 const matricule =
-document.getElementById("matricule").value;
+document.getElementById("matricule").value.trim();
+
+
 
 const motdepasse =
-document.getElementById("motdepasse").value;
+document.getElementById("motdepasse").value.trim();
+
+
+
+const message =
+document.getElementById("message");
+
+
+
+if(!matricule || !motdepasse){
+
+message.innerHTML="Veuillez remplir tous les champs.";
+
+message.style.color="red";
+
+return;
+
+}
+
+
+
+
+try{
+
 
 const membreRef =
-ref(database,"membres/" + matricule);
+ref(database,"membres/"+matricule);
+
+
 
 const snapshot =
 await get(membreRef);
 
-if(snapshot.exists()){
 
-const membre = snapshot.val();
 
-if(String(membre.motdepasse) === motdepasse){
 
-localStorage.setItem("nom",membre.nom);
-localStorage.setItem("matricule",membre.matricule);
-localStorage.setItem("telephone",membre.telephone);
-localStorage.setItem("statut",membre.statut);
-localStorage.setItem("parrain",membre.parrain);
-localStorage.setItem("dateAdhesion",membre.dateAdhesion);
-localStorage.setItem("photo",membre.photo);
-localStorage.setItem("utilisateurConnecte", JSON.stringify({
+if(!snapshot.exists()){
 
-    nom: membre.nom,
 
-    matricule: membre.matricule,
+message.innerHTML="Matricule introuvable.";
 
-    role: membre.role
+message.style.color="red";
 
-}));
+return;
+
+}
+
+
+
+
+
+const membre =
+snapshot.val();
+
+
+
+
+
+if(String(membre.motdepasse)!==motdepasse){
+
+
+message.innerHTML="Mot de passe incorrect.";
+
+message.style.color="red";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+// ===============================
+// CREATION SESSION
+// ===============================
+
+
+localStorage.clear();
+
+
+
+localStorage.setItem("nom",membre.nom || "");
+
+localStorage.setItem("matricule",membre.matricule || matricule);
+
+localStorage.setItem("telephone",membre.telephone || "");
+
+localStorage.setItem("statut",membre.statut || "Actif");
+
+localStorage.setItem("parrain",membre.parrain || "");
+
+localStorage.setItem("dateAdhesion",membre.dateAdhesion || "");
+
+localStorage.setItem("photo",membre.photo || "");
+
+
+
+// ROLE IMPORTANT
+
+localStorage.setItem(
+
+"role",
+
+(membre.role || "membre").toLowerCase()
+
+);
+
+
+
+
+// UTILISATEUR CONNECTE
+
+localStorage.setItem(
+
+"utilisateurConnecte",
+
+JSON.stringify({
+
+nom:membre.nom,
+
+matricule:membre.matricule,
+
+role:(membre.role || "membre").toLowerCase()
+
+})
+
+);
+
+
+
+
+
+message.innerHTML="Connexion réussie.";
+
+message.style.color="green";
+
+
+
+
+
+setTimeout(()=>{
+
+
 window.location.href="espace.html";
 
-}else{
 
-alert("Mot de passe incorrect.");
+},800);
 
-}
 
-}else{
-
-alert("Matricule introuvable.");
 
 }
 
+
+catch(erreur){
+
+
+console.error(erreur);
+
+
+message.innerHTML="Erreur de connexion Firebase.";
+
+message.style.color="red";
+
+
 }
+
+
+
+}
+
+
+
 
 </script>
 
+
 </body>
-</html>
+
+    </html>
