@@ -1,118 +1,155 @@
 /*==================================================
-    FORMATIONUN.CSS
-    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-    MODULE GESTION DES FORMATIONS
+        FORMATIONUN.CSS
+        COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+        PARTIE 1/4
 ==================================================*/
 
 
-/* RESET */
+/*==============================
+RESET
+==============================*/
 
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
-    font-family:"Poppins",Arial,sans-serif;
-
 }
 
+html{
+    scroll-behavior:smooth;
+}
 
 body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f4f7fb;
+    color:#222;
+}
 
-    background:#f3f5f7;
 
-    color:#333;
+/*==============================
+VARIABLES
+==============================*/
+
+:root{
+
+    --vert:#009245;
+    --vert-fonce:#006d35;
+    --jaune:#f4c20d;
+    --rouge:#d63031;
+    --gris:#777;
+    --fond:#f4f7fb;
+    --blanc:#ffffff;
+
+    --ombre:
+    0 8px 20px rgba(0,0,0,.08);
+
+    --radius:18px;
 
 }
 
 
-
-/*==================================================
-                STRUCTURE GENERALE
-==================================================*/
-
+/*==============================
+CONTAINER
+==============================*/
 
 .container{
 
     display:flex;
-
     min-height:100vh;
 
 }
 
 
-
-/*==================================================
-                SIDEBAR
-==================================================*/
-
+/*==============================
+SIDEBAR
+==============================*/
 
 .sidebar{
 
-    width:220px;
+    width:280px;
+    background:linear-gradient(
+    180deg,
+    #009245,
+    #006d35);
 
-    background:#ffffff;
-
-    border-right:2px solid #e5e5e5;
-
-    box-shadow:2px 0 12px rgba(0,0,0,.1);
+    color:white;
 
     position:fixed;
 
-    height:100vh;
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    overflow-y:auto;
+
+    box-shadow:4px 0 15px rgba(0,0,0,.15);
+
+    z-index:1000;
 
 }
 
 
+/*==============================
+LOGO
+==============================*/
 
 .logo-box{
 
-    background:#009245;
-
-    padding:20px;
-
     text-align:center;
 
-}
+    padding:30px 20px;
 
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+}
 
 
 .logo-box img{
 
-    width:85px;
+    width:95px;
 
-    height:85px;
+    height:95px;
 
     object-fit:contain;
 
     background:white;
 
-    padding:8px;
+    padding:10px;
 
-    border-radius:15px;
+    border-radius:22px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.25);
 
 }
-
 
 
 .logo-box p{
 
-    color:white;
-
-    font-size:13px;
-
-    font-weight:bold;
+    font-size:15px;
 
     line-height:1.6;
 
-    margin-top:10px;
+    font-weight:600;
 
 }
 
 
+.logo-box i{
+
+    font-size:13px;
+
+    color:#ffe66d;
+
+}
+
+
+/*==============================
+MENU
+==============================*/
 
 .sidebar a{
 
@@ -120,169 +157,149 @@ body{
 
     align-items:center;
 
-    gap:12px;
+    gap:14px;
 
-    padding:18px 20px;
+    color:white;
 
     text-decoration:none;
 
-    color:#006837;
+    padding:18px 25px;
 
-    font-weight:bold;
+    font-size:16px;
 
-    border-bottom:1px solid #eee;
+    transition:.30s;
 
-    transition:.3s;
+    border-left:4px solid transparent;
 
 }
-
 
 
 .sidebar a i{
 
-    width:20px;
+    width:25px;
+
+    text-align:center;
+
+    font-size:18px;
 
 }
 
 
+.sidebar a:hover{
 
-.sidebar a:hover,
+    background:rgba(255,255,255,.12);
+
+    border-left:4px solid var(--jaune);
+
+    padding-left:30px;
+
+}
+
 
 .sidebar a.active{
 
-    background:#009245;
+    background:rgba(255,255,255,.18);
 
-    color:white;
+    border-left:4px solid var(--jaune);
+
+    font-weight:bold;
 
 }
 
 
-
-
-
-/*==================================================
-                CONTENU
-==================================================*/
-
+/*==============================
+CONTENU
+==============================*/
 
 .content{
 
-    margin-left:220px;
+    margin-left:280px;
 
-    width:calc(100% - 220px);
+    width:calc(100% - 280px);
 
-    padding:25px;
+    padding:30px;
 
 }
 
 
+/*==============================
+BANNIERE
+==============================*/
 
-/*==================================================
-                HEADER
-==================================================*/
+.banner{
 
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:22px;
+
+    box-shadow:var(--ombre);
+
+    margin-bottom:30px;
+
+}
+
+
+/*==============================
+HEADER
+==============================*/
 
 .page-header{
 
     background:white;
 
-    border-radius:20px;
+    border-radius:var(--radius);
 
     padding:25px;
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    box-shadow:var(--ombre);
 
     margin-bottom:25px;
 
 }
 
 
-
 .page-header h1{
 
-    color:#009245;
+    color:var(--vert);
 
-    font-size:32px;
+    font-size:30px;
 
     margin-bottom:10px;
 
 }
 
 
-
 .page-header p{
 
-    color:#666;
+    color:var(--gris);
+
+    font-size:16px;
+
+    line-height:1.7;
 
 }
-
-
-
-.member-info{
-
-    background:#009245;
-
-    color:white;
-
-    padding:15px 25px;
-
-    border-radius:30px;
-
-    font-weight:bold;
-
-}
-
-
-
-.member-info i{
-
-    margin-right:8px;
-
-    font-size:20px;
-
-}
-
-
 
 /*==================================================
-                BANNIERE
+        FORMATIONUN.CSS
+        PARTIE 2/4
+        STATISTIQUES - BOUTONS - TABLEAUX
 ==================================================*/
 
 
-.banner{
-
-    width:100%;
-
-    max-height:280px;
-
-    object-fit:cover;
-
-    border-radius:20px;
-
-    margin-bottom:25px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
-
-}
-
-
-
-/*==================================================
-                STATISTIQUES
-==================================================*/
-
+/*==============================
+STATISTIQUES
+==============================*/
 
 .stats-grid{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
 
     gap:20px;
 
@@ -291,97 +308,118 @@ body{
 }
 
 
-
 .stat-card{
 
-    background:white;
+    background:var(--blanc);
+
+    border-radius:20px;
 
     padding:25px;
 
-    border-radius:18px;
-
     text-align:center;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    box-shadow:var(--ombre);
 
-    border-top:4px solid #009245;
+    transition:.30s;
 
-    transition:.3s;
+    position:relative;
+
+    overflow:hidden;
 
 }
 
+
+.stat-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:var(--vert);
+
+}
 
 
 .stat-card:hover{
 
-    transform:translateY(-5px);
+    transform:translateY(-8px);
 
 }
 
 
-
 .stat-card i{
 
-    font-size:38px;
+    font-size:42px;
 
-    color:#009245;
+    color:var(--vert);
 
     margin-bottom:15px;
 
 }
 
 
-
 .stat-card h3{
 
-    font-size:32px;
+    font-size:34px;
 
-    color:#003b1f;
+    color:var(--vert-fonce);
+
+    margin-bottom:8px;
 
 }
-
 
 
 .stat-card p{
 
-    color:#666;
+    color:var(--gris);
 
-    margin-top:8px;
+    font-size:15px;
 
 }
 
-/*==================================================
-                ACTIONS
-==================================================*/
 
+
+/*==============================
+ACTIONS
+==============================*/
 
 .actions{
 
     display:flex;
 
-    gap:15px;
-
     flex-wrap:wrap;
+
+    gap:15px;
 
     margin-bottom:30px;
 
 }
 
 
-
-.actions button{
+.btn-primary,
+.btn-secondary{
 
     border:none;
 
-    padding:15px 25px;
-
-    border-radius:12px;
-
     cursor:pointer;
 
-    font-weight:bold;
+    padding:15px 25px;
+
+    border-radius:14px;
 
     font-size:15px;
+
+    font-weight:600;
+
+    transition:.30s;
 
     display:flex;
 
@@ -389,13 +427,37 @@ body{
 
     gap:10px;
 
-    transition:.3s;
+}
+
+
+.btn-primary{
+
+    background:var(--vert);
+
+    color:white;
 
 }
 
 
+.btn-primary:hover{
 
-.actions button:hover{
+    background:var(--vert-fonce);
+
+    transform:translateY(-3px);
+
+}
+
+
+.btn-secondary{
+
+    background:var(--jaune);
+
+    color:#222;
+
+}
+
+
+.btn-secondary:hover{
 
     transform:translateY(-3px);
 
@@ -403,42 +465,9 @@ body{
 
 
 
-.btn-primary{
-
-    background:#009245;
-
-    color:white;
-
-}
-
-
-
-.btn-secondary{
-
-    background:#d4af37;
-
-    color:#003b1f;
-
-}
-
-
-
-.btn-third{
-
-    background:#003b1f;
-
-    color:white;
-
-}
-
-
-
-
-
-/*==================================================
-                CARTES
-==================================================*/
-
+/*==============================
+CARTE PRINCIPALE
+==============================*/
 
 .card{
 
@@ -448,44 +477,38 @@ body{
 
     padding:25px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    box-shadow:var(--ombre);
 
     margin-bottom:30px;
 
 }
 
 
+.card h2{
 
-.card-header{
+    color:var(--vert);
 
     margin-bottom:20px;
 
-}
+    display:flex;
 
+    align-items:center;
 
-
-.card-header h2{
-
-    color:#009245;
-
-    font-size:24px;
+    gap:12px;
 
 }
 
 
 
-
-/*==================================================
-                TABLEAU
-==================================================*/
-
+/*==============================
+TABLEAU
+==============================*/
 
 .table-responsive{
 
     overflow-x:auto;
 
 }
-
 
 
 table{
@@ -499,50 +522,63 @@ table{
 }
 
 
-
 thead{
 
-    background:#009245;
+    background:var(--vert);
 
     color:white;
 
 }
 
 
+thead th{
 
-th{
+    padding:16px;
 
-    padding:15px;
+    font-size:15px;
 
     text-align:left;
 
 }
 
 
-
-td{
+tbody td{
 
     padding:15px;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid #e7e7e7;
+
+    font-size:15px;
 
 }
 
+
+tbody tr{
+
+    transition:.25s;
+
+}
 
 
 tbody tr:hover{
 
-    background:#f5f5f5;
+    background:#f5fff9;
 
 }
 
 
 
+/*==============================
+BADGES
+==============================*/
+
 .badge{
+
+    display:inline-block;
 
     padding:7px 14px;
 
-    border-radius:20px;
+    border-radius:30px;
 
     font-size:13px;
 
@@ -551,33 +587,155 @@ tbody tr:hover{
 }
 
 
-
 .badge-actif{
 
-    background:#009245;
+    background:#d4f8d4;
 
-    color:white;
+    color:#0b8a32;
 
 }
 
+
+.badge-cours{
+
+    background:#fff3c7;
+
+    color:#996c00;
+
+}
 
 
 .badge-termine{
 
-    background:#555;
+    background:#d9e9ff;
+
+    color:#0057c8;
+
+}
+
+
+.badge-attente{
+
+    background:#ffe1e1;
+
+    color:#c62828;
+
+}
+
+
+
+/*==============================
+BOUTONS TABLEAU
+==============================*/
+
+.btn-action{
+
+    width:38px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    margin-right:6px;
+
+    transition:.25s;
 
     color:white;
 
 }
 
 
+.btn-view{
+
+    background:#3498db;
+
+}
 
 
+.btn-edit{
+
+    background:#009245;
+
+}
+
+
+.btn-delete{
+
+    background:#e53935;
+
+}
+
+
+.btn-valider{
+
+    background:#27ae60;
+
+}
+
+
+.btn-refuser{
+
+    background:#c0392b;
+
+}
+
+
+.btn-action:hover{
+
+    transform:scale(1.08);
+
+}
+
+
+
+/*==============================
+MESSAGE AUCUNE DONNÉE
+==============================*/
+
+.aucun-resultat{
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    color:#777;
+
+}
+
+
+.aucun-resultat i{
+
+    font-size:60px;
+
+    color:#009245;
+
+    margin-bottom:20px;
+
+}
+
+
+.aucun-resultat h3{
+
+    margin-bottom:10px;
+
+    color:#333;
+
+    }
 
 /*==================================================
-                MODALES
+        FORMATIONUN.CSS
+        PARTIE 3/4
+        MODALES - FORMULAIRES - FOOTER
 ==================================================*/
 
+
+/*==============================
+MODALES
+==============================*/
 
 .modal{
 
@@ -585,277 +743,577 @@ tbody tr:hover{
 
     position:fixed;
 
-    inset:0;
+    top:0;
+    left:0;
 
-    background:rgba(0,0,0,.6);
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.55);
 
     justify-content:center;
-
     align-items:center;
-
-    z-index:999;
 
     padding:20px;
 
-}
+    z-index:9999;
 
+    animation:fadeIn .3s;
+
+}
 
 
 .modal-content{
 
-    background:white;
-
     width:100%;
+    max-width:700px;
 
-    max-width:600px;
+    background:#fff;
 
-    border-radius:20px;
+    border-radius:22px;
 
-    padding:30px;
+    padding:35px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
 
     position:relative;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    max-height:90vh;
+
+    overflow-y:auto;
 
 }
 
 
-
-.modal-content h2{
-
-    color:#009245;
-
-    margin-bottom:25px;
-
-}
-
-
+/*==============================
+FERMETURE
+==============================*/
 
 .close{
 
     position:absolute;
 
+    top:18px;
     right:20px;
-
-    top:15px;
 
     font-size:30px;
 
+    color:#888;
+
     cursor:pointer;
 
-    color:#555;
+    transition:.3s;
 
 }
-
-
 
 .close:hover{
 
-    color:#d62828;
+    color:#d63031;
+
+    transform:rotate(90deg);
 
 }
 
 
+/*==============================
+TITRE MODALE
+==============================*/
+
+.modal-content h2{
+
+    color:var(--vert);
+
+    margin-bottom:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:28px;
+
+}
 
 
+/*==============================
+FORMULAIRES
+==============================*/
 
-/*==================================================
-                FORMULAIRES
-==================================================*/
-
-
-.modal-content form{
+form{
 
     display:flex;
 
     flex-direction:column;
 
-    gap:12px;
+    gap:18px;
 
 }
 
 
+form label{
 
-.modal-content label{
+    font-weight:600;
 
-    font-weight:bold;
-
-    color:#003b1f;
+    color:#333;
 
 }
 
 
-
-.modal-content input,
-
-.modal-content select,
-
-.modal-content textarea{
+form input,
+form select,
+form textarea{
 
     width:100%;
 
-    padding:13px;
+    padding:14px 16px;
 
-    border:1px solid #ddd;
+    border:2px solid #ddd;
 
-    border-radius:10px;
-
-    outline:none;
+    border-radius:14px;
 
     font-size:15px;
 
-}
+    transition:.30s;
 
-
-
-.modal-content input:focus,
-
-.modal-content select:focus,
-
-.modal-content textarea:focus{
-
-    border-color:#009245;
+    background:#fff;
 
 }
 
 
-
-.modal-content textarea{
-
-    min-height:100px;
+form textarea{
 
     resize:vertical;
 
-}
-
-
-
-.modal-content button{
-
-    margin-top:15px;
-
-    justify-content:center;
+    min-height:130px;
 
 }
 
 
+form input:focus,
+form select:focus,
+form textarea:focus{
+
+    border-color:var(--vert);
+
+    outline:none;
+
+    box-shadow:0 0 10px rgba(0,146,69,.18);
+
+}
 
 
+form button{
 
-/*==================================================
-                MESSAGE
-==================================================*/
+    margin-top:10px;
 
+}
+
+
+/*==============================
+GROUPES DE CHAMPS
+==============================*/
+
+.form-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+}
+
+
+.form-row-3{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:18px;
+
+}
+
+
+/*==============================
+MESSAGES
+==============================*/
 
 #message{
 
-    position:fixed;
+    display:none;
 
-    top:25px;
+    margin:20px 0;
 
-    right:25px;
+    padding:18px;
 
-    z-index:9999;
-
-    padding:15px 25px;
-
-    border-radius:12px;
+    border-radius:15px;
 
     font-weight:bold;
 
-}
-
-
-
-#message.success{
-
-    background:#009245;
-
-    color:white;
+    text-align:center;
 
 }
 
 
+.message-success{
 
-#message.error{
+    display:block !important;
 
-    background:#d62828;
+    background:#dff8e7;
 
-    color:white;
+    color:#147a36;
+
+    border-left:6px solid #009245;
 
 }
 
-/*==================================================
-                FOOTER
-==================================================*/
 
+.message-error{
+
+    display:block !important;
+
+    background:#ffe4e4;
+
+    color:#b30000;
+
+    border-left:6px solid #d63031;
+
+}
+
+
+.message-warning{
+
+    display:block !important;
+
+    background:#fff6d8;
+
+    color:#8a6b00;
+
+    border-left:6px solid #f4c20d;
+
+}
+
+
+/*==============================
+FOOTER
+==============================*/
 
 footer{
 
-    background:#003b1f;
+    margin-top:50px;
 
-    color:white;
+    background:linear-gradient(
+        135deg,
+        #009245,
+        #006d35);
 
-    padding:35px 20px;
+    color:#fff;
+
+    border-radius:22px;
+
+    padding:35px;
 
     text-align:center;
 
-    border-radius:20px;
-
-    margin-top:40px;
+    box-shadow:var(--ombre);
 
 }
-
 
 
 footer h3{
 
-    color:#d4af37;
-
     margin-bottom:15px;
 
-    font-size:22px;
+    font-size:26px;
 
 }
-
 
 
 footer p{
 
-    margin:8px;
+    margin:8px 0;
 
-    font-size:15px;
+    opacity:.95;
+
+    line-height:1.7;
 
 }
 
 
+footer a{
+
+    color:#ffe66d;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
 
 
+footer a:hover{
+
+    text-decoration:underline;
+
+}
 
 
+/*==============================
+BARRE DE DÉFILEMENT
+==============================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#ececec;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#009245;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#006d35;
+
+}
+
+
+/*==============================
+ANIMATION
+==============================*/
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.95);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+    }
 
 /*==================================================
-                WHATSAPP
+        FORMATIONUN.CSS
+        PARTIE 4/4
+        RESPONSIVE - MENU MOBILE - ANIMATIONS
 ==================================================*/
 
 
-.whatsapp{
+/*==============================
+ANIMATIONS
+==============================*/
+
+@keyframes slideLeft{
+
+    from{
+
+        opacity:0;
+        transform:translateX(-30px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0);
+
+    }
+
+}
+
+@keyframes slideUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+.sidebar{
+
+    animation:slideLeft .5s ease;
+
+}
+
+.content>*{
+
+    animation:slideUp .4s ease;
+
+}
+
+
+/*==============================
+EFFETS
+==============================*/
+
+.card,
+.stat-card,
+.modal-content{
+
+    transition:.30s;
+
+}
+
+.card:hover,
+.modal-content:hover{
+
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+
+}
+
+button{
+
+    transition:.25s;
+
+}
+
+button:active{
+
+    transform:scale(.96);
+
+}
+
+
+/*==============================
+IMAGES
+==============================*/
+
+img{
+
+    max-width:100%;
+
+    height:auto;
+
+}
+
+.logo-box img{
+
+    transition:.35s;
+
+}
+
+.logo-box img:hover{
+
+    transform:rotate(6deg) scale(1.05);
+
+}
+
+
+/*==============================
+MENU MOBILE
+==============================*/
+
+.menu-toggle{
+
+    display:none;
 
     position:fixed;
 
-    right:25px;
+    top:15px;
 
-    bottom:25px;
+    left:15px;
 
-    width:65px;
+    width:50px;
 
-    height:65px;
+    height:50px;
 
-    border-radius:50%;
+    border:none;
 
-    background:#25D366;
+    border-radius:12px;
+
+    background:var(--vert);
 
     color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    z-index:2000;
+
+    box-shadow:var(--ombre);
+
+}
+
+
+/*==============================
+TABLETTE
+==============================*/
+
+@media(max-width:1024px){
+
+.content{
+
+    margin-left:250px;
+
+    width:calc(100% - 250px);
+
+    padding:20px;
+
+}
+
+.sidebar{
+
+    width:250px;
+
+}
+
+.banner{
+
+    height:180px;
+
+}
+
+.page-header h1{
+
+    font-size:26px;
+
+}
+
+}
+
+
+/*==============================
+TELEPHONE
+==============================*/
+
+@media(max-width:768px){
+
+.menu-toggle{
 
     display:flex;
 
@@ -863,167 +1321,59 @@ footer p{
 
     align-items:center;
 
-    font-size:35px;
-
-    text-decoration:none;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.3);
-
-    z-index:999;
-
 }
-
-
-
-
-
-/*==================================================
-                ANIMATION
-==================================================*/
-
-
-@keyframes apparition{
-
-
-from{
-
-    opacity:0;
-
-    transform:translateY(20px);
-
-}
-
-
-to{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-
-}
-
-
-
-.card,
-
-.stat-card,
-
-.page-header{
-
-    animation:apparition .5s ease;
-
-}
-
-
-
-
-
-/*==================================================
-                RESPONSIVE TABLETTE
-==================================================*/
-
-
-@media(max-width:1000px){
-
-
 
 .sidebar{
 
-    width:180px;
+    left:-280px;
+
+    width:280px;
+
+    transition:.35s;
 
 }
 
+.sidebar.active{
 
+    left:0;
+
+}
 
 .content{
-
-    margin-left:180px;
-
-    width:calc(100% - 180px);
-
-}
-
-
-
-.page-header{
-
-    flex-direction:column;
-
-    gap:20px;
-
-    text-align:center;
-
-}
-
-
-
-}
-
-
-
-
-
-/*==================================================
-                RESPONSIVE MOBILE
-==================================================*/
-
-
-@media(max-width:700px){
-
-
-
-.container{
-
-    display:block;
-
-}
-
-
-
-.sidebar{
-
-    position:relative;
 
     width:100%;
-
-    height:auto;
-
-}
-
-
-
-.content{
 
     margin-left:0;
 
-    width:100%;
-
-    padding:15px;
+    padding:80px 15px 20px;
 
 }
 
+.banner{
 
+    height:140px;
+
+    border-radius:16px;
+
+}
+
+.page-header{
+
+    padding:18px;
+
+}
 
 .page-header h1{
 
-    font-size:24px;
+    font-size:22px;
 
 }
 
+.page-header p{
 
-
-.actions button{
-
-    width:100%;
-
-    justify-content:center;
+    font-size:14px;
 
 }
-
-
 
 .stats-grid{
 
@@ -1031,39 +1381,181 @@ to{
 
 }
 
+.actions{
 
+    flex-direction:column;
 
-.member-info{
+}
+
+.actions button{
 
     width:100%;
 
-    text-align:center;
+}
+
+.card{
+
+    padding:18px;
 
 }
 
+table{
 
-
-.banner{
-
-    height:160px;
+    min-width:700px;
 
 }
-
-
 
 .modal-content{
 
-    padding:20px;
+    padding:22px;
+
+    border-radius:18px;
+
+}
+
+.form-row,
+.form-row-3{
+
+    grid-template-columns:1fr;
+
+}
+
+footer{
+
+    padding:25px 18px;
+
+}
+
+footer h3{
+
+    font-size:22px;
+
+}
 
 }
 
 
+/*==============================
+PETITS TELEPHONES
+==============================*/
+
+@media(max-width:480px){
+
+.logo-box img{
+
+    width:75px;
+
+    height:75px;
+
+}
+
+.logo-box p{
+
+    font-size:13px;
+
+}
+
+.banner{
+
+    height:120px;
+
+}
+
+.page-header h1{
+
+    font-size:20px;
+
+}
+
+.stat-card{
+
+    padding:18px;
+
+}
+
+.stat-card h3{
+
+    font-size:28px;
+
+}
+
+.stat-card i{
+
+    font-size:34px;
+
+}
+
+.btn-primary,
+.btn-secondary{
+
+    font-size:14px;
+
+    padding:13px;
+
+}
+
+.modal-content{
+
+    padding:18px;
+
+}
+
+.modal-content h2{
+
+    font-size:22px;
+
+}
+
+form input,
+form textarea,
+form select{
+
+    font-size:14px;
+
+}
 
 }
 
 
+/*==============================
+GRANDS ECRANS
+==============================*/
+
+@media(min-width:1400px){
+
+.content{
+
+    max-width:1700px;
+
+}
+
+.stats-grid{
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+}
+
+}
+
+
+/*==============================
+FOCUS ACCESSIBILITE
+==============================*/
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus{
+
+    outline:3px solid rgba(244,194,13,.5);
+
+    outline-offset:2px;
+
+}
 
 
 /*==================================================
-                FIN FORMATIONUN.CSS
+        FIN DU CSS
 ==================================================*/
