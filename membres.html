@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gestion des Membres | MWANA MBOKA</title>
+<title>Registre des Membres | MWANA MBOKA</title>
 
 <link rel="stylesheet" href="membres.css">
 
@@ -28,9 +28,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <header class="header">
 
 
-<div class="logo-box">
+<div class="header-left">
 
-<img src="logo.png" class="logo" alt="Logo MWANA MBOKA">
+
+<img src="logo.png" class="logo">
 
 
 <div>
@@ -42,7 +43,7 @@ MWANA MBOKA
 </h1>
 
 <p>
-Gestion professionnelle des membres
+Registre administratif des membres
 </p>
 
 </div>
@@ -57,12 +58,11 @@ Gestion professionnelle des membres
 
 <div class="info-box">
 
-<i class="fa-solid fa-calendar-days"></i>
+<i class="fa-solid fa-calendar"></i>
 
 <span id="date"></span>
 
 </div>
-
 
 
 <div class="info-box">
@@ -73,6 +73,14 @@ Gestion professionnelle des membres
 
 </div>
 
+
+<a href="prbureau.html" class="back-btn">
+
+<i class="fa-solid fa-landmark"></i>
+
+Bureau Président
+
+</a>
 
 
 <button id="logoutBtn" class="logout">
@@ -93,15 +101,14 @@ Déconnexion
 
 
 
-<!-- ================= TITRE PAGE ================= -->
+<!-- ================= TITRE ================= -->
 
 
 <section class="page-title">
 
-
 <h2>
 
-<i class="fa-solid fa-users"></i>
+<i class="fa-solid fa-users-gear"></i>
 
 Gestion des Membres
 
@@ -110,7 +117,7 @@ Gestion des Membres
 
 <p>
 
-Administration, suivi et gestion des membres de la communauté.
+Recherche, administration, nomination et suivi des membres.
 
 </p>
 
@@ -121,149 +128,85 @@ Administration, suivi et gestion des membres de la communauté.
 
 
 
+
 <!-- ================= STATISTIQUES ================= -->
 
 
-<section class="dashboard">
+<section class="stats">
 
 
-
-<div class="card">
-
-
-<div class="card-icon">
+<div class="stat-card">
 
 <i class="fa-solid fa-users"></i>
 
-</div>
-
-
 <div>
 
-<h3>
+<h3>Total Membres</h3>
 
-Total Membres
-
-</h3>
-
-
-<h2 id="totalMembres">
-
+<strong id="totalMembres">
 0
+</strong>
 
-</h2>
-
+</div>
 
 </div>
 
 
-</div>
 
 
-
-
-
-<div class="card">
-
-
-<div class="card-icon">
+<div class="stat-card">
 
 <i class="fa-solid fa-user-check"></i>
 
+<div>
+
+<h3>Membres actifs</h3>
+
+<strong id="membresActifs">
+0
+</strong>
+
 </div>
 
+</div>
+
+
+
+
+<div class="stat-card">
+
+<i class="fa-solid fa-user-tie"></i>
 
 <div>
 
-<h3>
+<h3>Directeurs</h3>
 
-Membres Actifs
-
-</h3>
-
-
-<h2 id="membresActifs">
-
+<strong id="totalDirecteurs">
 0
+</strong>
 
-</h2>
-
+</div>
 
 </div>
 
 
-</div>
 
 
+<div class="stat-card">
 
-
-
-<div class="card">
-
-
-<div class="card-icon">
-
-<i class="fa-solid fa-user-plus"></i>
-
-</div>
-
+<i class="fa-solid fa-user-shield"></i>
 
 <div>
 
-<h3>
+<h3>Administrateurs</h3>
 
-Nouveaux Membres
-
-</h3>
-
-
-<h2 id="nouveauxMembres">
-
+<strong id="totalAdmins">
 0
-
-</h2>
-
+</strong>
 
 </div>
 
-
 </div>
-
-
-
-
-
-<div class="card">
-
-
-<div class="card-icon">
-
-<i class="fa-solid fa-handshake"></i>
-
-</div>
-
-
-<div>
-
-<h3>
-
-Parrains
-
-</h3>
-
-
-<h2 id="totalParrains">
-
-0
-
-</h2>
-
-
-</div>
-
-
-</div>
-
 
 
 </section>
@@ -272,43 +215,44 @@ Parrains
 
 
 
-<!-- ================= ACTIONS ================= -->
 
 
-<section class="actions-bar">
+<!-- ================= RECHERCHE MATRICULE ================= -->
+
+
+<section class="search-section">
+
+
+<h2>
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+Recherche par matricule
+
+</h2>
 
 
 
 <div class="search-box">
 
 
-<i class="fa-solid fa-magnifying-glass"></i>
-
-
-<input
-
+<input 
 type="text"
-
-id="recherche"
-
-placeholder="Rechercher un membre..." >
-
-
-</div>
+id="matriculeRecherche"
+placeholder="Exemple : MM-00001">
 
 
 
+<button id="btnRecherche">
 
-<button class="btn-add">
+<i class="fa-solid fa-search"></i>
 
-
-<i class="fa-solid fa-user-plus"></i>
-
-Ajouter un membre
-
+Rechercher
 
 </button>
 
+
+</div>
 
 
 </section>
@@ -317,29 +261,242 @@ Ajouter un membre
 
 
 
-<!-- ================= TABLEAU ================= -->
 
 
-<section class="table-section">
+
+<!-- ================= PROFIL MEMBRE ================= -->
 
 
-<div class="section-header">
+<section class="profil-section" id="profilSection">
 
 
-<h2>
+<div class="empty-message">
 
-<i class="fa-solid fa-address-book"></i>
+<i class="fa-solid fa-id-card"></i>
 
-Liste des Membres
+<p>
+Recherchez un membre par son matricule pour afficher son profil.
+</p>
 
+</div>
+
+
+
+<div id="profilMembre" class="hidden">
+
+
+
+<div class="profil-header">
+
+
+<img id="photoMembre" src="logo.png">
+
+
+<div>
+
+
+<h2 id="nomMembre">
+Nom du membre
 </h2>
+
+
+<p>
+
+Matricule :
+<span id="matriculeMembre"></span>
+
+</p>
+
+
+</div>
 
 
 </div>
 
 
 
-<div class="table-responsive">
+
+
+<div class="profil-grid">
+
+
+
+<div>
+<i class="fa-solid fa-phone"></i>
+
+Téléphone
+
+<strong id="telephoneMembre"></strong>
+
+</div>
+
+
+
+
+<div>
+<i class="fa-solid fa-calendar"></i>
+
+Adhésion
+
+<strong id="adhesionMembre"></strong>
+
+</div>
+
+
+
+
+<div>
+<i class="fa-solid fa-clock"></i>
+
+Ancienneté
+
+<strong id="ancienneteMembre"></strong>
+
+</div>
+
+
+
+
+<div>
+<i class="fa-solid fa-user-tie"></i>
+
+Fonction
+
+<strong id="fonctionMembre"></strong>
+
+</div>
+
+
+
+
+<div>
+<i class="fa-solid fa-building"></i>
+
+Direction
+
+<strong id="directionMembre"></strong>
+
+</div>
+
+
+
+
+<div>
+<i class="fa-solid fa-circle-check"></i>
+
+Statut
+
+<strong id="statutMembre"></strong>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ACTIONS PRESIDENT -->
+
+
+<div class="actions-president">
+
+
+<button id="btnNommer">
+
+<i class="fa-solid fa-crown"></i>
+
+Nommer
+
+</button>
+
+
+<button id="btnHistorique">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+Historique
+
+</button>
+
+
+<button id="btnSuspendre">
+
+<i class="fa-solid fa-user-slash"></i>
+
+Suspendre
+
+</button>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ================= HISTORIQUE ================= -->
+
+
+<section class="historique-section">
+
+
+<h2>
+
+<i class="fa-solid fa-book"></i>
+
+Historique administratif
+
+</h2>
+
+
+<div id="historiqueListe">
+
+
+<p>
+Aucun historique chargé.
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ================= TABLE LISTE ================= -->
+
+
+<section class="liste-section">
+
+
+<h2>
+
+<i class="fa-solid fa-table-list"></i>
+
+Liste générale des membres
+
+</h2>
+
 
 
 <table>
@@ -347,68 +504,29 @@ Liste des Membres
 
 <thead>
 
-
 <tr>
 
-
 <th>
-
-Photo
-
-</th>
-
-
-<th>
-
-Nom
-
-</th>
-
-
-<th>
-
 Matricule
-
 </th>
 
-
 <th>
-
-Téléphone
-
+Nom
 </th>
 
-
 <th>
-
-Parrain
-
+Fonction
 </th>
 
+<th>
+Direction
+</th>
 
 <th>
-
 Statut
-
 </th>
-
-
-<th>
-
-Adhésion
-
-</th>
-
-
-<th>
-
-Actions
-
-</th>
-
 
 </tr>
-
 
 </thead>
 
@@ -419,19 +537,13 @@ Actions
 
 <tr>
 
-<td colspan="8" class="loading">
+<td colspan="5">
 
-
-<i class="fa-solid fa-spinner fa-spin"></i>
-
-
-Chargement des membres...
-
+Chargement...
 
 </td>
 
 </tr>
-
 
 
 </tbody>
@@ -440,162 +552,8 @@ Chargement des membres...
 </table>
 
 
-</div>
+</section>
 
-
-    </section>
-
-<!-- ================= MODAL DETAILS MEMBRE ================= -->
-
-<div id="modalMembre" class="modal">
-
-
-<div class="modal-content">
-
-
-<span class="close">
-
-&times;
-
-</span>
-
-
-
-<div class="modal-header">
-
-
-<img 
-src="logo.png"
-id="photoMembre"
-alt="Photo membre">
-
-
-<div>
-
-<h2 id="nomDetail">
-
-Nom du membre
-
-</h2>
-
-
-<p>
-
-Détails du profil membre
-
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="modal-body">
-
-
-<div class="detail-item">
-
-<i class="fa-solid fa-id-card"></i>
-
-<strong>Matricule :</strong>
-
-<span id="matriculeDetail"></span>
-
-
-</div>
-
-
-
-
-<div class="detail-item">
-
-<i class="fa-solid fa-phone"></i>
-
-<strong>Téléphone :</strong>
-
-<span id="telephoneDetail"></span>
-
-
-</div>
-
-
-
-
-<div class="detail-item">
-
-<i class="fa-solid fa-user-group"></i>
-
-<strong>Parrain :</strong>
-
-<span id="parrainDetail"></span>
-
-
-</div>
-
-
-
-
-<div class="detail-item">
-
-<i class="fa-solid fa-circle-check"></i>
-
-<strong>Statut :</strong>
-
-<span id="statutDetail"></span>
-
-
-</div>
-
-
-
-
-<div class="detail-item">
-
-<i class="fa-solid fa-calendar"></i>
-
-<strong>Date d'adhésion :</strong>
-
-<span id="dateDetail"></span>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<div class="modal-footer">
-
-
-<button class="btn-close">
-
-
-<i class="fa-solid fa-xmark"></i>
-
-Fermer
-
-
-</button>
-
-
-</div>
-
-
-
-
-</div>
-
-
-</div>
 
 
 
@@ -608,33 +566,22 @@ Fermer
 <footer class="footer">
 
 
-<div>
+<img src="logo.png">
 
 
-<img src="logo.png" alt="MWANA MBOKA">
-
-
-<p>
-
+<h3>
 COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-
-</p>
-
-
-</div>
-
+</h3>
 
 
 <p>
-
-© <span id="annee"></span>
-
-MWANA MBOKA -
-
-Ensemble nous irons plus loin
-
+Ensemble nous irons plus loin.
 </p>
 
+
+<p>
+© <span id="annee"></span>
+</p>
 
 
 </footer>
@@ -649,14 +596,9 @@ Ensemble nous irons plus loin
 
 
 
-<!-- ================= SCRIPTS ================= -->
-
-
 <script type="module" src="membres.js"></script>
-
 
 
 </body>
 
-
-</html>
+    </html>
