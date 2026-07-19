@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GS Organigramme | Bureau du Président</title>
+
+<link rel="stylesheet" href="gsorganigramme.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo-box">
+        <img src="images/logo.png" alt="MWANA MBOKA">
+    </div>
+
+    <div class="title">
+
+        <h1>GS ORGANIGRAMME</h1>
+        <p>Gestion Stratégique de la Structure</p>
+
+    </div>
+
+
+    <button onclick="window.location.href='prbureau.html'">
+        <i class="fa-solid fa-arrow-left"></i>
+        Bureau Président
+    </button>
+
+
+</header>
+
+
+
+<main class="container">
+
+
+<section class="president-card">
+
+    <i class="fa-solid fa-crown"></i>
+
+    <h2>PRÉSIDENT FONDATEUR</h2>
+
+    <h3>AMOUR JORAM OBAMI</h3>
+
+    <p>
+        Centre de commandement du système<br>
+        Toutes autorisations et validations présidentielles
+    </p>
+
+
+</section>
+
+
+
+
+<section class="organigramme">
+
+
+<!-- SECRETARIAT GENERAL -->
+
+<div class="bloc">
+
+<h2>
+<i class="fa-solid fa-file-signature"></i>
+SECRÉTARIAT GÉNÉRAL
+</h2>
+
+<p class="tutelle">
+Sous tutelle directe du Président
+</p>
+
+
+<div class="services">
+
+
+<div class="service-card">
+
+<h3>Secrétariat & Administration</h3>
+
+<p>
+Gestion administrative<br>
+Gestion des membres<br>
+Dossiers et archives
+</p>
+
+<span class="responsable">
+Responsable : Non nommé
+</span>
+
+<button onclick="ouvrirNomination('administration')">
+Nommer un responsable
+</button>
+
+</div>
+
+
+
+<div class="service-card">
+
+<h3>Formation</h3>
+
+<p>
+Gestion des formations<br>
+Programmes<br>
+Participants
+</p>
+
+<span class="responsable">
+Responsable : Non nommé
+</span>
+
+<button onclick="ouvrirNomination('formation')">
+Nommer un responsable
+</button>
+
+</div>
+
+
+
+
+<div class="service-card">
+
+<h3>Communication</h3>
+
+<p>
+Marketing<br>
+Pages officielles<br>
+Publications
+</p>
+
+<span class="responsable">
+Responsable : Président
+</span>
+
+
+</div>
+
+
+
+
+<div class="service-card">
+
+<h3>Projets</h3>
+
+<p>
+Suivi des projets<br>
+Accompagnement des membres
+</p>
+
+
+<span class="responsable">
+Responsable : Non nommé
+</span>
+
+
+<button onclick="ouvrirNomination('projets')">
+Nommer un responsable
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<!-- CONSEIL ADMINISTRATIF -->
+
+
+<div class="bloc">
+
+<h2>
+<i class="fa-solid fa-scale-balanced"></i>
+CONSEIL ADMINISTRATIF
+</h2>
+
+
+<p class="tutelle">
+Présidé et supervisé par le Président
+</p>
+
+
+<div class="services">
+
+
+<div class="service-card">
+<h3>Conseiller administratif</h3>
+<button onclick="ouvrirNomination('conseil_administratif')">
+Nommer
+</button>
+</div>
+
+
+<div class="service-card">
+<h3>Conseiller juridique</h3>
+<button onclick="ouvrirNomination('juridique')">
+Nommer
+</button>
+</div>
+
+
+<div class="service-card">
+<h3>Conseiller financier</h3>
+<button onclick="ouvrirNomination('conseil_financier')">
+Nommer
+</button>
+</div>
+
+
+<div class="service-card">
+<h3>Conseiller technique</h3>
+<button onclick="ouvrirNomination('technique')">
+Nommer
+</button>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- FINANCES -->
+
+
+<div class="bloc">
+
+
+<h2>
+<i class="fa-solid fa-coins"></i>
+FINANCES ET ÉCONOMIE
+</h2>
+
+
+<p class="tutelle">
+Présidé et supervisé par le Président
+</p>
+
+
+
+<div class="services">
+
+
+<div class="service-card">
+
+<h3>Trésorerie</h3>
+
+<button onclick="ouvrirNomination('tresorerie')">
+Nommer
+</button>
+
+</div>
+
+
+
+<div class="service-card">
+
+<h3>Comptabilité</h3>
+
+<button onclick="ouvrirNomination('comptabilite')">
+Nommer
+</button>
+
+</div>
+
+
+
+<div class="service-card">
+
+<h3>Économie</h3>
+
+<button onclick="ouvrirNomination('economie')">
+Nommer
+</button>
+
+</div>
+
+
+
+<div class="service-card">
+
+<h3>Études des investissements</h3>
+
+<button onclick="ouvrirNomination('investissements')">
+Nommer
+</button>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+</main>
+
+
+
+
+<!-- FENETRE NOMINATION -->
+
+<div id="modalNomination" class="modal">
+
+
+<div class="modal-content">
+
+
+<h2>Nomination</h2>
+
+
+<p id="posteChoisi"></p>
+
+
+<label>
+Matricule du membre
+</label>
+
+
+<input type="text" id="matricule"
+placeholder="MB-2026-00001">
+
+
+
+<button onclick="rechercherMembre()">
+Rechercher
+</button>
+
+
+<div id="profilMembre"></div>
+
+
+
+<button onclick="validerNomination()">
+Valider avec signature présidentielle
+</button>
+
+
+
+<button onclick="fermerNomination()">
+Fermer
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<script src="gsorganigramme.js"></script>
+
+
+</body>
+
+  </html>
