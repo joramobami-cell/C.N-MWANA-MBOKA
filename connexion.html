@@ -2,539 +2,153 @@
 <html lang="fr">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connexion | MWANA MBOKA</title>
-
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+<title>Connexion - MWANA MBOKA</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-
-
 body{
-
-min-height:100vh;
-
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f5f7;
 display:flex;
-
 justify-content:center;
-
 align-items:center;
-
-background:
-linear-gradient(
-135deg,
-#003b1f,
-#009245,
-#00b050
-);
-
+min-height:100vh;
+padding:20px;
 }
 
+.container{
+width:100%;
+max-width:450px;
+}
 
-
-/* CARTE CONNEXION */
-
-
-.login-card{
-
-width:95%;
-
-max-width:430px;
-
-background:#fff;
-
+.banner{
+width:100%;
 border-radius:20px;
-
-padding:35px;
-
-box-shadow:
-0 15px 45px rgba(0,0,0,.30);
-
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+margin-bottom:20px;
 }
 
-
-
-/* LOGO */
-
+.card{
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+text-align:center;
+}
 
 .logo{
-
-text-align:center;
-
-margin-bottom:25px;
-
+width:90px;
+background:white;
+padding:8px;
+border-radius:15px;
+margin-bottom:15px;
 }
 
-
-.logo img{
-
-width:110px;
-
-height:110px;
-
-object-fit:contain;
-
-}
-
-
-.logo h1{
-
+h1{
 color:#009245;
-
-font-size:28px;
-
-margin-top:10px;
-
+margin:10px 0;
 }
 
-
-.logo p{
-
-font-size:14px;
-
-color:#555;
-
-font-weight:bold;
-
+p{
+color:#666;
 }
 
-
-
-
-/* TITRE */
-
-
-.title{
-
-text-align:center;
-
-margin-bottom:30px;
-
-}
-
-
-.title h2{
-
-color:#003b1f;
-
-font-size:23px;
-
-}
-
-
-.title span{
-
-color:#009245;
-
-}
-
-
-
-
-
-/* FORMULAIRE */
-
-
-.group{
-
-margin-bottom:20px;
-
-}
-
-
-
-.group label{
-
-display:block;
-
-font-weight:bold;
-
-color:#003b1f;
-
-margin-bottom:8px;
-
-}
-
-
-
-
-.input{
-
-position:relative;
-
-}
-
-
-
-.input i{
-
-position:absolute;
-
-left:15px;
-
-top:50%;
-
-transform:translateY(-50%);
-
-color:#009245;
-
-}
-
-
-
-.input input{
-
+input{
 width:100%;
-
-padding:14px 15px 14px 45px;
-
+padding:15px;
+margin-top:15px;
 border:1px solid #ddd;
-
-border-radius:10px;
-
-font-size:15px;
-
-outline:none;
-
+border-radius:12px;
+font-size:16px;
+box-sizing:border-box;
 }
-
-
-
-.input input:focus{
-
-border-color:#009245;
-
-}
-
-
-
-
 
 button{
-
 width:100%;
-
 padding:15px;
-
-border:none;
-
-border-radius:10px;
-
+margin-top:20px;
 background:#009245;
-
 color:white;
-
-font-size:16px;
-
+border:none;
+border-radius:12px;
+font-size:18px;
 font-weight:bold;
-
 cursor:pointer;
-
 }
-
-
 
 button:hover{
-
-background:#006b32;
-
+background:#007537;
 }
 
-
-
-
-#message{
-
-margin-top:18px;
-
-text-align:center;
-
+.btn-member{
+display:block;
+margin-top:15px;
+padding:14px;
+background:#f1c40f;
+color:#000;
+text-decoration:none;
+border-radius:12px;
 font-weight:bold;
-
-font-size:14px;
-
 }
-
-
-
-
 
 .footer{
-
-margin-top:25px;
-
-text-align:center;
-
-font-size:13px;
-
+margin-top:20px;
+font-size:14px;
 color:#777;
-
 }
-
-
-
-.footer strong{
-
-color:#009245;
-
-}
-
-
-
-
-.loader{
-
-display:none;
-
-text-align:center;
-
-margin-top:15px;
-
-}
-
-
-
-.loader i{
-
-font-size:25px;
-
-color:#009245;
-
-}
-
-
-
-
 
 </style>
-
 </head>
-
 
 <body>
 
+<div class="container">
 
+<img src="banniere.png" class="banner">
 
-<div class="login-card">
+<div class="card">
 
+<img src="logo.png" class="logo">
 
-
-<div class="logo">
-
-
-<img src="logo.png"
-alt="Logo MWANA MBOKA">
-
-
-<h1>
-MWANA MBOKA
-</h1>
-
+<h1>Connexion Membre</h1>
 
 <p>
-Ensemble nous irons plus loin
+Bienvenue dans l'espace membre de MWANA MBOKA.
 </p>
 
+<input type="text" placeholder="Matricule">
 
-</div>
+<input type="password" placeholder="Mot de passe">
 
-
-
-
-
-<div class="title">
-
-<h2>
-Connexion <span>Membre</span>
-</h2>
-
-</div>
-
-
-
-
-
-
-
-<form id="connexionForm">
-
-
-
-<div class="group">
-
-
-<label>
-Matricule membre
-</label>
-
-
-<div class="input">
-
-<i class="fa-solid fa-id-card"></i>
-
-
-<input
-
-type="text"
-
-id="matricule"
-
-placeholder="Ex : MMB-0000"
-
-autocomplete="off"
-
-required>
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="group">
-
-
-<label>
-Mot de passe
-</label>
-
-
-<div class="input">
-
-
-<i class="fa-solid fa-lock"></i>
-
-
-<input
-
-type="password"
-
-id="password"
-
-placeholder="Votre mot de passe"
-
-required>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<button type="submit">
-
-<i class="fa-solid fa-right-to-bracket"></i>
-
-Connexion
-
+<button onclick="connexion()">
+Se connecter
 </button>
 
-
-
-
-
-<div class="loader" id="loader">
-
-<i class="fa-solid fa-spinner fa-spin"></i>
-
-</div>
-
-
-
-
-
-<div id="message"></div>
-
-
-
-
-</form>
-
-
-
-
-
-
+<a href="adhesion.html" class="btn-member">
+Devenir membre
+</a>
 
 <div class="footer">
-
-
-COMMUNAUTÉ NUMÉRIQUE
-
-<strong>
-MWANA MBOKA
-</strong>
-
-
-<br>
-
-Système officiel de gestion
-
+Ensemble nous irons plus loin.
+</div>
 
 </div>
 
-
-
 </div>
 
+<script>
 
+function connexion(){
 
+window.location.href="espace.html";
 
+}
 
-
-<!--
-=================================
-SYSTEME MWANA MBOKA
-CONNEXION OFFICIELLE
-=================================
-
-Les éléments suivants seront ajoutés :
-
-PARTIE 2 :
-- Firebase
-- Firestore
-- Recherche matricule
-- Validation mot de passe
-- Chargement profil membre
-
-
-PARTIE 3 :
-- GS Organigramme
-- Permissions
-- Journal activité
-- Redirections bureaux
-
--->
-
-
-
-<script type="module" src="js/connexion.js"></script>
+</script>
 
 </body>
 
