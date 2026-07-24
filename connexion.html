@@ -4,128 +4,320 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Connexion | MWANA MBOKA</title>
 
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
 <style>
 
-body{
+*{
 margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#003b1f,#009245);
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+
+body{
+
 min-height:100vh;
+
 display:flex;
-align-items:center;
+
 justify-content:center;
-padding:20px;
+
+align-items:center;
+
+background:
+linear-gradient(
+135deg,
+#003b1f,
+#009245,
+#00b050
+);
+
 }
 
 
-.container{
-width:100%;
-max-width:500px;
-}
+
+/* CARTE CONNEXION */
 
 
-.banner{
-width:100%;
-border-radius:25px;
-margin-bottom:20px;
-box-shadow:0 10px 30px rgba(0,0,0,.3);
-}
+.login-card{
 
+width:95%;
 
-.card{
+max-width:430px;
 
-background:white;
+background:#fff;
+
+border-radius:20px;
+
 padding:35px;
-border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,.3);
-text-align:center;
+
+box-shadow:
+0 15px 45px rgba(0,0,0,.30);
 
 }
+
+
+
+/* LOGO */
 
 
 .logo{
 
-width:100px;
-background:white;
-border-radius:20px;
-padding:10px;
+text-align:center;
+
+margin-bottom:25px;
 
 }
 
 
-h1{
+.logo img{
+
+width:110px;
+
+height:110px;
+
+object-fit:contain;
+
+}
+
+
+.logo h1{
+
+color:#009245;
+
+font-size:28px;
+
+margin-top:10px;
+
+}
+
+
+.logo p{
+
+font-size:14px;
+
+color:#555;
+
+font-weight:bold;
+
+}
+
+
+
+
+/* TITRE */
+
+
+.title{
+
+text-align:center;
+
+margin-bottom:30px;
+
+}
+
+
+.title h2{
+
+color:#003b1f;
+
+font-size:23px;
+
+}
+
+
+.title span{
 
 color:#009245;
 
 }
 
 
-p{
 
-color:#666;
+
+
+/* FORMULAIRE */
+
+
+.group{
+
+margin-bottom:20px;
 
 }
 
 
-input{
+
+.group label{
+
+display:block;
+
+font-weight:bold;
+
+color:#003b1f;
+
+margin-bottom:8px;
+
+}
+
+
+
+
+.input{
+
+position:relative;
+
+}
+
+
+
+.input i{
+
+position:absolute;
+
+left:15px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+color:#009245;
+
+}
+
+
+
+.input input{
 
 width:100%;
-padding:15px;
-margin-top:15px;
-border:2px solid #ddd;
-border-radius:15px;
-font-size:16px;
-box-sizing:border-box;
+
+padding:14px 15px 14px 45px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+font-size:15px;
+
+outline:none;
 
 }
+
+
+
+.input input:focus{
+
+border-color:#009245;
+
+}
+
+
+
 
 
 button{
 
 width:100%;
-padding:16px;
-margin-top:20px;
+
+padding:15px;
+
+border:none;
+
+border-radius:10px;
+
 background:#009245;
+
 color:white;
-border:0;
-border-radius:15px;
-font-size:18px;
+
+font-size:16px;
+
 font-weight:bold;
 
+cursor:pointer;
+
 }
+
 
 
 button:hover{
 
-background:#007537;
+background:#006b32;
 
 }
 
 
-.btn-member{
-
-display:block;
-margin-top:15px;
-padding:15px;
-background:#f1c40f;
-color:#000;
-text-decoration:none;
-border-radius:15px;
-font-weight:bold;
-
-}
 
 
 #message{
 
-margin-top:15px;
+margin-top:18px;
+
+text-align:center;
+
 font-weight:bold;
 
+font-size:14px;
+
 }
+
+
+
+
+
+.footer{
+
+margin-top:25px;
+
+text-align:center;
+
+font-size:13px;
+
+color:#777;
+
+}
+
+
+
+.footer strong{
+
+color:#009245;
+
+}
+
+
+
+
+.loader{
+
+display:none;
+
+text-align:center;
+
+margin-top:15px;
+
+}
+
+
+
+.loader i{
+
+font-size:25px;
+
+color:#009245;
+
+}
+
+
+
 
 
 </style>
@@ -136,156 +328,265 @@ font-weight:bold;
 <body>
 
 
-<div class="container">
 
-
-<img src="banniere.png" class="banner">
+<div class="login-card">
 
 
 
-<div class="card">
+<div class="logo">
 
 
-<img src="logo.png" class="logo">
+<img src="images/logo.png"
+alt="Logo MWANA MBOKA">
 
 
 <h1>
-Connexion Membre
+MWANA MBOKA
 </h1>
 
 
 <p>
-Bienvenue dans l'espace membre MWANA MBOKA
+Ensemble nous irons plus loin
 </p>
 
 
+</div>
 
-<input 
+
+
+
+
+<div class="title">
+
+<h2>
+Connexion <span>Membre</span>
+</h2>
+
+</div>
+
+
+
+
+
+
+
+<form id="connexionForm">
+
+
+
+<div class="group">
+
+
+<label>
+Matricule membre
+</label>
+
+
+<div class="input">
+
+<i class="fa-solid fa-id-card"></i>
+
+
+<input
+
 type="text"
+
 id="matricule"
-placeholder="Votre matricule">
+
+placeholder="Ex : MM20260001"
+
+autocomplete="off"
+
+required>
+
+</div>
+
+
+</div>
 
 
 
-<input 
+
+
+
+
+<div class="group">
+
+
+<label>
+Mot de passe
+</label>
+
+
+<div class="input">
+
+
+<i class="fa-solid fa-lock"></i>
+
+
+<input
+
 type="password"
-id="motdepasse"
-placeholder="Votre mot de passe">
+
+id="password"
+
+placeholder="Votre mot de passe"
+
+required>
+
+
+</div>
+
+
+</div>
 
 
 
-<button onclick="connexion()">
+
+
+
+
+
+<button type="submit">
 
 <i class="fa-solid fa-right-to-bracket"></i>
 
-Se connecter
+Connexion
 
 </button>
 
 
 
-<a href="adhesion.html" class="btn-member">
 
-Devenir membre
 
-</a>
+<div class="loader" id="loader">
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+</div>
+
+
 
 
 
 <div id="message"></div>
 
 
-</div>
+
+
+</form>
+
+
+
+
+
+
+
+<div class="footer">
+
+
+COMMUNAUTÉ NUMÉRIQUE
+
+<strong>
+MWANA MBOKA
+</strong>
+
+
+<br>
+
+Système officiel de gestion
 
 
 </div>
 
 
+
+</div>
+
+
+
+
+
+
+<!--
+=================================
+SYSTEME MWANA MBOKA
+CONNEXION OFFICIELLE
+=================================
+
+Les éléments suivants seront ajoutés :
+
+PARTIE 2 :
+- Firebase
+- Firestore
+- Recherche matricule
+- Validation mot de passe
+- Chargement profil membre
+
+
+PARTIE 3 :
+- GS Organigramme
+- Permissions
+- Journal activité
+- Redirections bureaux
+
+-->
 
 
 
 <script type="module">
 
 
-import { initializeApp }
 
-from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+/*
 
+BASE DU SYSTEME
 
-import {
+Le moteur complet arrive
+dans les parties suivantes.
 
-getDatabase,
-
-ref,
-
-get
-
-}
-
-from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+*/
 
 
-
-
-
-const firebaseConfig = {
-
-
-apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
-
-authDomain: "c-n-mwana-mboka.firebaseapp.com",
-
-databaseURL:
-"https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app",
-
-projectId:"c-n-mwana-mboka",
-
-storageBucket:"c-n-mwana-mboka.firebasestorage.app",
-
-messagingSenderId:"757726608581",
-
-appId:"1:757726608581:web:27fa7003ffa955188304ac"
-
-};
-
-
-
-
-
-const app = initializeApp(firebaseConfig);
-
-
-const database = getDatabase(app);
-
-
-
-
-
-
-window.connexion = async function(){
-
-
-
-const matricule =
-document.getElementById("matricule").value.trim();
-
-
-
-const motdepasse =
-document.getElementById("motdepasse").value.trim();
-
+const formulaire =
+document.getElementById("connexionForm");
 
 
 const message =
 document.getElementById("message");
 
 
+const loader =
+document.getElementById("loader");
 
-if(!matricule || !motdepasse){
 
-message.innerHTML="Veuillez remplir tous les champs.";
+
+
+formulaire.addEventListener(
+"submit",
+(e)=>{
+
+
+e.preventDefault();
+
+
+let matricule =
+document.getElementById("matricule").value.trim();
+
+
+
+let password =
+document.getElementById("password").value.trim();
+
+
+
+
+if(!matricule || !password){
 
 message.style.color="red";
+
+message.innerHTML=
+"Veuillez remplir tous les champs";
 
 return;
 
@@ -293,163 +594,30 @@ return;
 
 
 
+loader.style.display="block";
 
-try{
 
+message.style.color="#009245";
 
-const membreRef =
-ref(database,"membres/"+matricule);
+message.innerHTML=
+"Connexion au système MWANA MBOKA...";
 
 
 
-const snapshot =
-await get(membreRef);
+/*
 
+Connexion Firebase
+dans la partie 2
 
+*/
 
 
-if(!snapshot.exists()){
-
-
-message.innerHTML="Matricule introuvable.";
-
-message.style.color="red";
-
-return;
-
-}
-
-
-
-
-
-const membre =
-snapshot.val();
-
-
-
-
-
-if(String(membre.motdepasse)!==motdepasse){
-
-
-message.innerHTML="Mot de passe incorrect.";
-
-message.style.color="red";
-
-
-return;
-
-
-}
-
-
-
-
-
-
-// ===============================
-// CREATION SESSION
-// ===============================
-
-
-localStorage.clear();
-
-
-
-localStorage.setItem("nom",membre.nom || "");
-
-localStorage.setItem("matricule",membre.matricule || matricule);
-
-localStorage.setItem("telephone",membre.telephone || "");
-
-localStorage.setItem("statut",membre.statut || "Actif");
-
-localStorage.setItem("parrain",membre.parrain || "");
-
-localStorage.setItem("dateAdhesion",membre.dateAdhesion || "");
-
-localStorage.setItem("photo",membre.photo || "");
-
-
-
-// ROLE IMPORTANT
-
-localStorage.setItem(
-
-"role",
-
-(membre.role || "membre").toLowerCase()
-
-);
-
-
-
-
-// UTILISATEUR CONNECTE
-
-localStorage.setItem(
-
-"utilisateurConnecte",
-
-JSON.stringify({
-
-nom:membre.nom,
-
-matricule:membre.matricule,
-
-role:(membre.role || "membre").toLowerCase()
-
-})
-
-);
-
-
-
-
-
-message.innerHTML="Connexion réussie.";
-
-message.style.color="green";
-
-
-
-
-
-setTimeout(()=>{
-
-
-window.location.href="espace.html";
-
-
-},800);
-
-
-
-}
-
-
-catch(erreur){
-
-
-console.error(erreur);
-
-
-message.innerHTML="Erreur de connexion Firebase.";
-
-message.style.color="red";
-
-
-}
-
-
-
-}
-
+});
 
 
 
 </script>
+
 
 
 </body>
