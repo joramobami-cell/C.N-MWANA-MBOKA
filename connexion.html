@@ -142,11 +142,335 @@ Ensemble nous irons plus loin.
 
 <script>
 
-function connexion(){
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
-window.location.href="espace.html";
+import {
+getDatabase,
+ref,
+get,
+set,
+push
+}
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+const firebaseConfig={
+
+apiKey:"AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
+
+authDomain:"c-n-mwana-mboka.firebaseapp.com",
+
+databaseURL:"https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app",
+
+projectId:"c-n-mwana-mboka",
+
+storageBucket:"c-n-mwana-mboka.firebasestorage.app",
+
+messagingSenderId:"757726608581",
+
+appId:"1:757726608581:web:27fa7003ffa955188304ac"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const database=getDatabase(app);
+
+window.connexion=async()=>{
+
+const matricule=
+document.getElementById("matricule").value.trim();
+
+const motdepasse=
+document.getElementById("motdepasse").value.trim();
+
+const message=
+document.getElementById("message");
+
+message.innerHTML="";
+
+if(matricule==="" || motdepasse===""){
+
+message.style.color="red";
+
+message.innerHTML="Veuillez remplir tous les champs.";
+
+return;
 
 }
+
+try{
+
+const membreRef=
+ref(database,"membres/"+matricule);
+
+const snapshot=
+await get(membreRef);
+
+if(!snapshot.exists()){
+
+message.style.color="red";
+
+message.innerHTML="Matricule introuvable.";
+
+return;
+
+}
+
+const membre=snapshot.val();
+
+if(String(membre.motdepasse)!==motdepasse){
+
+message.style.color="red";
+
+message.innerHTML="Mot de passe incorrect.";
+
+return;
+
+    }
+
+//======================================
+// CREATION DE LA SESSION
+//======================================
+
+localStorage.clear();
+
+localStorage.setItem("matricule",matricule);
+
+localStorage.setItem("nom",membre.nom || "");
+
+localStorage.setItem("telephone",membre.telephone || "");
+
+localStorage.setItem("photo",membre.photo || "");
+
+localStorage.setItem("statut",membre.statut || "Actif");
+
+localStorage.setItem("dateAdhesion",membre.dateAdhesion || "");
+
+localStorage.setItem("parrain",membre.parrain || "");
+
+message.style.color="green";
+message.innerHTML="Connexion réussie...";
+
+
+//======================================
+// LECTURE DU GS ORGANIGRAMME
+//======================================
+
+const organigrammeRef =
+ref(database,"organigramme");
+
+const organigrammeSnap =
+await get(organigrammeRef);
+
+let bureau="espace.html";
+
+let fonction="membre";
+
+if(organigrammeSnap.exists()){
+
+const organigramme=
+organigrammeSnap.val();
+
+chercherFonction(organigramme);
+
+}
+
+function chercherFonction(obj){
+
+for(const cle in obj){
+
+const valeur=obj[cle];
+
+if(typeof valeur==="object" && valeur!==null){
+
+if(valeur.responsableMatricule===matricule){
+
+fonction=
+valeur.fonction || cle;
+
+localStorage.setItem(
+"fonction",
+fonction
+);
+
+switch(fonction){
+
+case "president":
+
+bureau="prbureau.html";
+break;
+
+case "secretariat_administration":
+
+bureau="bureau-secretariat.html";
+break;
+
+case "formation":
+
+bureau="bureau-formation.html";
+break;
+
+case "communication":
+
+bureau="bureau-communication.html";
+break;
+
+case "projets":
+
+bureau="bureau-projets.html";
+break;
+
+case "conseiller_administratif":
+
+case "conseiller_juridique":
+
+case "conseiller_financier":
+
+case "conseiller_technique":
+
+bureau="bureau-conseil.html";
+break;
+
+case "tresorerie":
+
+case "comptabilite":
+
+case "economie":
+
+case "etudes_investissements":
+
+bureau="bureau-finance.html";
+break;
+
+}
+
+}
+
+chercherFonction(valeur);
+
+}
+
+}
+
+    }
+
+
+//======================================
+// SECURITE PRESIDENT FONDATEUR
+//======================================
+
+// Si le membre est identifié comme Président
+// mais qu'aucune nomination n'existe encore
+// dans le GS Organigramme.
+
+const estPresident =
+
+(membre.role || "").toLowerCase() === "president" ||
+
+(membre.fondateur === true);
+
+if(estPresident){
+
+fonction = "president";
+
+bureau = "prbureau.html";
+
+localStorage.setItem("fonction","president");
+
+localStorage.setItem("role","president");
+
+}
+
+// Si aucune fonction n'a été trouvée,
+// le membre reste simple membre.
+
+if(!fonction){
+
+fonction = "membre";
+
+bureau = "espace.html";
+
+localStorage.setItem("fonction","membre");
+
+    }
+
+    
+//======================================
+// ENREGISTREMENT DANS LE JOURNAL
+//======================================
+
+const journalRef =
+push(ref(database,"journal_activites"));
+
+await set(journalRef,{
+
+date:new Date().toLocaleDateString("fr-FR"),
+
+heure:new Date().toLocaleTimeString("fr-FR"),
+
+matricule:matricule,
+
+nom:membre.nom || "",
+
+fonction:fonction,
+
+action:"Connexion au système",
+
+bureau:bureau
+
+});
+
+
+//======================================
+// ENREGISTREMENT SESSION COMPLETE
+//======================================
+
+localStorage.setItem("bureau",bureau);
+
+localStorage.setItem(
+"utilisateurConnecte",
+JSON.stringify({
+
+matricule:matricule,
+
+nom:membre.nom || "",
+
+fonction:fonction,
+
+bureau:bureau
+
+})
+
+);
+
+
+//======================================
+// REDIRECTION AUTOMATIQUE
+//======================================
+
+setTimeout(()=>{
+
+window.location.href=bureau;
+
+},1000);
+
+}
+
+catch(erreur){
+
+console.error(erreur);
+
+message.style.color="red";
+
+message.innerHTML=
+"Erreur de connexion avec Firebase.";
+
+}
+
+};
+
+
 
 </script>
 
