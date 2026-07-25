@@ -2,106 +2,379 @@
 <html lang="fr">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connexion - MWANA MBOKA</title>
+<title>Connexion | COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:Arial,sans-serif;
-background:#f3f5f7;
-display:flex;
-justify-content:center;
-align-items:center;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',Arial,sans-serif;
+}
+
+body{
+
 min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
 padding:20px;
+
+background:
+linear-gradient(135deg,#003b1f,#006837,#009245);
+
+overflow-x:hidden;
+
+position:relative;
+
+}
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:-150px;
+
+right:-150px;
+
+width:350px;
+
+height:350px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.08);
+
+}
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+bottom:-180px;
+
+left:-180px;
+
+width:420px;
+
+height:420px;
+
+border-radius:50%;
+
+background:rgba(255,215,0,.08);
+
 }
 
 .container{
+
 width:100%;
-max-width:450px;
+
+max-width:500px;
+
+position:relative;
+
+z-index:2;
+
+animation:apparition .8s ease;
+
+}
+
+@keyframes apparition{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
 }
 
 .banner{
+
 width:100%;
-border-radius:20px;
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
+
+border-radius:25px;
+
+box-shadow:
+
+0 15px 40px rgba(0,0,0,.35);
+
 margin-bottom:20px;
+
 }
 
 .card{
+
 background:white;
-padding:30px;
-border-radius:25px;
-box-shadow:0 5px 20px rgba(0,0,0,0.15);
+
+border-radius:30px;
+
+padding:35px;
+
+box-shadow:
+
+0 20px 50px rgba(0,0,0,.30);
+
 text-align:center;
+
 }
 
 .logo{
-width:90px;
+
+width:100px;
+
+height:100px;
+
+object-fit:contain;
+
 background:white;
-padding:8px;
-border-radius:15px;
+
+padding:10px;
+
+border-radius:20px;
+
+border:3px solid #009245;
+
+box-shadow:
+
+0 10px 25px rgba(0,0,0,.20);
+
 margin-bottom:15px;
+
 }
 
 h1{
+
 color:#009245;
-margin:10px 0;
+
+font-size:28px;
+
+margin-bottom:10px;
+
 }
 
-p{
+.slogan{
+
 color:#666;
+
+font-size:15px;
+
+margin-bottom:30px;
+
+line-height:1.5;
+
 }
 
-input{
+.input-box{
+
+position:relative;
+
+margin-bottom:18px;
+
+}
+
+.input-box i{
+
+position:absolute;
+
+left:18px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+color:#009245;
+
+font-size:18px;
+
+}
+
+.input-box input{
+
 width:100%;
-padding:15px;
-margin-top:15px;
-border:1px solid #ddd;
-border-radius:12px;
+
+padding:15px 15px 15px 52px;
+
+border-radius:15px;
+
+border:2px solid #ddd;
+
 font-size:16px;
-box-sizing:border-box;
+
+transition:.3s;
+
+outline:none;
+
+}
+
+.input-box input:focus{
+
+border-color:#009245;
+
+box-shadow:
+
+0 0 10px rgba(0,146,69,.25);
+
+}
+
+.password-toggle{
+
+position:absolute;
+
+right:18px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+cursor:pointer;
+
+color:#777;
+
 }
 
 button{
+
 width:100%;
-padding:15px;
-margin-top:20px;
-background:#009245;
-color:white;
+
+padding:16px;
+
 border:none;
-border-radius:12px;
+
+border-radius:15px;
+
+background:
+
+linear-gradient(135deg,#009245,#006837);
+
+color:white;
+
 font-size:18px;
+
 font-weight:bold;
+
 cursor:pointer;
+
+transition:.3s;
+
+margin-top:10px;
+
 }
 
 button:hover{
-background:#007537;
+
+transform:translateY(-2px);
+
+box-shadow:
+
+0 10px 20px rgba(0,0,0,.20);
+
 }
 
 .btn-member{
+
 display:block;
+
 margin-top:15px;
-padding:14px;
-background:#f1c40f;
-color:#000;
+
+padding:15px;
+
+background:
+
+linear-gradient(135deg,#FFD700,#F1C40F);
+
+color:#222;
+
 text-decoration:none;
-border-radius:12px;
+
+border-radius:15px;
+
 font-weight:bold;
+
+transition:.3s;
+
+}
+
+.btn-member:hover{
+
+transform:translateY(-2px);
+
+}
+
+#message{
+
+margin-top:20px;
+
+font-weight:bold;
+
+min-height:25px;
+
 }
 
 .footer{
-margin-top:20px;
-font-size:14px;
+
+margin-top:25px;
+
+font-size:13px;
+
 color:#777;
+
+line-height:1.6;
+
+}
+
+@media(max-width:500px){
+
+.card{
+
+padding:25px;
+
+}
+
+h1{
+
+font-size:23px;
+
+}
+
+.logo{
+
+width:85px;
+
+height:85px;
+
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -116,24 +389,76 @@ color:#777;
 
 <h1>Connexion Membre</h1>
 
-<p>
-Bienvenue dans l'espace membre de MWANA MBOKA.
+<p class="slogan">
+
+Bienvenue dans la plateforme officielle de la<br>
+
+<b>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</b>
+
 </p>
 
-<input type="text" placeholder="Matricule">
 
-<input type="password" placeholder="Mot de passe">
+<!-- ==========================
+FORMULAIRE DE CONNEXION
+========================== -->
+
+<div class="input-box">
+
+    <i class="fa-solid fa-id-card"></i>
+
+    <input
+        type="text"
+        id="matricule"
+        placeholder="Votre matricule">
+
+</div>
+
+<div class="input-box">
+
+    <i class="fa-solid fa-lock"></i>
+
+    <input
+        type="password"
+        id="motdepasse"
+        placeholder="Votre mot de passe">
+
+    <i
+        class="fa-solid fa-eye password-toggle"
+        id="togglePassword">
+    </i>
+
+</div>
 
 <button onclick="connexion()">
-Se connecter
+
+    <i class="fa-solid fa-right-to-bracket"></i>
+
+    Se connecter
+
 </button>
 
 <a href="adhesion.html" class="btn-member">
-Devenir membre
+
+    <i class="fa-solid fa-user-plus"></i>
+
+    Devenir membre
+
 </a>
 
+<div id="message"></div>
+
 <div class="footer">
-Ensemble nous irons plus loin.
+
+    <strong>COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA</strong>
+
+    <br>
+
+    Ensemble nous irons plus loin.
+
+    <br><br>
+
+    © <span id="annee"></span> Tous droits réservés.
+
 </div>
 
 </div>
@@ -141,6 +466,41 @@ Ensemble nous irons plus loin.
 </div>
 
 <script>
+
+document.getElementById("annee").textContent =
+new Date().getFullYear();
+
+const toggle =
+document.getElementById("togglePassword");
+
+const password =
+document.getElementById("motdepasse");
+
+toggle.onclick = () => {
+
+    if(password.type==="password"){
+
+        password.type="text";
+
+        toggle.classList.remove("fa-eye");
+
+        toggle.classList.add("fa-eye-slash");
+
+    }else{
+
+        password.type="password";
+
+        toggle.classList.remove("fa-eye-slash");
+
+        toggle.classList.add("fa-eye");
+
+    }
+
+};
+
+</script>
+
+<script type="module">
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
@@ -178,20 +538,16 @@ const database=getDatabase(app);
 
 window.connexion=async()=>{
 
-const matricule=
-document.getElementById("matricule").value.trim();
+const matricule=document.getElementById("matricule").value.trim();
 
-const motdepasse=
-document.getElementById("motdepasse").value.trim();
+const motdepasse=document.getElementById("motdepasse").value.trim();
 
-const message=
-document.getElementById("message");
+const message=document.getElementById("message");
 
+message.style.color="red";
 message.innerHTML="";
 
 if(matricule==="" || motdepasse===""){
-
-message.style.color="red";
 
 message.innerHTML="Veuillez remplir tous les champs.";
 
@@ -201,15 +557,11 @@ return;
 
 try{
 
-const membreRef=
-ref(database,"membres/"+matricule);
+const membreRef=ref(database,"membres/"+matricule);
 
-const snapshot=
-await get(membreRef);
+const snapshot=await get(membreRef);
 
 if(!snapshot.exists()){
-
-message.style.color="red";
 
 message.innerHTML="Matricule introuvable.";
 
@@ -221,58 +573,33 @@ const membre=snapshot.val();
 
 if(String(membre.motdepasse)!==motdepasse){
 
-message.style.color="red";
-
 message.innerHTML="Mot de passe incorrect.";
 
 return;
 
-    }
-
-//======================================
-// CREATION DE LA SESSION
-//======================================
+}
 
 localStorage.clear();
 
 localStorage.setItem("matricule",matricule);
-
 localStorage.setItem("nom",membre.nom || "");
-
 localStorage.setItem("telephone",membre.telephone || "");
-
 localStorage.setItem("photo",membre.photo || "");
-
 localStorage.setItem("statut",membre.statut || "Actif");
-
 localStorage.setItem("dateAdhesion",membre.dateAdhesion || "");
-
 localStorage.setItem("parrain",membre.parrain || "");
-
-message.style.color="green";
-message.innerHTML="Connexion réussie...";
-
-
-//======================================
-// LECTURE DU GS ORGANIGRAMME
-//======================================
-
-const organigrammeRef =
-ref(database,"organigramme");
-
-const organigrammeSnap =
-await get(organigrammeRef);
 
 let bureau="espace.html";
 
 let fonction="membre";
 
+const organigrammeRef=ref(database,"organigramme");
+
+const organigrammeSnap=await get(organigrammeRef);
+
 if(organigrammeSnap.exists()){
 
-const organigramme=
-organigrammeSnap.val();
-
-chercherFonction(organigramme);
+chercherFonction(organigrammeSnap.val());
 
 }
 
@@ -286,39 +613,40 @@ if(typeof valeur==="object" && valeur!==null){
 
 if(valeur.responsableMatricule===matricule){
 
-fonction=
-valeur.fonction || cle;
+fonction=valeur.fonction || cle;
 
-localStorage.setItem(
-"fonction",
-fonction
-);
+localStorage.setItem("fonction",fonction);
 
 switch(fonction){
 
 case "president":
 
 bureau="prbureau.html";
+
 break;
 
 case "secretariat_administration":
 
 bureau="bureau-secretariat.html";
+
 break;
 
 case "formation":
 
 bureau="bureau-formation.html";
+
 break;
 
 case "communication":
 
 bureau="bureau-communication.html";
+
 break;
 
 case "projets":
 
 bureau="bureau-projets.html";
+
 break;
 
 case "conseiller_administratif":
@@ -330,6 +658,7 @@ case "conseiller_financier":
 case "conseiller_technique":
 
 bureau="bureau-conseil.html";
+
 break;
 
 case "tresorerie":
@@ -341,6 +670,7 @@ case "economie":
 case "etudes_investissements":
 
 bureau="bureau-finance.html";
+
 break;
 
 }
@@ -353,28 +683,19 @@ chercherFonction(valeur);
 
 }
 
-    }
+}
 
+const estPresident=
 
-//======================================
-// SECURITE PRESIDENT FONDATEUR
-//======================================
+(membre.role || "").toLowerCase()==="president" ||
 
-// Si le membre est identifié comme Président
-// mais qu'aucune nomination n'existe encore
-// dans le GS Organigramme.
-
-const estPresident =
-
-(membre.role || "").toLowerCase() === "president" ||
-
-(membre.fondateur === true);
+membre.fondateur===true;
 
 if(estPresident){
 
-fonction = "president";
+fonction="president";
 
-bureau = "prbureau.html";
+bureau="prbureau.html";
 
 localStorage.setItem("fonction","president");
 
@@ -382,25 +703,26 @@ localStorage.setItem("role","president");
 
 }
 
-// Si aucune fonction n'a été trouvée,
-// le membre reste simple membre.
+//======================================
+// SI AUCUNE FONCTION N'A ETE TROUVEE
+//======================================
 
-if(!fonction){
+if(!localStorage.getItem("fonction")){
 
-fonction = "membre";
+fonction="membre";
 
-bureau = "espace.html";
+bureau="espace.html";
 
 localStorage.setItem("fonction","membre");
 
-    }
+}
 
-    
+
 //======================================
 // ENREGISTREMENT DANS LE JOURNAL
 //======================================
 
-const journalRef =
+const journalRef=
 push(ref(database,"journal_activites"));
 
 await set(journalRef,{
@@ -415,21 +737,23 @@ nom:membre.nom || "",
 
 fonction:fonction,
 
-action:"Connexion au système",
+bureau:bureau,
 
-bureau:bureau
+action:"Connexion"
 
 });
 
 
 //======================================
-// ENREGISTREMENT SESSION COMPLETE
+// SESSION COMPLETE
 //======================================
 
 localStorage.setItem("bureau",bureau);
 
 localStorage.setItem(
+
 "utilisateurConnecte",
+
 JSON.stringify({
 
 matricule:matricule,
@@ -446,7 +770,18 @@ bureau:bureau
 
 
 //======================================
-// REDIRECTION AUTOMATIQUE
+// MESSAGE
+//======================================
+
+message.style.color="green";
+
+message.innerHTML=
+
+'<i class="fa-solid fa-circle-check"></i> Connexion réussie...';
+
+
+//======================================
+// REDIRECTION
 //======================================
 
 setTimeout(()=>{
@@ -464,16 +799,15 @@ console.error(erreur);
 message.style.color="red";
 
 message.innerHTML=
-"Erreur de connexion avec Firebase.";
+
+"Impossible de se connecter à Firebase.";
 
 }
 
 };
 
-
-
 </script>
 
 </body>
 
-    </html>
+</html>
