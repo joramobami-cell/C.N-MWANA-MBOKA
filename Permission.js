@@ -1,213 +1,181 @@
 /*==================================================
-    PERMISSIONS.JS
-    MWANA MBOKA
-    MOTEUR CENTRAL DES AUTORISATIONS
+PERMISSIONS.JS
+COMMUNAUTE NUMERIQUE MWANA MBOKA
+VERSION PREMIUM
 ==================================================*/
 
-import { auth, realtime } from "./firebase-config.js";
 
-import {
-    ref,
-    get
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+//==================================================
+// SESSION
+//==================================================
 
-import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+const utilisateur = JSON.parse(
+localStorage.getItem("utilisateurConnecte")
+);
 
-/*==================================================
-   VERIFICATION CONNEXION
-==================================================*/
 
-export function verifierConnexion(callback){
+//==================================================
+// SI AUCUNE SESSION
+//==================================================
 
-    onAuthStateChanged(auth, async(user)=>{
+if(!utilisateur){
 
-        if(!user){
-
-            window.location.href="connexion.html";
-            return;
-
-        }
-
-        const permissions =
-        await chargerPermissions(user.uid);
-
-        callback(permissions);
-
-    });
+window.location.replace("connexion.html");
 
 }
 
-/*==================================================
-   CHARGER LES PERMISSIONS
-==================================================*/
 
-export async function chargerPermissions(uid){
+//==================================================
+// INFORMATIONS UTILISATEUR
+//==================================================
 
-    const membreRef =
-    ref(realtime,"membres/"+uid);
+export const matricule =
+utilisateur.matricule || "";
 
-    const membreSnap =
-    await get(membreRef);
+export const nom =
+utilisateur.nom || "";
 
-    if(!membreSnap.exists()){
+export const fonction =
+(utilisateur.fonction || "membre").toLowerCase();
 
-        return null;
+export const bureau =
+utilisateur.bureau || "";
 
-    }
 
-    const membre =
-    membreSnap.val();
+//==================================================
+// PRESIDENT
+//==================================================
 
-    const matricule =
-    membre.matricule;
+export const estPresident =
+fonction === "president";
 
-    return await rechercherRole(matricule);
 
-}
+//==================================================
+// VERIFICATION DES AUTORISATIONS
+//==================================================
 
-/*==================================================
-   RECHERCHE DANS GS ORGANIGRAMME
-==================================================*/
+export function autoriser(fonctionsAutorisees=[]){
 
-async function rechercherRole(matricule){
+if(estPresident){
 
-    const orgaRef =
-    ref(realtime,"organigramme");
-
-    const snap =
-    await get(orgaRef);
-
-    if(!snap.exists()){
-
-        return roleMembre();
-
-    }
-
-    const data =
-    snap.val();
-
-    const resultat =
-    parcourir(data,matricule);
-
-    if(resultat){
-
-        return resultat;
-
-    }
-
-    return roleMembre();
+return true;
 
 }
 
-/*==================================================
-   PARCOURS RECURSIF
-==================================================*/
+if(fonctionsAutorisees.includes(fonction)){
 
-function parcourir(obj,matricule){
-
-    for(const cle in obj){
-
-        const valeur=obj[cle];
-
-        if(typeof valeur==="object"){
-
-            if(valeur.matricule===matricule){
-
-                return {
-
-                    role:cle,
-
-                    bureau:
-                    valeur.bureau ||
-
-                    "membre.html",
-
-                    permissions:
-                    valeur.permissions ||
-
-                    {}
-
-                };
-
-            }
-
-            const suite=
-            parcourir(valeur,matricule);
-
-            if(suite){
-
-                return suite;
-
-            }
-
-        }
-
-    }
-
-    return null;
+return true;
 
 }
 
-/*==================================================
-   ROLE MEMBRE PAR DEFAUT
-==================================================*/
+document.body.innerHTML=`
 
-function roleMembre(){
+<div style="
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#07130d;
+color:white;
+font-family:Arial;
+">
 
-    return{
+<div style="
+background:#101010;
+padding:40px;
+border-radius:25px;
+text-align:center;
+border:2px solid #D4AF37;
+max-width:500px;
+">
 
-        role:"membre",
+<h1 style="color:#D4AF37;">
+Accès refusé
+</h1>
 
-        bureau:"membre.html",
+<p style="margin:20px 0;">
 
-        permissions:{
+Vous ne possédez pas les autorisations nécessaires
+pour accéder à ce bureau.
 
-            lecture:true,
+</p>
 
-            creation:false,
+<button
+id="btnRetour"
+style="
+padding:15px 30px;
+background:#009245;
+border:none;
+border-radius:12px;
+color:white;
+font-size:16px;
+cursor:pointer;
+">
 
-            modification:false,
+Retour à l'espace membre
 
-            suppression:false,
+</button>
 
-            validation:false
+</div>
 
-        }
+</div>
 
-    };
+`;
+
+document
+.getElementById("btnRetour")
+.onclick=()=>{
+
+window.location.href="espace.html";
+
+};
+
+throw new Error("Accès refusé");
 
 }
 
-/*==================================================
-   VERIFICATION D'UNE PERMISSION
-==================================================*/
 
-export function autorise(
-permissions,
-action){
+//==================================================
+// TEST D'UNE FONCTION
+//==================================================
 
-    return permissions &&
-           permissions.permissions &&
-           permissions.permissions[action]===true;
+export function possedeFonction(f){
+
+return fonction===f.toLowerCase();
 
 }
 
-/*==================================================
-   REDIRECTION AUTOMATIQUE
-==================================================*/
 
-export function ouvrirBureau(
-permissions){
+//==================================================
+// TEST DE PLUSIEURS FONCTIONS
+//==================================================
 
-    if(!permissions)
-        return;
+export function possedeUneFonction(liste){
 
-    window.location.href=
-    permissions.bureau;
+return liste.includes(fonction);
 
 }
 
-console.log(
-"Permissions MWANA MBOKA chargées");
+
+//==================================================
+// DECONNEXION
+//==================================================
+
+export function deconnexion(){
+
+localStorage.clear();
+
+window.location.replace("connexion.html");
+
+}
+
+
+//==================================================
+// INFORMATIONS
+//==================================================
+
+console.log("Utilisateur :",nom);
+
+console.log("Fonction :",fonction);
+
+console.log("Bureau :",bureau);
