@@ -588,6 +588,11 @@ localStorage.setItem("photo",membre.photo || "");
 localStorage.setItem("statut",membre.statut || "Actif");
 localStorage.setItem("dateAdhesion",membre.dateAdhesion || "");
 localStorage.setItem("parrain",membre.parrain || "");
+localStorage.setItem(
+"role",
+(membre.role || "membre").toLowerCase()
+);
+
 
 let bureau="espace.html";
 
@@ -611,7 +616,10 @@ const valeur=obj[cle];
 
 if(typeof valeur==="object" && valeur!==null){
 
-if(valeur.responsableMatricule===matricule){
+if(
+String(valeur.responsableMatricule).trim().toUpperCase() ===
+matricule.toUpperCase()
+){
 
 fonction=valeur.fonction || cle;
 
@@ -707,8 +715,7 @@ localStorage.setItem("role","president");
 // SI AUCUNE FONCTION N'A ETE TROUVEE
 //======================================
 
-if(!localStorage.getItem("fonction")){
-
+if(fonction==="membre"){
 fonction="membre";
 
 bureau="espace.html";
