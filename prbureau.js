@@ -897,7 +897,6 @@ statut.innerHTML=
  DECONNEXION SECURISEE
 ==================================================*/
 
-import { deconnexion } from "./permissions.js";
 
 const logout =
 document.getElementById("logoutBtn");
