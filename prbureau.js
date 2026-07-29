@@ -315,7 +315,7 @@ obj[cle];
 
 
 
-if(typeof element==="object"){
+if(element && typeof element==="object"){
 
 
 
