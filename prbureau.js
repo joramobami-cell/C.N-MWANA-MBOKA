@@ -677,7 +677,8 @@ let html="";
 if(data){
 
 const journal=
-Object.values(data)
+Object.values(data || {})
+.slice()
 .reverse()
 .slice(0,20);
 
