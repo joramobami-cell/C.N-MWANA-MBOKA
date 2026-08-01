@@ -1,13 +1,13 @@
 /*==================================================
- PRBUREAU.JS
- BUREAU NUMERIQUE DU PRESIDENT
- COMMUNAUTE NUMERIQUE MWANA MBOKA
- VERSION PREMIUM V3
+PRBUREAU.JS
+BUREAU NUMERIQUE DU PRESIDENT
+COMMUNAUTE NUMERIQUE MWANA MBOKA
+VERSION PREMIUM V5
 ==================================================*/
 
 
 /*==================================================
- IMPORTS
+IMPORTS
 ==================================================*/
 
 import {
@@ -15,314 +15,539 @@ import {
     nom,
     matricule,
     fonction,
+    bureau,
     deconnexion
 } from "./permissions.js";
 
 import {
     ecouter,
     lire,
-    ajouter
+    enregistrer,
+    modifier,
+    supprimer,
+    ajouter,
+    lireDocument,
+    lireCollection,
+    creerDocument,
+    ajouterDocument,
+    modifierDocument,
+    supprimerDocument,
+    ecouterCollection
 } from "./firebase-service.js";
 
 
 /*==================================================
- SECURITE
+SECURITE
 ==================================================*/
 
 autoriser(["president"]);
 
-console.log("Bureau Président Premium V3");
 
+/*==================================================
+CONFIGURATION
+==================================================*/
+
+const APP = {
+
+    nom:
+    "COMMUNAUTE NUMERIQUE MWANA MBOKA",
+
+    version:
+    "Premium V5",
+
+    auteur:
+    "Présidence"
+
+};
 
 
 /*==================================================
- VARIABLES GLOBALES
+CACHE
 ==================================================*/
 
-let membresCache = {};
-let organigrammeCache = {};
-let nominationsCache = {};
-let journalCache = [];
+const cache = {
 
+    membres:{},
+
+    organigramme:{},
+
+    nominations:{},
+
+    journal:[],
+
+    statistiques:{},
+
+    systeme:{}
+
+};
 
 
 /*==================================================
- INITIALISATION
+ELEMENTS HTML
 ==================================================*/
 
-window.addEventListener("load",()=>{
+const ui={
 
-    afficherAnnee();
+    date:
+    document.getElementById("date"),
 
-    horloge();
+    heure:
+    document.getElementById("heure"),
 
-    initialiserMenu();
+    annee:
+    document.getElementById("annee"),
 
-    afficherProfil();
+    menu:
+    document.getElementById("mobileMenuBtn"),
 
-    chargerMembres();
+    sidebar:
+    document.getElementById("presidentSidebar"),
 
-    chargerOrganigramme();
+    nomPresident:
+    document.getElementById("nomPresident"),
 
-    chargerNominations();
+    matriculePresident:
+    document.getElementById("matriculePresident"),
 
-    chargerJournal();
+    messagePresident:
+    document.getElementById("messagePresident"),
 
-    chargerStatistiques();
+    totalMembres:
+    document.getElementById("totalMembres"),
 
-    messageBienvenue();
+    responsables:
+    document.getElementById("responsablesActifs"),
 
-});
+    listeResponsables:
+    document.getElementById("listeResponsables"),
 
+    nominations:
+    document.getElementById("nominationsAttente"),
+
+    formations:
+    document.getElementById("formationsActives"),
+
+    projets:
+    document.getElementById("projetsAttente"),
+
+    notifications:
+    document.getElementById("notifications"),
+
+    investissements:
+    document.getElementById("investissementsActifs"),
+
+    cotisations:
+    document.getElementById("cotisationsMois"),
+
+    finance:
+    document.getElementById("soldeGeneral"),
+
+    journal:
+    document.getElementById("journalPresident"),
+
+    etat:
+    document.getElementById("etatSysteme"),
+
+    systemStatus:
+    document.getElementById("systemStatus"),
+
+    signer:
+    document.getElementById("btnSigner"),
+
+    refresh:
+    document.getElementById("btnRefresh"),
+
+    action:
+    document.getElementById("actionRapide"),
+
+    logout:
+    document.getElementById("logoutBtn")
+
+};
 
 
 /*==================================================
- ANNEE
+FONCTIONS UTILITAIRES
 ==================================================*/
 
-function afficherAnnee(){
+function valeur(id,valeur){
 
-    const annee =
-    document.getElementById("annee");
+    if(id){
 
-    if(annee){
-
-        annee.textContent =
-        new Date().getFullYear();
+        id.textContent=valeur;
 
     }
 
 }
 
+function html(id,valeur){
 
+    if(id){
 
-/*==================================================
- HORLOGE
-==================================================*/
+        id.innerHTML=valeur;
 
-function horloge(){
+    }
 
-    actualiserHorloge();
+}
 
-    setInterval(
+function maintenant(){
 
-        actualiserHorloge,
+    return new Date();
 
-        1000
+}
+
+function dateFR(){
+
+    return maintenant().toLocaleDateString("fr-FR");
+
+}
+
+function heureFR(){
+
+    return maintenant().toLocaleTimeString("fr-FR");
+
+}
+
+function journaliser(action){
+
+    return ajouter(
+
+        "journal_activites",
+
+        {
+
+            nom,
+
+            matricule,
+
+            fonction,
+
+            bureau,
+
+            action,
+
+            date:dateFR(),
+
+            heure:heureFR()
+
+        }
 
     );
 
 }
 
-function actualiserHorloge(){
 
-    const maintenant =
-    new Date();
+/*==================================================
+DEMARRAGE
+==================================================*/
 
-    const date =
-    document.getElementById("date");
+console.log(APP.nom);
 
-    const heure =
-    document.getElementById("heure");
+console.log(APP.version);
 
-    if(date){
+console.log("Président :",nom);
 
-        date.textContent =
-        maintenant.toLocaleDateString("fr-FR");
+console.log("Matricule :",matricule);
 
-    }
+console.log("Fonction :",fonction);
 
-    if(heure){
 
-        heure.textContent =
-        maintenant.toLocaleTimeString("fr-FR");
+/*==================================================
+INITIALISATION DE L'INTERFACE
+==================================================*/
 
-    }
+function initialiserInterface(){
+
+    afficherAnnee();
+
+    demarrerHorloge();
+
+    initialiserMenu();
+
+    afficherProfil();
+
+    afficherMessageBienvenue();
 
 }
 
 
+/*==================================================
+ANNEE
+==================================================*/
+
+function afficherAnnee(){
+
+    valeur(
+        ui.annee,
+        new Date().getFullYear()
+    );
+
+}
+
 
 /*==================================================
- MENU MOBILE
+HORLOGE
+==================================================*/
+
+function demarrerHorloge(){
+
+    actualiserHorloge();
+
+    setInterval(
+        actualiserHorloge,
+        1000
+    );
+
+}
+
+
+function actualiserHorloge(){
+
+    const maintenant = new Date();
+
+    valeur(
+        ui.date,
+        maintenant.toLocaleDateString("fr-FR")
+    );
+
+    valeur(
+        ui.heure,
+        maintenant.toLocaleTimeString("fr-FR")
+    );
+
+}
+
+
+/*==================================================
+MENU MOBILE
 ==================================================*/
 
 function initialiserMenu(){
 
-    const bouton =
-    document.getElementById("mobileMenuBtn");
-
-    const sidebar =
-    document.getElementById("presidentSidebar");
-
-    if(!bouton || !sidebar){
+    if(!ui.menu || !ui.sidebar){
 
         return;
 
     }
 
-    bouton.onclick=()=>{
+    ui.menu.onclick=()=>{
 
-        sidebar.classList.toggle("active");
+        ui.sidebar.classList.toggle("active");
 
     };
 
 }
 
 
-
 /*==================================================
- PROFIL
+PROFIL PRESIDENT
 ==================================================*/
 
 function afficherProfil(){
 
-    const nomZone =
-    document.getElementById("nomPresident");
+    valeur(
+        ui.nomPresident,
+        nom || "Président"
+    );
 
-    const matriculeZone =
-    document.getElementById("matriculePresident");
-
-    if(nomZone){
-
-        nomZone.textContent =
-        nom || "Président Fondateur";
-
-    }
-
-    if(matriculeZone){
-
-        matriculeZone.textContent =
-        matricule || "";
-
-    }
+    valeur(
+        ui.matriculePresident,
+        matricule || "-"
+    );
 
 }
 
 
-
 /*==================================================
- MEMBRES
+MESSAGE DE BIENVENUE
 ==================================================*/
 
-function chargerMembres(){
+function afficherMessageBienvenue(){
 
-    ecouter(
+    if(!ui.messagePresident){
 
-        "membres",
+        return;
 
-        (data)=>{
+    }
 
-            membresCache =
-            data || {};
+    const h =
+    new Date().getHours();
 
-            const total =
-            Object.keys(membresCache).length;
+    let message="";
 
-            const zone =
-            document.getElementById("totalMembres");
+    if(h<12){
 
-            if(zone){
+        message="Bonjour";
 
-                zone.textContent =
-                total;
+    }
 
-            }
+    else if(h<18){
 
-        }
+        message="Bon après-midi";
+
+    }
+
+    else{
+
+        message="Bonsoir";
+
+    }
+
+    html(
+
+        ui.messagePresident,
+
+        `${message} <strong>${nom}</strong>`
 
     );
 
 }
 
+
 /*==================================================
- GS ORGANIGRAMME
+MISE A JOUR DE L'ETAT DU SYSTEME
+==================================================*/
+
+function afficherEtatSysteme(
+
+    texte="Système opérationnel",
+
+    couleur="#16a34a"
+
+){
+
+    html(
+
+        ui.systemStatus,
+
+        `<span style="color:${couleur};font-weight:bold;">
+
+        ● ${texte}
+
+        </span>`
+
+    );
+
+}
+
+
+/*==================================================
+INITIALISATION VISUELLE
+==================================================*/
+
+initialiserInterface();
+
+afficherEtatSysteme();
+
+console.log(
+"Interface Président initialisée."
+);
+
+
+/*==================================================
+CHARGEMENT DES MEMBRES
+==================================================*/
+
+function chargerMembres(){
+
+    ecouter("membres",(data)=>{
+
+        cache.membres = data || {};
+
+        valeur(
+
+            ui.totalMembres,
+
+            Object.keys(cache.membres).length
+
+        );
+
+    });
+
+}
+
+
+/*==================================================
+CHARGEMENT ORGANIGRAMME
 ==================================================*/
 
 function chargerOrganigramme(){
 
-    ecouter(
+    ecouter("organigramme",(data)=>{
 
-        "organigramme",
+        cache.organigramme = data || {};
 
-        (data)=>{
+        let total = 0;
 
-            organigrammeCache = data || {};
+        let htmlResponsables = "";
 
-            let total = 0;
-            let html = "";
+        parcourir(cache.organigramme);
 
-            parcourirOrganigramme(organigrammeCache);
+        function parcourir(obj){
 
-            function parcourirOrganigramme(obj){
+            if(!obj) return;
 
-                if(!obj) return;
+            Object.keys(obj).forEach(cle=>{
 
-                Object.keys(obj).forEach(cle=>{
+                const item = obj[cle];
 
-                    const element = obj[cle];
+                if(item && typeof item==="object"){
 
-                    if(element && typeof element==="object"){
+                    if(item.responsableMatricule){
 
-                        if(element.responsableMatricule){
+                        total++;
 
-                            total++;
-
-                            html += `
+                        htmlResponsables += `
 
 <div class="responsable-item">
 
-<h3>${element.fonction || cle}</h3>
+<h3>${item.fonction || cle}</h3>
 
-<p><b>Responsable :</b> ${element.nom || "Non renseigné"}</p>
+<p><b>Nom :</b> ${item.nom || "-"}</p>
 
-<p><b>Matricule :</b> ${element.responsableMatricule}</p>
+<p><b>Matricule :</b> ${item.responsableMatricule}</p>
 
-<p><b>Domaine :</b> ${element.domaine || "Non défini"}</p>
+<p><b>Domaine :</b> ${item.domaine || "-"}</p>
 
 </div>
 
 `;
 
-                        }
-
-                        parcourirOrganigramme(element);
-
                     }
 
-                });
+                    parcourir(item);
 
-            }
+                }
 
-            const compteur =
-            document.getElementById("responsablesActifs");
-
-            if(compteur){
-
-                compteur.textContent = total;
-
-            }
-
-            const liste =
-            document.getElementById("listeResponsables");
-
-            if(liste){
-
-                liste.innerHTML =
-                html || "<p>Aucun responsable nommé.</p>";
-
-            }
+            });
 
         }
 
-    );
+        valeur(
+
+            ui.responsablesActifs,
+
+            total
+
+        );
+
+        html(
+
+            ui.listeResponsables,
+
+            htmlResponsables ||
+
+            "<p>Aucun responsable.</p>"
+
+        );
+
+    });
 
 }
 
 
-
 /*==================================================
- NOMINATIONS
+CHARGEMENT NOMINATIONS
 ==================================================*/
 
 function chargerNominations(){
@@ -333,29 +558,28 @@ function chargerNominations(){
 
         (data)=>{
 
-            nominationsCache = data || {};
+            cache.nominations = data || {};
 
-            const zone =
-            document.getElementById("nominationsAttente");
+            let contenu = "";
 
-            if(!zone) return;
+            Object.values(cache.nominations)
 
-            let html = "";
+            .forEach(item=>{
 
-            Object.values(nominationsCache).forEach(item=>{
-
-                html += `
+                contenu += `
 
 <div class="nomination-item">
 
-<h3>${item.poste || "Poste"}</h3>
+<h3>${item.poste || "-"}</h3>
 
-<p><b>Nom :</b> ${item.nom || ""}</p>
+<p>${item.nom || ""}</p>
 
-<p><b>Matricule :</b> ${item.matricule || ""}</p>
+<p>${item.matricule || ""}</p>
 
-<p style="color:#ff9800;">
-En attente de validation présidentielle
+<p style="color:orange">
+
+En attente
+
 </p>
 
 </div>
@@ -364,8 +588,15 @@ En attente de validation présidentielle
 
             });
 
-            zone.innerHTML =
-            html || "<p>Aucune nomination en attente.</p>";
+            html(
+
+                ui.nominationsAttente,
+
+                contenu ||
+
+                "<p>Aucune nomination.</p>"
+
+            );
 
         }
 
@@ -374,134 +605,92 @@ En attente de validation présidentielle
 }
 
 
-
 /*==================================================
- MESSAGE PRESIDENT
-==================================================*/
-
-function messageBienvenue(){
-
-    const zone =
-    document.getElementById("messagePresident");
-
-    if(!zone) return;
-
-    const heure =
-    new Date().getHours();
-
-    let texte = "";
-
-    if(heure<12){
-
-        texte = "Bonjour";
-
-    }else if(heure<18){
-
-        texte = "Bon après-midi";
-
-    }else{
-
-        texte = "Bonsoir";
-
-    }
-
-    zone.innerHTML =
-
-    `${texte} <strong>${nom}</strong>`;
-
-     }
-
-/*==================================================
- STATISTIQUES
+CHARGEMENT STATISTIQUES
 ==================================================*/
 
 async function chargerStatistiques(){
 
-    try{
+    const formations =
+    await lire("statistiques/formations");
 
-        const [
-            formations,
-            projets,
-            finances,
-            notifications,
-            investissements,
-            cotisations
-        ] = await Promise.all([
+    const projets =
+    await lire("statistiques/projets");
 
-            lire("statistiques/formations"),
-            lire("statistiques/projets"),
-            lire("statistiques/finances"),
-            lire("statistiques/notifications"),
-            lire("statistiques/investissements"),
-            lire("statistiques/cotisations")
+    const finances =
+    await lire("statistiques/finances");
 
-        ]);
+    const notifications =
+    await lire("statistiques/notifications");
 
-        mettreValeur(
-            "formationsActives",
-            formations?.total || 0
-        );
+    const investissements =
+    await lire("statistiques/investissements");
 
-        mettreValeur(
-            "projetsAttente",
-            projets?.total || 0
-        );
+    const cotisations =
+    await lire("statistiques/cotisations");
 
-        mettreValeur(
-            "notifications",
-            notifications?.total || 0
-        );
+    valeur(
 
-        mettreValeur(
-            "investissementsActifs",
-            investissements?.total || 0
-        );
+        ui.formationsActives,
 
-        mettreValeur(
-            "cotisationsMois",
-            cotisations?.mois || 0
-        );
+        formations?.total || 0
 
-        mettreValeur(
-            "soldeGeneral",
-            (finances?.solde || 0) + " FCFA"
-        );
+    );
 
-    }
+    valeur(
 
-    catch(erreur){
+        ui.projetsAttente,
 
-        console.error(
-            "Erreur statistiques :",
-            erreur
-        );
+        projets?.total || 0
 
-    }
+    );
 
-}
+    valeur(
 
-function mettreValeur(id,valeur){
+        ui.notifications,
 
-    const element =
-    document.getElementById(id);
+        notifications?.total || 0
 
-    if(element){
+    );
 
-        element.textContent =
-        valeur;
+    valeur(
 
-    }
+        ui.investissementsActifs,
+
+        investissements?.total || 0
+
+    );
+
+    valeur(
+
+        ui.cotisationsMois,
+
+        cotisations?.mois || 0
+
+    );
+
+    valeur(
+
+        ui.soldeGeneral,
+
+        (finances?.solde || 0) + " FCFA"
+
+    );
 
 }
 
 setInterval(
+
     chargerStatistiques,
+
     30000
+
 );
 
+chargerStatistiques();
 
 /*==================================================
- JOURNAL PRESIDENTIEL
+JOURNAL PRESIDENTIEL
 ==================================================*/
 
 function chargerJournal(){
@@ -512,44 +701,27 @@ function chargerJournal(){
 
         (data)=>{
 
-            journalCache =
+            cache.journal =
+
             Object.values(data || {})
-            .slice()
             .reverse()
             .slice(0,20);
 
-            const zone =
-            document.getElementById(
-                "journalPresident"
-            );
+            let contenu = "";
 
-            if(!zone) return;
+            cache.journal.forEach(item=>{
 
-            let html="";
-
-            journalCache.forEach(item=>{
-
-                html += `
+                contenu += `
 
 <div class="journal-item">
 
-<h4>
-${item.action || "Activité"}
-</h4>
+<h4>${item.action || "Activité"}</h4>
 
-<p>
-${item.nom || ""}
-</p>
+<p>${item.nom || ""}</p>
 
-<p>
-${item.fonction || ""}
-</p>
+<p>${item.fonction || ""}</p>
 
-<p>
-${item.date || ""}
-&nbsp;
-${item.heure || ""}
-</p>
+<p>${item.date || ""} ${item.heure || ""}</p>
 
 </div>
 
@@ -557,9 +729,15 @@ ${item.heure || ""}
 
             });
 
-            zone.innerHTML =
-            html ||
-            "<p>Aucune activité enregistrée.</p>";
+            html(
+
+                ui.journalPresident,
+
+                contenu ||
+
+                "<p>Aucune activité.</p>"
+
+            );
 
         }
 
@@ -567,44 +745,34 @@ ${item.heure || ""}
 
 }
 
+chargerJournal();
+
 
 /*==================================================
- VALIDATION PRESIDENTIELLE
+VALIDATION PRESIDENTIELLE
 ==================================================*/
 
-const btnSigner =
-document.getElementById(
-"btnSigner"
-);
+if(ui.btnSigner){
 
-if(btnSigner){
+    ui.btnSigner.onclick = async()=>{
 
-    btnSigner.onclick =
-    async()=>{
-
-        const code =
-        prompt(
-        "Entrer le code présidentiel"
+        const code = prompt(
+            "Entrer le code présidentiel"
         );
 
-        if(!code){
-
-            return;
-
-        }
+        if(!code) return;
 
         const securite =
-        await lire(
-        "systeme/securite"
-        );
+        await lire("systeme/securite");
 
         if(
-        securite &&
-        code !== securite.codePresident
+            securite &&
+            securite.codePresident &&
+            code !== securite.codePresident
         ){
 
             alert(
-            "Code présidentiel incorrect."
+                "Code présidentiel incorrect."
             );
 
             return;
@@ -617,11 +785,7 @@ if(btnSigner){
 
             {
 
-                date:new Date()
-                .toLocaleDateString("fr-FR"),
-
-                heure:new Date()
-                .toLocaleTimeString("fr-FR"),
+                action:"Validation présidentielle",
 
                 nom,
 
@@ -629,15 +793,18 @@ if(btnSigner){
 
                 fonction,
 
-                action:
-                "Validation présidentielle"
+                date:new Date()
+                .toLocaleDateString("fr-FR"),
+
+                heure:new Date()
+                .toLocaleTimeString("fr-FR")
 
             }
 
         );
 
         alert(
-        "Validation enregistrée."
+            "Validation enregistrée."
         );
 
     };
@@ -646,18 +813,12 @@ if(btnSigner){
 
 
 /*==================================================
- ACTION RAPIDE
+ACTION RAPIDE
 ==================================================*/
 
-const actionRapide =
-document.getElementById(
-"actionRapide"
-);
+if(ui.actionRapide){
 
-if(actionRapide){
-
-    actionRapide.onclick =
-    async()=>{
+    ui.actionRapide.onclick = async()=>{
 
         await ajouter(
 
@@ -665,11 +826,7 @@ if(actionRapide){
 
             {
 
-                date:new Date()
-                .toLocaleDateString("fr-FR"),
-
-                heure:new Date()
-                .toLocaleTimeString("fr-FR"),
+                action:"Action rapide exécutée",
 
                 nom,
 
@@ -677,16 +834,85 @@ if(actionRapide){
 
                 fonction,
 
-                action:
-                "Action rapide exécutée"
+                date:new Date()
+                .toLocaleDateString("fr-FR"),
+
+                heure:new Date()
+                .toLocaleTimeString("fr-FR")
 
             }
 
         );
 
-        alert(
-        "Action enregistrée."
-        );
+        alert("Action enregistrée.");
+
+    };
+
+}
+
+
+/*==================================================
+BOUTON RAFRAICHIR
+==================================================*/
+
+if(ui.btnRefresh){
+
+    ui.btnRefresh.onclick = ()=>{
+
+        chargerStatistiques();
+
+        alert("Tableau de bord actualisé.");
+
+    };
+
+}
+
+
+/*==================================================
+DECONNEXION
+==================================================*/
+
+if(ui.logout){
+
+    ui.logout.onclick = async()=>{
+
+        if(!confirm(
+            "Voulez-vous vous déconnecter ?"
+        )) return;
+
+        try{
+
+            await ajouter(
+
+                "journal_activites",
+
+                {
+
+                    action:"Déconnexion",
+
+                    nom,
+
+                    matricule,
+
+                    fonction,
+
+                    date:new Date()
+                    .toLocaleDateString("fr-FR"),
+
+                    heure:new Date()
+                    .toLocaleTimeString("fr-FR")
+
+                }
+
+            );
+
+        }catch(e){
+
+            console.error(e);
+
+        }
+
+        deconnexion();
 
     };
 
@@ -694,30 +920,7 @@ if(actionRapide){
 
 
 /*==================================================
- RAFRAICHIR TABLEAU DE BORD
-==================================================*/
-
-const btnRefresh =
-document.getElementById("btnRefresh");
-
-if(btnRefresh){
-
-    btnRefresh.onclick = ()=>{
-
-        chargerStatistiques();
-
-        alert(
-        "Tableau de bord actualisé."
-        );
-
-    };
-
-}
-
-
-
-/*==================================================
- ETAT DU SYSTEME
+ETAT DU SYSTEME
 ==================================================*/
 
 ecouter(
@@ -726,28 +929,20 @@ ecouter(
 
     (etat)=>{
 
-        const zone =
-        document.getElementById(
-        "etatSysteme"
-        );
-
-        if(!zone) return;
+        if(!ui.etatSysteme) return;
 
         if(!etat){
 
-            zone.innerHTML =
+            ui.etatSysteme.innerHTML =
             '<span style="color:green;">● Système opérationnel</span>';
 
             return;
 
         }
 
-        const couleur =
-        etat.couleur || "green";
+        ui.etatSysteme.innerHTML =
 
-        zone.innerHTML =
-
-        `<span style="color:${couleur};">
+        `<span style="color:${etat.couleur || "green"};">
 
         ● ${etat.message || "Système opérationnel"}
 
@@ -758,290 +953,156 @@ ecouter(
 );
 
 
-
 /*==================================================
- MESSAGE SYSTEME
+STATUT APPLICATION
 ==================================================*/
 
-const systemStatus =
-document.getElementById(
-"systemStatus"
-);
+if(ui.systemStatus){
 
-if(systemStatus){
-
-    systemStatus.innerHTML =
-
+    ui.systemStatus.innerHTML =
     '<span style="color:green;">● En ligne</span>';
 
 }
 
 
-
 /*==================================================
- DECONNEXION
+SURVEILLANCE SESSION
 ==================================================*/
 
-const logout =
-document.getElementById(
-"logoutBtn"
-);
+window.addEventListener("storage",()=>{
 
-if(logout){
+    if(!localStorage.getItem("utilisateurConnecte")){
 
-    logout.onclick = async()=>{
-
-        const quitter = confirm(
-
-        "Voulez-vous vraiment vous déconnecter ?"
-
-        );
-
-        if(!quitter){
-
-            return;
-
-        }
-
-        try{
-
-            await ajouter(
-
-                "journal_activites",
-
-                {
-
-                    date:new Date()
-                    .toLocaleDateString("fr-FR"),
-
-                    heure:new Date()
-                    .toLocaleTimeString("fr-FR"),
-
-                    nom,
-
-                    matricule,
-
-                    fonction,
-
-                    action:"Déconnexion"
-
-                }
-
-            );
-
-        }
-
-        catch(e){
-
-            console.error(e);
-
-        }
-
-        deconnexion();
-
-    };
-
-}
-
-
-
-/*==================================================
- SURVEILLANCE SESSION
-==================================================*/
-
-window.addEventListener(
-
-"storage",
-
-()=>{
-
-    if(
-
-    !localStorage.getItem(
-    "utilisateurConnecte"
-    )
-
-    ){
-
-        location.replace(
-        "connexion.html"
-        );
+        location.replace("connexion.html");
 
     }
 
-}
-
-);
+});
 
 
+window.addEventListener("focus",()=>{
 
-/*==================================================
- SURVEILLANCE NAVIGATEUR
-==================================================*/
+    if(!localStorage.getItem("utilisateurConnecte")){
 
-window.addEventListener(
-
-"focus",
-
-()=>{
-
-    if(
-
-    !localStorage.getItem(
-    "utilisateurConnecte"
-    )
-
-    ){
-
-        location.replace(
-        "connexion.html"
-        );
+        location.replace("connexion.html");
 
     }
 
-}
+});
 
-);
 
+setInterval(()=>{
+
+    if(!localStorage.getItem("utilisateurConnecte")){
+
+        location.replace("connexion.html");
+
+    }
+
+},5000);
 
 
 /*==================================================
- RACCOURCIS CLAVIER
+RACCOURCIS CLAVIER
 ==================================================*/
 
 document.addEventListener(
 
-"keydown",
+    "keydown",
 
-(e)=>{
+    (e)=>{
 
-    // Actualisation du tableau de bord
+        if(e.key==="F5"){
 
-    if(e.key==="F5"){
+            e.preventDefault();
 
-        e.preventDefault();
+            chargerStatistiques();
 
-        chargerStatistiques();
+        }
 
-    }
+        if(e.ctrlKey && e.key.toLowerCase()==="r"){
 
-    // Rechargement complet
+            e.preventDefault();
 
-    if(e.ctrlKey && e.key.toLowerCase()==="r"){
+            location.reload();
 
-        e.preventDefault();
+        }
 
-        location.reload();
+        if(e.ctrlKey && e.key.toLowerCase()==="q"){
 
-    }
+            e.preventDefault();
 
-    // Déconnexion rapide
+            ui.logout?.click();
 
-    if(e.ctrlKey && e.key.toLowerCase()==="q"){
-
-        e.preventDefault();
-
-        document.getElementById("logoutBtn")?.click();
+        }
 
     }
 
-});
-
+);
 
 
 /*==================================================
- INITIALISATION GENERALE
+INITIALISATION
 ==================================================*/
 
 async function initialiser(){
 
-    console.log("Initialisation du Bureau Président...");
+    console.log("Initialisation...");
 
-    try{
+    chargerMembres();
 
-        await chargerStatistiques();
+    chargerOrganigramme();
 
-    }
+    chargerNominations();
 
-    catch(e){
+    chargerJournal();
 
-        console.error(
-
-            "Erreur d'initialisation :",
-
-            e
-
-        );
-
-    }
+    await chargerStatistiques();
 
 }
-
-
-
-/*==================================================
- LANCEMENT
-==================================================*/
 
 initialiser();
 
 
-
 /*==================================================
- CONTROLE PERIODIQUE
+ACTUALISATION PERIODIQUE
 ==================================================*/
 
-setInterval(()=>{
+setInterval(
 
-    chargerStatistiques();
+    ()=>{
 
-},60000);
+        chargerStatistiques();
 
+    },
+
+    60000
+
+);
 
 
 /*==================================================
- MESSAGE DE DEMARRAGE
+CONSOLE
 ==================================================*/
 
 console.table({
 
-    Application :
-    "COMMUNAUTE NUMERIQUE MWANA MBOKA",
+    application:"COMMUNAUTE NUMERIQUE MWANA MBOKA",
 
-    Module :
-    "Bureau Numérique Président",
+    module:"Bureau Président",
 
-    Version :
-    "Premium V3",
+    version:"Premium V4",
 
-    Utilisateur :
-    nom,
+    utilisateur:nom,
 
-    Matricule :
-    matricule,
+    matricule:matricule,
 
-    Fonction :
-    fonction,
+    fonction:fonction,
 
-    Statut :
-    "Connecté"
+    statut:"Connecté"
 
 });
 
-
-
-/*==================================================
- FIN DU FICHIER
-==================================================*/
-
-console.log(
-"===================================="
-);
-
-console.log(
-" Bureau Président Premium V3 prêt "
-);
-
-console.log(
-"===================================="
-);
+console.log("==================================");
+console.log(" Bureau Président Premium prêt");
+console.log("==================================");
