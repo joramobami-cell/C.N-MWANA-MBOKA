@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Bureau Numérique du Secrétaire Général
+</title>
+
+<link rel="stylesheet"
+href="sgbureau.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ==========================
+MENU MOBILE
+========================== -->
+
+<button
+id="mobileMenuBtn"
+class="mobile-menu">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<!-- ==========================
+SIDEBAR
+========================== -->
+
+<aside
+class="sidebar"
+id="sgSidebar">
+
+<div class="logo-box">
+
+<img
+src="images/logo.png"
+alt="Logo MWANA MBOKA"
+class="logo">
+
+<h2>
+
+MWANA MBOKA
+
+</h2>
+
+<p>
+
+Secrétariat Général
+
+</p>
+
+</div>
+
+<nav>
+
+<a href="sgbureau.html">
+
+<i class="fa-solid fa-gauge"></i>
+
+Tableau de bord
+
+</a>
+
+<a href="membres.html">
+
+<i class="fa-solid fa-users"></i>
+
+Membres
+
+</a>
+
+<a href="adhesions.html">
+
+<i class="fa-solid fa-user-plus"></i>
+
+Adhésions
+
+</a>
+
+<a href="organigramme.html">
+
+<i class="fa-solid fa-sitemap"></i>
+
+Organigramme
+
+</a>
+
+<a href="nominations.html">
+
+<i class="fa-solid fa-user-check"></i>
+
+Nominations
+
+</a>
+
+<a href="administration.html">
+
+<i class="fa-solid fa-building"></i>
+
+Administration
+
+</a>
+
+<a href="formations.html">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+Formations
+
+</a>
+
+<a href="communication.html">
+
+<i class="fa-solid fa-bullhorn"></i>
+
+Communication
+
+</a>
+
+<a href="projets.html">
+
+<i class="fa-solid fa-diagram-project"></i>
+
+Projets
+
+</a>
+
+<a href="documents.html">
+
+<i class="fa-solid fa-folder-open"></i>
+
+Documents
+
+</a>
+
+<a href="archives.html">
+
+<i class="fa-solid fa-box-archive"></i>
+
+Archives
+
+</a>
+
+<a href="journal.html">
+
+<i class="fa-solid fa-book"></i>
+
+Journal Administratif
+
+</a>
+
+<a href="parametres.html">
+
+<i class="fa-solid fa-gear"></i>
+
+Paramètres
+
+</a>
+
+<a
+href="#"
+id="logoutBtn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Déconnexion
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- ==========================
+CONTENU PRINCIPAL
+========================== -->
+
+<main class="main-content">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Bureau Numérique du Secrétaire Général
+
+</h1>
+
+<p>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</p>
+
+</div>
+
+<div class="profil">
+
+<h3 id="nomSG">
+
+Secrétaire Général
+
+</h3>
+
+<p>
+
+Matricule :
+
+<span id="matriculeSG"></span>
+
+</p>
+
+<p>
+
+<span id="date"></span>
+
+|
+
+<span id="heure"></span>
+
+</p>
+
+</div>
+
+</header>
+
+<!-- ==========================
+MESSAGE DE BIENVENUE
+========================== -->
+
+<section class="welcome-card">
+
+<h2 id="messageSG">
+
+Bienvenue
+
+</h2>
+
+<p>
+
+Centre de gestion administrative de la
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</p>
+
+</section>
+
+
+<!-- ==========================
+TABLEAU DE BORD
+========================== -->
+
+<section class="dashboard">
+
+<div class="card">
+
+<i class="fa-solid fa-users"></i>
+
+<h3 id="totalMembres">0</h3>
+
+<p>Membres</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fa-solid fa-user-plus"></i>
+
+<h3 id="nouvellesAdhesions">0</h3>
+
+<p>Nouvelles adhésions</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fa-solid fa-folder-open"></i>
+
+<h3 id="dossiersTraitement">0</h3>
+
+<p>Dossiers à traiter</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fa-solid fa-user-check"></i>
+
+<h3 id="nominationsAttente">0</h3>
+
+<p>Nominations</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fa-solid fa-file-signature"></i>
+
+<h3 id="documentsSigner">0</h3>
+
+<p>Documents à signer</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+<h3 id="formationsActives">0</h3>
+
+<p>Formations</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fa-solid fa-diagram-project"></i>
+
+<h3 id="projetsSuivis">0</h3>
+
+<p>Projets</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fa-solid fa-bell"></i>
+
+<h3 id="notifications">0</h3>
+
+<p>Notifications</p>
+
+</div>
+
+</section>
+
+
+<!-- ==========================
+ACCES RAPIDE
+========================== -->
+
+<section class="quick-actions">
+
+<h2>
+
+Accès rapide
+
+</h2>
+
+<div class="quick-grid">
+
+<button id="btnNouveauMembre">
+
+<i class="fa-solid fa-user-plus"></i>
+
+<span>Nouveau membre</span>
+
+</button>
+
+<button id="btnNouvelleAdhesion">
+
+<i class="fa-solid fa-id-card"></i>
+
+<span>Nouvelle adhésion</span>
+
+</button>
+
+<button id="btnNouveauDossier">
+
+<i class="fa-solid fa-folder-plus"></i>
+
+<span>Nouveau dossier</span>
+
+</button>
+
+<button id="btnNouveauDocument">
+
+<i class="fa-solid fa-file-circle-plus"></i>
+
+<span>Nouveau document</span>
+
+</button>
+
+<button id="btnNouvelleNomination">
+
+<i class="fa-solid fa-user-check"></i>
+
+<span>Nomination</span>
+
+</button>
+
+<button id="btnActualiser">
+
+<i class="fa-solid fa-rotate"></i>
+
+<span>Actualiser</span>
+
+</button>
+
+</div>
+
+</section>
+
+<!-- ==========================
+CENTRE ADMINISTRATIF
+========================== -->
+
+<section class="admin-section">
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-building"></i>
+
+Administration
+
+</h2>
+
+<div id="listeAdministration"
+class="liste-zone">
+
+<p>
+
+Aucune donnée.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-users"></i>
+
+Membres récemment inscrits
+
+</h2>
+
+<div id="listeMembres"
+class="liste-zone">
+
+<p>
+
+Chargement...
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ==========================
+ADHÉSIONS
+========================== -->
+
+<section class="admin-section">
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-id-card"></i>
+
+Adhésions en attente
+
+</h2>
+
+<div id="listeAdhesions"
+class="liste-zone">
+
+<p>
+
+Aucune adhésion.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-user-check"></i>
+
+Nominations
+
+</h2>
+
+<div id="listeNominations"
+class="liste-zone">
+
+<p>
+
+Aucune nomination.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ==========================
+DOCUMENTS
+========================== -->
+
+<section class="admin-section">
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-folder-open"></i>
+
+Documents administratifs
+
+</h2>
+
+<div id="listeDocuments"
+class="liste-zone">
+
+<p>
+
+Aucun document.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-box-archive"></i>
+
+Archives
+
+</h2>
+
+<div id="listeArchives"
+class="liste-zone">
+
+<p>
+
+Aucune archive.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ==========================
+JOURNAL ADMINISTRATIF
+========================== -->
+
+<section class="journal-section">
+
+<h2>
+
+<i class="fa-solid fa-book"></i>
+
+Journal Administratif
+
+</h2>
+
+<div id="journalAdministratif"
+class="journal-box">
+
+<p>
+
+Aucune activité enregistrée.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ==========================
+FORMATION & PROJETS
+========================== -->
+
+<section class="admin-section">
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+Formations actives
+
+</h2>
+
+<div id="listeFormations"
+class="liste-zone">
+
+<p>
+
+Aucune formation active.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-diagram-project"></i>
+
+Projets suivis
+
+</h2>
+
+<div id="listeProjets"
+class="liste-zone">
+
+<p>
+
+Aucun projet en cours.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==========================
+COMMUNICATION & NOTIFICATIONS
+========================== -->
+
+<section class="admin-section">
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-bullhorn"></i>
+
+Communication
+
+</h2>
+
+<div id="listeCommunications"
+class="liste-zone">
+
+<p>
+
+Aucune communication.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-bell"></i>
+
+Notifications
+
+</h2>
+
+<div id="listeNotifications"
+class="liste-zone">
+
+<p>
+
+Aucune notification.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==========================
+ÉTAT DU SYSTÈME
+========================== -->
+
+<section class="system-section">
+
+<div class="panel">
+
+<h2>
+
+<i class="fa-solid fa-server"></i>
+
+État du système
+
+</h2>
+
+<p id="etatSysteme">
+
+● Système opérationnel
+
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- ==========================
+PIED DE PAGE
+========================== -->
+
+<footer class="footer">
+
+<p>
+
+©
+<span id="annee"></span>
+
+COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+</p>
+
+<p>
+
+Bureau Numérique du Secrétaire Général
+
+</p>
+
+<p>
+
+Version Premium V1
+
+</p>
+
+</footer>
+
+
+<!-- ==========================
+SCRIPT
+========================== -->
+
+<script
+type="module"
+src="sgbureau.js">
+</script>
+
+</body>
+
+</html>
