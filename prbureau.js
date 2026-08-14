@@ -2,12 +2,13 @@
 PRBUREAU.JS
 BUREAU NUMERIQUE DU PRESIDENT
 COMMUNAUTE NUMERIQUE MWANA MBOKA
-VERSION PREMIUM V5
+VERSION PREMIUM V6
+REALTIME DATABASE
 ==================================================*/
 
 
 /*==================================================
-IMPORTS
+ IMPORTS
 ==================================================*/
 
 import {
@@ -22,262 +23,165 @@ import {
 import {
     ecouter,
     lire,
-    enregistrer,
-    modifier,
-    supprimer,
-    ajouter,
-    lireDocument,
-    lireCollection,
-    creerDocument,
-    ajouterDocument,
-    modifierDocument,
-    supprimerDocument,
-    ecouterCollection
+    ajouter
 } from "./firebase-service.js";
 
 
 /*==================================================
-SECURITE
+ SECURITE
 ==================================================*/
 
 autoriser(["president"]);
 
 
 /*==================================================
-CONFIGURATION
+ CONFIGURATION
 ==================================================*/
 
 const APP = {
-
-    nom:
-    "COMMUNAUTE NUMERIQUE MWANA MBOKA",
-
-    version:
-    "Premium V5",
-
-    auteur:
-    "Présidence"
-
+    nom: "COMMUNAUTE NUMERIQUE MWANA MBOKA",
+    version: "Premium V6",
+    stockage: "Firebase Realtime Database"
 };
 
 
 /*==================================================
-CACHE
+ CACHE
 ==================================================*/
 
 const cache = {
 
-    membres:{},
-
-    organigramme:{},
-
-    nominations:{},
-
-    journal:[],
-
-    statistiques:{},
-
-    systeme:{}
+    membres: {},
+    organigramme: {},
+    nominations: {},
+    journal: {}
 
 };
 
 
 /*==================================================
-ELEMENTS HTML
+ ELEMENTS HTML
 ==================================================*/
 
-const ui={
+const ui = {
 
     date:
-    document.getElementById("date"),
+        document.getElementById("date"),
 
     heure:
-    document.getElementById("heure"),
+        document.getElementById("heure"),
 
     annee:
-    document.getElementById("annee"),
+        document.getElementById("annee"),
 
     menu:
-    document.getElementById("mobileMenuBtn"),
+        document.getElementById("mobileMenuBtn"),
 
     sidebar:
-    document.getElementById("presidentSidebar"),
-
-    nomPresident:
-    document.getElementById("nomPresident"),
-
-    matriculePresident:
-    document.getElementById("matriculePresident"),
-
-    messagePresident:
-    document.getElementById("messagePresident"),
+        document.getElementById("presidentSidebar"),
 
     totalMembres:
-    document.getElementById("totalMembres"),
+        document.getElementById("totalMembres"),
 
     responsables:
-    document.getElementById("responsablesActifs"),
+        document.getElementById("responsablesActifs"),
 
     listeResponsables:
-    document.getElementById("listeResponsables"),
+        document.getElementById("listeResponsables"),
 
     nominations:
-    document.getElementById("nominationsAttente"),
-
-    formations:
-    document.getElementById("formationsActives"),
-
-    projets:
-    document.getElementById("projetsAttente"),
-
-    notifications:
-    document.getElementById("notifications"),
-
-    investissements:
-    document.getElementById("investissementsActifs"),
-
-    cotisations:
-    document.getElementById("cotisationsMois"),
-
-    finance:
-    document.getElementById("soldeGeneral"),
+        document.getElementById("nominationsAttente"),
 
     journal:
-    document.getElementById("journalPresident"),
-
-    etat:
-    document.getElementById("etatSysteme"),
-
-    systemStatus:
-    document.getElementById("systemStatus"),
-
-    signer:
-    document.getElementById("btnSigner"),
-
-    refresh:
-    document.getElementById("btnRefresh"),
-
-    action:
-    document.getElementById("actionRapide"),
+        document.getElementById("journalPresident"),
 
     logout:
-    document.getElementById("logoutBtn")
+        document.getElementById("logoutBtn"),
+
+    systemStatus:
+        document.querySelector(".system-status")
 
 };
 
 
 /*==================================================
-FONCTIONS UTILITAIRES
+ OUTILS
 ==================================================*/
 
-function valeur(id,valeur){
+function afficher(element, valeur) {
 
-    if(id){
+    if (!element) return;
 
-        id.textContent=valeur;
-
-    }
+    element.textContent = valeur;
 
 }
 
-function html(id,valeur){
 
-    if(id){
+function afficherHTML(element, contenu) {
 
-        id.innerHTML=valeur;
+    if (!element) return;
 
-    }
-
-}
-
-function maintenant(){
-
-    return new Date();
+    element.innerHTML = contenu;
 
 }
 
-function dateFR(){
 
-    return maintenant().toLocaleDateString("fr-FR");
+/*==================================================
+ DATE / HEURE
+==================================================*/
+
+function actualiserDateHeure() {
+
+    const maintenant = new Date();
+
+    afficher(
+        ui.date,
+        maintenant.toLocaleDateString(
+            "fr-FR",
+            {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }
+        )
+    );
+
+
+    afficher(
+        ui.heure,
+        maintenant.toLocaleTimeString(
+            "fr-FR",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        )
+    );
 
 }
 
-function heureFR(){
 
-    return maintenant().toLocaleTimeString("fr-FR");
+function demarrerHorloge() {
 
-}
+    actualiserDateHeure();
 
-function journaliser(action){
-
-    return ajouter(
-
-        "journal_activites",
-
-        {
-
-            nom,
-
-            matricule,
-
-            fonction,
-
-            bureau,
-
-            action,
-
-            date:dateFR(),
-
-            heure:heureFR()
-
-        }
-
+    setInterval(
+        actualiserDateHeure,
+        1000
     );
 
 }
 
 
 /*==================================================
-DEMARRAGE
+ ANNEE
 ==================================================*/
 
-console.log(APP.nom);
+function afficherAnnee() {
 
-console.log(APP.version);
-
-console.log("Président :",nom);
-
-console.log("Matricule :",matricule);
-
-console.log("Fonction :",fonction);
-
-
-/*==================================================
-INITIALISATION DE L'INTERFACE
-==================================================*/
-
-function initialiserInterface(){
-
-    afficherAnnee();
-
-    demarrerHorloge();
-
-    initialiserMenu();
-
-    afficherProfil();
-
-    afficherMessageBienvenue();
-
-}
-
-
-/*==================================================
-ANNEE
-==================================================*/
-
-function afficherAnnee(){
-
-    valeur(
+    afficher(
         ui.annee,
         new Date().getFullYear()
     );
@@ -286,768 +190,629 @@ function afficherAnnee(){
 
 
 /*==================================================
-HORLOGE
+ MENU PRESIDENT
 ==================================================*/
 
-function demarrerHorloge(){
+function initialiserMenu() {
 
-    actualiserHorloge();
+    if (!ui.menu) {
 
-    setInterval(
-        actualiserHorloge,
-        1000
-    );
-
-}
-
-
-function actualiserHorloge(){
-
-    const maintenant = new Date();
-
-    valeur(
-        ui.date,
-        maintenant.toLocaleDateString("fr-FR")
-    );
-
-    valeur(
-        ui.heure,
-        maintenant.toLocaleTimeString("fr-FR")
-    );
-
-}
-
-
-/*==================================================
-MENU MOBILE
-==================================================*/
-
-function initialiserMenu(){
-
-    if(!ui.menu || !ui.sidebar){
-
-        return;
-
-    }
-
-    ui.menu.onclick=()=>{
-
-        ui.sidebar.classList.toggle("active");
-
-    };
-
-}
-
-
-/*==================================================
-PROFIL PRESIDENT
-==================================================*/
-
-function afficherProfil(){
-
-    valeur(
-        ui.nomPresident,
-        nom || "Président"
-    );
-
-    valeur(
-        ui.matriculePresident,
-        matricule || "-"
-    );
-
-}
-
-
-/*==================================================
-MESSAGE DE BIENVENUE
-==================================================*/
-
-function afficherMessageBienvenue(){
-
-    if(!ui.messagePresident){
-
-        return;
-
-    }
-
-    const h =
-    new Date().getHours();
-
-    let message="";
-
-    if(h<12){
-
-        message="Bonjour";
-
-    }
-
-    else if(h<18){
-
-        message="Bon après-midi";
-
-    }
-
-    else{
-
-        message="Bonsoir";
-
-    }
-
-    html(
-
-        ui.messagePresident,
-
-        `${message} <strong>${nom}</strong>`
-
-    );
-
-}
-
-
-/*==================================================
-MISE A JOUR DE L'ETAT DU SYSTEME
-==================================================*/
-
-function afficherEtatSysteme(
-
-    texte="Système opérationnel",
-
-    couleur="#16a34a"
-
-){
-
-    html(
-
-        ui.systemStatus,
-
-        `<span style="color:${couleur};font-weight:bold;">
-
-        ● ${texte}
-
-        </span>`
-
-    );
-
-}
-
-
-/*==================================================
-INITIALISATION VISUELLE
-==================================================*/
-
-initialiserInterface();
-
-afficherEtatSysteme();
-
-console.log(
-"Interface Président initialisée."
-);
-
-
-/*==================================================
-CHARGEMENT DES MEMBRES
-==================================================*/
-
-function chargerMembres(){
-
-    ecouter("membres",(data)=>{
-
-        cache.membres = data || {};
-
-        valeur(
-
-            ui.totalMembres,
-
-            Object.keys(cache.membres).length
-
+        console.error(
+            "Bouton menu introuvable."
         );
 
-    });
+        return;
+
+    }
+
+
+    if (!ui.sidebar) {
+
+        console.error(
+            "Sidebar Président introuvable."
+        );
+
+        return;
+
+    }
+
+
+    ui.menu.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            ui.sidebar.classList.toggle(
+                "active"
+            );
+
+            console.log(
+                "Menu Président :",
+                ui.sidebar.classList.contains("active")
+                    ? "OUVERT"
+                    : "FERME"
+            );
+
+        }
+    );
+
+
+    /*
+    Fermer le menu lorsqu'on clique
+    sur un lien.
+    */
+
+    const liens =
+        ui.sidebar.querySelectorAll("a");
+
+
+    liens.forEach(
+        lien => {
+
+            lien.addEventListener(
+                "click",
+                () => {
+
+                    ui.sidebar.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+    );
 
 }
 
 
 /*==================================================
-CHARGEMENT ORGANIGRAMME
+ ETAT DU SYSTEME
 ==================================================*/
 
-function chargerOrganigramme(){
+function afficherEtatSysteme() {
 
-    ecouter("organigramme",(data)=>{
+    if (!ui.systemStatus) return;
 
-        cache.organigramme = data || {};
 
-        let total = 0;
+    ui.systemStatus.innerHTML = `
 
-        let htmlResponsables = "";
+        <i class="fa-solid fa-circle"></i>
 
-        parcourir(cache.organigramme);
+        Système opérationnel
 
-        function parcourir(obj){
+    `;
 
-            if(!obj) return;
+}
 
-            Object.keys(obj).forEach(cle=>{
 
-                const item = obj[cle];
+/*==================================================
+ JOURNAL
+==================================================*/
 
-                if(item && typeof item==="object"){
+async function journaliser(action) {
 
-                    if(item.responsableMatricule){
+    try {
 
-                        total++;
+        await ajouter(
+            "journal_activites",
+            {
 
-                        htmlResponsables += `
+                nom:
+                    nom || "Président",
 
-<div class="responsable-item">
+                matricule:
+                    matricule || "",
 
-<h3>${item.fonction || cle}</h3>
+                fonction:
+                    fonction || "Président Fondateur",
 
-<p><b>Nom :</b> ${item.nom || "-"}</p>
+                bureau:
+                    bureau || "Présidence",
 
-<p><b>Matricule :</b> ${item.responsableMatricule}</p>
+                action:
+                    action,
 
-<p><b>Domaine :</b> ${item.domaine || "-"}</p>
+                date:
+                    new Date()
+                    .toLocaleDateString(
+                        "fr-FR"
+                    ),
 
-</div>
+                heure:
+                    new Date()
+                    .toLocaleTimeString(
+                        "fr-FR"
+                    ),
 
-`;
+                timestamp:
+                    Date.now()
+
+            }
+        );
+
+    }
+
+    catch (erreur) {
+
+        console.error(
+            "Erreur journal :",
+            erreur
+        );
+
+    }
+
+}
+
+
+/*==================================================
+ CHARGEMENT DES MEMBRES
+==================================================*/
+
+function chargerMembres() {
+
+    ecouter(
+        "membres",
+        data => {
+
+            cache.membres =
+                data || {};
+
+
+            const total =
+                Object.keys(
+                    cache.membres
+                ).length;
+
+
+            afficher(
+                ui.totalMembres,
+                total
+            );
+
+
+            console.log(
+                "Membres chargés :",
+                total
+            );
+
+        }
+    );
+
+}
+
+
+/*==================================================
+ CHARGEMENT ORGANIGRAMME
+==================================================*/
+
+function chargerOrganigramme() {
+
+    ecouter(
+        "organigramme",
+        data => {
+
+            cache.organigramme =
+                data || {};
+
+
+            let total = 0;
+
+            let contenu = "";
+
+
+            parcourir(
+                cache.organigramme
+            );
+
+
+            function parcourir(obj) {
+
+                if (
+                    !obj ||
+                    typeof obj !== "object"
+                ) {
+
+                    return;
+
+                }
+
+
+                Object.keys(obj)
+                .forEach(
+                    cle => {
+
+                        const item =
+                            obj[cle];
+
+
+                        if (
+                            item &&
+                            typeof item === "object"
+                        ) {
+
+
+                            if (
+                                item.responsableMatricule
+                            ) {
+
+                                total++;
+
+
+                                contenu += `
+
+                                <div class="responsable-item">
+
+                                    <h3>
+                                        ${
+                                            item.fonction ||
+                                            cle
+                                        }
+                                    </h3>
+
+                                    <p>
+                                        <b>Nom :</b>
+                                        ${
+                                            item.nom ||
+                                            "-"
+                                        }
+                                    </p>
+
+                                    <p>
+                                        <b>Matricule :</b>
+                                        ${
+                                            item.responsableMatricule
+                                        }
+                                    </p>
+
+                                    <p>
+                                        <b>Domaine :</b>
+                                        ${
+                                            item.domaine ||
+                                            "-"
+                                        }
+                                    </p>
+
+                                </div>
+
+                                `;
+
+                            }
+
+
+                            parcourir(item);
+
+                        }
 
                     }
+                );
 
-                    parcourir(item);
-
-                }
-
-            });
-
-        }
-
-        valeur(
-
-            ui.responsablesActifs,
-
-            total
-
-        );
-
-        html(
-
-            ui.listeResponsables,
-
-            htmlResponsables ||
-
-            "<p>Aucun responsable.</p>"
-
-        );
-
-    });
-
-}
+            }
 
 
-/*==================================================
-CHARGEMENT NOMINATIONS
-==================================================*/
+            afficher(
+                ui.responsables,
+                total
+            );
 
-function chargerNominations(){
 
-    ecouter(
-
-        "nominations_attente",
-
-        (data)=>{
-
-            cache.nominations = data || {};
-
-            let contenu = "";
-
-            Object.values(cache.nominations)
-
-            .forEach(item=>{
-
-                contenu += `
-
-<div class="nomination-item">
-
-<h3>${item.poste || "-"}</h3>
-
-<p>${item.nom || ""}</p>
-
-<p>${item.matricule || ""}</p>
-
-<p style="color:orange">
-
-En attente
-
-</p>
-
-</div>
-
-`;
-
-            });
-
-            html(
-
-                ui.nominationsAttente,
+            afficherHTML(
+                ui.listeResponsables,
 
                 contenu ||
 
-                "<p>Aucune nomination.</p>"
+                "<p>Aucun responsable nommé.</p>"
+            );
 
+
+            console.log(
+                "Responsables actifs :",
+                total
             );
 
         }
-
     );
 
 }
 
 
 /*==================================================
-CHARGEMENT STATISTIQUES
+ NOMINATIONS EN ATTENTE
 ==================================================*/
 
-async function chargerStatistiques(){
-
-    const formations =
-    await lire("statistiques/formations");
-
-    const projets =
-    await lire("statistiques/projets");
-
-    const finances =
-    await lire("statistiques/finances");
-
-    const notifications =
-    await lire("statistiques/notifications");
-
-    const investissements =
-    await lire("statistiques/investissements");
-
-    const cotisations =
-    await lire("statistiques/cotisations");
-
-    valeur(
-
-        ui.formationsActives,
-
-        formations?.total || 0
-
-    );
-
-    valeur(
-
-        ui.projetsAttente,
-
-        projets?.total || 0
-
-    );
-
-    valeur(
-
-        ui.notifications,
-
-        notifications?.total || 0
-
-    );
-
-    valeur(
-
-        ui.investissementsActifs,
-
-        investissements?.total || 0
-
-    );
-
-    valeur(
-
-        ui.cotisationsMois,
-
-        cotisations?.mois || 0
-
-    );
-
-    valeur(
-
-        ui.soldeGeneral,
-
-        (finances?.solde || 0) + " FCFA"
-
-    );
-
-}
-
-setInterval(
-
-    chargerStatistiques,
-
-    30000
-
-);
-
-chargerStatistiques();
-
-/*==================================================
-JOURNAL PRESIDENTIEL
-==================================================*/
-
-function chargerJournal(){
+function chargerNominations() {
 
     ecouter(
+        "nominations_attente",
+        data => {
 
+            cache.nominations =
+                data || {};
+
+
+            let contenu = "";
+
+
+            Object.values(
+                cache.nominations
+            )
+            .forEach(
+                item => {
+
+                    contenu += `
+
+                    <div class="nomination-item">
+
+                        <h3>
+                            ${
+                                item.poste ||
+                                "Poste"
+                            }
+                        </h3>
+
+                        <p>
+                            ${
+                                item.nom ||
+                                "-"
+                            }
+                        </p>
+
+                        <p>
+                            Matricule :
+                            ${
+                                item.matricule ||
+                                "-"
+                            }
+                        </p>
+
+                        <p style="color:orange;font-weight:bold;">
+                            En attente
+                        </p>
+
+                    </div>
+
+                    `;
+
+                }
+            );
+
+
+            afficherHTML(
+                ui.nominations,
+
+                contenu ||
+
+                "<p>Aucune nomination en attente.</p>"
+            );
+
+        }
+    );
+
+}
+
+
+/*==================================================
+ JOURNAL PRESIDENTIEL
+==================================================*/
+
+function chargerJournal() {
+
+    ecouter(
         "journal_activites",
-
-        (data)=>{
+        data => {
 
             cache.journal =
+                data || {};
 
-            Object.values(data || {})
-            .reverse()
-            .slice(0,20);
+
+            const liste =
+                Object.values(
+                    cache.journal
+                )
+                .sort(
+                    (a,b) =>
+                        (b.timestamp || 0)
+                        -
+                        (a.timestamp || 0)
+                )
+                .slice(0,20);
+
 
             let contenu = "";
 
-            cache.journal.forEach(item=>{
 
-                contenu += `
+            liste.forEach(
+                item => {
 
-<div class="journal-item">
+                    contenu += `
 
-<h4>${item.action || "Activité"}</h4>
+                    <div class="journal-item">
 
-<p>${item.nom || ""}</p>
+                        <h4>
+                            ${
+                                item.action ||
+                                "Activité"
+                            }
+                        </h4>
 
-<p>${item.fonction || ""}</p>
+                        <p>
+                            ${
+                                item.nom ||
+                                ""
+                            }
+                        </p>
 
-<p>${item.date || ""} ${item.heure || ""}</p>
+                        <p>
+                            ${
+                                item.fonction ||
+                                ""
+                            }
+                        </p>
 
-</div>
+                        <p>
+                            ${
+                                item.date ||
+                                ""
+                            }
 
-`;
+                            ${
+                                item.heure ||
+                                ""
+                            }
+                        </p>
 
-            });
+                    </div>
 
-            html(
+                    `;
 
-                ui.journalPresident,
+                }
+            );
+
+
+            afficherHTML(
+                ui.journal,
 
                 contenu ||
 
-                "<p>Aucune activité.</p>"
-
+                "<p>Aucune activité enregistrée.</p>"
             );
 
         }
-
     );
 
 }
 
-chargerJournal();
+
+/*==================================================
+ DECONNEXION
+==================================================*/
+
+function initialiserDeconnexion() {
+
+    if (!ui.logout) return;
+
+
+    ui.logout.addEventListener(
+        "click",
+        async () => {
+
+            const confirmer =
+                confirm(
+                    "Voulez-vous vous déconnecter ?"
+                );
+
+
+            if (!confirmer) return;
+
+
+            await journaliser(
+                "Déconnexion du Bureau Président"
+            );
+
+
+            deconnexion();
+
+        }
+    );
+
+}
 
 
 /*==================================================
-VALIDATION PRESIDENTIELLE
+ SURVEILLANCE SESSION
 ==================================================*/
 
-if(ui.btnSigner){
+function surveillerSession() {
 
-    ui.btnSigner.onclick = async()=>{
+    setInterval(
+        () => {
 
-        const code = prompt(
-            "Entrer le code présidentiel"
-        );
+            const session =
+                localStorage.getItem(
+                    "utilisateurConnecte"
+                );
 
-        if(!code) return;
 
-        const securite =
-        await lire("systeme/securite");
+            if (!session) {
 
-        if(
-            securite &&
-            securite.codePresident &&
-            code !== securite.codePresident
-        ){
-
-            alert(
-                "Code présidentiel incorrect."
-            );
-
-            return;
-
-        }
-
-        await ajouter(
-
-            "journal_activites",
-
-            {
-
-                action:"Validation présidentielle",
-
-                nom,
-
-                matricule,
-
-                fonction,
-
-                date:new Date()
-                .toLocaleDateString("fr-FR"),
-
-                heure:new Date()
-                .toLocaleTimeString("fr-FR")
+                window.location.replace(
+                    "connexion.html"
+                );
 
             }
 
-        );
-
-        alert(
-            "Validation enregistrée."
-        );
-
-    };
+        },
+        5000
+    );
 
 }
 
 
 /*==================================================
-ACTION RAPIDE
+ INITIALISATION GENERALE
 ==================================================*/
 
-if(ui.actionRapide){
+async function initialiser() {
 
-    ui.actionRapide.onclick = async()=>{
+    console.log(
+        "===================================="
+    );
 
-        await ajouter(
+    console.log(
+        APP.nom
+    );
 
-            "journal_activites",
+    console.log(
+        "Version :",
+        APP.version
+    );
 
-            {
+    console.log(
+        "Stockage :",
+        APP.stockage
+    );
 
-                action:"Action rapide exécutée",
+    console.log(
+        "Président :",
+        nom
+    );
 
-                nom,
+    console.log(
+        "Matricule :",
+        matricule
+    );
 
-                matricule,
+    console.log(
+        "Fonction :",
+        fonction
+    );
 
-                fonction,
+    console.log(
+        "===================================="
+    );
 
-                date:new Date()
-                .toLocaleDateString("fr-FR"),
 
-                heure:new Date()
-                .toLocaleTimeString("fr-FR")
+    /*
+    Interface
+    */
 
-            }
+    afficherAnnee();
 
-        );
+    demarrerHorloge();
 
-        alert("Action enregistrée.");
+    initialiserMenu();
 
-    };
+    afficherEtatSysteme();
 
-}
+    initialiserDeconnexion();
 
 
-/*==================================================
-BOUTON RAFRAICHIR
-==================================================*/
-
-if(ui.btnRefresh){
-
-    ui.btnRefresh.onclick = ()=>{
-
-        chargerStatistiques();
-
-        alert("Tableau de bord actualisé.");
-
-    };
-
-}
-
-
-/*==================================================
-DECONNEXION
-==================================================*/
-
-if(ui.logout){
-
-    ui.logout.onclick = async()=>{
-
-        if(!confirm(
-            "Voulez-vous vous déconnecter ?"
-        )) return;
-
-        try{
-
-            await ajouter(
-
-                "journal_activites",
-
-                {
-
-                    action:"Déconnexion",
-
-                    nom,
-
-                    matricule,
-
-                    fonction,
-
-                    date:new Date()
-                    .toLocaleDateString("fr-FR"),
-
-                    heure:new Date()
-                    .toLocaleTimeString("fr-FR")
-
-                }
-
-            );
-
-        }catch(e){
-
-            console.error(e);
-
-        }
-
-        deconnexion();
-
-    };
-
-             }
-
-
-/*==================================================
-ETAT DU SYSTEME
-==================================================*/
-
-ecouter(
-
-    "systeme/etat",
-
-    (etat)=>{
-
-        if(!ui.etatSysteme) return;
-
-        if(!etat){
-
-            ui.etatSysteme.innerHTML =
-            '<span style="color:green;">● Système opérationnel</span>';
-
-            return;
-
-        }
-
-        ui.etatSysteme.innerHTML =
-
-        `<span style="color:${etat.couleur || "green"};">
-
-        ● ${etat.message || "Système opérationnel"}
-
-        </span>`;
-
-    }
-
-);
-
-
-/*==================================================
-STATUT APPLICATION
-==================================================*/
-
-if(ui.systemStatus){
-
-    ui.systemStatus.innerHTML =
-    '<span style="color:green;">● En ligne</span>';
-
-}
-
-
-/*==================================================
-SURVEILLANCE SESSION
-==================================================*/
-
-window.addEventListener("storage",()=>{
-
-    if(!localStorage.getItem("utilisateurConnecte")){
-
-        location.replace("connexion.html");
-
-    }
-
-});
-
-
-window.addEventListener("focus",()=>{
-
-    if(!localStorage.getItem("utilisateurConnecte")){
-
-        location.replace("connexion.html");
-
-    }
-
-});
-
-
-setInterval(()=>{
-
-    if(!localStorage.getItem("utilisateurConnecte")){
-
-        location.replace("connexion.html");
-
-    }
-
-},5000);
-
-
-/*==================================================
-RACCOURCIS CLAVIER
-==================================================*/
-
-document.addEventListener(
-
-    "keydown",
-
-    (e)=>{
-
-        if(e.key==="F5"){
-
-            e.preventDefault();
-
-            chargerStatistiques();
-
-        }
-
-        if(e.ctrlKey && e.key.toLowerCase()==="r"){
-
-            e.preventDefault();
-
-            location.reload();
-
-        }
-
-        if(e.ctrlKey && e.key.toLowerCase()==="q"){
-
-            e.preventDefault();
-
-            ui.logout?.click();
-
-        }
-
-    }
-
-);
-
-
-/*==================================================
-INITIALISATION
-==================================================*/
-
-async function initialiser(){
-
-    console.log("Initialisation...");
+    /*
+    Firebase Realtime Database
+    */
 
     chargerMembres();
 
@@ -1057,52 +822,32 @@ async function initialiser(){
 
     chargerJournal();
 
-    await chargerStatistiques();
+
+    /*
+    Surveillance
+    */
+
+    surveillerSession();
+
+
+    /*
+    Journal
+    */
+
+    await journaliser(
+        "Ouverture du Bureau Numérique du Président"
+    );
+
+
+    console.log(
+        "Bureau Président initialisé."
+    );
 
 }
 
+
+/*==================================================
+ DEMARRAGE
+==================================================*/
+
 initialiser();
-
-
-/*==================================================
-ACTUALISATION PERIODIQUE
-==================================================*/
-
-setInterval(
-
-    ()=>{
-
-        chargerStatistiques();
-
-    },
-
-    60000
-
-);
-
-
-/*==================================================
-CONSOLE
-==================================================*/
-
-console.table({
-
-    application:"COMMUNAUTE NUMERIQUE MWANA MBOKA",
-
-    module:"Bureau Président",
-
-    version:"Premium V4",
-
-    utilisateur:nom,
-
-    matricule:matricule,
-
-    fonction:fonction,
-
-    statut:"Connecté"
-
-});
-
-console.log("==================================");
-console.log(" Bureau Président Premium prêt");
-console.log("==================================");
