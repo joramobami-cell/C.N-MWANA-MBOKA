@@ -2,7 +2,7 @@
 PRBUREAU.JS
 BUREAU NUMERIQUE DU PRESIDENT
 COMMUNAUTE NUMERIQUE MWANA MBOKA
-VERSION PREMIUM V6
+VERSION PREMIUM V7
 REALTIME DATABASE
 ==================================================*/
 
@@ -28,7 +28,7 @@ import {
 
 
 /*==================================================
- SECURITE
+ SECURITE PRESIDENTIELLE
 ==================================================*/
 
 autoriser(["president"]);
@@ -39,9 +39,22 @@ autoriser(["president"]);
 ==================================================*/
 
 const APP = {
-    nom: "COMMUNAUTE NUMERIQUE MWANA MBOKA",
-    version: "Premium V6",
-    stockage: "Firebase Realtime Database"
+
+    nom:
+        "COMMUNAUTE NUMERIQUE MWANA MBOKA",
+
+    version:
+        "Premium V7",
+
+    stockage:
+        "Firebase Realtime Database",
+
+    espaceMembre:
+        "espace.html",
+
+    connexion:
+        "connexion.html"
+
 };
 
 
@@ -52,8 +65,11 @@ const APP = {
 const cache = {
 
     membres: {},
+
     organigramme: {},
+
     nominations: {},
+
     journal: {}
 
 };
@@ -80,6 +96,12 @@ const ui = {
     sidebar:
         document.getElementById("presidentSidebar"),
 
+    espaceMembre:
+        document.getElementById("memberSpaceBtn"),
+
+    logout:
+        document.getElementById("logoutBtn"),
+
     totalMembres:
         document.getElementById("totalMembres"),
 
@@ -95,9 +117,6 @@ const ui = {
     journal:
         document.getElementById("journalPresident"),
 
-    logout:
-        document.getElementById("logoutBtn"),
-
     systemStatus:
         document.querySelector(".system-status")
 
@@ -105,14 +124,15 @@ const ui = {
 
 
 /*==================================================
- OUTILS
+ OUTILS GENERAUX
 ==================================================*/
 
 function afficher(element, valeur) {
 
     if (!element) return;
 
-    element.textContent = valeur;
+    element.textContent =
+        valeur ?? "";
 
 }
 
@@ -121,7 +141,34 @@ function afficherHTML(element, contenu) {
 
     if (!element) return;
 
-    element.innerHTML = contenu;
+    element.innerHTML =
+        contenu || "";
+
+}
+
+
+/*==================================================
+ NETTOYAGE DES TEXTES FIREBASE
+==================================================*/
+
+function texte(valeur, valeurDefaut = "-") {
+
+    if (
+        valeur === null ||
+        valeur === undefined ||
+        valeur === ""
+    ) {
+
+        return valeurDefaut;
+
+    }
+
+    return String(valeur)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
@@ -132,10 +179,13 @@ function afficherHTML(element, contenu) {
 
 function actualiserDateHeure() {
 
-    const maintenant = new Date();
+    const maintenant =
+        new Date();
+
 
     afficher(
         ui.date,
+
         maintenant.toLocaleDateString(
             "fr-FR",
             {
@@ -150,6 +200,7 @@ function actualiserDateHeure() {
 
     afficher(
         ui.heure,
+
         maintenant.toLocaleTimeString(
             "fr-FR",
             {
@@ -197,8 +248,8 @@ function initialiserMenu() {
 
     if (!ui.menu) {
 
-        console.error(
-            "Bouton menu introuvable."
+        console.warn(
+            "Bouton menu mobile introuvable."
         );
 
         return;
@@ -208,7 +259,7 @@ function initialiserMenu() {
 
     if (!ui.sidebar) {
 
-        console.error(
+        console.warn(
             "Sidebar Président introuvable."
         );
 
@@ -219,7 +270,7 @@ function initialiserMenu() {
 
     ui.menu.addEventListener(
         "click",
-        function (event) {
+        event => {
 
             event.preventDefault();
 
@@ -229,21 +280,9 @@ function initialiserMenu() {
                 "active"
             );
 
-            console.log(
-                "Menu Président :",
-                ui.sidebar.classList.contains("active")
-                    ? "OUVERT"
-                    : "FERME"
-            );
-
         }
     );
 
-
-    /*
-    Fermer le menu lorsqu'on clique
-    sur un lien.
-    */
 
     const liens =
         ui.sidebar.querySelectorAll("a");
@@ -266,6 +305,77 @@ function initialiserMenu() {
         }
     );
 
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if (
+                !ui.sidebar.classList.contains(
+                    "active"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                ui.sidebar.contains(event.target) ||
+                ui.menu.contains(event.target)
+            ) {
+
+                return;
+
+            }
+
+
+            ui.sidebar.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+/*==================================================
+ ESPACE MEMBRE
+==================================================*/
+
+function initialiserEspaceMembre() {
+
+    if (!ui.espaceMembre) {
+
+        console.warn(
+            "Bouton Espace membre introuvable."
+        );
+
+        return;
+
+    }
+
+
+    ui.espaceMembre.addEventListener(
+        "click",
+        async event => {
+
+            event.preventDefault();
+
+
+            await journaliser(
+                "Retour vers l'Espace membre"
+            );
+
+
+            window.location.href =
+                APP.espaceMembre;
+
+        }
+    );
+
 }
 
 
@@ -282,15 +392,21 @@ function afficherEtatSysteme() {
 
         <i class="fa-solid fa-circle"></i>
 
-        Système opérationnel
+        <span>
+            Système opérationnel
+        </span>
 
     `;
 
-}
 
+    ui.systemStatus.classList.add(
+        "status-online"
+    );
+
+ }
 
 /*==================================================
- JOURNAL
+ JOURNALISATION
 ==================================================*/
 
 async function journaliser(action) {
@@ -308,10 +424,12 @@ async function journaliser(action) {
                     matricule || "",
 
                 fonction:
-                    fonction || "Président Fondateur",
+                    fonction ||
+                    "Président Fondateur",
 
                 bureau:
-                    bureau || "Présidence",
+                    bureau ||
+                    "Présidence",
 
                 action:
                     action,
@@ -339,7 +457,7 @@ async function journaliser(action) {
     catch (erreur) {
 
         console.error(
-            "Erreur journal :",
+            "Erreur journalisation :",
             erreur
         );
 
@@ -354,33 +472,53 @@ async function journaliser(action) {
 
 function chargerMembres() {
 
-    ecouter(
-        "membres",
-        data => {
+    try {
 
-            cache.membres =
-                data || {};
+        ecouter(
+            "membres",
 
+            data => {
 
-            const total =
-                Object.keys(
-                    cache.membres
-                ).length;
+                cache.membres =
+                    data || {};
 
 
-            afficher(
-                ui.totalMembres,
-                total
-            );
+                const total =
+                    Object.keys(
+                        cache.membres
+                    ).length;
 
 
-            console.log(
-                "Membres chargés :",
-                total
-            );
+                afficher(
+                    ui.totalMembres,
+                    total
+                );
 
-        }
-    );
+
+                console.log(
+                    "Membres chargés :",
+                    total
+                );
+
+            }
+        );
+
+    }
+
+    catch (erreur) {
+
+        console.error(
+            "Erreur chargement membres :",
+            erreur
+        );
+
+
+        afficher(
+            ui.totalMembres,
+            "—"
+        );
+
+    }
 
 }
 
@@ -391,49 +529,66 @@ function chargerMembres() {
 
 function chargerOrganigramme() {
 
-    ecouter(
-        "organigramme",
-        data => {
+    try {
 
-            cache.organigramme =
-                data || {};
+        ecouter(
+            "organigramme",
 
+            data => {
 
-            let total = 0;
-
-            let contenu = "";
+                cache.organigramme =
+                    data || {};
 
 
-            parcourir(
-                cache.organigramme
-            );
+                let total =
+                    0;
+
+                let contenu =
+                    "";
 
 
-            function parcourir(obj) {
-
-                if (
-                    !obj ||
-                    typeof obj !== "object"
-                ) {
-
-                    return;
-
-                }
+                parcourir(
+                    cache.organigramme
+                );
 
 
-                Object.keys(obj)
-                .forEach(
-                    cle => {
+                /*----------------------------------
+                PARCOURS RECURSIF
+                ----------------------------------*/
 
-                        const item =
-                            obj[cle];
+                function parcourir(obj) {
+
+                    if (
+                        !obj ||
+                        typeof obj !== "object"
+                    ) {
+
+                        return;
+
+                    }
 
 
-                        if (
-                            item &&
-                            typeof item === "object"
-                        ) {
+                    Object.keys(obj)
+                    .forEach(
+                        cle => {
 
+                            const item =
+                                obj[cle];
+
+
+                            if (
+                                !item ||
+                                typeof item !== "object"
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            /*
+                            RESPONSABLE TROUVE
+                            */
 
                             if (
                                 item.responsableMatricule
@@ -447,33 +602,32 @@ function chargerOrganigramme() {
                                 <div class="responsable-item">
 
                                     <h3>
-                                        ${
+                                        ${texte(
                                             item.fonction ||
-                                            cle
-                                        }
+                                            cle,
+                                            "Fonction"
+                                        )}
                                     </h3>
 
                                     <p>
                                         <b>Nom :</b>
-                                        ${
-                                            item.nom ||
-                                            "-"
-                                        }
+                                        ${texte(
+                                            item.nom
+                                        )}
                                     </p>
 
                                     <p>
                                         <b>Matricule :</b>
-                                        ${
+                                        ${texte(
                                             item.responsableMatricule
-                                        }
+                                        )}
                                     </p>
 
                                     <p>
                                         <b>Domaine :</b>
-                                        ${
-                                            item.domaine ||
-                                            "-"
-                                        }
+                                        ${texte(
+                                            item.domaine
+                                        )}
                                     </p>
 
                                 </div>
@@ -483,38 +637,62 @@ function chargerOrganigramme() {
                             }
 
 
+                            /*
+                            CONTINUER LE PARCOURS
+                            */
+
                             parcourir(item);
 
                         }
+                    );
 
-                    }
+                }
+
+
+                afficher(
+                    ui.responsables,
+                    total
+                );
+
+
+                afficherHTML(
+
+                    ui.listeResponsables,
+
+                    contenu ||
+
+                    `
+                    <div class="dynamic-content">
+
+                        <p>
+                            Aucun responsable nommé
+                            actuellement.
+                        </p>
+
+                    </div>
+                    `
+
+                );
+
+
+                console.log(
+                    "Responsables actifs :",
+                    total
                 );
 
             }
+        );
 
+    }
 
-            afficher(
-                ui.responsables,
-                total
-            );
+    catch (erreur) {
 
+        console.error(
+            "Erreur organigramme :",
+            erreur
+        );
 
-            afficherHTML(
-                ui.listeResponsables,
-
-                contenu ||
-
-                "<p>Aucun responsable nommé.</p>"
-            );
-
-
-            console.log(
-                "Responsables actifs :",
-                total
-            );
-
-        }
-    );
+    }
 
 }
 
@@ -525,71 +703,109 @@ function chargerOrganigramme() {
 
 function chargerNominations() {
 
-    ecouter(
-        "nominations_attente",
-        data => {
+    try {
 
-            cache.nominations =
-                data || {};
+        ecouter(
+            "nominations_attente",
+
+            data => {
+
+                cache.nominations =
+                    data || {};
 
 
-            let contenu = "";
+                let contenu =
+                    "";
 
 
-            Object.values(
-                cache.nominations
-            )
-            .forEach(
-                item => {
+                const liste =
+                    Object.values(
+                        cache.nominations
+                    );
 
-                    contenu += `
 
-                    <div class="nomination-item">
+                liste.forEach(
+                    item => {
 
-                        <h3>
-                            ${
-                                item.poste ||
-                                "Poste"
-                            }
-                        </h3>
+                        contenu += `
+
+                        <div class="nomination-item">
+
+                            <h3>
+                                ${texte(
+                                    item.poste,
+                                    "Poste"
+                                )}
+                            </h3>
+
+                            <p>
+                                ${texte(
+                                    item.nom
+                                )}
+                            </p>
+
+                            <p>
+                                Matricule :
+                                ${texte(
+                                    item.matricule
+                                )}
+                            </p>
+
+                            <p
+                                style="
+                                color:orange;
+                                font-weight:bold;
+                                "
+                            >
+                                En attente
+                            </p>
+
+                        </div>
+
+                        `;
+
+                    }
+                );
+
+
+                afficherHTML(
+
+                    ui.nominations,
+
+                    contenu ||
+
+                    `
+                    <div class="dynamic-content">
 
                         <p>
-                            ${
-                                item.nom ||
-                                "-"
-                            }
-                        </p>
-
-                        <p>
-                            Matricule :
-                            ${
-                                item.matricule ||
-                                "-"
-                            }
-                        </p>
-
-                        <p style="color:orange;font-weight:bold;">
-                            En attente
+                            Aucune nomination
+                            en attente.
                         </p>
 
                     </div>
+                    `
 
-                    `;
-
-                }
-            );
+                );
 
 
-            afficherHTML(
-                ui.nominations,
+                console.log(
+                    "Nominations en attente :",
+                    liste.length
+                );
 
-                contenu ||
+            }
+        );
 
-                "<p>Aucune nomination en attente.</p>"
-            );
+    }
 
-        }
-    );
+    catch (erreur) {
+
+        console.error(
+            "Erreur nominations :",
+            erreur
+        );
+
+    }
 
 }
 
@@ -600,90 +816,139 @@ function chargerNominations() {
 
 function chargerJournal() {
 
-    ecouter(
-        "journal_activites",
-        data => {
+    try {
 
-            cache.journal =
-                data || {};
+        ecouter(
+            "journal_activites",
 
+            data => {
 
-            const liste =
-                Object.values(
-                    cache.journal
-                )
-                .sort(
-                    (a,b) =>
-                        (b.timestamp || 0)
-                        -
-                        (a.timestamp || 0)
-                )
-                .slice(0,20);
+                cache.journal =
+                    data || {};
 
 
-            let contenu = "";
+                const liste =
+
+                    Object.values(
+                        cache.journal
+                    )
+
+                    .sort(
+                        (a, b) =>
+
+                            (b.timestamp || 0)
+
+                            -
+
+                            (a.timestamp || 0)
+                    )
+
+                    .slice(
+                        0,
+                        20
+                    );
 
 
-            liste.forEach(
-                item => {
+                let contenu =
+                    "";
 
-                    contenu += `
 
-                    <div class="journal-item">
+                liste.forEach(
+                    item => {
 
-                        <h4>
-                            ${
-                                item.action ||
-                                "Activité"
-                            }
-                        </h4>
+                        contenu += `
+
+                        <div class="journal-item">
+
+                            <i
+                                class="
+                                fa-solid
+                                fa-clock
+                                "
+                            ></i>
+
+                            <div>
+
+                                <strong>
+                                    ${texte(
+                                        item.action,
+                                        "Activité"
+                                    )}
+                                </strong>
+
+                                <span>
+                                    ${texte(
+                                        item.nom,
+                                        ""
+                                    )}
+                                </span>
+
+                                <span>
+                                    ${texte(
+                                        item.fonction,
+                                        ""
+                                    )}
+                                </span>
+
+                                <span>
+
+                                    ${texte(
+                                        item.date,
+                                        ""
+                                    )}
+
+                                    ${texte(
+                                        item.heure,
+                                        ""
+                                    )}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        `;
+
+                    }
+                );
+
+
+                afficherHTML(
+
+                    ui.journal,
+
+                    contenu ||
+
+                    `
+                    <div class="dynamic-content">
 
                         <p>
-                            ${
-                                item.nom ||
-                                ""
-                            }
-                        </p>
-
-                        <p>
-                            ${
-                                item.fonction ||
-                                ""
-                            }
-                        </p>
-
-                        <p>
-                            ${
-                                item.date ||
-                                ""
-                            }
-
-                            ${
-                                item.heure ||
-                                ""
-                            }
+                            Aucune activité
+                            enregistrée.
                         </p>
 
                     </div>
+                    `
 
-                    `;
+                );
 
-                }
-            );
+            }
+        );
 
+    }
 
-            afficherHTML(
-                ui.journal,
+    catch (erreur) {
 
-                contenu ||
+        console.error(
+            "Erreur journal :",
+            erreur
+        );
 
-                "<p>Aucune activité enregistrée.</p>"
-            );
-
-        }
-    );
+    }
 
 }
+
 
 
 /*==================================================
@@ -692,28 +957,121 @@ function chargerJournal() {
 
 function initialiserDeconnexion() {
 
-    if (!ui.logout) return;
+    if (!ui.logout) {
+
+        console.warn(
+            "Bouton déconnexion introuvable."
+        );
+
+        return;
+
+    }
 
 
     ui.logout.addEventListener(
         "click",
-        async () => {
+
+        async event => {
+
+            event.preventDefault();
+
+
+            /*
+            Empêcher plusieurs clics
+            */
+
+            if (
+                ui.logout.dataset.loading ===
+                "true"
+            ) {
+
+                return;
+
+            }
+
+
+            ui.logout.dataset.loading =
+                "true";
+
 
             const confirmer =
                 confirm(
-                    "Voulez-vous vous déconnecter ?"
+                    "Voulez-vous vous déconnecter du Bureau Président ?"
                 );
 
 
-            if (!confirmer) return;
+            if (!confirmer) {
+
+                ui.logout.dataset.loading =
+                    "false";
+
+                return;
+
+            }
 
 
-            await journaliser(
-                "Déconnexion du Bureau Président"
+            try {
+
+                /*
+                Enregistrer l'action
+                */
+
+                await journaliser(
+                    "Déconnexion du Bureau Président"
+                );
+
+            }
+
+            catch (erreur) {
+
+                console.error(
+                    "Erreur journal déconnexion :",
+                    erreur
+                );
+
+            }
+
+
+            try {
+
+                /*
+                Déconnexion Firebase
+                */
+
+                await deconnexion();
+
+            }
+
+            catch (erreur) {
+
+                console.error(
+                    "Erreur déconnexion :",
+                    erreur
+                );
+
+            }
+
+
+            /*
+            Nettoyage de la session locale
+            */
+
+            localStorage.removeItem(
+                "utilisateurConnecte"
+            );
+
+            localStorage.removeItem(
+                "bureauUtilisateur"
             );
 
 
-            deconnexion();
+            /*
+            Retour à la connexion
+            */
+
+            window.location.replace(
+                APP.connexion
+            );
 
         }
     );
@@ -722,12 +1080,13 @@ function initialiserDeconnexion() {
 
 
 /*==================================================
- SURVEILLANCE SESSION
+ SURVEILLANCE DE SESSION
 ==================================================*/
 
 function surveillerSession() {
 
     setInterval(
+
         () => {
 
             const session =
@@ -736,16 +1095,88 @@ function surveillerSession() {
                 );
 
 
+            /*
+            Si la session n'existe plus,
+            retour automatique à connexion.html
+            */
+
             if (!session) {
 
                 window.location.replace(
-                    "connexion.html"
+                    APP.connexion
                 );
 
             }
 
         },
+
         5000
+
+    );
+
+}
+
+
+/*==================================================
+ VERIFICATION DE L'INTERFACE
+==================================================*/
+
+function verifierInterface() {
+
+    const elements = {
+
+        date:
+            ui.date,
+
+        heure:
+            ui.heure,
+
+        annee:
+            ui.annee,
+
+        menu:
+            ui.menu,
+
+        sidebar:
+            ui.sidebar,
+
+        espaceMembre:
+            ui.espaceMembre,
+
+        logout:
+            ui.logout,
+
+        totalMembres:
+            ui.totalMembres,
+
+        responsables:
+            ui.responsables,
+
+        nominations:
+            ui.nominations,
+
+        journal:
+            ui.journal
+
+    };
+
+
+    Object.entries(elements)
+    .forEach(
+
+        ([nomElement, element]) => {
+
+            if (!element) {
+
+                console.warn(
+                    "Element HTML absent :",
+                    nomElement
+                );
+
+            }
+
+        }
+
     );
 
 }
@@ -758,7 +1189,7 @@ function surveillerSession() {
 async function initialiser() {
 
     console.log(
-        "===================================="
+        "======================================"
     );
 
     console.log(
@@ -791,13 +1222,25 @@ async function initialiser() {
     );
 
     console.log(
-        "===================================="
+        "Bureau :",
+        bureau
+    );
+
+    console.log(
+        "======================================"
     );
 
 
-    /*
-    Interface
-    */
+    /*----------------------------------------------
+    VERIFICATION HTML
+    ----------------------------------------------*/
+
+    verifierInterface();
+
+
+    /*----------------------------------------------
+    INTERFACE
+    ----------------------------------------------*/
 
     afficherAnnee();
 
@@ -805,14 +1248,16 @@ async function initialiser() {
 
     initialiserMenu();
 
+    initialiserEspaceMembre();
+
     afficherEtatSysteme();
 
     initialiserDeconnexion();
 
 
-    /*
-    Firebase Realtime Database
-    */
+    /*----------------------------------------------
+    FIREBASE REALTIME DATABASE
+    ----------------------------------------------*/
 
     chargerMembres();
 
@@ -823,16 +1268,16 @@ async function initialiser() {
     chargerJournal();
 
 
-    /*
-    Surveillance
-    */
+    /*----------------------------------------------
+    SURVEILLANCE SESSION
+    ----------------------------------------------*/
 
     surveillerSession();
 
 
-    /*
-    Journal
-    */
+    /*----------------------------------------------
+    JOURNAL D'OUVERTURE
+    ----------------------------------------------*/
 
     await journaliser(
         "Ouverture du Bureau Numérique du Président"
@@ -840,7 +1285,7 @@ async function initialiser() {
 
 
     console.log(
-        "Bureau Président initialisé."
+        "Bureau Président initialisé avec succès."
     );
 
 }
