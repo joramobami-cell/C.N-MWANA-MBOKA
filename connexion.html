@@ -312,6 +312,16 @@ box-shadow:
 
 }
 
+button:disabled{
+
+opacity:.65;
+
+cursor:not-allowed;
+
+transform:none;
+
+}
+
 .btn-member{
 
 display:block;
@@ -396,23 +406,32 @@ font-size:24px;
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
+
 <img
 src="banniere.png"
-class="banner">
+class="banner"
+alt="Bannière MWANA MBOKA">
+
 
 <div class="card">
 
+
 <img
 src="logo.png"
-class="logo">
+class="logo"
+alt="Logo MWANA MBOKA">
+
 
 <h1>
 Connexion Membre
 </h1>
+
 
 <p class="slogan">
 
@@ -422,6 +441,11 @@ Bienvenue sur la plateforme officielle de la
 
 </p>
 
+
+<!--========================================
+MATRICULE
+=========================================-->
+
 <div class="input-box">
 
 <i class="fa-solid fa-id-card"></i>
@@ -429,9 +453,15 @@ Bienvenue sur la plateforme officielle de la
 <input
 type="text"
 id="matricule"
-placeholder="Votre matricule">
+placeholder="Votre matricule"
+autocomplete="username">
 
 </div>
+
+
+<!--========================================
+MOT DE PASSE
+=========================================-->
 
 <div class="input-box">
 
@@ -440,7 +470,8 @@ placeholder="Votre matricule">
 <input
 type="password"
 id="motdepasse"
-placeholder="Votre mot de passe">
+placeholder="Votre mot de passe"
+autocomplete="current-password">
 
 <i
 class="fa-solid fa-eye password-toggle"
@@ -449,13 +480,25 @@ id="togglePassword">
 
 </div>
 
-<button onclick="connexion()">
+
+<!--========================================
+BOUTON CONNEXION
+=========================================-->
+
+<button
+id="boutonConnexion"
+onclick="connexion()">
 
 <i class="fa-solid fa-right-to-bracket"></i>
 
 Se connecter
 
 </button>
+
+
+<!--========================================
+ADHESION
+=========================================-->
 
 <a
 href="adhesion.html"
@@ -467,7 +510,13 @@ Devenir membre
 
 </a>
 
+
 <div id="message"></div>
+
+
+<!--========================================
+FOOTER
+=========================================-->
 
 <div class="footer">
 
@@ -487,35 +536,52 @@ Tous droits réservés.
 
 </div>
 
+
 </div>
 
-    </div>
+</div>
 
-    <script>
 
-//========================================
-// ANNEE
-//========================================
+
+<script>
+
+//==================================================
+// ANNEE AUTOMATIQUE
+//==================================================
 
 document.getElementById("annee").textContent =
 new Date().getFullYear();
 
 
-//========================================
-// AFFICHER / MASQUER LE MOT DE PASSE
-//========================================
+//==================================================
+// ELEMENTS
+//==================================================
+
+const matriculeInput =
+document.getElementById("matricule");
+
+const motdepasseInput =
+document.getElementById("motdepasse");
 
 const togglePassword =
 document.getElementById("togglePassword");
 
-const motdepasse =
-document.getElementById("motdepasse");
+const boutonConnexion =
+document.getElementById("boutonConnexion");
 
-togglePassword.onclick = ()=>{
+const message =
+document.getElementById("message");
 
-if(motdepasse.type==="password"){
 
-motdepasse.type="text";
+//==================================================
+// AFFICHER / MASQUER MOT DE PASSE
+//==================================================
+
+togglePassword.onclick=()=>{
+
+if(motdepasseInput.type==="password"){
+
+motdepasseInput.type="text";
 
 togglePassword.classList.remove("fa-eye");
 
@@ -523,7 +589,7 @@ togglePassword.classList.add("fa-eye-slash");
 
 }else{
 
-motdepasse.type="password";
+motdepasseInput.type="password";
 
 togglePassword.classList.remove("fa-eye-slash");
 
@@ -534,13 +600,26 @@ togglePassword.classList.add("fa-eye");
 };
 
 
-//========================================
+//==================================================
 // TOUCHE ENTREE
-//========================================
+//==================================================
 
-document
-.getElementById("motdepasse")
-.addEventListener("keypress",(e)=>{
+matriculeInput.addEventListener(
+"keypress",
+(e)=>{
+
+if(e.key==="Enter"){
+
+motdepasseInput.focus();
+
+}
+
+});
+
+
+motdepasseInput.addEventListener(
+"keypress",
+(e)=>{
 
 if(e.key==="Enter"){
 
@@ -551,51 +630,32 @@ connexion();
 });
 
 
-//========================================
+//==================================================
 // FOCUS AUTOMATIQUE
-//========================================
+//==================================================
 
-window.onload=()=>{
+window.addEventListener(
+"load",
+()=>{
 
-document
-.getElementById("matricule")
-.focus();
-
-};
-
-
-//========================================
-// ANIMATION DU BOUTON
-//========================================
-
-const bouton =
-document.querySelector("button");
-
-bouton.addEventListener("click",()=>{
-
-bouton.style.opacity=".8";
-
-setTimeout(()=>{
-
-bouton.style.opacity="1";
-
-},250);
+matriculeInput.focus();
 
 });
 
 </script>
 
 
+
 <script type="module">
 
-//========================================
+//==================================================
 // FIREBASE
-//========================================
+//==================================================
 
-import { initializeApp }
-
+import {
+initializeApp
+}
 from
-
 "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
 
@@ -608,19 +668,18 @@ set,
 push
 
 }
-
 from
-
 "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
 
-//========================================
+//==================================================
 // CONFIGURATION FIREBASE
-//========================================
+//==================================================
 
 const firebaseConfig={
 
-apiKey:"AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
+apiKey:
+"AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
 
 authDomain:
 "c-n-mwana-mboka.firebaseapp.com",
@@ -643,40 +702,51 @@ appId:
 };
 
 
-//========================================
+//==================================================
 // INITIALISATION
-//========================================
+//==================================================
 
-const app =
+const app=
 initializeApp(firebaseConfig);
 
-const database =
+const database=
 getDatabase(app);
+
 
 //==================================================
 // FONCTION DE CONNEXION
 //==================================================
 
-window.connexion = async ()=>{
+window.connexion=async()=>{
 
-const message =
-document.getElementById("message");
+message.innerHTML="";
 
-const matricule =
-document.getElementById("matricule")
+message.style.color="#009245";
+
+
+//==================================================
+// RECUPERATION DES DONNEES
+//==================================================
+
+const matricule=
+matriculeInput
 .value
 .trim()
 .toUpperCase();
 
-const motdepasse =
-document.getElementById("motdepasse")
+const motdepasse=
+motdepasseInput
 .value
 .trim();
 
-message.innerHTML="";
-message.style.color="red";
+
+//==================================================
+// VALIDATION
+//==================================================
 
 if(matricule==="" || motdepasse===""){
+
+message.style.color="red";
 
 message.innerHTML=
 "Veuillez remplir tous les champs.";
@@ -685,172 +755,262 @@ return;
 
 }
 
+
+//==================================================
+// DESACTIVER LE BOUTON
+//==================================================
+
+boutonConnexion.disabled=true;
+
+boutonConnexion.innerHTML=
+'<i class="fa-solid fa-spinner fa-spin"></i> Connexion...';
+
+
 try{
 
-//=====================================
+
+//==================================================
 // RECHERCHE DU MEMBRE
-//=====================================
+//==================================================
 
-const membreRef =
-ref(database,"membres/"+matricule);
+const membreRef=
+ref(
+database,
+"membres/"+matricule
+);
 
-const snapshot =
+const snapshot=
 await get(membreRef);
 
+
+//==================================================
+// MEMBRE INTROUVABLE
+//==================================================
+
 if(!snapshot.exists()){
+
+message.style.color="red";
 
 message.innerHTML=
 "Matricule introuvable.";
 
+boutonConnexion.disabled=false;
+
+boutonConnexion.innerHTML=
+'<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
+
 return;
 
 }
 
-const membre =
+
+const membre=
 snapshot.val();
 
-if(String(membre.motdepasse)!==motdepasse){
+
+//==================================================
+// VERIFICATION MOT DE PASSE
+//==================================================
+
+if(
+String(membre.motdepasse)!==
+motdepasse
+){
+
+message.style.color="red";
 
 message.innerHTML=
 "Mot de passe incorrect.";
 
+boutonConnexion.disabled=false;
+
+boutonConnexion.innerHTML=
+'<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
+
 return;
 
 }
 
-//=====================================
+
+//==================================================
 // CREATION DE LA SESSION
-//=====================================
+//==================================================
 
 localStorage.clear();
+
 
 localStorage.setItem(
 "matricule",
 matricule
 );
 
+
 localStorage.setItem(
 "nom",
 membre.nom || ""
 );
+
 
 localStorage.setItem(
 "telephone",
 membre.telephone || ""
 );
 
+
 localStorage.setItem(
 "photo",
 membre.photo || ""
 );
+
 
 localStorage.setItem(
 "statut",
 membre.statut || "Actif"
 );
 
+
 localStorage.setItem(
 "dateAdhesion",
 membre.dateAdhesion || ""
 );
+
 
 localStorage.setItem(
 "parrain",
 membre.parrain || ""
 );
 
+
 localStorage.setItem(
 "role",
 (membre.role || "membre").toLowerCase()
 );
 
-//=====================================
+
+//==================================================
 // VALEURS PAR DEFAUT
-//=====================================
+//==================================================
 
 let bureau="espace.html";
 
 let fonction="membre";
 
-//=====================================
+
+//==================================================
 // LECTURE DU GS ORGANIGRAMME
-//=====================================
+//==================================================
 
-const organigrammeRef =
-ref(database,"organigramme");
+const organigrammeRef=
+ref(
+database,
+"organigramme"
+);
 
-const organigrammeSnap =
+
+const organigrammeSnap=
 await get(organigrammeRef);
+
 
 if(organigrammeSnap.exists()){
 
-const organigramme =
+const organigramme=
 organigrammeSnap.val();
 
-//=====================================
-// RECHERCHE RECURSIVE
-//=====================================
-
-chercherFonction(organigramme);
+chercherFonction(
+organigramme
+);
 
 }
 
+
+//==================================================
+// RECHERCHE RECURSIVE
+//==================================================
+
 function chercherFonction(obj){
 
-for(const cle in obj){
+for(
+const cle in obj
+){
 
-const valeur=obj[cle];
+const valeur=
+obj[cle];
 
-if(typeof valeur==="object" && valeur!==null){
+
+if(
+typeof valeur==="object" &&
+valeur!==null
+){
+
 
 if(
 
 valeur.responsableMatricule &&
 
-String(valeur.responsableMatricule)
+String(
+valeur.responsableMatricule
+)
 .trim()
-.toUpperCase()===matricule
+.toUpperCase()
+===matricule
 
 ){
 
-fonction=valeur.fonction || cle;
+fonction=
+valeur.fonction || cle;
+
 
 localStorage.setItem(
 "fonction",
 fonction
 );
 
+
+//==================================================
+// DETERMINATION DU BUREAU
+//==================================================
+
 switch(fonction){
 
 case "president":
 
-bureau="prbureau.html";
+bureau=
+"prbureau.html";
 
 break;
+
 
 case "secretariat_administration":
 
-bureau="bureau-secretariat.html";
+bureau=
+"bureau-secretariat.html";
 
 break;
+
 
 case "formation":
 
-bureau="bureau-formation.html";
+bureau=
+"bureau-formation.html";
 
 break;
+
 
 case "communication":
 
-bureau="bureau-communication.html";
+bureau=
+"bureau-communication.html";
 
 break;
+
 
 case "projets":
 
-bureau="bureau-projets.html";
+bureau=
+"bureau-projets.html";
 
 break;
+
 
 case "conseiller_administratif":
 
@@ -860,9 +1020,11 @@ case "conseiller_financier":
 
 case "conseiller_technique":
 
-bureau="bureau-conseil.html";
+bureau=
+"bureau-conseil.html";
 
 break;
+
 
 case "tresorerie":
 
@@ -872,13 +1034,16 @@ case "economie":
 
 case "etudes_investissements":
 
-bureau="bureau-finance.html";
+bureau=
+"bureau-finance.html";
 
 break;
 
+
 default:
 
-bureau="espace.html";
+bureau=
+"espace.html";
 
 }
 
@@ -886,9 +1051,15 @@ return;
 
 }
 
-chercherFonction(valeur);
 
-if(fonction!=="membre"){
+chercherFonction(
+valeur
+);
+
+
+if(
+fonction!=="membre"
+){
 
 return;
 
@@ -901,29 +1072,35 @@ return;
 }
 
 
-//=====================================
+//==================================================
 // PRESIDENT FONDATEUR
-//=====================================
+//==================================================
 
 const estPresident=
 
 (membre.role || "")
-.toLowerCase()==="president"
+.toLowerCase()
+==="president"
 
 ||
 
 membre.fondateur===true;
 
+
 if(estPresident){
 
-fonction="president";
+fonction=
+"president";
 
-bureau="prbureau.html";
+bureau=
+"prbureau.html";
+
 
 localStorage.setItem(
 "fonction",
 "president"
 );
+
 
 localStorage.setItem(
 "role",
@@ -933,13 +1110,17 @@ localStorage.setItem(
 }
 
 
-//=====================================
+//==================================================
 // MEMBRE SIMPLE
-//=====================================
+//==================================================
 
-if(fonction==="membre"){
+if(
+fonction==="membre"
+){
 
-bureau="espace.html";
+bureau=
+"espace.html";
+
 
 localStorage.setItem(
 "fonction",
@@ -949,45 +1130,31 @@ localStorage.setItem(
 }
 
 
-//=====================================
-// JOURNAL DES CONNEXIONS
-//=====================================
+//==================================================
+// ENREGISTREMENT DU BUREAU AUTORISE
+//==================================================
 
-const journalRef=
+/*
+IMPORTANT :
 
-push(
-ref(database,"journal_activites")
-);
+On conserve ici le bureau correspondant
+au rôle de l'utilisateur.
 
-await set(journalRef,{
+Mais ce bureau NE SERA PAS ouvert
+automatiquement après la connexion.
 
-date:
-new Date().toLocaleDateString("fr-FR"),
-
-heure:
-new Date().toLocaleTimeString("fr-FR"),
-
-matricule:matricule,
-
-nom:membre.nom || "",
-
-fonction:fonction,
-
-bureau:bureau,
-
-action:"Connexion"
-
-});
-
-
-//=====================================
-// SESSION COMPLETE
-//=====================================
+Il sera accessible depuis l'espace membre.
+*/
 
 localStorage.setItem(
 "bureau",
 bureau
 );
+
+
+//==================================================
+// UTILISATEUR CONNECTE
+//==================================================
 
 localStorage.setItem(
 
@@ -995,60 +1162,171 @@ localStorage.setItem(
 
 JSON.stringify({
 
-matricule:matricule,
+matricule:
+matricule,
 
-nom:membre.nom || "",
+nom:
+membre.nom || "",
 
-fonction:fonction,
+fonction:
+fonction,
 
-bureau:bureau
+bureau:
+bureau
 
 })
 
 );
 
-message.style.color="green";
 
-message.innerHTML=
+//==================================================
+// JOURNAL DES CONNEXIONS
+//==================================================
 
-'<i class="fa-solid fa-circle-check"></i> Connexion réussie...';
+try{
 
-//=====================================
-// REDIRECTION
-//=====================================
+const journalRef=
+push(
+ref(
+database,
+"journal_activites"
+)
+);
 
-setTimeout(()=>{
 
-window.location.href=bureau;
+await set(
+journalRef,
+{
 
-},1000);
+date:
+new Date()
+.toLocaleDateString("fr-FR"),
+
+heure:
+new Date()
+.toLocaleTimeString("fr-FR"),
+
+matricule:
+matricule,
+
+nom:
+membre.nom || "",
+
+fonction:
+fonction,
+
+bureau:
+bureau,
+
+action:
+"Connexion"
+
+}
+);
+
+}catch(
+erreurJournal
+){
+
+console.warn(
+"Journal non enregistré :",
+erreurJournal
+);
 
 }
 
-//=====================================
-// GESTION DES ERREURS
-//=====================================
 
-catch(erreur){
+//==================================================
+// CONNEXION REUSSIE
+//==================================================
 
-console.error(erreur);
+message.style.color=
+"#009245";
 
-message.style.color="red";
 
 message.innerHTML=
 
-'<i class="fa-solid fa-circle-xmark"></i> Impossible de se connecter au serveur Firebase.';
+'<i class="fa-solid fa-circle-check"></i> '+
+"Connexion réussie. Ouverture de votre espace membre...";
+
+
+//==================================================
+// REDIRECTION
+//==================================================
+
+/*
+IMPORTANT :
+
+AVANT :
+window.location.href=bureau;
+
+Cela envoyait directement le Président
+vers prbureau.html.
+
+MAINTENANT :
+
+TOUS LES MEMBRES ARRIVENT DANS
+l'espace membre.
+
+Le bureau sera ouvert uniquement
+après avoir cliqué sur sa tuile.
+*/
+
+setTimeout(
+()=>{
+
+window.location.href=
+"espace.html";
+
+},
+1000
+);
+
+
+}
+
+
+//==================================================
+// GESTION DES ERREURS
+//==================================================
+
+catch(erreur){
+
+console.error(
+erreur
+);
+
+
+message.style.color=
+"red";
+
+
+message.innerHTML=
+
+'<i class="fa-solid fa-circle-xmark"></i> '+
+"Impossible de se connecter au serveur Firebase.";
+
+
+boutonConnexion.disabled=false;
+
+
+boutonConnexion.innerHTML=
+
+'<i class="fa-solid fa-right-to-bracket"></i> '+
+"Se connecter";
 
 }
 
 };
 
-//=====================================
-// FIN DU SCRIPT
-//=====================================
+
+//==================================================
+// FIN
+//==================================================
 
 </script>
 
+
 </body>
 
-</html>
+    </html>
