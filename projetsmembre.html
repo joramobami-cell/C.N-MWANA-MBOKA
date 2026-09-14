@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Mes Projets | MWANA MBOKA</title>
+
+<link rel="stylesheet" href="projetsmembre.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- ==================================================
+     HEADER
+================================================== -->
+
+<header class="header">
+
+    <div class="logo-zone">
+
+        <img src="logo.png"
+             alt="Logo MWANA MBOKA">
+
+        <div>
+
+            <h1>MWANA MBOKA</h1>
+
+            <p>Espace projets des membres</p>
+
+        </div>
+
+    </div>
+
+
+    <a href="espace.html" class="back">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Espace membre
+
+    </a>
+
+</header>
+
+
+
+<!-- ==================================================
+     CONTENU
+================================================== -->
+
+<main class="projets-content">
+
+
+
+<!-- ==================================================
+     INTRODUCTION
+================================================== -->
+
+<section class="hero-projets">
+
+    <div>
+
+        <span class="badge">
+
+            <i class="fa-solid fa-diagram-project"></i>
+
+            PROJETS COMMUNAUTAIRES
+
+        </span>
+
+
+        <h2>
+            Construisons nos projets ensemble
+        </h2>
+
+
+        <p>
+            Soumettez votre projet, découvrez les initiatives
+            des membres et participez au développement de
+            la communauté numérique MWANA MBOKA.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     ACTIONS PRINCIPALES
+================================================== -->
+
+<section class="actions-grid">
+
+
+    <button
+        class="action-card"
+        id="btnSoumettre"
+        type="button">
+
+        <div class="action-icon">
+
+            <i class="fa-solid fa-file-circle-plus"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Soumettre un projet
+            </h3>
+
+            <p>
+                Présentez votre projet au Président
+                pour étude et validation.
+            </p>
+
+        </div>
+
+    </button>
+
+
+
+    <button
+        class="action-card"
+        id="btnProjets"
+        type="button">
+
+        <div class="action-icon">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Projets disponibles
+            </h3>
+
+            <p>
+                Consultez les projets validés
+                de la communauté.
+            </p>
+
+        </div>
+
+    </button>
+
+
+
+    <button
+        class="action-card"
+        id="btnMesProjets"
+        type="button">
+
+        <div class="action-icon">
+
+            <i class="fa-solid fa-user-folder"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Mes projets
+            </h3>
+
+            <p>
+                Suivez vos projets soumis et
+                leur évolution.
+            </p>
+
+        </div>
+
+    </button>
+
+
+
+    <button
+        class="action-card"
+        id="btnFinancements"
+        type="button">
+
+        <div class="action-icon">
+
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Mes financements
+            </h3>
+
+            <p>
+                Consultez vos demandes de financement
+                et leurs décisions.
+            </p>
+
+        </div>
+
+    </button>
+
+
+</section>
+
+
+
+<!-- ==================================================
+     TABLEAU DE BORD
+================================================== -->
+
+<section class="dashboard-card">
+
+    <div class="section-title">
+
+        <div>
+
+            <span class="small-title">
+                MON ACTIVITÉ
+            </span>
+
+            <h2>
+                Tableau de bord projets
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-folder"></i>
+
+            <strong id="totalProjets">
+                0
+            </strong>
+
+            <span>
+                Mes projets
+            </span>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-hourglass-half"></i>
+
+            <strong id="projetsAttente">
+                0
+            </strong>
+
+            <span>
+                En attente
+            </span>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-spinner"></i>
+
+            <strong id="projetsEnCours">
+                0
+            </strong>
+
+            <span>
+                En cours
+            </span>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <strong id="projetsRealises">
+                0
+            </strong>
+
+            <span>
+                Réalisés
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     PROJETS EN COURS
+================================================== -->
+
+<section
+    class="section-card"
+    id="sectionProjets">
+
+    <div class="section-title">
+
+        <div>
+
+            <span class="small-title">
+                COMMUNAUTÉ
+            </span>
+
+            <h2>
+                Projets en cours
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="listeProjets"
+        class="projets-list">
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <h3>
+                Aucun projet disponible
+            </h3>
+
+            <p>
+                Les projets validés par le Président
+                apparaîtront ici.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     MES PROJETS
+================================================== -->
+
+<section
+    class="section-card"
+    id="sectionMesProjets">
+
+    <div class="section-title">
+
+        <div>
+
+            <span class="small-title">
+                MON ESPACE
+            </span>
+
+            <h2>
+                Mes projets
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="listeMesProjets"
+        class="projets-list">
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-folder-tree"></i>
+
+            <h3>
+                Aucun projet soumis
+            </h3>
+
+            <p>
+                Vos projets apparaîtront ici après
+                leur soumission.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     MES FINANCEMENTS
+================================================== -->
+
+<section
+    class="section-card"
+    id="sectionFinancements">
+
+    <div class="section-title">
+
+        <div>
+
+            <span class="small-title">
+                FINANCEMENT
+            </span>
+
+            <h2>
+                Mes demandes de financement
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="listeFinancements"
+        class="financements-list">
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+
+            <h3>
+                Aucune demande de financement
+            </h3>
+
+            <p>
+                Vos demandes apparaîtront ici.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     FORMULAIRE SOUMISSION
+================================================== -->
+
+<section
+    class="form-card"
+    id="formulaireProjet"
+    style="display:none;">
+
+
+    <div class="section-title">
+
+        <div>
+
+            <span class="small-title">
+                NOUVEAU PROJET
+            </span>
+
+            <h2>
+                Soumettre un projet
+            </h2>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="btnFermerFormulaire"
+            class="close-btn">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    <p class="form-intro">
+
+        Votre projet sera transmis au bureau du Président
+        pour étude. Il ne sera visible par les autres membres
+        qu'après validation.
+
+    </p>
+
+
+
+    <form id="formProjet">
+
+
+        <!-- NOM -->
+
+        <div class="form-group">
+
+            <label for="nomProjet">
+                Nom du projet
+            </label>
+
+            <input
+                type="text"
+                id="nomProjet"
+                name="nomProjet"
+                placeholder="Ex. Production de maïs"
+                required>
+
+        </div>
+
+
+
+        <!-- CATEGORIE -->
+
+        <div class="form-group">
+
+            <label for="categorieProjet">
+                Catégorie
+            </label>
+
+            <select
+                id="categorieProjet"
+                name="categorieProjet"
+                required>
+
+                <option value="">
+                    Sélectionner une catégorie
+                </option>
+
+                <option value="Agriculture">
+                    Agriculture
+                </option>
+
+                <option value="Commerce">
+                    Commerce
+                </option>
+
+                <option value="Numérique">
+                    Numérique
+                </option>
+
+                <option value="Entrepreneuriat">
+                    Entrepreneuriat
+                </option>
+
+                <option value="Services">
+                    Services
+                </option>
+
+                <option value="Éducation">
+                    Éducation
+                </option>
+
+                <option value="Autre">
+                    Autre
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- LOCALISATION -->
+
+        <div class="form-group">
+
+            <label for="localisationProjet">
+                Localisation du projet
+            </label>
+
+            <input
+                type="text"
+                id="localisationProjet"
+                name="localisationProjet"
+                placeholder="Ville / département / localité"
+                required>
+
+        </div>
+
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group">
+
+            <label for="descriptionProjet">
+                Description du projet
+            </label>
+
+            <textarea
+                id="descriptionProjet"
+                name="descriptionProjet"
+                rows="5"
+                placeholder="Présentez votre projet..."
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- OBJECTIFS -->
+
+        <div class="form-group">
+
+            <label for="objectifsProjet">
+                Objectifs du projet
+            </label>
+
+            <textarea
+                id="objectifsProjet"
+                name="objectifsProjet"
+                rows="4"
+                placeholder="Quels sont les objectifs de votre projet ?"
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- BUDGET -->
+
+        <div class="form-row">
+
+
+            <div class="form-group">
+
+                <label for="budgetProjet">
+                    Budget estimatif
+                </label>
+
+                <input
+                    type="number"
+                    id="budgetProjet"
+                    name="budgetProjet"
+                    min="0"
+                    placeholder="0">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="montantRecherche">
+                    Montant recherché
+                </label>
+
+                <input
+                    type="number"
+                    id="montantRecherche"
+                    name="montantRecherche"
+                    min="0"
+                    placeholder="0">
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BESOINS -->
+
+        <div class="form-group">
+
+            <label for="besoinsProjet">
+                Besoins du projet
+            </label>
+
+            <textarea
+                id="besoinsProjet"
+                name="besoinsProjet"
+                rows="4"
+                placeholder="Financement, matériel, accompagnement, formation..."></textarea>
+
+        </div>
+
+
+
+        <!-- BOUTON -->
+
+        <button
+            type="submit"
+            class="submit-btn"
+            id="btnEnvoyerProjet">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+            Envoyer au Président
+
+        </button>
+
+
+    </form>
+
+</section>
+
+
+
+<!-- ==================================================
+     ZONE MESSAGE
+================================================== -->
+
+<div id="message"></div>
+
+
+</main>
+
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer>
+
+    <strong>
+        COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    </strong>
+
+    <br>
+
+    Ensemble nous irons plus loin.
+
+</footer>
+
+
+</div>
+
+
+
+<script
+type="module"
+src="projetsmembre.js">
+</script>
+
+
+</body>
+
+</html>
