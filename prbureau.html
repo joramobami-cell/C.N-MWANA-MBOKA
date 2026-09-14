@@ -2,9 +2,7 @@
 <html lang="fr">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Bureau Numérique du Président | MWANA MBOKA</title>
@@ -16,1835 +14,1625 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </head>
 
-
 <body id="presidentBody">
 
+<!-- ================= MENU MOBILE ================= -->
 
-<button class="mobile-menu-btn" id="mobileMenuBtn">
-<i class="fa-solid fa-bars"></i>
+<button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+    <i class="fa-solid fa-bars"></i>
 </button>
-
 
 
 <div class="bureau-container">
 
 
-
 <!-- ================= HEADER ================= -->
-
 
 <header class="header">
 
+    <div class="header-left">
 
-<div class="header-left">
+        <img src="logo.png"
+             class="logo"
+             alt="Logo MWANA MBOKA">
 
+        <div>
 
-<img src="logo.png" class="logo" alt="Logo MWANA MBOKA">
+            <h1>
+                BUREAU NUMÉRIQUE DU PRÉSIDENT
+            </h1>
 
+            <p>
+                COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+                <br>
+                Ensemble nous irons plus loin.
+            </p>
 
-<div>
+        </div>
 
-<h1>
-BUREAU NUMÉRIQUE DU PRÉSIDENT
-</h1>
-
-
-<p>
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-<br>
-Ensemble nous irons plus loin.
-</p>
-
-
-</div>
-
-
-</div>
+    </div>
 
 
+    <div class="header-right">
+
+        <div class="date-box">
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            <span id="date">
+                Chargement...
+            </span>
+
+        </div>
 
 
+        <div class="time-box">
 
-<div class="header-right">
+            <i class="fa-solid fa-clock"></i>
 
+            <span id="heure">
+                --:--:--
+            </span>
 
-<div class="date-box">
-
-<i class="fa-solid fa-calendar-days"></i>
-
-<span id="date"></span>
-
-</div>
+        </div>
 
 
+        <div class="system-status">
 
-<div class="time-box">
+            <i class="fa-solid fa-circle"></i>
 
-<i class="fa-solid fa-clock"></i>
+            Système opérationnel
 
-<span id="heure"></span>
-
-</div>
-
+        </div>
 
 
-<div class="system-status">
+        <!-- RETOUR ESPACE MEMBRE -->
 
-<i class="fa-solid fa-circle"></i>
+        <button
+            class="member-space-btn"
+            id="memberSpaceBtn"
+            type="button">
 
-Système opérationnel
+            <i class="fa-solid fa-house"></i>
 
-</div>
+            Espace membre
 
-
-
-<button class="logout-btn" id="logoutBtn">
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-Déconnexion
-
-</button>
+        </button>
 
 
-</div>
+        <!-- DECONNEXION -->
 
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+            type="button">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Déconnexion
+
+        </button>
+
+    </div>
 
 </header>
 
 
 
-
-
-
 <!-- ================= PROFIL PRESIDENT ================= -->
-
 
 <section class="president-card">
 
+    <div class="photo">
 
-<div class="photo">
+        <img
+            src="images/images/president.png"
+            alt="Président Fondateur">
 
-<img src="images/images/president.png"
-alt="Président Fondateur">
-
-</div>
-
-
-
-<div class="president-info">
+    </div>
 
 
-<h2>
-Bienvenue dans votre Bureau Monsieur le Président
-</h2>
+    <div class="president-info">
+
+        <h2>
+            Bienvenue dans votre Bureau
+            Monsieur le Président
+        </h2>
 
 
-<h3>
-👑 AMOUR JORAM OBAMI
-</h3>
+        <h3>
+            <i class="fa-solid fa-crown"></i>
+            AMOUR JORAM OBAMI
+        </h3>
 
 
-<p>
-Fondateur & Président
-</p>
+        <p>
+            Fondateur & Président
+        </p>
 
 
-<p>
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-</p>
+        <p>
+            COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+        </p>
 
 
+        <div class="badge">
 
-<div class="badge">
+            <i class="fa-solid fa-crown"></i>
 
-<i class="fa-solid fa-crown"></i>
+            Autorité :
+            Président Fondateur
 
-Autorité :
-Président Fondateur
-
-</div>
-
+        </div>
 
 
-<p class="command-text">
+        <p class="command-text">
 
-Centre de commandement général.
-Toutes les structures sont placées sous votre supervision.
+            Centre de commandement général.
+            Toutes les structures sont placées
+            sous votre supervision.
 
-</p>
+        </p>
 
-
-
-</div>
-
+    </div>
 
 </section>
 
 
 
+<!-- ================= SIDEBAR ================= -->
 
+<aside
+    class="sidebar"
+    id="presidentSidebar">
 
 
+    <div class="sidebar-title">
 
+        <i class="fa-solid fa-bars"></i>
 
-<!-- ================= MENU PRESIDENT ================= -->
+        Navigation Président
 
+    </div>
 
-<aside class="sidebar" id="presidentSidebar">
 
+    <ul>
 
 
-<div class="sidebar-title">
+        <li>
 
-<i class="fa-solid fa-bars"></i>
+            <a href="#dashboard">
 
-Navigation Président
+                <i class="fa-solid fa-gauge-high"></i>
 
-</div>
+                Tableau de bord
 
+            </a>
 
+        </li>
 
 
+        <li>
 
-<ul>
+            <a href="gsorganigramme.html">
 
+                <i class="fa-solid fa-sitemap"></i>
 
+                GS Organigramme
 
-<li>
+            </a>
 
-<a href="#dashboard">
+        </li>
 
-<i class="fa-solid fa-gauge-high"></i>
 
-Tableau de bord
+        <li>
 
-</a>
+            <a href="membres.html">
 
-</li>
+                <i class="fa-solid fa-users"></i>
 
+                Gestion des membres
 
+            </a>
 
+        </li>
 
 
-<li>
+        <li>
 
-<a href="gsorganigramme.html">
+            <a href="formationun.html">
 
-<i class="fa-solid fa-sitemap"></i>
+                <i class="fa-solid fa-graduation-cap"></i>
 
-GS Organigramme
+                Gestion des formations
 
-</a>
+            </a>
 
-</li>
+        </li>
 
 
+        <li>
 
+            <a href="conseil.html">
 
+                <i class="fa-solid fa-scale-balanced"></i>
 
-<li>
+                Gestion Conseil
 
-<a href="membres.html">
+            </a>
 
-<i class="fa-solid fa-users"></i>
+        </li>
 
-Gestion des membres
 
-</a>
+        <li>
 
-</li>
+            <a href="projets.html">
 
+                <i class="fa-solid fa-folder-open"></i>
 
+                Gestion des projets
 
+            </a>
 
+        </li>
 
-<li>
 
-<a href="formationun.html">
+        <li>
 
-<i class="fa-solid fa-graduation-cap"></i>
+            <a href="entraides.html">
 
-Gestion des formations
+                <i class="fa-solid fa-handshake-angle"></i>
 
-</a>
+                Gestion entraide
 
-</li>
+            </a>
 
+        </li>
 
 
+        <li>
 
+            <a href="finance.html">
 
-<li>
+                <i class="fa-solid fa-wallet"></i>
 
-<a href="conseil.html">
+                Gestion financière
 
-<i class="fa-solid fa-scale-balanced"></i>
+            </a>
 
-Gestion Conseil
+        </li>
 
-</a>
 
-</li>
+        <li>
 
+            <a href="investissements.html">
 
+                <i class="fa-solid fa-chart-line"></i>
 
+                Gestion investissements
 
+            </a>
 
-<li>
+        </li>
 
-<a href="projets.html">
 
-<i class="fa-solid fa-folder-open"></i>
+        <li>
 
-Gestion des projets
+            <a href="communication.html">
 
-</a>
+                <i class="fa-solid fa-bullhorn"></i>
 
-</li>
+                Communication
 
+            </a>
 
+        </li>
 
 
+        <li>
 
-<li>
+            <a href="archives.html">
 
-<a href="entraides.html">
+                <i class="fa-solid fa-box-archive"></i>
 
-<i class="fa-solid fa-handshake-angle"></i>
+                Archives
 
-Gestion entraide
+            </a>
 
-</a>
+        </li>
 
-</li>
 
+        <li>
 
+            <a href="statistiques.html">
 
+                <i class="fa-solid fa-chart-pie"></i>
 
+                Statistiques
 
-<li>
+            </a>
 
-<a href="finance.html">
+        </li>
 
-<i class="fa-solid fa-wallet"></i>
 
-Gestion financière
+        <li>
 
-</a>
+            <a href="journal.html">
 
-</li>
+                <i class="fa-solid fa-book-open"></i>
 
+                Journal d'activités
 
+            </a>
 
+        </li>
 
 
-<li>
+        <li>
 
-<a href="investissements.html">
+            <a href="securite.html">
 
-<i class="fa-solid fa-chart-line"></i>
+                <i class="fa-solid fa-shield-halved"></i>
 
-Gestion investissements
+                Sécurité
 
-</a>
+            </a>
 
-</li>
+        </li>
 
 
+        <li>
 
+            <a href="parametres.html">
 
+                <i class="fa-solid fa-gear"></i>
 
-<li>
+                Paramètres
 
-<a href="communication.html">
+            </a>
 
-<i class="fa-solid fa-bullhorn"></i>
+        </li>
 
-Communication
 
-</a>
+    </ul>
 
-</li>
+</aside>
 
 
 
-
-
-<li>
-
-<a href="archives.html">
-
-<i class="fa-solid fa-box-archive"></i>
-
-Archives
-
-</a>
-
-</li>
-
-
-
-
-
-<li>
-
-<a href="statistiques.html">
-
-<i class="fa-solid fa-chart-pie"></i>
-
-Statistiques
-
-</a>
-
-</li>
-
-
-
-
-
-<li>
-
-<a href="journal.html">
-
-<i class="fa-solid fa-book-open"></i>
-
-Journal d'activités
-
-</a>
-
-</li>
-
-
-
-
-
-<li>
-
-<a href="securite.html">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-Sécurité
-
-</a>
-
-</li>
-
-
-
-
-
-<li>
-
-<a href="parametres.html">
-
-<i class="fa-solid fa-gear"></i>
-
-Paramètres
-
-</a>
-
-</li>
-
-
-
-</ul>
-
-
-
-  </aside>
 <!-- ================= CONTENU PRINCIPAL ================= -->
 
 <main class="main-content" id="presidentContent">
 
 
-
 <!-- ================= TABLEAU DE BORD ================= -->
 
+<section
+    class="dashboard"
+    id="dashboard">
 
-<section class="dashboard" id="dashboard">
 
+    <div class="dashboard-title">
 
-<div class="dashboard-title">
+        <h2>
 
+            <i class="fa-solid fa-chart-line"></i>
 
-<h2>
+            Tableau de bord présidentiel
 
-<i class="fa-solid fa-chart-line"></i>
+        </h2>
 
-Tableau de bord présidentiel
 
-</h2>
+        <p>
 
+            Vue générale de la Communauté Numérique
+            MWANA MBOKA
 
-<p>
+        </p>
 
-Vue générale de la Communauté Numérique MWANA MBOKA
+    </div>
 
-</p>
 
 
-</div>
+    <div class="dashboard-grid">
 
 
+        <!-- MEMBRES -->
 
+        <div class="card">
 
+            <i class="fa-solid fa-users"></i>
 
-<div class="dashboard-grid">
+            <h3>
+                Membres
+            </h3>
 
+            <h2 id="totalMembres">
+                0
+            </h2>
 
+            <span>
+                Membres actifs
+            </span>
 
-<!-- MEMBRES -->
+        </div>
 
-<div class="card">
 
+        <!-- ORGANIGRAMME -->
 
-<i class="fa-solid fa-users"></i>
+        <div class="card">
 
+            <i class="fa-solid fa-sitemap"></i>
 
-<h3>
+            <h3>
+                GS Organigramme
+            </h3>
 
-Membres
+            <h2 id="responsablesActifs">
+                0
+            </h2>
 
-</h3>
+            <span>
+                Responsables nommés
+            </span>
 
+        </div>
 
-<h2 id="totalMembres">
 
-0
+        <!-- FINANCES -->
 
-</h2>
+        <div class="card">
 
+            <i class="fa-solid fa-wallet"></i>
 
-<span>
+            <h3>
+                Trésorerie
+            </h3>
 
-Membres actifs
+            <h2 id="soldeGeneral">
+                0 FCFA
+            </h2>
 
-</span>
+            <span>
+                Fonds communautaires
+            </span>
 
+        </div>
 
-</div>
 
+        <!-- COTISATIONS -->
 
+        <div class="card">
 
+            <i class="fa-solid fa-coins"></i>
 
+            <h3>
+                Cotisations
+            </h3>
 
-<!-- ORGANIGRAMME -->
+            <h2 id="cotisationsMois">
+                0
+            </h2>
 
+            <span>
+                Ce mois
+            </span>
 
-<div class="card">
+        </div>
 
 
-<i class="fa-solid fa-sitemap"></i>
+        <!-- FORMATIONS -->
 
+        <div class="card">
 
-<h3>
+            <i class="fa-solid fa-graduation-cap"></i>
 
-GS Organigramme
+            <h3>
+                Formations
+            </h3>
 
-</h3>
+            <h2 id="formationsActives">
+                0
+            </h2>
 
+            <span>
+                Sessions actives
+            </span>
 
-<h2 id="responsablesActifs">
+        </div>
 
-0
 
-</h2>
+        <!-- PROJETS -->
 
+        <div class="card">
 
-<span>
+            <i class="fa-solid fa-folder-open"></i>
 
-Responsables nommés
+            <h3>
+                Projets
+            </h3>
 
-</span>
+            <h2 id="projetsAttente">
+                0
+            </h2>
 
+            <span>
+                En attente
+            </span>
 
-</div>
+        </div>
 
 
+        <!-- INVESTISSEMENTS -->
 
+        <div class="card">
 
+            <i class="fa-solid fa-chart-line"></i>
 
-<!-- FINANCES -->
+            <h3>
+                Investissements
+            </h3>
 
+            <h2 id="investissementsActifs">
+                0
+            </h2>
 
-<div class="card">
+            <span>
+                Actifs
+            </span>
 
+        </div>
 
-<i class="fa-solid fa-wallet"></i>
 
+        <!-- ENTRAIDE -->
 
-<h3>
+        <div class="card">
 
-Trésorerie
+            <i class="fa-solid fa-handshake-angle"></i>
 
-</h3>
+            <h3>
+                Entraides
+            </h3>
 
+            <h2 id="entraidesAttente">
+                0
+            </h2>
 
-<h2 id="soldeGeneral">
+            <span>
+                Demandes
+            </span>
 
-0 FCFA
+        </div>
 
-</h2>
 
+    </div>
 
-<span>
+  </section>
 
-Fonds communautaires
-
-</span>
-
-
-</div>
-
-
-
-
-
-<!-- COTISATIONS -->
-
-
-<div class="card">
-
-
-<i class="fa-solid fa-coins"></i>
-
-
-<h3>
-
-Cotisations
-
-</h3>
-
-
-<h2 id="cotisationsMois">
-
-0
-
-</h2>
-
-
-<span>
-
-Ce mois
-
-</span>
-
-
-</div>
-
-
-
-
-
-<!-- FORMATIONS -->
-
-
-<div class="card">
-
-
-<i class="fa-solid fa-graduation-cap"></i>
-
-
-<h3>
-
-Formations
-
-</h3>
-
-
-<h2 id="formationsActives">
-
-0
-
-</h2>
-
-
-<span>
-
-Sessions actives
-
-</span>
-
-
-</div>
-
-
-
-
-
-<!-- PROJETS -->
-
-
-<div class="card">
-
-
-<i class="fa-solid fa-folder-open"></i>
-
-
-<h3>
-
-Projets
-
-</h3>
-
-
-<h2 id="projetsAttente">
-
-0
-
-</h2>
-
-
-<span>
-
-En attente
-
-</span>
-
-
-</div>
-
-
-
-
-
-<!-- INVESTISSEMENTS -->
-
-
-<div class="card">
-
-
-<i class="fa-solid fa-chart-line"></i>
-
-
-<h3>
-
-Investissements
-
-</h3>
-
-
-<h2 id="investissementsActifs">
-
-0
-
-</h2>
-
-
-<span>
-
-Actifs
-
-</span>
-
-
-</div>
-
-
-
-
-
-<!-- ENTRAIDE -->
-
-
-<div class="card">
-
-
-<i class="fa-solid fa-handshake-angle"></i>
-
-
-<h3>
-
-Entraides
-
-</h3>
-
-
-<h2 id="entraidesAttente">
-
-0
-
-</h2>
-
-
-<span>
-
-Demandes
-
-</span>
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-<!-- ================= CENTRE ORGANIGRAMME PRESIDENT ================= -->
-
+  <!-- ==================================================
+     CENTRE GS ORGANIGRAMME
+================================================== -->
 
 <section class="organigramme-president">
 
+    <div class="section-header">
 
+        <h2>
+            <i class="fa-solid fa-network-wired"></i>
+            Centre de contrôle GS Organigramme
+        </h2>
 
-<div class="section-header">
+        <p>
+            L'organigramme constitue la source de vérité
+            des rôles, fonctions et autorisations.
+        </p>
 
+    </div>
 
-<h2>
 
-<i class="fa-solid fa-network-wired"></i>
+    <div class="office-grid">
 
-Centre de contrôle GS Organigramme
 
-</h2>
+        <!-- COMMANDMENT PRESIDENTIEL -->
 
+        <div class="office-card">
 
-<p>
+            <h3>
+                <i class="fa-solid fa-crown"></i>
+                Commandement Présidentiel
+            </h3>
 
-L'organigramme est la source de vérité des rôles, fonctions et autorisations.
+            <p>
+                Gestion complète des nominations,
+                fonctions et permissions.
+            </p>
 
-</p>
+            <a
+                href="gsorganigramme.html"
+                class="action-btn">
 
+                <i class="fa-solid fa-sitemap"></i>
 
-</div>
+                Ouvrir GS Organigramme
 
+            </a>
 
+        </div>
 
 
+        <!-- NOMINATIONS -->
 
-<div class="office-grid">
+        <div class="office-card">
 
+            <h3>
+                <i class="fa-solid fa-user-clock"></i>
+                Nominations en attente
+            </h3>
 
+            <div
+                id="nominationsAttente"
+                class="dynamic-content">
 
+                Aucune nomination en attente.
 
+            </div>
 
-<div class="office-card">
+        </div>
 
 
-<h3>
+        <!-- RESPONSABLES -->
 
-👑 Commandement Présidentiel
+        <div class="office-card">
 
-</h3>
+            <h3>
+                <i class="fa-solid fa-users-gear"></i>
+                Responsables actifs
+            </h3>
 
+            <div
+                id="listeResponsables"
+                class="dynamic-content">
 
-<p>
+                Chargement des responsables...
 
-Gestion complète des nominations et permissions.
+            </div>
 
-</p>
+        </div>
 
 
-<a href="gsorganigramme.html"
-class="action-btn">
+        <!-- AUTORISATIONS -->
 
-Ouvrir GS Organigramme
+        <div class="office-card">
 
-</a>
+            <h3>
+                <i class="fa-solid fa-user-shield"></i>
+                Gestion des autorisations
+            </h3>
 
+            <p>
+                Chaque responsable reçoit uniquement
+                les accès correspondant à son domaine
+                et à sa fonction.
+            </p>
 
-</div>
+            <div class="security-mini">
 
+                <i class="fa-solid fa-lock"></i>
 
+                Autorisations contrôlées
+                par le Président
 
+            </div>
 
+        </div>
 
 
+    </div>
 
-<div class="office-card">
+</section>
 
 
-<h3>
 
-📋 Nominations en attente
-
-</h3>
-
-
-<div id="nominationsAttente">
-
-Aucune nomination en attente.
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="office-card">
-
-
-<h3>
-
-🏛 Responsables actifs
-
-</h3>
-
-
-<div id="listeResponsables">
-
-Chargement des responsables...
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="office-card">
-
-
-<h3>
-
-🔐 Gestion des autorisations
-
-</h3>
-
-
-<p>
-
-Chaque responsable reçoit uniquement les accès liés à son domaine.
-
-</p>
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-  </section>
-
-
-  <!-- ================= CENTRE DE DECISION PRESIDENTIELLE ================= -->
-
+<!-- ==================================================
+     CENTRE DE DECISION PRESIDENTIELLE
+================================================== -->
 
 <section class="president-office">
 
+    <div class="section-header">
 
-<div class="section-header">
+        <h2>
 
+            <i class="fa-solid fa-landmark"></i>
 
-<h2>
+            Centre de décision présidentielle
 
-<i class="fa-solid fa-landmark"></i>
+        </h2>
 
-Centre de décision présidentielle
+        <p>
 
-</h2>
+            Les décisions stratégiques des directions
+            sont soumises à la validation du Président
+            Fondateur.
 
+        </p>
 
+    </div>
 
-<p>
 
-Toutes les décisions stratégiques des directions sont soumises à la validation du Président Fondateur.
 
-</p>
+    <div class="office-grid">
 
 
-</div>
+        <!-- VALIDATIONS -->
 
+        <div class="office-card">
 
+            <h3>
 
+                <i class="fa-solid fa-stamp"></i>
 
+                Validations en attente
 
+            </h3>
 
 
-<div class="office-grid">
+            <div
+                id="centreValidation"
+                class="dynamic-content">
 
+                <p>
+                    Aucune validation en attente.
+                </p>
 
+            </div>
 
+        </div>
 
 
-<!-- VALIDATIONS -->
 
+        <!-- DOSSIERS -->
 
-<div class="office-card">
+        <div class="office-card">
 
+            <h3>
 
-<h3>
+                <i class="fa-solid fa-file-signature"></i>
 
-<i class="fa-solid fa-stamp"></i>
+                Dossiers soumis au Président
 
-Validations en attente
+            </h3>
 
-</h3>
 
+            <div
+                id="dossiersPresident"
+                class="dynamic-content">
 
-<div id="centreValidation">
+                <p>
+                    Aucun dossier reçu.
+                </p>
 
+            </div>
 
-<p>
+        </div>
 
-Aucune validation en attente.
 
-</p>
 
+        <!-- SIGNATURE PRESIDENTIELLE -->
 
-</div>
+        <div class="office-card">
 
+            <h3>
 
-</div>
+                <i class="fa-solid fa-key"></i>
 
+                Signature présidentielle
 
+            </h3>
 
 
+            <div class="signature-box">
 
+                <p>
 
+                    Les actions sensibles nécessitent
+                    une autorisation présidentielle.
 
-<!-- DOSSIERS -->
+                </p>
 
 
-<div class="office-card">
+                <ul>
 
+                    <li>
+                        <i class="fa-solid fa-user-plus"></i>
+                        Nomination d'un responsable
+                    </li>
 
-<h3>
+                    <li>
+                        <i class="fa-solid fa-user-shield"></i>
+                        Modification des permissions
+                    </li>
 
-<i class="fa-solid fa-file-signature"></i>
+                    <li>
+                        <i class="fa-solid fa-box-archive"></i>
+                        Suppression ou archivage
+                    </li>
 
-Dossiers soumis au Président
+                    <li>
+                        <i class="fa-solid fa-wallet"></i>
+                        Validation financière
+                    </li>
 
-</h3>
+                </ul>
 
 
+                <div class="signature-actions">
 
-<div id="dossiersPresident">
 
+                    <button
+                        id="btnSigner"
+                        type="button">
 
-<p>
+                        <i class="fa-solid fa-pen-fancy"></i>
 
-Aucun dossier reçu.
+                        Signer une décision
 
-</p>
+                    </button>
 
 
-</div>
+                    <button
+                        id="btnCode"
+                        type="button">
 
+                        <i class="fa-solid fa-lock"></i>
 
-</div>
+                        Code Président
 
+                    </button>
 
 
+                </div>
 
+            </div>
 
+        </div>
 
 
-<!-- SIGNATURE PRESIDENTIELLE -->
 
+        <!-- DECISIONS HISTORIQUES -->
 
-<div class="office-card">
+        <div class="office-card">
 
+            <h3>
 
-<h3>
+                <i class="fa-solid fa-scale-balanced"></i>
 
-<i class="fa-solid fa-key"></i>
+                Décisions présidentielles
 
-Signature présidentielle
+            </h3>
 
-</h3>
 
+            <div
+                id="decisionsPresident"
+                class="dynamic-content">
 
+                <p>
+                    Aucune décision enregistrée.
+                </p>
 
+            </div>
 
-<div class="signature-box">
+        </div>
 
 
-<p>
-
-Les actions sensibles nécessitent le code personnel du Président.
-
-</p>
-
-
-
-
-<ul>
-
-
-<li>
-Nomination d'un responsable
-</li>
-
-
-<li>
-Modification des permissions
-</li>
-
-
-<li>
-Suppression ou archivage
-</li>
-
-
-<li>
-Validation financière
-</li>
-
-
-</ul>
-
-
-
-
-
-<button id="btnSigner">
-
-
-<i class="fa-solid fa-pen-fancy"></i>
-
-Signer une décision
-
-</button>
-
-
-
-
-<button id="btnCode">
-
-
-<i class="fa-solid fa-lock"></i>
-
-Modifier le code Président
-
-</button>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<!-- DECISIONS HISTORIQUES -->
-
-
-<div class="office-card">
-
-
-<h3>
-
-<i class="fa-solid fa-scale-balanced"></i>
-
-Décisions présidentielles
-
-</h3>
-
-
-
-<div id="decisionsPresident">
-
-
-<p>
-
-Aucune décision enregistrée.
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-</div>
-
-
+    </div>
 
 </section>
 
 
 
-
-
-
-
-
-
-<!-- ================= APPROBATIONS OFFICIELLES ================= -->
-
+<!-- ==================================================
+     APPROBATIONS OFFICIELLES
+================================================== -->
 
 <section class="approval-center">
 
+    <div class="section-header">
 
-<div class="section-header">
+        <h2>
 
+            <i class="fa-solid fa-file-circle-check"></i>
 
-<h2>
+            Approbations officielles
 
-<i class="fa-solid fa-file-circle-check"></i>
+        </h2>
 
-Approbations officielles
+        <p>
 
-</h2>
+            Les propositions provenant des différents
+            services sont examinées avant activation.
 
+        </p>
 
+    </div>
 
-<p>
 
-Les propositions des responsables sont examinées avant activation.
+    <div class="approval-grid">
 
-</p>
 
+        <!-- NOMINATIONS -->
 
-</div>
+        <div class="approval-card">
 
+            <i class="fa-solid fa-user-plus"></i>
 
+            <h3>
+                Nominations
+            </h3>
 
+            <p id="validationNominations">
 
+                Aucune nomination.
 
+            </p>
 
-<div class="approval-grid">
+        </div>
 
 
+        <!-- FINANCES -->
 
+        <div class="approval-card">
 
+            <i class="fa-solid fa-wallet"></i>
 
-<div class="approval-card">
+            <h3>
+                Demandes financières
+            </h3>
 
+            <p id="validationFinance">
 
-<i class="fa-solid fa-user-plus"></i>
+                Aucune demande.
 
+            </p>
 
-<h3>
+        </div>
 
-Nominations
 
-</h3>
+        <!-- PROJETS -->
 
+        <div class="approval-card">
 
-<p id="validationNominations">
+            <i class="fa-solid fa-folder-open"></i>
 
-Aucune nomination.
+            <h3>
+                Projets soumis
+            </h3>
 
-</p>
+            <p id="validationProjets">
 
+                Aucun projet.
 
-</div>
+            </p>
 
+        </div>
 
 
+    </div>
 
+  </section>
 
+  <!-- ==================================================
+     SUPERVISION DES DIRECTIONS
+================================================== -->
 
+<section class="directions-control">
 
-<div class="approval-card">
+    <div class="section-header">
 
+        <h2>
 
-<i class="fa-solid fa-wallet"></i>
+            <i class="fa-solid fa-sitemap"></i>
 
+            Supervision des directions
 
-<h3>
+        </h2>
 
-Demandes financières
+        <p>
 
-</h3>
+            Chaque responsable travaille dans son domaine
+            selon les fonctions et autorisations attribuées
+            par le Président Fondateur.
 
+        </p>
 
-<p id="validationFinance">
+    </div>
 
-Aucune demande.
 
-</p>
 
+    <div class="direction-grid">
 
-</div>
 
+        <!-- ================================
+             SECRETARIAT GENERAL
+        ================================= -->
 
+        <div class="direction-card">
 
+            <i class="fa-solid fa-building"></i>
 
+            <h3>
 
+                Secrétariat Général
 
+            </h3>
 
-<div class="approval-card">
+            <p>
 
+                Coordination administrative et suivi
+                du fonctionnement quotidien de la
+                Communauté.
 
-<i class="fa-solid fa-folder-open"></i>
+            </p>
 
+            <span>
 
-<h3>
+                <i class="fa-solid fa-user-tie"></i>
 
-Projets soumis
+                Sous supervision présidentielle.
 
-</h3>
+            </span>
 
+        </div>
 
-<p id="validationProjets">
 
-Aucun projet.
 
-</p>
+        <!-- ================================
+             SECRETARIAT & ADMINISTRATION
+        ================================= -->
 
+        <div class="direction-card">
 
-</div>
+            <i class="fa-solid fa-file-lines"></i>
 
+            <h3>
 
+                Secrétariat & Administration
 
+            </h3>
 
+            <p>
 
+                Gestion administrative, membres,
+                dossiers et archives.
 
-</div>
+            </p>
 
+            <span>
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Accès selon autorisation.
+
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================
+             FORMATION
+        ================================= -->
+
+        <div class="direction-card">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            <h3>
+
+                Formation
+
+            </h3>
+
+            <p>
+
+                Gestion des formations,
+                programmes et participants.
+
+            </p>
+
+            <span>
+
+                <i class="fa-solid fa-user-check"></i>
+
+                Responsable nommé par le Président.
+
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================
+             PROJETS
+        ================================= -->
+
+        <div class="direction-card">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <h3>
+
+                Projets
+
+            </h3>
+
+            <p>
+
+                Suivi, accompagnement et évaluation
+                des projets des membres.
+
+            </p>
+
+            <span>
+
+                <i class="fa-solid fa-stamp"></i>
+
+                Validation finale présidentielle.
+
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================
+             CONSEIL ADMINISTRATIF
+        ================================= -->
+
+        <div class="direction-card">
+
+            <i class="fa-solid fa-scale-balanced"></i>
+
+            <h3>
+
+                Conseil Administratif
+
+            </h3>
+
+            <p>
+
+                Conseil administratif, juridique,
+                financier et technique.
+
+            </p>
+
+            <span>
+
+                <i class="fa-solid fa-landmark"></i>
+
+                Supervision du Président.
+
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================
+             FINANCES & ECONOMIE
+        ================================= -->
+
+        <div class="direction-card">
+
+            <i class="fa-solid fa-coins"></i>
+
+            <h3>
+
+                Finances & Économie
+
+            </h3>
+
+            <p>
+
+                Trésorerie, comptabilité, économie
+                et études des investissements.
+
+            </p>
+
+            <span>
+
+                <i class="fa-solid fa-lock"></i>
+
+                Contrôle présidentiel.
+
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================
+             COMMUNICATION
+        ================================= -->
+
+        <div class="direction-card">
+
+            <i class="fa-solid fa-bullhorn"></i>
+
+            <h3>
+
+                Communication
+
+            </h3>
+
+            <p>
+
+                Communication officielle,
+                marketing et gestion des publications.
+
+            </p>
+
+            <span>
+
+                <i class="fa-solid fa-crown"></i>
+
+                Gestion présidentielle pour le moment.
+
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================
+             ENTRAIDE SOCIALE
+        ================================= -->
+
+        <div class="direction-card">
+
+            <i class="fa-solid fa-handshake-angle"></i>
+
+            <h3>
+
+                Entraide Sociale
+
+            </h3>
+
+            <p>
+
+                Traitement et suivi des demandes
+                d'entraide au sein de la Communauté.
+
+            </p>
+
+            <span>
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                Selon les autorisations accordées.
+
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================
+             INVESTISSEMENTS
+        ================================= -->
+
+        <div class="direction-card">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>
+
+                Investissements
+
+            </h3>
+
+            <p>
+
+                Étude et suivi des possibilités
+                d'investissement communautaire.
+
+            </p>
+
+            <span>
+
+                <i class="fa-solid fa-stamp"></i>
+
+                Validation présidentielle.
+
+            </span>
+
+        </div>
+
+
+    </div>
 
 </section>
 
 
 
-
-
-
-
-
-
-<!-- ================= ACCES DIRECT DIRECTIONS ================= -->
-
-
-<section class="directions-control">
-
-
-<div class="section-header">
-
-
-<h2>
-
-<i class="fa-solid fa-sitemap"></i>
-
-Supervision des directions
-
-</h2>
-
-
-
-<p>
-
-Chaque responsable travaille dans son domaine selon les autorisations attribuées par le Président.
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="direction-grid">
-
-
-
-
-
-<div class="direction-card">
-
-
-<i class="fa-solid fa-file-lines"></i>
-
-
-<h3>
-
-Secrétariat & Administration
-
-</h3>
-
-
-<p>
-
-Gestion administrative et gestion des membres.
-
-</p>
-
-
-<span>
-
-Sous validation présidentielle.
-
-</span>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="direction-card">
-
-
-<i class="fa-solid fa-graduation-cap"></i>
-
-
-<h3>
-
-Formation
-
-</h3>
-
-
-<p>
-
-Gestion des formations et participants.
-
-</p>
-
-
-<span>
-
-Responsable nommé par le Président.
-
-</span>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="direction-card">
-
-
-<i class="fa-solid fa-folder-open"></i>
-
-
-<h3>
-
-Projets
-
-</h3>
-
-
-<p>
-
-Suivi et accompagnement des projets.
-
-</p>
-
-
-<span>
-
-Validation finale Président.
-
-</span>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="direction-card">
-
-
-<i class="fa-solid fa-scale-balanced"></i>
-
-
-<h3>
-
-Conseil Administratif
-
-</h3>
-
-
-<p>
-
-Conseillers administratif, juridique, financier et technique.
-
-</p>
-
-
-<span>
-
-Supervision Président.
-
-</span>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="direction-card">
-
-
-<i class="fa-solid fa-coins"></i>
-
-
-<h3>
-
-Finances & Économie
-
-</h3>
-
-
-<p>
-
-Trésorerie, comptabilité, économie et investissements.
-
-</p>
-
-
-<span>
-
-Contrôle Président.
-
-</span>
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-  </section>
-
-  
-  <!-- ================= JOURNAL PRESIDENTIEL ================= -->
-
+<!-- ==================================================
+     JOURNAL ET SECURITE
+================================================== -->
 
 <section class="bottom-section">
 
 
+    <!-- ================================
+         JOURNAL PRESIDENTIEL
+    ================================= -->
 
-<div class="bottom-card">
+    <div class="bottom-card">
 
+        <h2>
 
-<h2>
+            <i class="fa-solid fa-book-open"></i>
 
-<i class="fa-solid fa-book-open"></i>
+            Journal présidentiel
 
-Journal présidentiel
+        </h2>
 
-</h2>
 
+        <p class="card-description">
 
+            Historique des principales activités
+            réalisées dans le système.
 
-<div id="journalPresident">
+        </p>
 
 
-<p>
+        <div
+            id="journalPresident"
+            class="journal-content">
 
-Aucune activité enregistrée.
+            <p>
+                Aucune activité enregistrée.
+            </p>
 
-</p>
+        </div>
 
+    </div>
 
-</div>
 
 
+    <!-- ================================
+         CENTRE DE SECURITE
+    ================================= -->
 
-</div>
+    <div class="bottom-card">
 
+        <h2>
 
+            <i class="fa-solid fa-shield-halved"></i>
 
+            Centre de sécurité
 
+        </h2>
 
 
+        <p class="card-description">
 
-<div class="bottom-card">
+            État général de la sécurité du
+            Bureau Numérique du Président.
 
+        </p>
 
-<h2>
 
-<i class="fa-solid fa-shield-halved"></i>
+        <div class="security-status">
 
-Centre de sécurité
 
-</h2>
+            <div class="security-item">
 
+                <i class="fa-solid fa-lock"></i>
 
+                <span>
+                    Connexion sécurisée
+                </span>
 
+                <strong>
+                    OK
+                </strong>
 
-<div class="security-status">
+            </div>
 
 
 
+            <div class="security-item">
 
+                <i class="fa-solid fa-user-shield"></i>
 
-<div class="security-item">
+                <span>
+                    Président authentifié
+                </span>
 
-<i class="fa-solid fa-lock"></i>
+                <strong>
+                    OK
+                </strong>
 
-<span>
-Connexion sécurisée
-</span>
+            </div>
 
-</div>
 
 
+            <div class="security-item">
 
+                <i class="fa-solid fa-database"></i>
 
+                <span>
+                    Firebase connecté
+                </span>
 
+                <strong>
+                    OK
+                </strong>
 
-<div class="security-item">
+            </div>
 
-<i class="fa-solid fa-user-shield"></i>
 
-<span>
-Président authentifié
-</span>
 
-</div>
+            <div class="security-item">
 
+                <i class="fa-solid fa-cloud"></i>
 
+                <span>
+                    Sauvegarde active
+                </span>
 
+                <strong>
+                    OK
+                </strong>
 
+            </div>
 
 
-<div class="security-item">
+        </div>
 
-<i class="fa-solid fa-database"></i>
-
-<span>
-Firebase connecté
-</span>
-
-</div>
-
-
-
-
-
-
-<div class="security-item">
-
-<i class="fa-solid fa-cloud"></i>
-
-<span>
-Sauvegarde active
-</span>
-
-</div>
-
-
-
-
-</div>
-
-
-
-</div>
-
+    </div>
 
 
 </section>
 
 
 
-
-
-
-
-
-
-<!-- ================= AUTORISATION PRESIDENT ================= -->
-
+<!-- ==================================================
+     AUTORISATION PRESIDENTIELLE
+================================================== -->
 
 <section class="president-signature-panel">
 
 
+    <div class="signature-panel-icon">
 
-<h2>
+        <i class="fa-solid fa-key"></i>
 
-<i class="fa-solid fa-key"></i>
-
-Autorisation présidentielle
-
-</h2>
+    </div>
 
 
+    <div class="signature-panel-content">
+
+        <h2>
+
+            Autorisation présidentielle
+
+        </h2>
 
 
+        <p>
 
-<div class="signature-information">
+            La signature présidentielle est obligatoire
+            pour toute action stratégique ou sensible
+            du système.
 
-
-
-<p>
-
-La signature présidentielle est obligatoire pour toute action stratégique du système.
-
-</p>
+        </p>
 
 
+        <div class="signature-status">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Validation présidentielle activée.
+
+        </div>
+
+    </div>
 
 
-<div class="signature-status">
+  </section>
 
-
-<i class="fa-solid fa-circle-check"></i>
-
-
-Validation présidentielle activée.
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- ================= FOOTER ================= -->
-
-
+  <!-- ==================================================
+     FOOTER DU BUREAU PRESIDENTIEL
+================================================== -->
 
 <footer class="footer">
 
 
+    <div class="footer-logo-box">
 
-<img src="logo.png"
-class="footer-logo"
-alt="Logo MWANA MBOKA">
+        <img
+            src="logo.png"
+            class="footer-logo"
+            alt="Logo MWANA MBOKA">
 
-
-
-<h3>
-
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-
-</h3>
+    </div>
 
 
+    <h3>
+
+        COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+
+    </h3>
 
 
-<p>
+    <p>
 
-Bureau Numérique du Président
+        Bureau Numérique du Président
 
-</p>
-
-
+    </p>
 
 
-<p>
+    <p>
 
-© <span id="annee"></span>
-Tous droits réservés.
+        Autorité :
+        Président Fondateur
 
-</p>
-
-
+    </p>
 
 
-<p>
+    <p>
 
-Ensemble nous irons plus loin.
+        © <span id="annee"></span>
 
-</p>
+        Tous droits réservés.
 
+    </p>
+
+
+    <p class="footer-motto">
+
+        Ensemble nous irons plus loin.
+
+    </p>
 
 
 </footer>
 
 
-
-
-
-
 </main>
-
 
 </div>
 
 
 
+<!-- ==================================================
+     BOUTON WHATSAPP
+================================================== -->
 
+<a
+    href="https://wa.me/242065447541"
+    class="whatsapp"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contacter MWANA MBOKA sur WhatsApp">
 
-
-
-
-
-<!-- ================= WHATSAPP ================= -->
-
-
-<a href="https://wa.me/242065447541"
-class="whatsapp">
-
-
-<i class="fa-brands fa-whatsapp"></i>
-
+    <i class="fa-brands fa-whatsapp"></i>
 
 </a>
 
 
 
+<!-- ==================================================
+     SCRIPT PRINCIPAL
+================================================== -->
 
-
-
-
-<!-- ================= SCRIPT ================= -->
-
-
-<script type="module" src="prbureau.js"></script>
-
+<script
+    type="module"
+    src="prbureau.js">
+</script>
 
 
 </body>
 
-
-</html>
+  </html>
