@@ -1,175 +1,72 @@
 /*==================================================
-PRBUREAU.JS
-BUREAU NUMERIQUE DU PRESIDENT
-COMMUNAUTE NUMERIQUE MWANA MBOKA
-VERSION PREMIUM V7
-REALTIME DATABASE
+ PRBUREAU.JS
+ BUREAU NUMERIQUE DU PRESIDENT
+ MWANA MBOKA
+ VERSION V8 STABLE
 ==================================================*/
 
-
-/*==================================================
- IMPORTS
-==================================================*/
-
-import {
-    autoriser,
-    nom,
-    matricule,
-    fonction,
-    bureau,
-    deconnexion
-} from "./permissions.js";
-
-import {
-    ecouter,
-    lire,
-    ajouter
-} from "./firebase-service.js";
-
-
-/*==================================================
- SECURITE PRESIDENTIELLE
-==================================================*/
-
-autoriser(["president"]);
-
+"use strict";
 
 /*==================================================
  CONFIGURATION
 ==================================================*/
 
 const APP = {
-
-    nom:
-        "COMMUNAUTE NUMERIQUE MWANA MBOKA",
-
-    version:
-        "Premium V7",
-
-    stockage:
-        "Firebase Realtime Database",
-
-    espaceMembre:
-        "espace.html",
-
-    connexion:
-        "connexion.html"
-
+    espaceMembre: "espace.html",
+    connexion: "connexion.html"
 };
 
-
-/*==================================================
- CACHE
-==================================================*/
-
-const cache = {
-
-    membres: {},
-
-    organigramme: {},
-
-    nominations: {},
-
-    journal: {}
-
-};
+let permissions = null;
+let firebaseService = null;
 
 
 /*==================================================
- ELEMENTS HTML
+ ELEMENTS
 ==================================================*/
 
-const ui = {
+const ui = {};
 
-    date:
-        document.getElementById("date"),
+function chargerElements() {
 
-    heure:
-        document.getElementById("heure"),
+    ui.date =
+        document.getElementById("date");
 
-    annee:
-        document.getElementById("annee"),
+    ui.heure =
+        document.getElementById("heure");
 
-    menu:
-        document.getElementById("mobileMenuBtn"),
+    ui.annee =
+        document.getElementById("annee");
 
-    sidebar:
-        document.getElementById("presidentSidebar"),
+    ui.menu =
+        document.getElementById("mobileMenuBtn");
 
-    espaceMembre:
-        document.getElementById("memberSpaceBtn"),
+    ui.sidebar =
+        document.getElementById("presidentSidebar") ||
+        document.querySelector(".sidebar");
 
-    logout:
-        document.getElementById("logoutBtn"),
+    ui.espace =
+        document.getElementById("memberSpaceBtn");
 
-    totalMembres:
-        document.getElementById("totalMembres"),
+    ui.logout =
+        document.getElementById("logoutBtn");
 
-    responsables:
-        document.getElementById("responsablesActifs"),
+    ui.system =
+        document.querySelector(".system-status");
 
-    listeResponsables:
-        document.getElementById("listeResponsables"),
+    ui.totalMembres =
+        document.getElementById("totalMembres");
 
-    nominations:
-        document.getElementById("nominationsAttente"),
+    ui.responsables =
+        document.getElementById("responsablesActifs");
 
-    journal:
-        document.getElementById("journalPresident"),
+    ui.nominations =
+        document.getElementById("nominationsAttente");
 
-    systemStatus:
-        document.querySelector(".system-status")
+    ui.listeResponsables =
+        document.getElementById("listeResponsables");
 
-};
-
-
-/*==================================================
- OUTILS GENERAUX
-==================================================*/
-
-function afficher(element, valeur) {
-
-    if (!element) return;
-
-    element.textContent =
-        valeur ?? "";
-
-}
-
-
-function afficherHTML(element, contenu) {
-
-    if (!element) return;
-
-    element.innerHTML =
-        contenu || "";
-
-}
-
-
-/*==================================================
- NETTOYAGE DES TEXTES FIREBASE
-==================================================*/
-
-function texte(valeur, valeurDefaut = "-") {
-
-    if (
-        valeur === null ||
-        valeur === undefined ||
-        valeur === ""
-    ) {
-
-        return valeurDefaut;
-
-    }
-
-    return String(valeur)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
+    ui.journal =
+        document.getElementById("journalPresident");
 }
 
 
@@ -179,38 +76,34 @@ function texte(valeur, valeurDefaut = "-") {
 
 function actualiserDateHeure() {
 
-    const maintenant =
-        new Date();
+    const maintenant = new Date();
 
+    if (ui.date) {
 
-    afficher(
-        ui.date,
+        ui.date.textContent =
+            maintenant.toLocaleDateString(
+                "fr-FR",
+                {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+    }
 
-        maintenant.toLocaleDateString(
-            "fr-FR",
-            {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            }
-        )
-    );
+    if (ui.heure) {
 
-
-    afficher(
-        ui.heure,
-
-        maintenant.toLocaleTimeString(
-            "fr-FR",
-            {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            }
-        )
-    );
-
+        ui.heure.textContent =
+            maintenant.toLocaleTimeString(
+                "fr-FR",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            );
+    }
 }
 
 
@@ -222,7 +115,6 @@ function demarrerHorloge() {
         actualiserDateHeure,
         1000
     );
-
 }
 
 
@@ -232,68 +124,67 @@ function demarrerHorloge() {
 
 function afficherAnnee() {
 
-    afficher(
-        ui.annee,
-        new Date().getFullYear()
-    );
+    if (ui.annee) {
 
+        ui.annee.textContent =
+            new Date().getFullYear();
+    }
 }
 
 
 /*==================================================
- MENU PRESIDENT
+ SYSTEME
+==================================================*/
+
+function systemeOperationnel() {
+
+    if (!ui.system) return;
+
+    ui.system.innerHTML = `
+        <i class="fa-solid fa-circle"></i>
+        <span>Système opérationnel</span>
+    `;
+
+    ui.system.classList.remove(
+        "status-warning",
+        "status-offline"
+    );
+
+    ui.system.classList.add(
+        "status-online"
+    );
+}
+
+
+/*==================================================
+ MENU
 ==================================================*/
 
 function initialiserMenu() {
 
-    if (!ui.menu) {
+    if (ui.menu && ui.sidebar) {
 
-        console.warn(
-            "Bouton menu mobile introuvable."
-        );
-
-        return;
-
-    }
-
-
-    if (!ui.sidebar) {
-
-        console.warn(
-            "Sidebar Président introuvable."
-        );
-
-        return;
-
-    }
-
-
-    ui.menu.addEventListener(
-        "click",
-        event => {
+        ui.menu.onclick = function(event) {
 
             event.preventDefault();
-
             event.stopPropagation();
 
             ui.sidebar.classList.toggle(
                 "active"
             );
+        };
+    }
 
-        }
-    );
+    if (ui.sidebar) {
 
+        const liens =
+            ui.sidebar.querySelectorAll("a");
 
-    const liens =
-        ui.sidebar.querySelectorAll("a");
-
-
-    liens.forEach(
-        lien => {
+        liens.forEach(lien => {
 
             lien.addEventListener(
                 "click",
-                () => {
+                function() {
 
                     ui.sidebar.classList.remove(
                         "active"
@@ -301,43 +192,36 @@ function initialiserMenu() {
 
                 }
             );
-
-        }
-    );
-
+        });
+    }
 
     document.addEventListener(
         "click",
-        event => {
+        function(event) {
+
+            if (!ui.sidebar) return;
 
             if (
                 !ui.sidebar.classList.contains(
                     "active"
                 )
             ) {
-
                 return;
-
             }
-
 
             if (
                 ui.sidebar.contains(event.target) ||
-                ui.menu.contains(event.target)
+                (ui.menu &&
+                 ui.menu.contains(event.target))
             ) {
-
                 return;
-
             }
-
 
             ui.sidebar.classList.remove(
                 "active"
             );
-
         }
     );
-
 }
 
 
@@ -347,88 +231,513 @@ function initialiserMenu() {
 
 function initialiserEspaceMembre() {
 
-    if (!ui.espaceMembre) {
+    if (!ui.espace) return;
 
-        console.warn(
-            "Bouton Espace membre introuvable."
-        );
+    ui.espace.onclick = function(event) {
 
-        return;
+        event.preventDefault();
 
-    }
-
-
-    ui.espaceMembre.addEventListener(
-        "click",
-        async event => {
-
-            event.preventDefault();
-
-
-            await journaliser(
-                "Retour vers l'Espace membre"
-            );
-
-
-            window.location.href =
-                APP.espaceMembre;
-
-        }
-    );
-
+        window.location.href =
+            APP.espaceMembre;
+    };
 }
 
 
 /*==================================================
- ETAT DU SYSTEME
+ DECONNEXION
 ==================================================*/
 
-function afficherEtatSysteme() {
+function initialiserDeconnexion() {
 
-    if (!ui.systemStatus) return;
+    if (!ui.logout) return;
 
+    ui.logout.onclick = async function(event) {
 
-    ui.systemStatus.innerHTML = `
+        event.preventDefault();
 
-        <i class="fa-solid fa-circle"></i>
+        if (
+            ui.logout.dataset.loading === "true"
+        ) {
+            return;
+        }
 
-        <span>
-            Système opérationnel
-        </span>
+        ui.logout.dataset.loading = "true";
 
-    `;
+        const confirmer = confirm(
+            "Voulez-vous vous déconnecter du Bureau Président ?"
+        );
 
+        if (!confirmer) {
 
-    ui.systemStatus.classList.add(
-        "status-online"
-    );
+            ui.logout.dataset.loading =
+                "false";
 
- }
+            return;
+        }
+
+        /*
+        Déconnexion locale immédiate.
+        */
+
+        try {
+
+            localStorage.removeItem(
+                "mwana_mbok_user"
+            );
+
+            localStorage.removeItem(
+                "mwana_mbok_session"
+            );
+
+            localStorage.removeItem(
+                "user"
+            );
+
+        } catch (e) {
+
+            console.warn(
+                "Nettoyage local impossible",
+                e
+            );
+        }
+
+        /*
+        Si Firebase est disponible,
+        effectuer aussi sa déconnexion.
+        */
+
+        try {
+
+            if (
+                firebaseService &&
+                typeof firebaseService.deconnexion ===
+                "function"
+            ) {
+
+                await firebaseService.deconnexion();
+            }
+
+        } catch (e) {
+
+            console.warn(
+                "Déconnexion Firebase :",
+                e
+            );
+        }
+
+        window.location.replace(
+            APP.connexion
+        );
+    };
+}
 
 /*==================================================
- JOURNALISATION
+ OUTILS
+==================================================*/
+
+function afficher(element, valeur) {
+
+    if (!element) return;
+
+    element.textContent =
+        valeur ?? "";
+}
+
+
+function afficherHTML(element, contenu) {
+
+    if (!element) return;
+
+    element.innerHTML =
+        contenu || "";
+}
+
+
+function texte(valeur, defaut = "-") {
+
+    if (
+        valeur === null ||
+        valeur === undefined ||
+        valeur === ""
+    ) {
+        return defaut;
+    }
+
+    return String(valeur)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+/*==================================================
+ CHARGEMENT FIREBASE
+==================================================*/
+
+async function chargerFirebase() {
+
+    try {
+
+        permissions =
+            await import(
+                "./permissions.js"
+            );
+
+        firebaseService =
+            await import(
+                "./firebase-service.js"
+            );
+
+        console.log(
+            "Firebase et permissions chargés."
+        );
+
+        /*
+        Vérification du président.
+        */
+
+        if (
+            permissions &&
+            typeof permissions.autoriser ===
+            "function"
+        ) {
+
+            try {
+
+                permissions.autoriser(
+                    ["president"]
+                );
+
+            } catch (e) {
+
+                console.warn(
+                    "Contrôle autorisation :",
+                    e
+                );
+            }
+        }
+
+        chargerDonnees();
+
+    } catch (erreur) {
+
+        console.error(
+            "Erreur chargement Firebase :",
+            erreur
+        );
+
+        /*
+        IMPORTANT :
+        l'interface reste fonctionnelle
+        même si Firebase rencontre un problème.
+        */
+
+        afficher(
+            ui.totalMembres,
+            "—"
+        );
+
+        afficher(
+            ui.responsables,
+            "—"
+        );
+
+        afficherHTML(
+            ui.nominations,
+            `
+            <div class="dynamic-content">
+                <p>
+                    Les données seront disponibles
+                    lorsque la connexion sera rétablie.
+                </p>
+            </div>
+            `
+        );
+    }
+}
+
+
+/*==================================================
+ DONNEES FIREBASE
+==================================================*/
+
+function chargerDonnees() {
+
+    if (!firebaseService) return;
+
+    const ecouter =
+        firebaseService.ecouter;
+
+    if (
+        typeof ecouter !== "function"
+    ) {
+        return;
+    }
+
+
+    /*----------------------------------------------
+    MEMBRES
+    ----------------------------------------------*/
+
+    try {
+
+        ecouter(
+            "membres",
+            data => {
+
+                const membres =
+                    data || {};
+
+                const total =
+                    Object.keys(membres).length;
+
+                afficher(
+                    ui.totalMembres,
+                    total
+                );
+            }
+        );
+
+    } catch (e) {
+
+        console.error(
+            "Erreur membres :",
+            e
+        );
+    }
+
+
+    /*----------------------------------------------
+    ORGANIGRAMME
+    ----------------------------------------------*/
+
+    try {
+
+        ecouter(
+            "organigramme",
+            data => {
+
+                const organigramme =
+                    data || {};
+
+                let total = 0;
+                let html = "";
+
+                parcourir(
+                    organigramme
+                );
+
+                function parcourir(obj) {
+
+                    if (
+                        !obj ||
+                        typeof obj !== "object"
+                    ) {
+                        return;
+                    }
+
+                    Object.keys(obj)
+                        .forEach(cle => {
+
+                            const item =
+                                obj[cle];
+
+                            if (
+                                !item ||
+                                typeof item !== "object"
+                            ) {
+                                return;
+                            }
+
+                            if (
+                                item.responsableMatricule
+                            ) {
+
+                                total++;
+
+                                html += `
+                                <div class="responsable-item">
+
+                                    <h3>
+                                        ${texte(
+                                            item.fonction ||
+                                            cle,
+                                            "Fonction"
+                                        )}
+                                    </h3>
+
+                                    <p>
+                                        <b>Nom :</b>
+                                        ${texte(item.nom)}
+                                    </p>
+
+                                    <p>
+                                        <b>Matricule :</b>
+                                        ${texte(
+                                            item.responsableMatricule
+                                        )}
+                                    </p>
+
+                                    <p>
+                                        <b>Domaine :</b>
+                                        ${texte(
+                                            item.domaine
+                                        )}
+                                    </p>
+
+                                </div>
+                                `;
+                            }
+
+                            parcourir(item);
+                        });
+                }
+
+                afficher(
+                    ui.responsables,
+                    total
+                );
+
+                afficherHTML(
+                    ui.listeResponsables,
+                    html ||
+                    `
+                    <div class="dynamic-content">
+                        <p>
+                            Aucun responsable nommé
+                            actuellement.
+                        </p>
+                    </div>
+                    `
+                );
+            }
+        );
+
+    } catch (e) {
+
+        console.error(
+            "Erreur organigramme :",
+            e
+        );
+    }
+
+
+    /*----------------------------------------------
+    NOMINATIONS
+    ----------------------------------------------*/
+
+    try {
+
+        ecouter(
+            "nominations_attente",
+            data => {
+
+                const liste =
+                    Object.values(
+                        data || {}
+                    );
+
+                let html = "";
+
+                liste.forEach(item => {
+
+                    html += `
+                    <div class="nomination-item">
+
+                        <h3>
+                            ${texte(
+                                item.poste,
+                                "Poste"
+                            )}
+                        </h3>
+
+                        <p>
+                            ${texte(
+                                item.nom
+                            )}
+                        </p>
+
+                        <p>
+                            Matricule :
+                            ${texte(
+                                item.matricule
+                            )}
+                        </p>
+
+                        <p style="
+                            color:orange;
+                            font-weight:bold;
+                        ">
+                            En attente
+                        </p>
+
+                    </div>
+                    `;
+                });
+
+                afficherHTML(
+                    ui.nominations,
+                    html ||
+                    `
+                    <div class="dynamic-content">
+                        <p>
+                            Aucune nomination
+                            en attente.
+                        </p>
+                    </div>
+                    `
+                );
+            }
+        );
+
+    } catch (e) {
+
+        console.error(
+            "Erreur nominations :",
+            e
+        );
+    }
+}
+
+
+/*==================================================
+ JOURNAL
 ==================================================*/
 
 async function journaliser(action) {
 
     try {
 
-        await ajouter(
+        if (
+            !firebaseService ||
+            typeof firebaseService.ajouter !==
+            "function"
+        ) {
+            return;
+        }
+
+        const p =
+            permissions || {};
+
+        await firebaseService.ajouter(
             "journal_activites",
             {
-
                 nom:
-                    nom || "Président",
+                    p.nom ||
+                    "Président",
 
                 matricule:
-                    matricule || "",
+                    p.matricule ||
+                    "",
 
                 fonction:
-                    fonction ||
+                    p.fonction ||
                     "Président Fondateur",
 
                 bureau:
-                    bureau ||
+                    p.bureau ||
                     "Présidence",
 
                 action:
@@ -448,851 +757,106 @@ async function journaliser(action) {
 
                 timestamp:
                     Date.now()
-
             }
         );
 
-    }
-
-    catch (erreur) {
-
-        console.error(
-            "Erreur journalisation :",
-            erreur
-        );
-
-    }
-
-}
-
-
-/*==================================================
- CHARGEMENT DES MEMBRES
-==================================================*/
-
-function chargerMembres() {
-
-    try {
-
-        ecouter(
-            "membres",
-
-            data => {
-
-                cache.membres =
-                    data || {};
-
-
-                const total =
-                    Object.keys(
-                        cache.membres
-                    ).length;
-
-
-                afficher(
-                    ui.totalMembres,
-                    total
-                );
-
-
-                console.log(
-                    "Membres chargés :",
-                    total
-                );
-
-            }
-        );
-
-    }
-
-    catch (erreur) {
-
-        console.error(
-            "Erreur chargement membres :",
-            erreur
-        );
-
-
-        afficher(
-            ui.totalMembres,
-            "—"
-        );
-
-    }
-
-}
-
-
-/*==================================================
- CHARGEMENT ORGANIGRAMME
-==================================================*/
-
-function chargerOrganigramme() {
-
-    try {
-
-        ecouter(
-            "organigramme",
-
-            data => {
-
-                cache.organigramme =
-                    data || {};
-
-
-                let total =
-                    0;
-
-                let contenu =
-                    "";
-
-
-                parcourir(
-                    cache.organigramme
-                );
-
-
-                /*----------------------------------
-                PARCOURS RECURSIF
-                ----------------------------------*/
-
-                function parcourir(obj) {
-
-                    if (
-                        !obj ||
-                        typeof obj !== "object"
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    Object.keys(obj)
-                    .forEach(
-                        cle => {
-
-                            const item =
-                                obj[cle];
-
-
-                            if (
-                                !item ||
-                                typeof item !== "object"
-                            ) {
-
-                                return;
-
-                            }
-
-
-                            /*
-                            RESPONSABLE TROUVE
-                            */
-
-                            if (
-                                item.responsableMatricule
-                            ) {
-
-                                total++;
-
-
-                                contenu += `
-
-                                <div class="responsable-item">
-
-                                    <h3>
-                                        ${texte(
-                                            item.fonction ||
-                                            cle,
-                                            "Fonction"
-                                        )}
-                                    </h3>
-
-                                    <p>
-                                        <b>Nom :</b>
-                                        ${texte(
-                                            item.nom
-                                        )}
-                                    </p>
-
-                                    <p>
-                                        <b>Matricule :</b>
-                                        ${texte(
-                                            item.responsableMatricule
-                                        )}
-                                    </p>
-
-                                    <p>
-                                        <b>Domaine :</b>
-                                        ${texte(
-                                            item.domaine
-                                        )}
-                                    </p>
-
-                                </div>
-
-                                `;
-
-                            }
-
-
-                            /*
-                            CONTINUER LE PARCOURS
-                            */
-
-                            parcourir(item);
-
-                        }
-                    );
-
-                }
-
-
-                afficher(
-                    ui.responsables,
-                    total
-                );
-
-
-                afficherHTML(
-
-                    ui.listeResponsables,
-
-                    contenu ||
-
-                    `
-                    <div class="dynamic-content">
-
-                        <p>
-                            Aucun responsable nommé
-                            actuellement.
-                        </p>
-
-                    </div>
-                    `
-
-                );
-
-
-                console.log(
-                    "Responsables actifs :",
-                    total
-                );
-
-            }
-        );
-
-    }
-
-    catch (erreur) {
-
-        console.error(
-            "Erreur organigramme :",
-            erreur
-        );
-
-    }
-
-}
-
-
-/*==================================================
- NOMINATIONS EN ATTENTE
-==================================================*/
-
-function chargerNominations() {
-
-    try {
-
-        ecouter(
-            "nominations_attente",
-
-            data => {
-
-                cache.nominations =
-                    data || {};
-
-
-                let contenu =
-                    "";
-
-
-                const liste =
-                    Object.values(
-                        cache.nominations
-                    );
-
-
-                liste.forEach(
-                    item => {
-
-                        contenu += `
-
-                        <div class="nomination-item">
-
-                            <h3>
-                                ${texte(
-                                    item.poste,
-                                    "Poste"
-                                )}
-                            </h3>
-
-                            <p>
-                                ${texte(
-                                    item.nom
-                                )}
-                            </p>
-
-                            <p>
-                                Matricule :
-                                ${texte(
-                                    item.matricule
-                                )}
-                            </p>
-
-                            <p
-                                style="
-                                color:orange;
-                                font-weight:bold;
-                                "
-                            >
-                                En attente
-                            </p>
-
-                        </div>
-
-                        `;
-
-                    }
-                );
-
-
-                afficherHTML(
-
-                    ui.nominations,
-
-                    contenu ||
-
-                    `
-                    <div class="dynamic-content">
-
-                        <p>
-                            Aucune nomination
-                            en attente.
-                        </p>
-
-                    </div>
-                    `
-
-                );
-
-
-                console.log(
-                    "Nominations en attente :",
-                    liste.length
-                );
-
-            }
-        );
-
-    }
-
-    catch (erreur) {
-
-        console.error(
-            "Erreur nominations :",
-            erreur
-        );
-
-    }
-
-}
-
-
-/*==================================================
- JOURNAL PRESIDENTIEL
-==================================================*/
-
-function chargerJournal() {
-
-    try {
-
-        ecouter(
-            "journal_activites",
-
-            data => {
-
-                cache.journal =
-                    data || {};
-
-
-                const liste =
-
-                    Object.values(
-                        cache.journal
-                    )
-
-                    .sort(
-                        (a, b) =>
-
-                            (b.timestamp || 0)
-
-                            -
-
-                            (a.timestamp || 0)
-                    )
-
-                    .slice(
-                        0,
-                        20
-                    );
-
-
-                let contenu =
-                    "";
-
-
-                liste.forEach(
-                    item => {
-
-                        contenu += `
-
-                        <div class="journal-item">
-
-                            <i
-                                class="
-                                fa-solid
-                                fa-clock
-                                "
-                            ></i>
-
-                            <div>
-
-                                <strong>
-                                    ${texte(
-                                        item.action,
-                                        "Activité"
-                                    )}
-                                </strong>
-
-                                <span>
-                                    ${texte(
-                                        item.nom,
-                                        ""
-                                    )}
-                                </span>
-
-                                <span>
-                                    ${texte(
-                                        item.fonction,
-                                        ""
-                                    )}
-                                </span>
-
-                                <span>
-
-                                    ${texte(
-                                        item.date,
-                                        ""
-                                    )}
-
-                                    ${texte(
-                                        item.heure,
-                                        ""
-                                    )}
-
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                        `;
-
-                    }
-                );
-
-
-                afficherHTML(
-
-                    ui.journal,
-
-                    contenu ||
-
-                    `
-                    <div class="dynamic-content">
-
-                        <p>
-                            Aucune activité
-                            enregistrée.
-                        </p>
-
-                    </div>
-                    `
-
-                );
-
-            }
-        );
-
-    }
-
-    catch (erreur) {
-
-        console.error(
-            "Erreur journal :",
-            erreur
-        );
-
-    }
-
-}
-
-
-
-/*==================================================
- DECONNEXION
-==================================================*/
-
-function initialiserDeconnexion() {
-
-    if (!ui.logout) {
+    } catch (e) {
 
         console.warn(
-            "Bouton déconnexion introuvable."
+            "Journalisation impossible :",
+            e
         );
-
-        return;
-
     }
-
-
-    ui.logout.addEventListener(
-        "click",
-
-        async event => {
-
-            event.preventDefault();
-
-
-            /*
-            Empêcher plusieurs clics
-            */
-
-            if (
-                ui.logout.dataset.loading ===
-                "true"
-            ) {
-
-                return;
-
-            }
-
-
-            ui.logout.dataset.loading =
-                "true";
-
-
-            const confirmer =
-                confirm(
-                    "Voulez-vous vous déconnecter du Bureau Président ?"
-                );
-
-
-            if (!confirmer) {
-
-                ui.logout.dataset.loading =
-                    "false";
-
-                return;
-
-            }
-
-
-            try {
-
-                /*
-                Enregistrer l'action
-                */
-
-                await journaliser(
-                    "Déconnexion du Bureau Président"
-                );
-
-            }
-
-            catch (erreur) {
-
-                console.error(
-                    "Erreur journal déconnexion :",
-                    erreur
-                );
-
-            }
-
-
-            try {
-
-                /*
-                Déconnexion Firebase
-                */
-
-                await deconnexion();
-
-            }
-
-            catch (erreur) {
-
-                console.error(
-                    "Erreur déconnexion :",
-                    erreur
-                );
-
-            }
-
-
-            /*
-            Nettoyage de la session locale
-            */
-
-            localStorage.removeItem(
-                "utilisateurConnecte"
-            );
-
-            localStorage.removeItem(
-                "bureauUtilisateur"
-            );
-
-
-            /*
-            Retour à la connexion
-            */
-
-            window.location.replace(
-                APP.connexion
-            );
-
-        }
-    );
-
-}
-
+     }
 
 /*==================================================
- SURVEILLANCE DE SESSION
+ DEMARRAGE DU BUREAU
 ==================================================*/
 
-function surveillerSession() {
+function demarrerBureau() {
 
-    setInterval(
+    /*
+    Charger immédiatement les éléments.
+    */
 
-        () => {
-
-            const session =
-                localStorage.getItem(
-                    "utilisateurConnecte"
-                );
+    chargerElements();
 
 
-            /*
-            Si la session n'existe plus,
-            retour automatique à connexion.html
-            */
+    /*
+    Ces fonctions ne dépendent PAS de Firebase.
+    Elles doivent donc fonctionner même si Firebase
+    rencontre une erreur.
+    */
 
-            if (!session) {
-
-                window.location.replace(
-                    APP.connexion
-                );
-
-            }
-
-        },
-
-        5000
-
-    );
-
-}
-
-
-/*==================================================
- VERIFICATION DE L'INTERFACE
-==================================================*/
-
-function verifierInterface() {
-
-    const elements = {
-
-        date:
-            ui.date,
-
-        heure:
-            ui.heure,
-
-        annee:
-            ui.annee,
-
-        menu:
-            ui.menu,
-
-        sidebar:
-            ui.sidebar,
-
-        espaceMembre:
-            ui.espaceMembre,
-
-        logout:
-            ui.logout,
-
-        totalMembres:
-            ui.totalMembres,
-
-        responsables:
-            ui.responsables,
-
-        nominations:
-            ui.nominations,
-
-        journal:
-            ui.journal
-
-    };
-
-
-    Object.entries(elements)
-    .forEach(
-
-        ([nomElement, element]) => {
-
-            if (!element) {
-
-                console.warn(
-                    "Element HTML absent :",
-                    nomElement
-                );
-
-            }
-
-        }
-
-    );
-
-}
-
-
-/*==================================================
- INITIALISATION GENERALE
-==================================================*/
-
-async function initialiser() {
-
-    console.log(
-        "======================================"
-    );
-
-    console.log(
-        APP.nom
-    );
-
-    console.log(
-        "Version :",
-        APP.version
-    );
-
-    console.log(
-        "Stockage :",
-        APP.stockage
-    );
-
-    console.log(
-        "Président :",
-        nom
-    );
-
-    console.log(
-        "Matricule :",
-        matricule
-    );
-
-    console.log(
-        "Fonction :",
-        fonction
-    );
-
-    console.log(
-        "Bureau :",
-        bureau
-    );
-
-    console.log(
-        "======================================"
-    );
-
-
-    /*----------------------------------------------
-    VERIFICATION HTML
-    ----------------------------------------------*/
-
-    verifierInterface();
-
-
-    /*----------------------------------------------
-    INTERFACE
-    ----------------------------------------------*/
+    demarrerHorloge();
 
     afficherAnnee();
 
-    demarrerHorloge();
+    systemeOperationnel();
 
     initialiserMenu();
 
     initialiserEspaceMembre();
 
-    afficherEtatSysteme();
-
     initialiserDeconnexion();
 
 
-    /*----------------------------------------------
-    FIREBASE REALTIME DATABASE
-    ----------------------------------------------*/
+    /*
+    Firebase est chargé ensuite.
+    */
 
-    chargerMembres();
-
-    chargerOrganigramme();
-
-    chargerNominations();
-
-    chargerJournal();
-
-
-    /*----------------------------------------------
-    SURVEILLANCE SESSION
-    ----------------------------------------------*/
-
-    surveillerSession();
-
-
-    /*----------------------------------------------
-    JOURNAL D'OUVERTURE
-    ----------------------------------------------*/
-
-    await journaliser(
-        "Ouverture du Bureau Numérique du Président"
-    );
+    chargerFirebase();
 
 
     console.log(
-        "Bureau Président initialisé avec succès."
+        "Bureau Numérique du Président démarré."
     );
-
 }
 
 
 /*==================================================
- DEMARRAGE
+ LANCEMENT
 ==================================================*/
 
-initialiser();
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        demarrerBureau
+    );
+
+} else {
+
+    demarrerBureau();
+}
+
+
+/*==================================================
+ PROTECTION DES ERREURS
+==================================================*/
+
+window.addEventListener(
+    "error",
+    event => {
+
+        console.error(
+            "Erreur Bureau Président :",
+            event.error || event.message
+        );
+    }
+);
+
+
+window.addEventListener(
+    "unhandledrejection",
+    event => {
+
+        console.error(
+            "Erreur Promise Bureau Président :",
+            event.reason
+        );
+    }
+);
