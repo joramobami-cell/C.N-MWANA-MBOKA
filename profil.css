@@ -1,401 +1,729 @@
 /*==================================================
- PROFIL.CSS
- COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+  PROFIL.CSS
+  COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+  PROFIL NUMÉRIQUE DU MEMBRE
 ==================================================*/
 
 
+/*==================================================
+  RESET
+==================================================*/
+
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:'Poppins',Arial,sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',Arial,sans-serif;
 }
 
 
 body{
-
-background:#f4f6f8;
-
-color:#222;
-
+    background:#f4f6f8;
+    color:#222;
+    line-height:1.6;
 }
 
 
 .container{
-
-width:100%;
-
-min-height:100vh;
-
+    width:100%;
+    min-height:100vh;
 }
 
 
 
-
-
-/* HEADER */
+/*==================================================
+  HEADER
+==================================================*/
 
 .header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-background:#009245;
-
-color:white;
-
-padding:15px 25px;
-
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#009245;
+    color:white;
+    padding:15px 25px;
+    box-shadow:0 3px 12px #0002;
 }
-
 
 
 .logo-zone{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
-
 
 
 .logo-zone img{
-
-width:70px;
-
-height:70px;
-
-border-radius:50%;
-
-background:white;
-
-padding:5px;
-
+    width:65px;
+    height:65px;
+    object-fit:contain;
+    border-radius:50%;
+    background:white;
+    padding:5px;
 }
-
 
 
 .logo-zone h1{
-
-font-size:22px;
-
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:.5px;
 }
-
 
 
 .logo-zone p{
-
-font-size:14px;
-
+    font-size:14px;
+    opacity:.95;
 }
-
 
 
 .back{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:white;
+    color:#009245;
+    padding:11px 17px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.2s;
+}
 
-background:white;
 
-color:#009245;
-
-padding:10px 15px;
-
-border-radius:10px;
-
-text-decoration:none;
-
-font-weight:bold;
-
+.back:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px #0002;
 }
 
 
 
-
-
-
-/* CONTENU */
+/*==================================================
+  CONTENU
+==================================================*/
 
 .profil-content{
-
-max-width:900px;
-
-margin:30px auto;
-
-padding:15px;
-
+    width:100%;
+    max-width:1000px;
+    margin:30px auto;
+    padding:0 15px 30px;
 }
 
 
 
-
-/* CARTE PROFIL */
+/*==================================================
+  CARTE PRINCIPALE DU PROFIL
+==================================================*/
 
 .profil-card{
-
-background:white;
-
-border-radius:20px;
-
-padding:30px;
-
-display:flex;
-
-gap:30px;
-
-align-items:center;
-
-box-shadow:0 5px 20px #0002;
-
+    background:white;
+    border-radius:22px;
+    padding:30px;
+    display:flex;
+    gap:35px;
+    align-items:center;
+    box-shadow:0 5px 20px #0002;
+    border-top:5px solid #009245;
 }
-
 
 
 .photo-zone{
-
-text-align:center;
-
+    min-width:180px;
+    text-align:center;
 }
-
 
 
 .photo-zone img{
-
-width:160px;
-
-height:160px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:5px solid #009245;
-
+    width:165px;
+    height:165px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #009245;
+    background:#f4f6f8;
+    display:block;
+    margin:auto;
 }
-
 
 
 .photo-zone button{
-
-margin-top:15px;
-
-padding:12px 20px;
-
-border:none;
-
-background:#009245;
-
-color:white;
-
-border-radius:10px;
-
-cursor:pointer;
-
+    margin-top:15px;
+    padding:11px 18px;
+    border:none;
+    background:#009245;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
 }
 
 
+.photo-zone button:hover{
+    opacity:.88;
+    transform:translateY(-1px);
+}
 
+
+.infos{
+    flex:1;
+}
+
+
+.profil-label{
+    display:inline-block;
+    background:#e8f7ef;
+    color:#009245;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
 
 
 .infos h2{
-
-color:#009245;
-
-margin-bottom:15px;
-
+    color:#009245;
+    font-size:27px;
+    margin-bottom:15px;
 }
-
 
 
 .infos p{
+    margin:10px 0;
+    font-size:15px;
+}
 
-margin:12px 0;
 
-font-size:16px;
+.infos p i{
+    width:24px;
+    color:#009245;
+}
 
+
+.infos strong{
+    color:#222;
 }
 
 
 
+/*==================================================
+  CARTES D'INFORMATIONS
+==================================================*/
+
+.info-card{
+    background:white;
+    margin-top:25px;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 5px 20px #0002;
+}
 
 
-/* MODIFICATION */
+.info-card h2{
+    color:#009245;
+    font-size:21px;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border-bottom:1px solid #e8e8e8;
+    padding-bottom:12px;
+}
+
+
+.info-card h2 i{
+    font-size:19px;
+}
+
+
+
+/*==================================================
+  GRILLE INFORMATIONS
+==================================================*/
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+
+.info-item{
+    background:#f7f9fa;
+    border:1px solid #e6e9eb;
+    border-radius:12px;
+    padding:14px 16px;
+    min-height:70px;
+}
+
+
+.info-item span{
+    display:block;
+    color:#777;
+    font-size:12px;
+    margin-bottom:4px;
+}
+
+
+.info-item strong{
+    display:block;
+    color:#222;
+    font-size:15px;
+    word-break:break-word;
+}
+
+
+.info-item.full{
+    grid-column:1 / -1;
+}
+
+
+
+/*==================================================
+  PARRAINAGE
+==================================================*/
+
+.parrainage-card{
+    border-left:5px solid #009245;
+}
+
+
+.parrainage-card .info-item{
+    background:#f1faf5;
+}
+
+
+
+/*==================================================
+  VISION
+==================================================*/
+
+.vision-card{
+    border-top:4px solid #009245;
+}
+
+
+.vision-box{
+    background:#f7f9fa;
+    border-left:4px solid #009245;
+    padding:16px 18px;
+    margin-top:15px;
+    border-radius:0 12px 12px 0;
+}
+
+
+.vision-box h3{
+    color:#009245;
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+
+.vision-box p{
+    color:#555;
+    font-size:14px;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+
+
+/*==================================================
+  STATISTIQUES FORMATIONS / PROJETS
+==================================================*/
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+
+.stat-box{
+    background:#f7f9fa;
+    border:1px solid #e5e8ea;
+    border-radius:15px;
+    padding:22px 15px;
+    text-align:center;
+    transition:.2s;
+}
+
+
+.stat-box:hover{
+    transform:translateY(-3px);
+    box-shadow:0 5px 15px #0001;
+}
+
+
+.stat-box i{
+    display:block;
+    color:#009245;
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+
+.stat-box strong{
+    display:block;
+    color:#009245;
+    font-size:28px;
+    font-weight:800;
+}
+
+
+.stat-box span{
+    display:block;
+    color:#666;
+    font-size:13px;
+    margin-top:3px;
+}
+
+
+
+/*==================================================
+  MODIFICATION
+==================================================*/
 
 .edit-card{
-
-background:white;
-
-margin-top:25px;
-
-padding:30px;
-
-border-radius:20px;
-
-box-shadow:0 5px 20px #0002;
-
+    background:white;
+    margin-top:25px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px #0002;
+    border-top:4px solid #009245;
 }
-
 
 
 .edit-card h2{
-
-color:#009245;
-
-margin-bottom:20px;
-
+    color:#009245;
+    font-size:21px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
+
+.edit-info{
+    color:#777;
+    font-size:13px;
+    background:#f7f9fa;
+    padding:12px 15px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
 
 
 .edit-card label{
-
-display:block;
-
-margin-top:15px;
-
-font-weight:bold;
-
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    font-weight:bold;
+    font-size:14px;
+    color:#333;
 }
 
 
-
-.edit-card input{
-
-width:100%;
-
-padding:12px;
-
-margin-top:5px;
-
-border:1px solid #ccc;
-
-border-radius:10px;
-
+.edit-card input,
+.edit-card textarea{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #d3d7da;
+    border-radius:10px;
+    background:white;
+    color:#222;
+    font-size:14px;
+    outline:none;
+    transition:.2s;
 }
 
+
+.edit-card input:focus,
+.edit-card textarea:focus{
+    border-color:#009245;
+    box-shadow:0 0 0 3px #00924518;
+}
+
+
+.edit-card textarea{
+    resize:vertical;
+    min-height:100px;
+}
 
 
 #btnSauver{
+    margin-top:25px;
+    width:100%;
+    background:#009245;
+    color:white;
+    border:none;
+    padding:14px 25px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
 
-margin-top:25px;
 
-background:#009245;
-
-color:white;
-
-border:none;
-
-padding:14px 25px;
-
-border-radius:12px;
-
-font-size:16px;
-
-cursor:pointer;
-
+#btnSauver:hover{
+    opacity:.88;
+    transform:translateY(-1px);
 }
 
 
 
-#btnSauver:hover,
-.photo-zone button:hover{
-
-opacity:.85;
-
-}
-
-
-
-
-/* MESSAGE */
+/*==================================================
+  MESSAGE
+==================================================*/
 
 #message{
-
-margin-top:20px;
-
-padding:12px;
-
-text-align:center;
-
-border-radius:10px;
-
+    margin-top:20px;
+    padding:12px 15px;
+    text-align:center;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:bold;
 }
 
+
+#message:empty{
+    display:none;
+}
 
 
 .success{
-
-background:#d4edda;
-
-color:#155724;
-
+    background:#d4edda;
+    color:#155724;
 }
 
 
 .error{
+    background:#f8d7da;
+    color:#721c24;
+}
 
-background:#f8d7da;
 
-color:#721c24;
-
+.info{
+    background:#d9edf7;
+    color:#31708f;
 }
 
 
 
-
-/* FOOTER */
-
+/*==================================================
+  FOOTER
+==================================================*/
 
 footer{
+    text-align:center;
+    background:#009245;
+    color:white;
+    padding:25px 15px;
+    margin-top:40px;
+    font-size:14px;
+}
 
-text-align:center;
 
-background:#009245;
+footer strong{
+    font-size:15px;
+}
 
-color:white;
 
-padding:25px;
 
-margin-top:40px;
+/*==================================================
+  TABLETTE
+==================================================*/
+
+@media(max-width:800px){
+
+    .profil-content{
+        margin-top:20px;
+    }
+
+
+    .profil-card{
+        gap:25px;
+    }
+
+
+    .stats-grid{
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+    }
+
+
+    .stat-box{
+        padding:18px 8px;
+    }
 
 }
 
 
 
-
-/* MOBILE */
-
+/*==================================================
+  MOBILE
+==================================================*/
 
 @media(max-width:700px){
 
+    .header{
+        flex-direction:column;
+        gap:15px;
+        padding:15px;
+        text-align:center;
+    }
 
-.profil-card{
 
-flex-direction:column;
+    .logo-zone{
+        justify-content:center;
+    }
 
-text-align:center;
+
+    .logo-zone img{
+        width:58px;
+        height:58px;
+    }
+
+
+    .logo-zone h1{
+        font-size:19px;
+    }
+
+
+    .logo-zone p{
+        font-size:12px;
+    }
+
+
+    .back{
+        width:100%;
+        justify-content:center;
+    }
+
+
+    .profil-content{
+        padding:0 10px 25px;
+        margin:20px auto;
+    }
+
+
+    .profil-card{
+        flex-direction:column;
+        text-align:center;
+        padding:25px 18px;
+    }
+
+
+    .photo-zone{
+        min-width:auto;
+    }
+
+
+    .photo-zone img{
+        width:145px;
+        height:145px;
+    }
+
+
+    .infos h2{
+        font-size:22px;
+    }
+
+
+    .infos p{
+        font-size:14px;
+    }
+
+
+    .info-card,
+    .edit-card{
+        padding:20px 15px;
+        border-radius:16px;
+    }
+
+
+    .info-card h2,
+    .edit-card h2{
+        font-size:18px;
+    }
+
+
+    .info-grid{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+
+    .info-item.full{
+        grid-column:auto;
+    }
+
+
+    .stats-grid{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+
+    .stat-box{
+        padding:16px;
+    }
+
+
+    .stat-box strong{
+        font-size:25px;
+    }
+
+
+    .edit-card input,
+    .edit-card textarea{
+        font-size:14px;
+    }
+
+
+    #btnSauver{
+        font-size:15px;
+    }
 
 }
 
 
-.header{
 
-flex-direction:column;
+/*==================================================
+  PETIT MOBILE
+==================================================*/
 
-gap:15px;
+@media(max-width:400px){
 
-}
-
-
-.logo-zone h1{
-
-font-size:18px;
-
-}
+    .logo-zone{
+        gap:10px;
+    }
 
 
-}
+    .logo-zone h1{
+        font-size:17px;
+    }
+
+
+    .profil-card{
+        padding:20px 12px;
+    }
+
+
+    .photo-zone img{
+        width:130px;
+        height:130px;
+    }
+
+
+    .info-card h2,
+    .edit-card h2{
+        font-size:17px;
+    }
+
+
+    .info-item{
+        padding:12px;
+    }
+
+ }
