@@ -4,16 +4,24 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Espace Membre - MWANA MBOKA</title>
 
-<link rel="stylesheet" href="espace.css">
+<link rel="stylesheet"
+href="espace.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -24,45 +32,81 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 <body>
 
 
-<!-- HEADER -->
+<!--==================================================
+ HEADER
+==================================================-->
 
 <header class="topbar">
 
-<div class="logo-zone">
 
-<img src="logo.png" class="logo-app">
+    <div class="logo-zone">
 
-<div>
-<h2>MWANA MBOKA</h2>
-<p>Communauté Numérique</p>
-</div>
-
-</div>
+        <img
+        src="logo.png"
+        class="logo-app"
+        alt="Logo MWANA MBOKA">
 
 
-<div class="member-mini">
+        <div>
 
-<img src="logo.png">
+            <h2>
+                MWANA MBOKA
+            </h2>
 
-<div>
-<strong id="nom">Membre</strong>
-<small id="matricule">MMB-0000</small>
-</div>
+            <p>
+                Communauté Numérique
+            </p>
 
-</div>
+        </div>
+
+    </div>
 
 
-<div class="top-icons">
 
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-</a>
+    <div class="member-mini">
 
-<a href="index.html" id="logout">
-<i class="fa-solid fa-right-from-bracket"></i>
-</a>
+        <img
+        src="logo.png"
+        alt="Membre">
 
-</div>
+        <div>
+
+            <strong id="nom">
+                Membre
+            </strong>
+
+            <small id="matricule">
+                MMB-0000
+            </small>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="top-icons">
+
+
+        <a href="notifications.html"
+        aria-label="Notifications">
+
+            <i class="fa-solid fa-bell"></i>
+
+        </a>
+
+
+
+        <a href="index.html"
+        id="logout"
+        aria-label="Déconnexion">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+        </a>
+
+
+    </div>
 
 
 </header>
@@ -73,174 +117,296 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 
 
-<!-- BIENVENUE -->
+<!--==================================================
+ BIENVENUE
+==================================================-->
 
 <section class="welcome-card">
 
-<div>
 
-<h1>
-Bienvenue <span id="nomBienvenue">Membre</span> 👋
-</h1>
+    <div>
 
-<p>
-Votre espace personnel MWANA MBOKA.
-</p>
+        <h1>
 
-</div>
+            Bienvenue
+
+            <span id="nomBienvenue">
+                Membre
+            </span>
+
+        </h1>
 
 
-<i class="fa-solid fa-handshake welcome-icon"></i>
+        <p>
+            Votre espace personnel MWANA MBOKA.
+        </p>
+
+    </div>
+
+
+    <i class="fa-solid fa-handshake welcome-icon"></i>
 
 
 </section>
 
 
 
-
-
-<!-- CARTE MEMBRE PREMIUM -->
-
+<!--==================================================
+ CARTE MEMBRE PREMIUM
+==================================================-->
 
 <section class="premium-card">
 
 
-<div class="premium-photo">
+    <div class="premium-photo">
 
-<img src="logo.png" id="photo">
+        <img
+        src="logo.png"
+        id="photo"
+        alt="Photo du membre">
 
-</div>
-
-
-<div class="premium-info">
-
-
-<h2 id="nomMembre">
-Nom du membre
-</h2>
+    </div>
 
 
-<p>
-<i class="fa-solid fa-id-card"></i>
-Matricule :
-<span id="matriculeCard">MMB-0000</span>
-</p>
+
+    <div class="premium-info">
 
 
-<p>
-<i class="fa-solid fa-user-group"></i>
-Parrain :
-<span id="parrain">---</span>
-</p>
+        <h2 id="nomMembre">
+            Nom du membre
+        </h2>
 
 
-<p>
-<i class="fa-solid fa-circle-check"></i>
-Statut :
-<span id="statut">Actif</span>
-</p>
+
+        <p>
+
+            <i class="fa-solid fa-id-card"></i>
+
+            Matricule :
+
+            <span id="matriculeCard">
+                MMB-0000
+            </span>
+
+        </p>
 
 
-<p>
-<i class="fa-solid fa-calendar"></i>
-Adhésion :
-<span id="dateAdhesion">--/--/----</span>
-</p>
+
+        <p>
+
+            <i class="fa-solid fa-user-group"></i>
+
+            Parrain :
+
+            <span id="parrain">
+                ---
+            </span>
+
+        </p>
 
 
-</div>
+
+        <p>
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Statut :
+
+            <span id="statut">
+                Actif
+            </span>
+
+        </p>
+
+
+
+        <p>
+
+            <i class="fa-solid fa-calendar"></i>
+
+            Adhésion :
+
+            <span id="dateAdhesion">
+                --/--/----
+            </span>
+
+        </p>
+
+
+    </div>
 
 
 </section>
 
 
 
-
-
-
-<!-- TABLEAU DE BORD -->
-
+<!--==================================================
+ TABLEAU DE BORD
+==================================================-->
 
 <h2 class="section-title">
-Tableau de bord
+    Tableau de bord
 </h2>
+
 
 
 <section class="dashboard">
 
 
-<div class="dash-box">
-<i class="fa-solid fa-wallet"></i>
-<h2 id="cotisations">0</h2>
-<p>Cotisations</p>
-</div>
+
+    <!-- COTISATIONS -->
+
+    <div class="dash-box">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        <h2 id="cotisations">
+            0
+        </h2>
+
+        <p>
+            Cotisations
+        </p>
+
+    </div>
 
 
-<div class="dash-box">
-<i class="fa-solid fa-users"></i>
-<h2 id="filleuls">0</h2>
-<p>Filleuls</p>
-</div>
+
+    <!-- FILLEULS -->
+
+    <div class="dash-box">
+
+        <i class="fa-solid fa-users"></i>
+
+        <h2 id="filleuls">
+            0
+        </h2>
+
+        <p>
+            Filleuls
+        </p>
+
+    </div>
 
 
-<div class="dash-box">
-<i class="fa-solid fa-money-bill-transfer"></i>
-<h2 id="revenus">0 F</h2>
-<p>Revenus</p>
-</div>
+
+    <!-- REVENUS -->
+
+    <div class="dash-box">
+
+        <i class="fa-solid fa-money-bill-transfer"></i>
+
+        <h2 id="revenus">
+            0 F
+        </h2>
+
+        <p>
+            Revenus
+        </p>
+
+    </div>
 
 
-<div class="dash-box">
-<i class="fa-solid fa-folder"></i>
-<h2 id="projets">0</h2>
-<p>Projets</p>
-</div>
+
+    <!-- PROJETS -->
+
+    <div class="dash-box">
+
+        <i class="fa-solid fa-folder"></i>
+
+        <h2 id="projets">
+            0
+        </h2>
+
+        <p>
+            Projets
+        </p>
+
+    </div>
 
 
-<div class="dash-box">
-<i class="fa-solid fa-graduation-cap"></i>
-<h2 id="formations">0</h2>
-<p>Formations</p>
-</div>
+
+    <!-- FORMATIONS -->
+
+    <div class="dash-box">
+
+        <i class="fa-solid fa-graduation-cap"></i>
+
+        <h2 id="formations">
+            0
+        </h2>
+
+        <p>
+            Formations
+        </p>
+
+    </div>
 
 
-<div class="dash-box">
-<i class="fa-solid fa-hand-holding-heart"></i>
-<h2 id="entraides">0</h2>
-<p>Entraides</p>
-</div>
+
+    <!-- ENTRAIDES -->
+
+    <div class="dash-box">
+
+        <i class="fa-solid fa-hand-holding-heart"></i>
+
+        <h2 id="entraides">
+            0
+        </h2>
+
+        <p>
+            Entraides
+        </p>
+
+    </div>
 
 
-<div class="dash-box">
-<i class="fa-solid fa-chart-line"></i>
-<h2 id="investissements">0</h2>
-<p>Investissements</p>
-</div>
+
+    <!-- INVESTISSEMENTS -->
+
+    <div class="dash-box">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <h2 id="investissements">
+            0
+        </h2>
+
+        <p>
+            Investissements
+        </p>
+
+    </div>
 
 
-<div class="dash-box">
 
-<i class="fa-solid fa-bell"></i>
+    <!-- NOTIFICATIONS -->
 
-<h2 id="notifications">0</h2>
+    <div class="dash-box">
 
-<p>Notifications</p>
+        <i class="fa-solid fa-bell"></i>
 
-</div>
+        <h2 id="notifications">
+            0
+        </h2>
+
+        <p>
+            Notifications
+        </p>
+
+    </div>
 
 
 </section>
 
 
 
-
-
-
-<!-- SERVICES -->
-
+<!--==================================================
+ SERVICES
+==================================================-->
 
 <h2 class="section-title">
-Services
+    Services
 </h2>
 
 
@@ -249,200 +415,351 @@ Services
 
 
 
-<a href="profil.html" class="menu-card">
-<i class="fa-solid fa-user"></i>
-<h3>Mon profil</h3>
-<p>Mes informations</p>
-</a>
+    <!--==============================================
+    CARTE NUMERIQUE
+    ===============================================-->
+
+    <a
+    href="carte.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-id-card"></i>
+
+        <h3>
+            Ma carte numérique
+        </h3>
+
+        <p>
+            Carte membre
+        </p>
+
+    </a>
 
 
 
-<a href="carte.html" class="menu-card">
-<i class="fa-solid fa-id-card"></i>
-<h3>Ma carte numérique</h3>
-<p>Carte membre</p>
-</a>
+    <!--==============================================
+    COTISATION
+    ===============================================-->
+
+    <a
+    href="cotisation.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        <h3>
+            Cotiser
+        </h3>
+
+        <p>
+            Mes paiements
+        </p>
+
+    </a>
 
 
 
-<a href="cotisation.html" class="menu-card">
-<i class="fa-solid fa-wallet"></i>
-<h3>Cotiser</h3>
-<p>Mes paiements</p>
-</a>
+    <!--==============================================
+    PROJETS
+    ===============================================-->
+
+    <a
+    href="projets.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-lightbulb"></i>
+
+        <h3>
+            Projets
+        </h3>
+
+        <p>
+            Mes projets
+        </p>
+
+    </a>
 
 
 
-<a href="projets.html" class="menu-card">
-<i class="fa-solid fa-lightbulb"></i>
-<h3>Projets</h3>
-<p>Mes projets</p>
-</a>
+    <!--==============================================
+    FORMATIONS
+    ===============================================-->
+
+    <a
+    href="formationun.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-graduation-cap"></i>
+
+        <h3>
+            Formations
+        </h3>
+
+        <p>
+            Apprendre
+        </p>
+
+    </a>
 
 
 
-<a href="formationun.html" class="menu-card">
-<i class="fa-solid fa-graduation-cap"></i>
-<h3>Formations</h3>
-<p>Apprendre</p>
-</a>
+    <!--==============================================
+    INVESTISSEMENTS
+    ===============================================-->
+
+    <a
+    href="investissements.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-chart-pie"></i>
+
+        <h3>
+            Investissements
+        </h3>
+
+        <p>
+            Opportunités
+        </p>
+
+    </a>
 
 
 
-<a href="investissements.html" class="menu-card">
-<i class="fa-solid fa-chart-pie"></i>
-<h3>Investissements</h3>
-<p>Opportunités</p>
-</a>
+    <!--==============================================
+    EMPLOIS
+    ===============================================-->
+
+    <a
+    href="emplois.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-briefcase"></i>
+
+        <h3>
+            Emplois
+        </h3>
+
+        <p>
+            Offres disponibles
+        </p>
+
+    </a>
 
 
 
-<a href="emplois.html" class="menu-card">
-<i class="fa-solid fa-briefcase"></i>
-<h3>Emplois</h3>
-<p>Offres disponibles</p>
-</a>
+    <!--==============================================
+    ENTREPRISES
+    ===============================================-->
+
+    <a
+    href="entreprises.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-building"></i>
+
+        <h3>
+            Entreprises
+        </h3>
+
+        <p>
+            Réseau professionnel
+        </p>
+
+    </a>
 
 
 
-<a href="entreprises.html" class="menu-card">
-<i class="fa-solid fa-building"></i>
-<h3>Entreprises</h3>
-<p>Réseau professionnel</p>
-</a>
+    <!--==============================================
+    BOUTIQUE
+    ===============================================-->
+
+    <a
+    href="boutique.html"
+    class="menu-card">
+
+        <i class="fa-solid fa-shop"></i>
+
+        <h3>
+            Boutique
+        </h3>
+
+        <p>
+            Produits membres
+        </p>
+
+    </a>
 
 
 
-<a href="boutique.html" class="menu-card">
-<i class="fa-solid fa-shop"></i>
-<h3>Boutique</h3>
-<p>Produits membres</p>
-</a>
+    <!--==============================================
+    BUREAU PRESIDENT
+    ===============================================-->
+
+    <a
+    href="prbureau.html"
+    class="menu-card"
+    id="bureauPresident"
+    style="display:none;">
+
+        <i class="fa-solid fa-landmark"></i>
+
+        <h3>
+            Bureau du Président
+        </h3>
+
+        <p>
+            Centre de commandement présidentiel
+        </p>
+
+    </a>
 
 
-
-<a href="messages.html" class="menu-card">
-<i class="fa-solid fa-comments"></i>
-<h3>Messages</h3>
-<p>Communication</p>
-</a>
-
-<a href="prbureau.html"
-class="menu-card"
-id="bureauPresident"
-style="display:none;">
-
-    <i class="fa-solid fa-landmark"></i>
-
-    <h3>Bureau du Président</h3>
-
-    <p>Centre de commandement présidentiel</p>
-
-  </a>
-
-  
 </section>
 
 
 
-
-
-
-
-<!-- ACTIVITES -->
-
+<!--==================================================
+ ACTIVITES
+==================================================-->
 
 <h2 class="section-title">
-Activités récentes
+    Activités récentes
 </h2>
+
 
 
 <section class="activities">
 
 
-<div>
-<i class="fa-solid fa-clock"></i>
-Aucune activité récente.
-</div>
+    <div>
+
+        <i class="fa-solid fa-clock"></i>
+
+        Aucune activité récente.
+
+    </div>
 
 
 </section>
 
 
 
-
-
-
-
-
-<!-- NAVIGATION -->
+<!--==================================================
+ NAVIGATION INFERIEURE
+==================================================-->
 
 <nav class="bottom-nav">
 
 
-<a href="espace.html" class="active">
-<i class="fa-solid fa-house"></i>
-<span>Accueil</span>
-</a>
+
+    <!-- ACCUEIL -->
+
+    <a
+    href="espace.html"
+    class="active">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+            Accueil
+        </span>
+
+    </a>
 
 
-<a href="messages.html">
-<i class="fa-solid fa-comments"></i>
-<span>Messages</span>
-</a>
+
+    <!-- MESSAGES -->
+
+    <a
+    href="messages.html">
+
+        <i class="fa-solid fa-comments"></i>
+
+        <span>
+            Messages
+        </span>
+
+    </a>
 
 
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-<span>Notifications</span>
-</a>
+
+    <!-- NOTIFICATIONS -->
+
+    <a
+    href="notifications.html">
+
+        <i class="fa-solid fa-bell"></i>
+
+        <span>
+            Notifications
+        </span>
+
+    </a>
 
 
-<a href="profil.html">
-<i class="fa-solid fa-user"></i>
-<span>Profil</span>
-</a>
+
+    <!-- PROFIL -->
+
+    <a
+    href="profil.html">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>
+            Profil
+        </span>
+
+    </a>
 
 
-<a href="parametres.html">
-<i class="fa-solid fa-gear"></i>
-<span>Paramètres</span>
-</a>
+
+    <!-- PARAMETRES -->
+
+    <a
+    href="parametres.html">
+
+        <i class="fa-solid fa-gear"></i>
+
+        <span>
+            Paramètres
+        </span>
+
+    </a>
 
 
 </nav>
 
 
 
-
-
-
-<!-- FOOTER -->
-
+<!--==================================================
+ FOOTER
+==================================================-->
 
 <footer class="footer-app">
 
 
-<img src="logo.png" class="footer-logo">
+    <img
+    src="logo.png"
+    class="footer-logo"
+    alt="Logo MWANA MBOKA">
 
 
-<h3>
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-</h3>
+    <h3>
+        COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    </h3>
 
 
-<p>
-Ensemble nous irons plus loin.
-</p>
+    <p>
+        Ensemble nous irons plus loin.
+    </p>
 
 
-<p class="copyright">
-© 2026 MWANA MBOKA
-</p>
+    <p class="copyright">
+        © 2026 MWANA MBOKA
+    </p>
 
 
 </footer>
-
 
 
 
@@ -450,9 +767,16 @@ Ensemble nous irons plus loin.
 
 
 
-<script type="module" src="espace.js"></script>
+<!--==================================================
+ JAVASCRIPT
+==================================================-->
+
+<script
+type="module"
+src="espace.js">
+</script>
 
 
 </body>
 
-               </html>
+    </html>
