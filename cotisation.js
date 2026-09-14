@@ -1,120 +1,171 @@
-// ========================================
-// COTISATIONS.JS
-// COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-// VERSION CORRIGÉE
-// ========================================
+/*==================================================
+  COTISATIONS.JS
+  GESTION DES COTISATIONS
+  COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  VERSION : COMPTABILITÉ SÉCURISÉE V2
+
+  RÈGLES :
+  - Cotisation payée = 2 000 FCFA recommandés
+  - Parrain = 700 FCFA
+  - Communauté = montant - 700 FCFA
+  - Cotisation non payée = aucun mouvement financier
+  - Modification = recalcul complet
+  - Suppression = recalcul complet
+  - Chaque opération = journal comptable
+==================================================*/
+
+
+/*==================================================
+  IMPORTS FIREBASE
+==================================================*/
 
 import {
     getDatabase,
     ref,
+    onValue,
     get,
     push,
-    remove,
-    update,
-    onValue
+    update
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
+import {
+    getAuth
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
-// ========================================
-// CONFIGURATION FIREBASE
-// ========================================
+import { app } from "./firebase-config.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
-    authDomain: "c-n-mwana-mboka.firebaseapp.com",
-    databaseURL: "https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app/",
-    projectId: "c-n-mwana-mboka",
-    storageBucket: "c-n-mwana-mboka.firebasestorage.app",
-    messagingSenderId: "757726608581",
-    appId: "1:757726608581:web:27fa7003ffa955188304ac"
-};
 
-const app = initializeApp(firebaseConfig);
+/*==================================================
+  INITIALISATION
+==================================================*/
+
 const db = getDatabase(app);
+const auth = getAuth(app);
 
 
-// ========================================
-// VARIABLES GLOBALES
-// ========================================
+/*==================================================
+  VARIABLES GLOBALES
+==================================================*/
 
-let toutesLesCotisations = [];
+let toutesLesCotisations = {};
 let listeMembres = [];
 let filtreActuel = "tous";
 let cotisationEnModification = null;
+let adminMatriculeConnecte = null;
 
 
-// ========================================
-// ÉLÉMENTS DU DOM
-// ========================================
+/*==================================================
+  RÉCUPÉRATION DES ÉLÉMENTS HTML
+==================================================*/
 
 const selectMembre = document.getElementById("membre");
 const infoMembre = document.getElementById("infoMembre");
 const montantInput = document.getElementById("montant");
 const moisSelect = document.getElementById("moisCotisation");
+const numeroMobile = document.getElementById("numeroMobile");
+const refTransaction = document.getElementById("refTransaction");
 const statutSelect = document.getElementById("statut");
 const observationInput = document.getElementById("observation");
 
 const groupeNumero = document.getElementById("groupeNumero");
 const groupeRef = document.getElementById("groupeRef");
-const labelOperateur = document.getElementById("labelOperateur");
-
-const numeroMobileInput = document.getElementById("numeroMobile");
-const refTransactionInput = document.getElementById("refTransaction");
+const zonePaiementAPI = document.getElementById("zonePaiementAPI");
 
 const btnEnregistrer = document.getElementById("btnEnregistrer");
 const btnAnnuler = document.getElementById("btnAnnuler");
-const btnDeconnexion = document.getElementById("btnDeconnexion");
-
 const msgRetour = document.getElementById("msgRetour");
+
 const rechercheInput = document.getElementById("recherche");
-const listeCotisationsContainer = document.getElementById("listeCotisations");
+const listeCotisations = document.getElementById("listeCotisations");
+
+const nbCotisants = document.getElementById("nbCotisants");
+const totalCotisations = document.getElementById("totalCotisations");
+const totalParrains = document.getElementById("totalParrains");
+const totalCommunaute = document.getElementById("totalCommunaute");
 
 
-// ========================================
-// SÉCURITÉ ADMINISTRATEUR
-// ========================================
+/*==================================================
+  OUTILS
+==================================================*/
+
+function afficherMessage(message, type = "success") {
+
+    if (!msgRetour) return;
+
+    msgRetour.textContent = message;
+    msgRetour.className = `message-retour ${type}`;
+
+    setTimeout(() => {
+        msgRetour.textContent = "";
+        msgRetour.className = "message-retour";
+    }, 5000);
+}
+
+
+function formaterMontant(nombre) {
+
+    return Number(nombre || 0).toLocaleString("fr-FR") + " FCFA";
+}
+
+
+function dateHeureActuelle() {
+
+    return new Date().toISOString();
+}
+
+
+function echapperHTML(texte) {
+
+    if (texte === null || texte === undefined) return "";
+
+    return String(texte)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/*==================================================
+  ADMINISTRATEUR
+==================================================*/
 
 async function verifierAdmin() {
 
-    const matriculeAdmin = localStorage.getItem("matricule");
-
-    if (!matriculeAdmin) {
-        window.location.href = "connexion.html";
-        return false;
-    }
-
     try {
 
-        const adminRef = ref(
-            db,
-            "membres/" + matriculeAdmin
-        );
+        const matricule = localStorage.getItem("matricule");
 
-        const adminSnap = await get(adminRef);
-
-        if (!adminSnap.exists()) {
-
-            localStorage.removeItem("matricule");
+        if (!matricule) {
 
             window.location.href = "connexion.html";
-
             return false;
         }
 
-        const admin = adminSnap.val();
+        adminMatriculeConnecte = matricule;
 
-        if (
-            String(admin.role || "").toLowerCase() !== "admin"
-        ) {
+        const snapshot = await get(
+            ref(db, `membres/${matricule}`)
+        );
 
-            alert(
-                "Accès réservé à l'administrateur."
-            );
+        if (!snapshot.exists()) {
 
-            window.location.href = "espace.html";
+            window.location.href = "connexion.html";
+            return false;
+        }
 
+        const membre = snapshot.val();
+
+        const role = String(membre.role || "")
+            .trim()
+            .toLowerCase();
+
+        if (role !== "admin") {
+
+            alert("Accès réservé à l'administration.");
+            window.location.href = "index.html";
             return false;
         }
 
@@ -122,299 +173,545 @@ async function verifierAdmin() {
 
     } catch (erreur) {
 
-        console.error(
-            "Erreur de vérification administrateur :",
-            erreur
-        );
+        console.error("Erreur vérification admin :", erreur);
 
-        afficherMessage(
-            "Impossible de vérifier les droits administrateur.",
-            "erreur"
-        );
+        alert("Impossible de vérifier vos droits administrateur.");
+
+        window.location.href = "connexion.html";
 
         return false;
     }
 }
 
 
-// ========================================
-// CHARGEMENT DES MEMBRES
-// ========================================
+/*==================================================
+  CHARGEMENT DES MEMBRES
+==================================================*/
 
 function chargerMembres() {
 
     const membresRef = ref(db, "membres");
 
-    onValue(
-        membresRef,
-        (snapshot) => {
+    onValue(membresRef, snapshot => {
 
-            if (!selectMembre) return;
+        listeMembres = [];
 
-            selectMembre.innerHTML =
-                '<option value="">-- Sélectionner un membre --</option>';
+        if (snapshot.exists()) {
 
-            listeMembres = [];
+            const donnees = snapshot.val();
 
-            if (!snapshot.exists()) {
-                return;
-            }
-
-            snapshot.forEach((item) => {
-
-                const membre = item.val();
-
-                if (!membre) return;
-
-                /*
-                 * On récupère toujours le matricule depuis
-                 * la donnée ou, à défaut, depuis la clé Firebase.
-                 */
+            Object.entries(donnees).forEach(([cle, membre]) => {
 
                 const matricule =
-                    membre.matricule || item.key;
+                    membre.matricule || cle;
 
-                membre.matricule = matricule;
-
-                listeMembres.push(membre);
-
-                const option =
-                    document.createElement("option");
-
-                option.value = matricule;
-
-                option.textContent =
-                    `${membre.nom || "Membre"} (${matricule})`;
-
-                selectMembre.appendChild(option);
+                listeMembres.push({
+                    ...membre,
+                    matricule
+                });
             });
-        },
-        (erreur) => {
-
-            console.error(
-                "Erreur chargement membres :",
-                erreur
-            );
-
-            afficherMessage(
-                "Impossible de charger les membres.",
-                "erreur"
-            );
         }
-    );
-}
 
+        listeMembres.sort((a, b) => {
 
-// ========================================
-// INFORMATIONS DU MEMBRE
-// ========================================
+            const nomA = String(a.nom || "").toLowerCase();
+            const nomB = String(b.nom || "").toLowerCase();
 
-if (selectMembre) {
+            return nomA.localeCompare(nomB);
+        });
 
-    selectMembre.addEventListener(
-        "change",
-        () => {
+        remplirSelectMembres();
 
-            const matricule =
-                selectMembre.value;
+    }, erreur => {
 
-            if (!matricule) {
-
-                infoMembre.innerHTML = "";
-
-                return;
-            }
-
-            const membre =
-                listeMembres.find(
-                    m => m.matricule === matricule
-                );
-
-            if (!membre) {
-
-                infoMembre.innerHTML = "";
-
-                return;
-            }
-
-            const photo =
-                membre.photo || "logo.png";
-
-            infoMembre.innerHTML = `
-                <div
-                    class="carte-info"
-                    style="
-                        padding:10px;
-                        background:#f8fafc;
-                        border-radius:10px;
-                        margin-top:10px;
-                        border:1px solid #e2e8f0;
-                        display:flex;
-                        gap:12px;
-                        align-items:center;
-                    "
-                >
-
-                    <img
-                        src="${photo}"
-                        alt="Photo du membre"
-                        style="
-                            width:45px;
-                            height:45px;
-                            border-radius:50%;
-                            object-fit:cover;
-                        "
-                        onerror="this.src='logo.png'"
-                    >
-
-                    <div style="font-size:0.85rem;">
-
-                        <h4
-                            style="
-                                margin:0;
-                                font-weight:bold;
-                            "
-                        >
-                            ${membre.nom || "Membre"}
-                        </h4>
-
-                        <p style="margin:2px 0;">
-
-                            <strong>Matricule :</strong>
-                            ${membre.matricule}
-
-                            |
-
-                            <strong>Tél :</strong>
-                            ${membre.telephone || "-"}
-
-                        </p>
-
-                        <p
-                            style="
-                                margin:0;
-                                color:#055c3a;
-                            "
-                        >
-                            <strong>Parrain :</strong>
-                            ${membre.parrain || "Aucun"}
-                        </p>
-
-                    </div>
-
-                </div>
-            `;
-        }
-    );
-}
-
-
-// ========================================
-// GESTION DES MODES DE PAIEMENT
-// ========================================
-
-function ecouterModesPaiement() {
-
-    const radiosMode =
-        document.querySelectorAll(
-            'input[name="modePaiement"]'
+        console.error(
+            "Erreur chargement membres :",
+            erreur
         );
 
-    radiosMode.forEach(
-        radio => {
+        afficherMessage(
+            "Impossible de charger les membres.",
+            "error"
+        );
+    });
+}
 
-            radio.addEventListener(
-                "change",
-                (event) => {
 
-                    const mode =
-                        event.target.value;
+/*==================================================
+  REMPLIR LE SELECT MEMBRES
+==================================================*/
 
-                    const paiementMobile =
-                        mode === "Airtel Money" ||
-                        mode === "MTN Mobile Money";
+function remplirSelectMembres() {
 
-                    if (paiementMobile) {
+    if (!selectMembre) return;
 
-                        if (groupeNumero) {
-                            groupeNumero.style.display =
-                                "block";
-                        }
+    const ancienneValeur = selectMembre.value;
 
-                        if (groupeRef) {
-                            groupeRef.style.display =
-                                "block";
-                        }
+    selectMembre.innerHTML =
+        `<option value="">-- Sélectionner un membre --</option>`;
 
-                        const zoneAPI =
-                            document.getElementById(
-                                "zonePaiementAPI"
-                            );
+    listeMembres.forEach(membre => {
 
-                        if (zoneAPI) {
-                            zoneAPI.style.display =
-                                "flex";
-                        }
+        const option = document.createElement("option");
 
-                        if (labelOperateur) {
+        option.value = membre.matricule;
 
-                            labelOperateur.textContent =
-                                mode;
-                        }
+        option.textContent =
+            `${membre.nom || "Sans nom"} (${membre.matricule})`;
 
-                        if (numeroMobileInput) {
+        selectMembre.appendChild(option);
+    });
 
-                            numeroMobileInput.placeholder =
-                                "06 XXX XX XX";
-                        }
+    if (ancienneValeur) {
 
-                    } else {
+        selectMembre.value = ancienneValeur;
+        afficherInfosMembre();
+    }
+}
 
-                        if (groupeNumero) {
-                            groupeNumero.style.display =
-                                "none";
-                        }
 
-                        if (groupeRef) {
-                            groupeRef.style.display =
-                                "none";
-                        }
+/*==================================================
+  INFORMATIONS DU MEMBRE
+==================================================*/
 
-                        const zoneAPI =
-                            document.getElementById(
-                                "zonePaiementAPI"
-                            );
+function afficherInfosMembre() {
 
-                        if (zoneAPI) {
-                            zoneAPI.style.display =
-                                "none";
-                        }
+    if (!selectMembre || !infoMembre) return;
 
-                        if (labelOperateur) {
-                            labelOperateur.textContent =
-                                "";
-                        }
+    const matricule = selectMembre.value;
 
-                        if (numeroMobileInput) {
-                            numeroMobileInput.value =
-                                "";
-                        }
+    if (!matricule) {
 
-                        if (refTransactionInput) {
-                            refTransactionInput.value =
-                                "";
-                        }
-                    }
-                }
+        infoMembre.innerHTML = "";
+        return;
+    }
+
+    const membre = listeMembres.find(
+        m => m.matricule === matricule
+    );
+
+    if (!membre) {
+
+        infoMembre.innerHTML = "";
+        return;
+    }
+
+    const photo =
+        membre.photo ||
+        membre.photoURL ||
+        "logo.png";
+
+    infoMembre.innerHTML = `
+        <div class="info-membre-interne">
+
+            <img
+                src="${echapperHTML(photo)}"
+                alt="Photo membre"
+                class="photo-membre-info"
+                onerror="this.src='logo.png'"
+            >
+
+            <div>
+                <strong>
+                    ${echapperHTML(membre.nom || "Nom non renseigné")}
+                </strong>
+
+                <span>
+                    Matricule :
+                    ${echapperHTML(membre.matricule)}
+                </span>
+
+                <span>
+                    Téléphone :
+                    ${echapperHTML(membre.telephone || "Non renseigné")}
+                </span>
+
+                <span>
+                    Parrain :
+                    ${echapperHTML(membre.parrain || "Aucun")}
+                </span>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/*==================================================
+  MODE DE PAIEMENT
+==================================================*/
+
+function obtenirModePaiement() {
+
+    const radio = document.querySelector(
+        'input[name="modePaiement"]:checked'
+    );
+
+    return radio ? radio.value : "Espèces";
+}
+
+
+function gererModePaiement() {
+
+    const mode = obtenirModePaiement();
+
+    const paiementMobile =
+        mode === "Airtel Money" ||
+        mode === "MTN Mobile Money";
+
+    if (groupeNumero) {
+
+        groupeNumero.style.display =
+            paiementMobile ? "block" : "none";
+    }
+
+    if (groupeRef) {
+
+        groupeRef.style.display =
+            paiementMobile ? "block" : "none";
+    }
+
+    if (zonePaiementAPI) {
+
+        zonePaiementAPI.style.display =
+            paiementMobile ? "block" : "none";
+    }
+
+    if (!paiementMobile) {
+
+        if (numeroMobile) numeroMobile.value = "";
+        if (refTransaction) refTransaction.value = "";
+    }
+}
+
+
+/*==================================================
+  RÉPARTITION FINANCIÈRE
+==================================================*/
+
+function calculerRepartition(membre, montant, statut) {
+
+    montant = Number(montant) || 0;
+
+    /*
+      Aucun argent réellement encaissé :
+      aucune répartition financière.
+    */
+
+    if (statut !== "Payé") {
+
+        return {
+            partParrain: 0,
+            partCommunaute: 0
+        };
+    }
+
+    /*
+      Règle MWANA MBOKA :
+
+      Si le membre possède un parrain
+      ET que la cotisation atteint au moins 2 000 FCFA :
+
+      Parrain = 700 FCFA
+      Communauté = reste
+    */
+
+    if (
+        membre &&
+        membre.parrain &&
+        montant >= 2000
+    ) {
+
+        return {
+
+            partParrain: 700,
+
+            partCommunaute:
+                montant - 700
+        };
+    }
+
+    /*
+      Si aucun parrain ou montant inférieur
+      à 2 000 FCFA :
+
+      Tout revient à la communauté.
+    */
+
+    return {
+
+        partParrain: 0,
+
+        partCommunaute: montant
+    };
+}
+
+
+/*==================================================
+  OBTENIR TOUTES LES COTISATIONS
+==================================================*/
+
+async function recupererCotisationsDepuisFirebase() {
+
+    const snapshot =
+        await get(ref(db, "cotisations"));
+
+    if (!snapshot.exists()) {
+
+        return {};
+    }
+
+    return snapshot.val();
+}
+
+
+/*==================================================
+  VÉRIFICATION DOUBLON
+==================================================*/
+
+function cotisationPayeeExiste(
+    cotisations,
+    matricule,
+    mois,
+    annee,
+    cleIgnoree = null
+) {
+
+    return Object.entries(cotisations).some(
+        ([cle, cotisation]) => {
+
+            if (cle === cleIgnoree) return false;
+
+            return (
+                cotisation.matricule === matricule &&
+                cotisation.mois === mois &&
+                Number(cotisation.annee) === Number(annee) &&
+                cotisation.statut === "Payé"
             );
         }
     );
 }
 
 
-// ========================================
-// CHARGEMENT DES COTISATIONS
-// ========================================
+/*==================================================
+  CALCUL DES STATISTIQUES D'UN MEMBRE
+==================================================*/
+
+function calculerStatsMembre(
+    cotisations,
+    matricule
+) {
+
+    const paiements = Object.values(cotisations)
+        .filter(cotisation => {
+
+            return (
+                cotisation.matricule === matricule &&
+                cotisation.statut === "Payé"
+            );
+        });
+
+    paiements.sort(
+        (a, b) =>
+            Number(b.horodatage || 0) -
+            Number(a.horodatage || 0)
+    );
+
+    return {
+
+        nombreCotisations:
+            paiements.length,
+
+        derniereCotisation:
+            paiements.length > 0
+                ? paiements[0].date
+                : null,
+
+        dernierPaiementHorodatage:
+            paiements.length > 0
+                ? paiements[0].horodatage
+                : null
+    };
+}
+
+
+/*==================================================
+  CALCUL DU BONUS PARRAIN
+==================================================*/
+
+function calculerBonusParrain(
+    cotisations,
+    matriculeParrain
+) {
+
+    if (!matriculeParrain) return 0;
+
+    return Object.values(cotisations)
+        .filter(cotisation => {
+
+            return (
+                cotisation.parrain === matriculeParrain &&
+                cotisation.statut === "Payé"
+            );
+        })
+        .reduce(
+            (total, cotisation) =>
+                total +
+                Number(cotisation.partParrain || 0),
+            0
+        );
+}
+
+
+/*==================================================
+  PRÉPARER LA SYNCHRONISATION DES MEMBRES
+==================================================*/
+
+function preparerSynchronisationMembre(
+    misesAJour,
+    cotisations,
+    matricule
+) {
+
+    if (!matricule) return;
+
+    const stats =
+        calculerStatsMembre(
+            cotisations,
+            matricule
+        );
+
+    misesAJour[`membres/${matricule}/nombreCotisations`] =
+        stats.nombreCotisations;
+
+    misesAJour[`membres/${matricule}/derniereCotisation`] =
+        stats.derniereCotisation;
+
+    misesAJour[`membres/${matricule}/dernierPaiementHorodatage`] =
+        stats.dernierPaiementHorodatage;
+}
+
+
+/*==================================================
+  PRÉPARER LE BONUS DU PARRAIN
+==================================================*/
+
+function preparerSynchronisationParrain(
+    misesAJour,
+    cotisations,
+    matriculeParrain
+) {
+
+    if (!matriculeParrain) return;
+
+    const bonus =
+        calculerBonusParrain(
+            cotisations,
+            matriculeParrain
+        );
+
+    /*
+      Le champ "bonus" représente ici
+      le cumul des primes de parrainage
+      provenant des cotisations.
+    */
+
+    misesAJour[
+        `membres/${matriculeParrain}/bonus`
+    ] = bonus;
+}
+
+
+/*==================================================
+  JOURNAL COMPTABLE
+==================================================*/
+
+function creerJournal(
+    action,
+    cleCotisation,
+    ancienneDonnee,
+    nouvelleDonnee
+) {
+
+    return {
+
+        type: "COTISATION",
+
+        action,
+
+        cotisationId:
+            cleCotisation || null,
+
+        matricule:
+            nouvelleDonnee?.matricule ||
+            ancienneDonnee?.matricule ||
+            null,
+
+        nom:
+            nouvelleDonnee?.nom ||
+            ancienneDonnee?.nom ||
+            null,
+
+        ancienMontant:
+            ancienneDonnee
+                ? Number(ancienneDonnee.montant || 0)
+                : 0,
+
+        nouveauMontant:
+            nouvelleDonnee
+                ? Number(nouvelleDonnee.montant || 0)
+                : 0,
+
+        anciennePartParrain:
+            ancienneDonnee
+                ? Number(
+                    ancienneDonnee.partParrain || 0
+                )
+                : 0,
+
+        nouvellePartParrain:
+            nouvelleDonnee
+                ? Number(
+                    nouvelleDonnee.partParrain || 0
+                )
+                : 0,
+
+        anciennePartCommunaute:
+            ancienneDonnee
+                ? Number(
+                    ancienneDonnee.partCommunaute || 0
+                )
+                : 0,
+
+        nouvellePartCommunaute:
+            nouvelleDonnee
+                ? Number(
+                    nouvelleDonnee.partCommunaute || 0
+                )
+                : 0,
+
+        ancienStatut:
+            ancienneDonnee?.statut || null,
+
+        nouveauStatut:
+            nouvelleDonnee?.statut || null,
+
+        adminMatricule:
+            adminMatriculeConnecte,
+
+        horodatage:
+            Date.now(),
+
+        date:
+            new Date().toLocaleString("fr-FR")
+    };
+}
+
+
+/*==================================================
+  CHARGEMENT DES COTISATIONS
+==================================================*/
 
 function chargerCotisations() {
 
@@ -423,348 +720,192 @@ function chargerCotisations() {
 
     onValue(
         cotisationsRef,
-        (snapshot) => {
+        snapshot => {
 
-            toutesLesCotisations = [];
+            toutesLesCotisations =
+                snapshot.exists()
+                    ? snapshot.val()
+                    : {};
 
-            const cotisantsPayes =
-                new Set();
-
-            let totalMontant = 0;
-            let totalParrain = 0;
-            let totalCommunaute = 0;
-
-            if (snapshot.exists()) {
-
-                snapshot.forEach(
-                    item => {
-
-                        const data =
-                            item.val();
-
-                        if (!data) return;
-
-                        data.key =
-                            item.key;
-
-                        toutesLesCotisations.push(
-                            data
-                        );
-
-                        /*
-                         * Seules les cotisations PAYÉES
-                         * entrent dans les totaux financiers.
-                         */
-
-                        if (data.statut === "Payé") {
-
-                            if (data.matricule) {
-
-                                cotisantsPayes.add(
-                                    data.matricule
-                                );
-                            }
-
-                            totalMontant +=
-                                Number(
-                                    data.montant || 0
-                                );
-
-                            totalParrain +=
-                                Number(
-                                    data.partParrain || 0
-                                );
-
-                            totalCommunaute +=
-                                Number(
-                                    data.partCommunaute || 0
-                                );
-                        }
-                    }
-                );
-            }
-
-            const nbCotisants =
-                document.getElementById(
-                    "nbCotisants"
-                );
-
-            const totalCotisations =
-                document.getElementById(
-                    "totalCotisations"
-                );
-
-            const totalParrains =
-                document.getElementById(
-                    "totalParrains"
-                );
-
-            const totalCommunauteElement =
-                document.getElementById(
-                    "totalCommunaute"
-                );
-
-            if (nbCotisants) {
-
-                nbCotisants.innerText =
-                    cotisantsPayes.size;
-            }
-
-            if (totalCotisations) {
-
-                totalCotisations.innerText =
-                    totalMontant.toLocaleString(
-                        "fr-FR"
-                    ) + " FCFA";
-            }
-
-            if (totalParrains) {
-
-                totalParrains.innerText =
-                    totalParrain.toLocaleString(
-                        "fr-FR"
-                    ) + " FCFA";
-            }
-
-            if (totalCommunauteElement) {
-
-                totalCommunauteElement.innerText =
-                    totalCommunaute.toLocaleString(
-                        "fr-FR"
-                    ) + " FCFA";
-            }
+            calculerTableauDeBord();
 
             afficherListeFiltree();
+
         },
-        (erreur) => {
+        erreur => {
 
             console.error(
-                "Erreur chargement cotisations :",
+                "Erreur cotisations :",
                 erreur
             );
 
             afficherMessage(
                 "Impossible de charger les cotisations.",
-                "erreur"
+                "error"
             );
         }
     );
 }
 
 
-// ========================================
-// VÉRIFICATION DOUBLON
-// ========================================
+/*==================================================
+  TABLEAU DE BORD
+==================================================*/
 
-function cotisationExisteDeja(
-    matricule,
-    mois,
-    cleIgnoree = null
-) {
+function calculerTableauDeBord() {
 
-    return toutesLesCotisations.some(
-        cotis => {
-
-            if (
-                cleIgnoree &&
-                cotis.key === cleIgnoree
-            ) {
-                return false;
-            }
-
-            return (
-                cotis.matricule === matricule &&
-                cotis.mois === mois &&
-                cotis.statut === "Payé"
+    const cotisationsPayees =
+        Object.values(toutesLesCotisations)
+            .filter(
+                c => c.statut === "Payé"
             );
-        }
-    );
+
+    const membresPayants =
+        new Set(
+            cotisationsPayees.map(
+                c => c.matricule
+            )
+        );
+
+    const total =
+        cotisationsPayees.reduce(
+            (somme, c) =>
+                somme +
+                Number(c.montant || 0),
+            0
+        );
+
+    const parrains =
+        cotisationsPayees.reduce(
+            (somme, c) =>
+                somme +
+                Number(c.partParrain || 0),
+            0
+        );
+
+    const communaute =
+        cotisationsPayees.reduce(
+            (somme, c) =>
+                somme +
+                Number(c.partCommunaute || 0),
+            0
+        );
+
+    if (nbCotisants) {
+
+        nbCotisants.textContent =
+            membresPayants.size;
+    }
+
+    if (totalCotisations) {
+
+        totalCotisations.textContent =
+            formaterMontant(total);
+    }
+
+    if (totalParrains) {
+
+        totalParrains.textContent =
+            formaterMontant(parrains);
+    }
+
+    if (totalCommunaute) {
+
+        totalCommunaute.textContent =
+            formaterMontant(communaute);
+    }
 }
 
 
-// ========================================
-// AFFICHAGE DE L'HISTORIQUE
-// ========================================
+/*==================================================
+  COULEUR STATUT
+==================================================*/
+
+function classeStatut(statut) {
+
+    switch (statut) {
+
+        case "Payé":
+            return "badge-paye";
+
+        case "En attente":
+            return "badge-attente";
+
+        case "Retard":
+            return "badge-retard";
+
+        default:
+            return "";
+    }
+}
+
+
+/*==================================================
+  AFFICHAGE HISTORIQUE
+==================================================*/
 
 function afficherListeFiltree() {
 
-    if (!listeCotisationsContainer) {
-        return;
-    }
+    if (!listeCotisations) return;
 
     const recherche =
         rechercheInput
             ? rechercheInput.value
-                .toLowerCase()
                 .trim()
+                .toLowerCase()
             : "";
 
-    let cotisationsFiltrees =
-        toutesLesCotisations.filter(
-            cotis => {
+    let liste =
+        Object.entries(toutesLesCotisations);
 
-                const correspondanceFiltre =
-                    filtreActuel === "tous" ||
-                    cotis.statut === filtreActuel;
+    if (filtreActuel !== "tous") {
 
-                const nom =
-                    String(
-                        cotis.nom || ""
-                    ).toLowerCase();
+        liste = liste.filter(
+            ([, cotisation]) =>
+                cotisation.statut === filtreActuel
+        );
+    }
 
-                const matricule =
-                    String(
-                        cotis.matricule || ""
-                    ).toLowerCase();
+    if (recherche) {
 
-                const correspondanceRecherche =
-                    nom.includes(recherche) ||
-                    matricule.includes(recherche);
+        liste = liste.filter(
+            ([, cotisation]) => {
 
-                return (
-                    correspondanceFiltre &&
-                    correspondanceRecherche
-                );
+                const texte = `
+                    ${cotisation.nom || ""}
+                    ${cotisation.matricule || ""}
+                    ${cotisation.mois || ""}
+                    ${cotisation.modePaiement || ""}
+                    ${cotisation.statut || ""}
+                `.toLowerCase();
+
+                return texte.includes(recherche);
             }
         );
+    }
 
-    if (cotisationsFiltrees.length === 0) {
+    liste.sort(
+        ([, a], [, b]) =>
+            Number(b.horodatage || 0) -
+            Number(a.horodatage || 0)
+    );
 
-        listeCotisationsContainer.innerHTML = `
-            <p
-                style="
-                    text-align:center;
-                    color:#94a3b8;
-                    padding:20px;
-                    font-size:0.9rem;
-                "
-            >
+    if (liste.length === 0) {
+
+        listeCotisations.innerHTML = `
+            <div class="aucune-donnee">
                 Aucune cotisation trouvée.
-            </p>
+            </div>
         `;
 
         return;
     }
 
-    /*
-     * On ne fait pas reverse() directement sur
-     * toutesLesCotisations.
-     */
+    listeCotisations.innerHTML =
+        liste.map(
+            ([cle, cotisation]) => {
 
-    cotisationsFiltrees =
-        [...cotisationsFiltrees].sort(
-            (a, b) =>
-                Number(
-                    b.horodatage || 0
-                ) -
-                Number(
-                    a.horodatage || 0
-                )
-        );
+                const montant =
+                    Number(cotisation.montant || 0);
 
-    let html = `
-        <div
-            style="
-                display:flex;
-                flex-direction:column;
-                gap:10px;
-                margin-top:10px;
-            "
-        >
-    `;
-
-    cotisationsFiltrees.forEach(
-        cotis => {
-
-            let badgeBackground =
-                "#fee2e2";
-
-            let badgeText =
-                "#991b1b";
-
-            if (cotis.statut === "Payé") {
-
-                badgeBackground =
-                    "#dcfce7";
-
-                badgeText =
-                    "#166534";
-
-            } else if (
-                cotis.statut === "En attente"
-            ) {
-
-                badgeBackground =
-                    "#fef9c3";
-
-                badgeText =
-                    "#854d0e";
-            }
-
-            html += `
-                <div
-                    style="
-                        background:#fff;
-                        border-radius:12px;
-                        padding:12px 15px;
-                        border:1px solid #e2e8f0;
-                        display:flex;
-                        justify-content:space-between;
-                        align-items:center;
-                        box-shadow:
-                            0 1px 3px
-                            rgba(0,0,0,0.05);
-                        gap:15px;
-                    "
-                >
-
-                    <div>
-
-                        <strong
-                            style="
-                                font-size:0.95rem;
-                                color:#0f172a;
-                            "
-                        >
-                            ${cotis.nom || "Inconnu"}
-                        </strong>
-
-                        <span
-                            style="
-                                font-size:0.75rem;
-                                color:#64748b;
-                                margin-left:6px;
-                            "
-                        >
-                            (${cotis.matricule || "-"})
-                        </span>
-
-                        <p
-                            style="
-                                margin:3px 0 0 0;
-                                font-size:0.8rem;
-                                color:#475569;
-                            "
-                        >
-                            <i
-                                class="fa-solid fa-calendar-day"
-                            ></i>
-
-                            ${cotis.mois || "-"}
-
-                            -
-
-                            ${cotis.date || "-"}
-
-                            |
-
-                            <strong>Mode :</strong>
-
-                            ${cotis.modePaiement || "-"}
-                        </p>
-
-                        ${
-                            cotis.refTransaction
-                                ? `
-                                    <p
- 
+                const parra
