@@ -1,432 +1,1698 @@
 /* ══════════════════════════════════════════════════════════════════
-   COTISATIONS.CSS - COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+   COTISATION.CSS
+   COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+   VERSION PREMIUM — PAIEMENTS AIRTEL MONEY / MTN MOBILE MONEY
+   ══════════════════════════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════════════════════════
+   VARIABLES
    ══════════════════════════════════════════════════════════════════ */
 
 :root {
-  --primary-color: #055c3a;      /* Vert officiel MWANA MBOKA */
+
+  --primary-color: #055c3a;
   --primary-hover: #04482d;
+  --primary-light: #e8f5ef;
+
   --bg-color: #f1f5f9;
   --card-bg: #ffffff;
+
   --text-dark: #0f172a;
   --text-muted: #64748b;
+
   --border-color: #cbd5e1;
+
   --airtel-red: #e11900;
+  --airtel-dark: #b91400;
+
   --mtn-yellow: #ffcc00;
+  --mtn-dark: #e5b600;
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+
   --radius-lg: 16px;
   --radius-md: 10px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --radius-sm: 7px;
+
+  --shadow-sm:
+    0 1px 3px rgba(0, 0, 0, 0.05);
+
+  --shadow-md:
+    0 4px 12px rgba(0, 0, 0, 0.08);
+
+  --shadow-lg:
+    0 10px 30px rgba(0, 0, 0, 0.10);
+
 }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESET
+   ══════════════════════════════════════════════════════════════════ */
 
 * {
+
   margin: 0;
   padding: 0;
+
   box-sizing: border-box;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+
 }
+
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
 
 body {
+
   background-color: var(--bg-color);
+
   color: var(--text-dark);
+
   line-height: 1.5;
-  padding-bottom: 40px;
+
+  padding-bottom: 50px;
+
 }
 
-/* ══════════════════════════════════
+
+/* ══════════════════════════════════════════════════════════════════
    HEADER
-   ══════════════════════════════════ */
+   ══════════════════════════════════════════════════════════════════ */
+
 header {
-  background-color: var(--primary-color);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary-color),
+      #08734a
+    );
+
   color: #ffffff;
+
   padding: 16px 20px;
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
+  gap: 15px;
+
   box-shadow: var(--shadow-md);
+
   position: sticky;
+
   top: 0;
-  z-index: 100;
+
+  z-index: 1000;
+
 }
+
 
 .header-gauche {
+
   display: flex;
+
   align-items: center;
+
   gap: 12px;
+
+  min-width: 0;
+
 }
+
 
 .header-logo {
-  width: 42px;
-  height: 42px;
+
+  width: 44px;
+
+  height: 44px;
+
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+
+  border: 2px solid rgba(255,255,255,0.35);
+
   object-fit: cover;
+
+  flex-shrink: 0;
+
 }
+
 
 header h1 {
+
   font-size: 1.1rem;
-  font-weight: 700;
+
+  font-weight: 750;
+
   display: flex;
+
   align-items: center;
+
   gap: 8px;
+
 }
+
+
+header h1 i {
+
+  font-size: 1rem;
+
+}
+
 
 header p {
+
   font-size: 0.75rem;
-  opacity: 0.85;
+
+  opacity: 0.88;
+
+  margin-top: 2px;
+
 }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   DÉCONNEXION
+   ══════════════════════════════════════════════════════════════════ */
 
 #btnDeconnexion {
-  background: rgba(255, 255, 255, 0.15);
+
+  background:
+    rgba(255,255,255,0.13);
+
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 14px;
+
+  border: 1px solid rgba(255,255,255,0.30);
+
+  padding: 9px 14px;
+
   border-radius: var(--radius-md);
+
   font-size: 0.8rem;
-  font-weight: 600;
+
+  font-weight: 650;
+
   cursor: pointer;
-  transition: all 0.2s ease;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
   display: flex;
+
   align-items: center;
+
+  justify-content: center;
+
   gap: 6px;
+
+  flex-shrink: 0;
+
 }
+
 
 #btnDeconnexion:hover {
-  background: rgba(255, 255, 255, 0.25);
+
+  background:
+    rgba(255,255,255,0.24);
+
+  transform: translateY(-1px);
+
 }
 
-/* ══════════════════════════════════
+
+#btnDeconnexion:active {
+
+  transform: translateY(0);
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
    TABLEAU DE BORD
-   ══════════════════════════════════ */
+   ══════════════════════════════════════════════════════════════════ */
+
 .tableau-bord {
-  max-width: 800px;
-  margin: 20px auto 10px;
+
+  width: 100%;
+
+  max-width: 850px;
+
+  margin: 22px auto 12px;
+
   padding: 0 16px;
+
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
   gap: 12px;
+
 }
 
-@media (min-width: 640px) {
-  .tableau-bord {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
 
 .tableau-bord .carte {
-  background: var(--card-bg);
-  padding: 16px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
+
+  background:
+    var(--card-bg);
+
+  padding: 17px 12px;
+
+  border-radius:
+    var(--radius-lg);
+
+  border:
+    1px solid var(--border-color);
+
+  box-shadow:
+    var(--shadow-sm);
+
   text-align: center;
-  transition: transform 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
 }
+
 
 .tableau-bord .carte:hover {
-  transform: translateY(-2px);
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    var(--shadow-md);
+
 }
+
 
 .tableau-bord .carte i {
-  font-size: 1.3rem;
-  color: var(--primary-color);
+
+  font-size: 1.25rem;
+
+  color:
+    var(--primary-color);
+
   margin-bottom: 6px;
+
 }
+
 
 .tableau-bord .carte h2 {
-  font-size: 1.25rem;
+
+  font-size: 1.2rem;
+
   font-weight: 800;
-  color: var(--primary-color);
+
+  color:
+    var(--primary-color);
+
+  margin-bottom: 2px;
+
 }
+
 
 .tableau-bord .carte p {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 600;
+
+  font-size: 0.70rem;
+
+  color:
+    var(--text-muted);
+
+  font-weight: 650;
+
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+
+  letter-spacing: 0.35px;
+
 }
 
-/* ══════════════════════════════════
-   FORMULAIRE DE COTISATION
-   ══════════════════════════════════ */
-.formulaire {
-  max-width: 800px;
-  margin: 10px auto 20px;
-  background: var(--card-bg);
-  padding: 24px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
+
+@media (min-width: 640px) {
+
+  .tableau-bord {
+
+    grid-template-columns:
+      repeat(4, 1fr);
+
+  }
+
 }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   FORMULAIRE
+   ══════════════════════════════════════════════════════════════════ */
+
+.formulaire {
+
+  width: 100%;
+
+  max-width: 850px;
+
+  margin: 10px auto 25px;
+
+  background:
+    var(--card-bg);
+
+  padding: 25px;
+
+  border-radius:
+    var(--radius-lg);
+
+  border:
+    1px solid var(--border-color);
+
+  box-shadow:
+    var(--shadow-sm);
+
+}
+
 
 .formulaire h2 {
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  margin-bottom: 20px;
+
+  font-size: 1.12rem;
+
+  color:
+    var(--text-dark);
+
+  margin-bottom: 22px;
+
   display: flex;
+
   align-items: center;
+
   gap: 8px;
-  border-bottom: 2px solid var(--bg-color);
-  padding-bottom: 10px;
+
+  border-bottom:
+    2px solid var(--bg-color);
+
+  padding-bottom: 11px;
+
 }
+
 
 .formulaire h2 i {
-  color: var(--primary-color);
+
+  color:
+    var(--primary-color);
+
 }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   GROUPES
+   ══════════════════════════════════════════════════════════════════ */
 
 .groupe {
-  margin-bottom: 18px;
+
+  margin-bottom: 19px;
+
 }
+
 
 .groupe label {
+
   display: block;
+
   font-size: 0.85rem;
+
   font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 6px;
+
+  color:
+    var(--text-dark);
+
+  margin-bottom: 7px;
+
 }
 
+
 .groupe label i {
-  color: var(--primary-color);
-  width: 18px;
+
+  color:
+    var(--primary-color);
+
+  width: 19px;
+
+  margin-right: 2px;
+
 }
+
 
 .groupe select,
 .groupe input[type="text"],
 .groupe input[type="number"],
 .groupe input[type="tel"],
 .groupe textarea {
+
   width: 100%;
+
   padding: 12px 14px;
+
   font-size: 0.9rem;
-  border: 1.5px solid var(--border-color);
-  border-radius: var(--radius-md);
-  background-color: #f8fafc;
+
+  color:
+    var(--text-dark);
+
+  border:
+    1.5px solid var(--border-color);
+
+  border-radius:
+    var(--radius-md);
+
+  background:
+    #f8fafc;
+
   outline: none;
-  transition: all 0.2s ease;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+
 }
+
+
+.groupe select {
+
+  cursor: pointer;
+
+}
+
+
+.groupe textarea {
+
+  resize: vertical;
+
+  min-height: 75px;
+
+}
+
 
 .groupe select:focus,
 .groupe input:focus,
 .groupe textarea:focus {
-  border-color: var(--primary-color);
-  background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(5, 92, 58, 0.1);
+
+  border-color:
+    var(--primary-color);
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(5,92,58,0.10);
+
 }
+
 
 .hint {
+
   display: block;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 4px;
+
+  font-size: 0.73rem;
+
+  color:
+    var(--text-muted);
+
+  margin-top: 5px;
+
 }
 
-/* ══════════════════════════════════
-   BOUTONS DE PAIEMENT (BOUTONS CLIQUABLES)
-   ══════════════════════════════════ */
-.methodes-paiement {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 8px;
+
+/* ══════════════════════════════════════════════════════════════════
+   INFORMATIONS MEMBRE
+   ══════════════════════════════════════════════════════════════════ */
+
+#infoMembre {
+
+  margin-bottom: 16px;
+
 }
+
+
+#infoMembre:empty {
+
+  display: none;
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MOYENS DE PAIEMENT
+   ══════════════════════════════════════════════════════════════════ */
+
+.methodes-paiement {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 9px;
+
+}
+
 
 .methode-radio {
+
+  display: block;
+
   cursor: pointer;
+
   user-select: none;
+
 }
 
-/* Masquer le bouton radio d'origine */
+
 .methode-radio input[type="radio"] {
+
   position: absolute;
+
   opacity: 0;
+
   width: 0;
+
   height: 0;
+
 }
 
-/* Carte qui sert de bouton */
+
+/* ══════════════════════════════════════════════════════════════════
+   CARTE PAIEMENT
+   ══════════════════════════════════════════════════════════════════ */
+
 .methode-card {
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 12px 8px;
-  text-align: center;
-  background: #f8fafc;
-  transition: all 0.2s ease-in-out;
+
+  position: relative;
+
+  min-height: 112px;
+
+  padding: 15px 9px;
+
+  border:
+    2px solid var(--border-color);
+
+  border-radius:
+    13px;
+
+  background:
+    #f8fafc;
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
-  gap: 6px;
-  min-height: 80px;
+
+  gap: 9px;
+
+  text-align: center;
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
+
 }
+
 
 .methode-card:hover {
-  border-color: var(--primary-color);
-  background: #ffffff;
-  transform: translateY(-2px);
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    var(--shadow-md);
+
 }
 
-.methode-card i {
-  font-size: 1.3rem;
-  color: var(--text-muted);
+
+/* ══════════════════════════════════════════════════════════════════
+   ESPÈCES
+   ══════════════════════════════════════════════════════════════════ */
+
+.methode-especes:hover {
+
+  border-color:
+    var(--primary-color);
+
 }
 
-.methode-card span {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-dark);
-}
 
-.logo-op {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+.methode-especes .icone-paiement {
+
+  width: 40px;
+
+  height: 40px;
+
+  border-radius: 10px;
+
+  background:
+    var(--primary-light);
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
-  font-weight: 900;
-  font-size: 0.8rem;
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
 }
 
-.airtel-logo { background-color: var(--airtel-red); }
-.mtn-logo { background-color: var(--mtn-yellow); color: #000; }
 
-/* Changement d'apparence au clic / sélection */
-.methode-radio input[type="radio"]:checked + .methode-card {
-  border-color: var(--primary-color);
-  background-color: rgba(5, 92, 58, 0.08);
-  box-shadow: 0 0 0 2px var(--primary-color);
+.methode-especes .icone-paiement i {
+
+  color:
+    var(--primary-color);
+
+  font-size: 1.25rem;
+
 }
 
-.methode-radio input[type="radio"]:checked + .methode-card i {
-  color: var(--primary-color);
-}
 
-/* ══════════════════════════════════
-   BOUTONS D'ACTION (Enregistrer / Annuler)
-   ══════════════════════════════════ */
-.boutons {
+/* ══════════════════════════════════════════════════════════════════
+   LOGOS OPÉRATEURS
+   ══════════════════════════════════════════════════════════════════ */
+
+.logo-paiement {
+
+  width: 72px;
+
+  height: 48px;
+
+  border-radius: 9px;
+
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  line-height: 1;
+
+  box-shadow:
+    0 3px 8px
+    rgba(0,0,0,0.13);
+
 }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   AIRTEL MONEY
+   ══════════════════════════════════════════════════════════════════ */
+
+.airtel-logo {
+
+  background:
+    var(--airtel-red);
+
+  color:
+    #ffffff;
+
+}
+
+
+.airtel-nom {
+
+  font-size: 1rem;
+
+  font-weight: 900;
+
+  letter-spacing: -0.5px;
+
+}
+
+
+.airtel-money {
+
+  font-size: 0.67rem;
+
+  font-weight: 700;
+
+  margin-top: 3px;
+
+  text-transform: lowercase;
+
+}
+
+
+.methode-airtel:hover {
+
+  border-color:
+    var(--airtel-red);
+
+  box-shadow:
+    0 6px 18px
+    rgba(225,25,0,0.15);
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MTN MOBILE MONEY
+   ══════════════════════════════════════════════════════════════════ */
+
+.mtn-logo {
+
+  background:
+    var(--mtn-yellow);
+
+  color:
+    #000000;
+
+  border:
+    1px solid
+    rgba(0,0,0,0.08);
+
+}
+
+
+.mtn-nom {
+
+  font-size: 0.88rem;
+
+  font-weight: 950;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+.mtn-momo {
+
+  font-size: 0.72rem;
+
+  font-weight: 800;
+
+  margin-top: 3px;
+
+}
+
+
+.methode-mtn:hover {
+
+  border-color:
+    var(--mtn-yellow);
+
+  box-shadow:
+    0 6px 18px
+    rgba(255,204,0,0.24);
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   TEXTE DES MOYENS DE PAIEMENT
+   ══════════════════════════════════════════════════════════════════ */
+
+.texte-paiement {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 1px;
+
+}
+
+
+.texte-paiement strong {
+
+  font-size: 0.78rem;
+
+  font-weight: 800;
+
+  color:
+    var(--text-dark);
+
+}
+
+
+.texte-paiement span {
+
+  font-size: 0.68rem;
+
+  color:
+    var(--text-muted);
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   PAIEMENT SÉLECTIONNÉ
+   ══════════════════════════════════════════════════════════════════ */
+
+.methode-radio
+input[type="radio"]:checked
++ .methode-card {
+
+  border-color:
+    var(--primary-color);
+
+  background:
+    var(--primary-light);
+
+  box-shadow:
+    0 0 0 2px
+    rgba(5,92,58,0.15);
+
+  transform:
+    translateY(-2px);
+
+}
+
+
+/* Indicateur de sélection */
+
+.methode-radio
+input[type="radio"]:checked
++ .methode-card::after {
+
+  content:
+    "✓";
+
+  position: absolute;
+
+  top: 7px;
+
+  right: 7px;
+
+  width: 21px;
+
+  height: 21px;
+
+  border-radius: 50%;
+
+  background:
+    var(--primary-color);
+
+  color:
+    #ffffff;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 0.72rem;
+
+  font-weight: 900;
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   ZONE PAIEMENT API
+   ══════════════════════════════════════════════════════════════════ */
+
+.zone-api {
+
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 14px;
+
+  margin:
+    -4px 0 19px;
+
+  border:
+    1px solid
+    #b7dfcc;
+
+  border-radius:
+    var(--radius-md);
+
+  background:
+    #f0faf5;
+
+}
+
+
+.api-icon {
+
+  width: 42px;
+
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background:
+    var(--primary-color);
+
+  color:
+    #ffffff;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.api-icon i {
+
+  font-size: 1.1rem;
+
+}
+
+
+.zone-api strong {
+
+  display: block;
+
+  font-size: 0.85rem;
+
+  color:
+    var(--primary-color);
+
+}
+
+
+.zone-api p {
+
+  margin-top: 2px;
+
+  font-size: 0.73rem;
+
+  color:
+    var(--text-muted);
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   BOUTONS D'ACTION
+   ══════════════════════════════════════════════════════════════════ */
+
+.boutons {
+
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 25px;
+
+}
+
 
 .boutons button {
+
   flex: 1;
-  padding: 14px;
-  border-radius: var(--radius-md);
+
+  min-height: 48px;
+
+  padding: 13px 16px;
+
+  border-radius:
+    var(--radius-md);
+
   font-size: 0.9rem;
-  font-weight: 700;
+
+  font-weight: 750;
+
   border: none;
+
   cursor: pointer;
-  transition: all 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   gap: 8px;
+
 }
+
+
+.boutons button:hover {
+
+  transform:
+    translateY(-2px);
+
+}
+
+
+.boutons button:active {
+
+  transform:
+    translateY(0);
+
+}
+
 
 #btnEnregistrer {
-  background-color: var(--primary-color);
-  color: #ffffff;
+
+  background:
+    var(--primary-color);
+
+  color:
+    #ffffff;
+
+  box-shadow:
+    0 4px 10px
+    rgba(5,92,58,0.18);
+
 }
+
 
 #btnEnregistrer:hover {
-  background-color: var(--primary-hover);
+
+  background:
+    var(--primary-hover);
+
+  box-shadow:
+    0 7px 16px
+    rgba(5,92,58,0.23);
+
 }
+
 
 #btnAnnuler {
-  background-color: #e2e8f0;
-  color: var(--text-dark);
+
+  background:
+    #e2e8f0;
+
+  color:
+    var(--text-dark);
+
 }
+
 
 #btnAnnuler:hover {
-  background-color: #cbd5e1;
+
+  background:
+    #cbd5e1;
+
 }
 
-/* ══════════════════════════════════
-   HISTORIQUE ET FILTRES
-   ══════════════════════════════════ */
-.liste {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 16px;
+
+/* ══════════════════════════════════════════════════════════════════
+   MESSAGE RETOUR
+   ══════════════════════════════════════════════════════════════════ */
+
+.msg-retour {
+
+  display: none;
+
+  margin-top: 15px;
+
+  padding: 11px 14px;
+
+  border-radius:
+    var(--radius-md);
+
+  text-align: center;
+
+  font-size: 0.85rem;
+
+  font-weight: 650;
+
 }
+
+
+.msg-retour.success {
+
+  display: block;
+
+  color:
+    #166534;
+
+  background:
+    #dcfce7;
+
+  border:
+    1px solid #bbf7d0;
+
+}
+
+
+.msg-retour.error {
+
+  display: block;
+
+  color:
+    #991b1b;
+
+  background:
+    #fee2e2;
+
+  border:
+    1px solid #fecaca;
+
+}
+
+
+.msg-retour.warning {
+
+  display: block;
+
+  color:
+    #92400e;
+
+  background:
+    #fef3c7;
+
+  border:
+    1px solid #fde68a;
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   HISTORIQUE
+   ══════════════════════════════════════════════════════════════════ */
+
+.liste {
+
+  width: 100%;
+
+  max-width: 850px;
+
+  margin: 0 auto;
+
+  padding: 0 16px;
+
+}
+
 
 .liste-header {
+
   display: flex;
+
   flex-direction: column;
+
   gap: 12px;
+
   margin-bottom: 16px;
+
 }
 
-@media (min-width: 640px) {
-  .liste-header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
 
 .liste-header h2 {
+
   font-size: 1.1rem;
+
   display: flex;
+
   align-items: center;
+
   gap: 8px;
+
 }
+
 
 .liste-header h2 i {
-  color: var(--primary-color);
+
+  color:
+    var(--primary-color);
+
 }
+
 
 #recherche {
-  padding: 10px 14px;
-  border: 1.5px solid var(--border-color);
-  border-radius: var(--radius-md);
+
+  padding:
+    11px 14px;
+
+  border:
+    1.5px solid
+    var(--border-color);
+
+  border-radius:
+    var(--radius-md);
+
   font-size: 0.85rem;
+
   outline: none;
-  background: #fff;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--text-dark);
+
   width: 100%;
+
   max-width: 300px;
+
 }
+
 
 #recherche:focus {
-  border-color: var(--primary-color);
+
+  border-color:
+    var(--primary-color);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(5,92,58,0.08);
+
 }
+
+
+@media (min-width: 640px) {
+
+  .liste-header {
+
+    flex-direction: row;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+  }
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   FILTRES
+   ══════════════════════════════════════════════════════════════════ */
 
 .filtres {
+
   display: flex;
+
   gap: 8px;
+
   margin-bottom: 16px;
+
   overflow-x: auto;
+
   padding-bottom: 4px;
+
 }
 
+
 .filtre-btn {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  padding: 6px 14px;
-  border-radius: 20px;
+
+  background:
+    #ffffff;
+
+  border:
+    1px solid
+    var(--border-color);
+
+  padding:
+    7px 14px;
+
+  border-radius:
+    20px;
+
   font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-muted);
+
+  font-weight: 650;
+
+  color:
+    var(--text-muted);
+
   cursor: pointer;
+
   white-space: nowrap;
-  transition: all 0.2s ease;
+
+  transition:
+    all 0.2s ease;
+
 }
+
 
 .filtre-btn.actif,
 .filtre-btn:hover {
-  background: var(--primary-color);
-  color: #ffffff;
-  border-color: var(--primary-color);
+
+  background:
+    var(--primary-color);
+
+  color:
+    #ffffff;
+
+  border-color:
+    var(--primary-color);
+
 }
 
-.msg-retour {
-  display: none;
-  text-align: center;
-  font-size: 0.85rem;
-     }
-   
+
+/* ══════════════════════════════════════════════════════════════════
+   LISTE DES COTISATIONS
+   ══════════════════════════════════════════════════════════════════ */
+
+#listeCotisations {
+
+  width: 100%;
+
+}
+
+
+#listeCotisations:empty {
+
+  min-height: 20px;
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE MOBILE
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 600px) {
+
+  header {
+
+    padding:
+      13px 14px;
+
+  }
+
+
+  .header-logo {
+
+    width: 38px;
+
+    height: 38px;
+
+  }
+
+
+  header h1 {
+
+    font-size: 0.92rem;
+
+  }
+
+
+  header p {
+
+    font-size: 0.68rem;
+
+  }
+
+
+  #btnDeconnexion {
+
+    padding:
+      8px 9px;
+
+    font-size: 0.72rem;
+
+  }
+
+
+  #btnDeconnexion i {
+
+    margin: 0;
+
+  }
+
+
+  .formulaire {
+
+    padding:
+      19px 16px;
+
+    border-radius:
+      14px;
+
+  }
+
+
+  .tableau-bord {
+
+    padding:
+      0 12px;
+
+  }
+
+
+  .liste {
+
+    padding:
+      0 12px;
+
+  }
+
+
+  .methodes-paiement {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 9px;
+
+  }
+
+
+  .methode-card {
+
+    min-height:
+      88px;
+
+    flex-direction:
+      row;
+
+    justify-content:
+      flex-start;
+
+    text-align:
+      left;
+
+    padding:
+      12px 15px;
+
+    gap:
+      13px;
+
+  }
+
+
+  .texte-paiement {
+
+    align-items:
+      flex-start;
+
+  }
+
+
+  .logo-paiement {
+
+    flex-shrink:
+      0;
+
+  }
+
+
+  .methode-especes {
+
+    flex-direction:
+      row;
+
+  }
+
+
+  .methode-especes .icone-paiement {
+
+    flex-shrink:
+      0;
+
+  }
+
+
+  .boutons {
+
+    flex-direction:
+      column;
+
+  }
+
+
+  .boutons button {
+
+    width:
+      100%;
+
+  }
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   TRÈS PETITS ÉCRANS
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 380px) {
+
+  header {
+
+    align-items:
+      flex-start;
+
+  }
+
+
+  .header-gauche {
+
+    gap:
+      8px;
+
+  }
+
+
+  header h1 {
+
+    font-size:
+      0.82rem;
+
+  }
+
+
+  header p {
+
+    display:
+      none;
+
+  }
+
+
+  #btnDeconnexion {
+
+    font-size:
+      0;
+
+    width:
+      38px;
+
+    height:
+      38px;
+
+    padding:
+      0;
+
+  }
+
+
+  #btnDeconnexion i {
+
+    font-size:
+      0.9rem;
+
+  }
+
+
+  .tableau-bord .carte {
+
+    padding:
+      13px 7px;
+
+  }
+
+
+  .tableau-bord .carte h2 {
+
+    font-size:
+      1rem;
+
+  }
+
+
+  .tableau-bord .carte p {
+
+    font-size:
+      0.62rem;
+
+  }
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   ACCESSIBILITÉ
+   ══════════════════════════════════════════════════════════════════ */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+
+  outline:
+    3px solid
+    rgba(5,92,58,0.25);
+
+  outline-offset:
+    2px;
+
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   ANIMATION LÉGÈRE
+   ══════════════════════════════════════════════════════════════════ */
+
+@keyframes apparition {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(5px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+.formulaire,
+.tableau-bord .carte {
+
+  animation:
+    apparition 0.35s ease both;
+
+   }
