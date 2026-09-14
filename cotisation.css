@@ -2,15 +2,14 @@
    COTISATIONS.CSS - COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
    ══════════════════════════════════════════════════════════════════ */
 
-/* Reset & Variables */
 :root {
   --primary-color: #055c3a;      /* Vert officiel MWANA MBOKA */
   --primary-hover: #04482d;
-  --bg-color: #f1f5f9;           /* Gris très clair élégant */
+  --bg-color: #f1f5f9;
   --card-bg: #ffffff;
   --text-dark: #0f172a;
   --text-muted: #64748b;
-  --border-color: #e2e8f0;
+  --border-color: #cbd5e1;
   --airtel-red: #e11900;
   --mtn-yellow: #ffcc00;
   --radius-lg: 16px;
@@ -96,7 +95,7 @@ header p {
 }
 
 /* ══════════════════════════════════
-   TABLEAU DE BORD (Cartes de statistiques)
+   TABLEAU DE BORD
    ══════════════════════════════════ */
 .tableau-bord {
   max-width: 800px;
@@ -223,7 +222,7 @@ header p {
 }
 
 /* ══════════════════════════════════
-   METHODES DE PAIEMENT
+   BOUTONS DE PAIEMENT (BOUTONS CLIQUABLES)
    ══════════════════════════════════ */
 .methodes-paiement {
   display: grid;
@@ -232,26 +231,43 @@ header p {
   margin-top: 8px;
 }
 
-.methode-radio input {
-  display: none;
+.methode-radio {
+  cursor: pointer;
+  user-select: none;
 }
 
+/* Masquer le bouton radio d'origine */
+.methode-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Carte qui sert de bouton */
 .methode-card {
-  border: 1.5px solid var(--border-color);
+  border: 2px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 12px 8px;
   text-align: center;
-  cursor: pointer;
   background: #f8fafc;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
+  min-height: 80px;
+}
+
+.methode-card:hover {
+  border-color: var(--primary-color);
+  background: #ffffff;
+  transform: translateY(-2px);
 }
 
 .methode-card i {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--text-muted);
 }
 
@@ -261,34 +277,35 @@ header p {
   color: var(--text-dark);
 }
 
-/* Styles logos opératrices */
 .logo-op {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .airtel-logo { background-color: var(--airtel-red); }
 .mtn-logo { background-color: var(--mtn-yellow); color: #000; }
 
-/* Effet Sélectionné */
-.methode-radio input:checked + .methode-card {
+/* Changement d'apparence au clic / sélection */
+.methode-radio input[type="radio"]:checked + .methode-card {
   border-color: var(--primary-color);
-  background-color: rgba(5, 92, 58, 0.05);
+  background-color: rgba(5, 92, 58, 0.08);
+  box-shadow: 0 0 0 2px var(--primary-color);
 }
 
-.methode-radio input:checked + .methode-card i {
+.methode-radio input[type="radio"]:checked + .methode-card i {
   color: var(--primary-color);
 }
 
 /* ══════════════════════════════════
-   BOUTONS DE FORMULAIRE
+   BOUTONS D'ACTION (Enregistrer / Annuler)
    ══════════════════════════════════ */
 .boutons {
   display: flex;
@@ -379,7 +396,6 @@ header p {
   border-color: var(--primary-color);
 }
 
-/* Filtres rapides (Tous / Payés / etc.) */
 .filtres {
   display: flex;
   gap: 8px;
@@ -408,10 +424,9 @@ header p {
   border-color: var(--primary-color);
 }
 
-/* Message de confirmation / erreur */
 .msg-retour {
   display: none;
   text-align: center;
   font-size: 0.85rem;
-   }
+     }
    
