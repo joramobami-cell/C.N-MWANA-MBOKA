@@ -5,13 +5,12 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Mon Profil | MWANA MBOKA</title>
 
-
 <link rel="stylesheet" href="profil.css">
-
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -25,264 +24,801 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div class="container">
 
 
+<!-- ==================================================
+     HEADER
+================================================== -->
+
 <header class="header">
 
+    <div class="logo-zone">
 
-<div class="logo-zone">
+        <img src="logo.png"
+             alt="Logo MWANA MBOKA">
 
-<img src="logo.png">
+        <div>
 
+            <h1>MWANA MBOKA</h1>
 
-<div>
+            <p>Mon profil numérique</p>
 
-<h1>
-MWANA MBOKA
-</h1>
+        </div>
 
-<p>
-Mon espace personnel
-</p>
-
-
-</div>
+    </div>
 
 
-</div>
+    <a href="espace.html" class="back">
 
+        <i class="fa-solid fa-arrow-left"></i>
 
+        Espace membre
 
-<a href="espace.html" class="back">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-Retour
-
-</a>
-
+    </a>
 
 </header>
 
 
 
-
+<!-- ==================================================
+     CONTENU
+================================================== -->
 
 <main class="profil-content">
 
 
 
+<!-- ==================================================
+     CARTE PRINCIPALE
+================================================== -->
+
 <section class="profil-card">
 
 
+    <!-- PHOTO -->
 
-<div class="photo-zone">
+    <div class="photo-zone">
 
+        <img id="photoProfil"
+             src="logo.png"
+             alt="Photo du membre">
 
-<img 
 
-id="photoProfil"
+        <input
+            type="file"
+            id="inputPhoto"
+            accept="image/*"
+            hidden>
 
-src="logo.png"
 
-alt="Photo profil">
+        <button id="btnPhoto"
+                type="button">
 
+            <i class="fa-solid fa-camera"></i>
 
-<input
+            Changer photo
 
-type="file"
+        </button>
 
-id="inputPhoto"
+    </div>
 
-accept="image/*"
 
-hidden>
 
+    <!-- IDENTITE PRINCIPALE -->
 
+    <div class="infos">
 
-<button id="btnPhoto">
+        <span class="profil-label">
+            MEMBRE MWANA MBOKA
+        </span>
 
-<i class="fa-solid fa-camera"></i>
 
-Changer photo
+        <h2 id="nom">
+            Nom du membre
+        </h2>
 
-</button>
 
+        <p>
 
-</div>
+            <i class="fa-solid fa-id-card"></i>
 
+            Matricule :
 
+            <strong id="matricule">
+                MMB-0000
+            </strong>
 
+        </p>
 
 
+        <p>
 
-<div class="infos">
+            <i class="fa-solid fa-circle-check"></i>
 
+            Statut :
 
-<h2 id="nom">
+            <strong id="statut">
+                Actif
+            </strong>
 
-Nom du membre
+        </p>
 
-</h2>
 
+        <p>
 
+            <i class="fa-solid fa-calendar-check"></i>
 
-<p>
+            Adhésion :
 
-<i class="fa-solid fa-id-card"></i>
+            <strong id="dateAdhesion">
+                ---
+            </strong>
 
-Matricule :
+        </p>
 
-<span id="matricule">
-
-MMB-0000
-
-</span>
-
-</p>
-
-
-
-
-<p>
-
-<i class="fa-solid fa-phone"></i>
-
-Téléphone :
-
-<span id="telephone">
-
----
-
-</span>
-
-</p>
-
-
-
-
-<p>
-
-<i class="fa-solid fa-user-group"></i>
-
-Parrain :
-
-<span id="parrain">
-
----
-
-</span>
-
-</p>
-
-
-
-
-<p>
-
-<i class="fa-solid fa-circle-check"></i>
-
-Statut :
-
-<span id="statut">
-
-Actif
-
-</span>
-
-</p>
-
-
-
-
-<p>
-
-<i class="fa-solid fa-calendar"></i>
-
-Adhésion :
-
-<span id="dateAdhesion">
-
----
-
-</span>
-
-</p>
-
-
-
-</div>
-
-
+    </div>
 
 </section>
 
 
 
+<!-- ==================================================
+     IDENTITE COMPLETE
+================================================== -->
+
+<section class="info-card">
+
+    <h2>
+
+        <i class="fa-solid fa-user"></i>
+
+        Identité du membre
+
+    </h2>
+
+
+    <div class="info-grid">
+
+
+        <div class="info-item">
+
+            <span>
+                Nom complet
+            </span>
+
+            <strong id="identiteNom">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Matricule
+            </span>
+
+            <strong id="identiteMatricule">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Date de naissance
+            </span>
+
+            <strong id="dateNaissance">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Lieu de naissance
+            </span>
+
+            <strong id="lieuNaissance">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Nationalité
+            </span>
+
+            <strong id="nationalite">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Sexe
+            </span>
+
+            <strong id="sexe">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Téléphone
+            </span>
+
+            <strong id="telephone">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Email
+            </span>
+
+            <strong id="email">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Adresse
+            </span>
+
+            <strong id="adresse">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Date d'adhésion
+            </span>
+
+            <strong id="identiteDateAdhesion">
+                ---
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 
+<!-- ==================================================
+     PARRAINAGE
+================================================== -->
+
+<section class="info-card parrainage-card">
+
+    <h2>
+
+        <i class="fa-solid fa-user-group"></i>
+
+        Parrainage
+
+    </h2>
+
+
+    <div class="info-grid">
+
+
+        <div class="info-item">
+
+            <span>
+                Parrain
+            </span>
+
+            <strong id="parrain">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Matricule du parrain
+            </span>
+
+            <strong id="matriculeParrain">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Date de parrainage
+            </span>
+
+            <strong id="dateParrainage">
+                ---
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     SITUATION PROFESSIONNELLE
+================================================== -->
+
+<section class="info-card">
+
+    <h2>
+
+        <i class="fa-solid fa-briefcase"></i>
+
+        Situation professionnelle
+
+    </h2>
+
+
+    <div class="info-grid">
+
+
+        <div class="info-item">
+
+            <span>
+                Emploi / Profession
+            </span>
+
+            <strong id="emploi">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Fonction
+            </span>
+
+            <strong id="fonction">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Domaine d'activité
+            </span>
+
+            <strong id="domaineActivite">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <span>
+                Entreprise / Structure
+            </span>
+
+            <strong id="entreprise">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div class="info-item full">
+
+            <span>
+                Compétences
+            </span>
+
+            <strong id="competences">
+                ---
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     VISION DU MEMBRE
+================================================== -->
+
+<section class="info-card vision-card">
+
+    <h2>
+
+        <i class="fa-solid fa-bullseye"></i>
+
+        Ma vision
+
+    </h2>
+
+
+    <div class="vision-box">
+
+        <h3>
+            Vision personnelle
+        </h3>
+
+        <p id="vision">
+            Aucune vision renseignée.
+        </p>
+
+    </div>
+
+
+    <div class="vision-box">
+
+        <h3>
+            Mes objectifs
+        </h3>
+
+        <p id="objectifs">
+            Aucun objectif renseigné.
+        </p>
+
+    </div>
+
+
+    <div class="vision-box">
+
+        <h3>
+            Mes ambitions
+        </h3>
+
+        <p id="ambitions">
+            Aucune ambition renseignée.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     FORMATIONS
+================================================== -->
+
+<section class="info-card">
+
+    <h2>
+
+        <i class="fa-solid fa-graduation-cap"></i>
+
+        Mes formations
+
+    </h2>
+
+
+    <div class="stats-grid">
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <strong id="formationsTotal">
+                0
+            </strong>
+
+            <span>
+                Formations suivies
+            </span>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-spinner"></i>
+
+            <strong id="formationsEnCours">
+                0
+            </strong>
+
+            <span>
+                En cours
+            </span>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <strong id="formationsTerminees">
+                0
+            </strong>
+
+            <span>
+                Terminées
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     PROJETS
+================================================== -->
+
+<section class="info-card">
+
+    <h2>
+
+        <i class="fa-solid fa-diagram-project"></i>
+
+        Mes projets
+
+    </h2>
+
+
+    <div class="stats-grid">
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <strong id="projetsTotal">
+                0
+            </strong>
+
+            <span>
+                Projets
+            </span>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-spinner"></i>
+
+            <strong id="projetsEnCours">
+                0
+            </strong>
+
+            <span>
+                En cours
+            </span>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-check-double"></i>
+
+            <strong id="projetsRealises">
+                0
+            </strong>
+
+            <span>
+                Réalisés
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     MODIFICATION
+================================================== -->
 
 <section class="edit-card">
 
+    <h2>
 
-<h2>
+        <i class="fa-solid fa-pen-to-square"></i>
 
-<i class="fa-solid fa-pen"></i>
+        Modifier mes informations
 
-Modifier mes informations
-
-</h2>
-
+    </h2>
 
 
+    <p class="edit-info">
 
-<label>
+        Vous pouvez mettre à jour vos informations personnelles
+        autorisées. Les informations administratives de votre
+        adhésion restent protégées.
 
-Nom complet
-
-</label>
-
-
-<input 
-type="text"
-id="editNom">
+    </p>
 
 
+    <label for="editNom">
+        Nom complet
+    </label>
+
+    <input
+        type="text"
+        id="editNom"
+        placeholder="Votre nom complet">
 
 
+    <label for="editTelephone">
+        Téléphone
+    </label>
 
-<label>
-
-Téléphone
-
-</label>
-
-
-<input 
-type="tel"
-id="editTelephone">
+    <input
+        type="tel"
+        id="editTelephone"
+        placeholder="Votre numéro de téléphone">
 
 
+    <label for="editEmail">
+        Email
+    </label>
+
+    <input
+        type="email"
+        id="editEmail"
+        placeholder="Votre adresse email">
 
 
+    <label for="editAdresse">
+        Adresse
+    </label>
 
-<button id="btnSauver">
-
-<i class="fa-solid fa-save"></i>
-
-Enregistrer les modifications
-
-</button>
+    <input
+        type="text"
+        id="editAdresse"
+        placeholder="Votre adresse">
 
 
+    <label for="editEmploi">
+        Emploi / Profession
+    </label>
+
+    <input
+        type="text"
+        id="editEmploi"
+        placeholder="Votre profession">
+
+
+    <label for="editFonction">
+        Fonction
+    </label>
+
+    <input
+        type="text"
+        id="editFonction"
+        placeholder="Votre fonction">
+
+
+    <label for="editDomaine">
+        Domaine d'activité
+    </label>
+
+    <input
+        type="text"
+        id="editDomaine"
+        placeholder="Votre domaine d'activité">
+
+
+    <label for="editEntreprise">
+        Entreprise / Structure
+    </label>
+
+    <input
+        type="text"
+        id="editEntreprise"
+        placeholder="Nom de votre entreprise ou structure">
+
+
+    <label for="editCompetences">
+        Compétences
+    </label>
+
+    <textarea
+        id="editCompetences"
+        rows="4"
+        placeholder="Présentez vos principales compétences"></textarea>
+
+
+    <label for="editVision">
+        Ma vision
+    </label>
+
+    <textarea
+        id="editVision"
+        rows="4"
+        placeholder="Décrivez votre vision"></textarea>
+
+
+    <label for="editObjectifs">
+        Mes objectifs
+    </label>
+
+    <textarea
+        id="editObjectifs"
+        rows="4"
+        placeholder="Décrivez vos objectifs"></textarea>
+
+
+    <label for="editAmbitions">
+        Mes ambitions
+    </label>
+
+    <textarea
+        id="editAmbitions"
+        rows="4"
+        placeholder="Décrivez vos ambitions"></textarea>
+
+
+    <button
+        id="btnSauver"
+        type="button">
+
+        <i class="fa-solid fa-save"></i>
+
+        Enregistrer les modifications
+
+    </button>
 
 </section>
 
 
 
-
+<!-- ==================================================
+     MESSAGE
+================================================== -->
 
 <div id="message"></div>
-
 
 
 
@@ -290,29 +826,33 @@ Enregistrer les modifications
 
 
 
-
+<!-- ==================================================
+     FOOTER
+================================================== -->
 
 <footer>
 
+    <strong>
+        COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    </strong>
 
-COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    <br>
 
-<br>
-
-Ensemble nous irons plus loin.
-
+    Ensemble nous irons plus loin.
 
 </footer>
-
 
 
 </div>
 
 
 
-<script type="module" src="profil.js"></script>
+<script
+type="module"
+src="profil.js">
+</script>
 
 
 </body>
 
-     </html>
+                 </html>
