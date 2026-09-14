@@ -1,12 +1,14 @@
 /*==================================================
  MWANA MBOKA
  BUREAU NUMERIQUE DU PRESIDENT
- VERSION MOBILE PREMIUM
+ CSS PREMIUM RESPONSIVE
  PARTIE 1/4
 ==================================================*/
 
 
-/* RESET MOBILE */
+/*==================================================
+ RESET GENERAL
+==================================================*/
 
 *{
     margin:0;
@@ -16,27 +18,55 @@
 }
 
 
+html{
+    scroll-behavior:smooth;
+}
+
+
 body{
+
+    min-height:100vh;
 
     background:
     linear-gradient(
-        160deg,
-        #080808,
-        #1b1b1b
+        135deg,
+        #03150d,
+        #082519,
+        #0d2b1e
     );
 
     color:white;
-
-    min-height:100vh;
 
     overflow-x:hidden;
 
 }
 
 
+button,
+a{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
 
 
-/* CONTENEUR MOBILE */
+button{
+
+    cursor:pointer;
+
+}
+
+
+img{
+
+    max-width:100%;
+
+}
+
+
+/*==================================================
+ CONTENEUR GENERAL
+==================================================*/
 
 .bureau-container{
 
@@ -47,37 +77,30 @@ body{
 }
 
 
-
 /*==================================================
- HEADER MOBILE PRESIDENTIEL
+ HEADER PRESIDENTIEL
 ==================================================*/
-
 
 .header{
 
-    background:
+    width:100%;
 
+    background:
     linear-gradient(
         145deg,
         #5a0012,
         #180005
     );
 
-
     border-radius:25px;
 
     padding:20px 15px;
 
-
     border:
-
     1px solid rgba(212,175,55,.7);
 
-
     box-shadow:
-
     0 15px 40px rgba(0,0,0,.7);
-
 
     display:flex;
 
@@ -86,8 +109,6 @@ body{
     gap:20px;
 
 }
-
-
 
 
 .header-left{
@@ -103,8 +124,6 @@ body{
 }
 
 
-
-
 .logo{
 
     width:95px;
@@ -117,511 +136,488 @@ body{
 
     padding:8px;
 
-
     border-radius:50%;
 
-
     border:
-
     3px solid #D4AF37;
 
-
     box-shadow:
-
     0 0 25px rgba(212,175,55,.8);
 
-
     animation:
-
     logoPulse 3s infinite;
 
 }
 
 
-
-
 @keyframes logoPulse{
 
+    0%{
 
-0%{
+        box-shadow:
+        0 0 10px rgba(212,175,55,.6);
 
-box-shadow:
+    }
 
-0 0 10px #D4AF37;
+    50%{
 
-}
+        box-shadow:
+        0 0 35px rgba(212,175,55,.9);
 
+    }
 
-50%{
+    100%{
 
-box-shadow:
+        box-shadow:
+        0 0 10px rgba(212,175,55,.6);
 
-0 0 35px #D4AF37;
-
-}
-
-
-100%{
-
-box-shadow:
-
-0 0 10px #D4AF37;
+    }
 
 }
-
-
-}
-
-
 
 
 .header-left h1{
 
+    margin-top:15px;
 
-margin-top:15px;
+    font-size:20px;
 
-font-size:20px;
+    line-height:1.3;
 
-line-height:1.3;
+    color:#D4AF37;
 
-
-color:#D4AF37;
-
-
-text-shadow:
-
-0 2px 10px black;
-
+    text-shadow:
+    0 2px 10px black;
 
 }
-
 
 
 .header-left p{
 
-font-size:13px;
+    margin-top:8px;
 
-color:#eee;
+    font-size:13px;
 
-margin-top:8px;
+    line-height:1.5;
+
+    color:#eee;
 
 }
 
 
-
-/* ZONE DROITE MOBILE */
-
+/*==================================================
+ ZONE DROITE DU HEADER
+==================================================*/
 
 .header-right{
 
+    width:100%;
 
-width:100%;
+    display:flex;
 
+    flex-direction:column;
 
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:12px;
-
+    gap:12px;
 
 }
-
-
 
 
 .date-box,
 .time-box,
 .system-status{
 
+    width:100%;
 
-width:100%;
+    min-height:48px;
 
+    padding:12px;
 
-padding:12px;
+    border-radius:15px;
 
+    background:
+    rgba(255,255,255,.08);
 
-border-radius:15px;
+    border:
+    1px solid rgba(212,175,55,.3);
 
+    display:flex;
 
-background:
+    justify-content:center;
 
-rgba(255,255,255,.08);
+    align-items:center;
 
+    gap:10px;
 
-border:
-
-1px solid rgba(212,175,55,.3);
-
-
-display:flex;
-
-
-justify-content:center;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-font-size:14px;
-
+    font-size:14px;
 
 }
-
-
 
 
 .date-box i,
 .time-box i{
 
+    color:#D4AF37;
 
-color:#D4AF37;
+    font-size:16px;
 
 }
 
 
-
-
-
-/* SYSTEME OPERATIONNEL */
-
+/*==================================================
+ SYSTEME OPERATIONNEL
+==================================================*/
 
 .system-status{
 
+    color:#00ff88;
 
-color:#00ff88;
-
-
-font-weight:bold;
-
+    font-weight:bold;
 
 }
-
 
 
 .system-status i{
 
+    font-size:10px;
 
-font-size:10px;
+    color:#00ff88;
 
-color:#00ff88;
-
-
-animation:
-
-blink 1.5s infinite;
-
+    animation:
+    blink 1.5s infinite;
 
 }
-
 
 
 @keyframes blink{
 
+    50%{
 
-50%{
+        opacity:.3;
 
-opacity:.3;
+    }
 
 }
 
+
+/*==================================================
+ BOUTON ESPACE MEMBRE
+==================================================*/
+
+.member-space-btn{
+
+    width:100%;
+
+    min-height:50px;
+
+    padding:14px;
+
+    border-radius:15px;
+
+    border:
+    1px solid #D4AF37;
+
+    background:
+    linear-gradient(
+        135deg,
+        #07351f,
+        #0d5b35
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.3);
+
+    transition:.3s ease;
+
 }
 
 
+.member-space-btn i{
 
-/* BOUTON DECONNEXION */
+    color:#D4AF37;
 
+    margin-right:8px;
+
+}
+
+
+.member-space-btn:active{
+
+    transform:scale(.97);
+
+}
+
+
+/*==================================================
+ BOUTON DECONNEXION
+==================================================*/
 
 .logout-btn{
 
+    width:100%;
 
-width:100%;
+    min-height:50px;
 
+    padding:14px;
 
-padding:14px;
+    border-radius:15px;
 
+    border:none;
 
-border-radius:15px;
+    background:
+    linear-gradient(
+        135deg,
+        #D4AF37,
+        #f5d76e
+    );
 
+    color:#5a0012;
 
-border:none;
+    font-weight:900;
 
+    font-size:15px;
 
-background:
+    box-shadow:
+    0 8px 20px rgba(212,175,55,.3);
 
-linear-gradient(
-135deg,
-#D4AF37,
-#f5d76e
-);
-
-
-color:#5a0012;
-
-
-font-weight:900;
-
-
-font-size:15px;
-
-
-box-shadow:
-
-0 8px 20px rgba(212,175,55,.3);
-
+    transition:.3s ease;
 
 }
 
 
+.logout-btn i{
 
+    margin-right:8px;
+
+}
+
+
+.logout-btn:active{
+
+    transform:scale(.97);
+
+}
 
 
 /*==================================================
  BOUTON MENU MOBILE
 ==================================================*/
 
-
 .mobile-menu-btn{
 
+    position:fixed;
 
-position:fixed;
+    top:15px;
 
+    left:15px;
 
-top:15px;
+    z-index:9999;
 
+    width:50px;
 
-left:15px;
+    height:50px;
 
+    border-radius:50%;
 
-z-index:9999;
+    border:
+    2px solid #D4AF37;
 
+    background:#7A0019;
 
-width:50px;
+    color:#D4AF37;
 
+    font-size:22px;
 
-height:50px;
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.8);
 
-
-border-radius:50%;
-
-
-border:none;
-
-
-background:#7A0019;
-
-
-color:#D4AF37;
-
-
-font-size:22px;
-
-
-border:
-
-2px solid #D4AF37;
-
-
-box-shadow:
-
-0 5px 20px black;
-
+    transition:.3s ease;
 
 }
 
 
+.mobile-menu-btn:active{
 
+    transform:scale(.9);
+
+}
 
 
 /*==================================================
- PROFIL PRESIDENT MOBILE
+ PROFIL PRESIDENT
 ==================================================*/
-
 
 .president-card{
 
+    margin-top:25px;
 
-margin-top:25px;
+    background:
+    linear-gradient(
+        145deg,
+        #ffffff,
+        #e9e0d0
+    );
 
+    color:#333;
 
-background:
+    border-radius:30px;
 
-linear-gradient(
-145deg,
-#ffffff,
-#e9e0d0
-);
+    padding:25px 15px;
 
+    display:flex;
 
-color:#333;
+    flex-direction:column;
 
+    align-items:center;
 
-border-radius:30px;
+    text-align:center;
 
+    border-top:
+    5px solid #D4AF37;
 
-padding:25px 15px;
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-align-items:center;
-
-
-text-align:center;
-
-
-border-top:
-
-5px solid #D4AF37;
-
-
-box-shadow:
-
-0 15px 40px rgba(0,0,0,.5);
-
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.5);
 
 }
-
-
 
 
 .photo img{
 
+    width:140px;
 
-width:140px;
+    height:140px;
 
+    border-radius:50%;
 
-height:140px;
+    object-fit:cover;
 
+    border:
+    5px solid #D4AF37;
 
-border-radius:50%;
-
-
-object-fit:cover;
-
-
-border:
-
-5px solid #D4AF37;
-
-
-box-shadow:
-
-0 0 30px rgba(212,175,55,.8);
-
+    box-shadow:
+    0 0 30px rgba(212,175,55,.8);
 
 }
 
 
+.president-info{
+
+    width:100%;
+
+}
 
 
 .president-info h2{
 
+    margin-top:20px;
 
-margin-top:20px;
+    font-size:21px;
 
+    line-height:1.3;
 
-font-size:21px;
-
-
-color:#7A0019;
-
+    color:#7A0019;
 
 }
-
 
 
 .president-info h3{
 
+    margin-top:15px;
 
-margin-top:15px;
+    font-size:20px;
 
+    line-height:1.3;
 
-font-size:20px;
-
-
-color:#D4AF37;
-
+    color:#D4AF37;
 
 }
 
+
+.president-info h3 i{
+
+    margin-right:6px;
+
+}
 
 
 .president-info p{
 
+    color:#555;
 
-color:#555;
+    margin-top:8px;
 
+    font-size:14px;
 
-margin-top:8px;
-
-
-font-size:14px;
-
+    line-height:1.5;
 
 }
 
 
+.command-text{
 
+    margin-top:15px !important;
+
+    padding:15px;
+
+    background:#f7f0e2;
+
+    border-radius:15px;
+
+    border-left:
+    4px solid #D4AF37;
+
+}
+
+
+/*==================================================
+ BADGE PRESIDENT
+==================================================*/
 
 .badge{
 
+    margin-top:20px;
 
-margin-top:20px;
+    padding:12px 18px;
 
+    border-radius:30px;
 
-padding:12px 18px;
+    background:#7A0019;
 
+    color:white;
 
-border-radius:30px;
+    border:
+    2px solid #D4AF37;
 
+    display:flex;
 
-background:#7A0019;
+    align-items:center;
 
+    justify-content:center;
 
-color:white;
+    gap:8px;
 
+    font-size:13px;
 
-border:
-
-2px solid #D4AF37;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:8px;
-
-
-font-size:13px;
-
+    font-weight:bold;
 
 }
 
 
 .badge i{
 
-color:#D4AF37;
+    color:#D4AF37;
 
-   }
+}
+
 
 /*==================================================
  MENU MOBILE COULISSANT
- PARTIE 2/4
 ==================================================*/
-
 
 .sidebar{
 
@@ -637,42 +633,30 @@ color:#D4AF37;
 
     height:100vh;
 
-
     background:
-
     linear-gradient(
         180deg,
         #650018,
         #120004
     );
 
-
     padding:80px 20px 30px;
-
 
     z-index:9998;
 
-
     overflow-y:auto;
 
-
     border-right:
-
     3px solid #D4AF37;
 
-
     box-shadow:
-
     15px 0 40px rgba(0,0,0,.8);
 
-
-    transition:.4s ease;
+    transition:
+    left .4s ease;
 
 }
 
-
-
-/* MENU OUVERT PAR JS */
 
 .sidebar.active{
 
@@ -681,38 +665,24 @@ color:#D4AF37;
 }
 
 
-
-
-
 .sidebar-title{
 
+    text-align:center;
 
-text-align:center;
+    font-size:18px;
 
+    font-weight:800;
 
-font-size:18px;
+    color:#D4AF37;
 
+    margin-bottom:25px;
 
-font-weight:800;
+    padding-bottom:15px;
 
-
-color:#D4AF37;
-
-
-margin-bottom:25px;
-
-
-padding-bottom:15px;
-
-
-border-bottom:
-
-1px solid rgba(212,175,55,.4);
-
+    border-bottom:
+    1px solid rgba(212,175,55,.4);
 
 }
-
-
 
 
 .sidebar ul{
@@ -722,8 +692,6 @@ border-bottom:
 }
 
 
-
-
 .sidebar li{
 
     margin-bottom:12px;
@@ -731,3027 +699,2212 @@ border-bottom:
 }
 
 
-
-
 .sidebar a{
 
+    display:flex;
 
-display:flex;
+    align-items:center;
 
+    gap:15px;
 
-align-items:center;
+    padding:15px;
 
+    border-radius:15px;
 
-gap:15px;
+    text-decoration:none;
 
+    color:white;
 
-padding:15px;
+    background:
+    rgba(255,255,255,.06);
 
+    border:
+    1px solid rgba(255,255,255,.08);
 
-border-radius:15px;
+    transition:.3s ease;
 
-
-text-decoration:none;
-
-
-color:white;
-
-
-background:
-
-rgba(255,255,255,.06);
-
-
-border:
-
-1px solid rgba(255,255,255,.08);
-
-
-transition:.3s;
-
-
-font-size:14px;
-
+    font-size:14px;
 
 }
-
 
 
 .sidebar a i{
 
+    width:25px;
 
-width:25px;
+    text-align:center;
 
+    color:#D4AF37;
 
-text-align:center;
-
-
-color:#D4AF37;
-
-
-font-size:18px;
-
+    font-size:18px;
 
 }
-
 
 
 .sidebar a:active{
 
+    transform:scale(.96);
 
-transform:scale(.96);
+    background:#D4AF37;
 
-
-background:#D4AF37;
-
-
-color:#650018;
-
+    color:#650018;
 
 }
-
-
 
 
 /*==================================================
- ZONE PRINCIPALE MOBILE
+ ZONE PRINCIPALE
 ==================================================*/
-
 
 .main-content{
 
+    width:100%;
 
-width:100%;
-
-
-margin-top:25px;
-
+    margin-top:25px;
 
 }
 
 
+.dashboard{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
 
 
 /*==================================================
  TITRES DES SECTIONS
 ==================================================*/
 
+.dashboard-title,
+.section-header{
 
-.dashboard-title{
+    background:
+    linear-gradient(
+        135deg,
+        #650018,
+        #170004
+    );
 
+    padding:20px;
 
-background:
+    border-radius:22px;
 
-linear-gradient(
-135deg,
-#7A0019,
-#220006
-);
+    border-bottom:
+    3px solid #D4AF37;
 
+    margin-bottom:20px;
 
-padding:20px;
-
-
-border-radius:22px;
-
-
-border-bottom:
-
-3px solid #D4AF37;
-
-
-margin-bottom:20px;
-
-
-box-shadow:
-
-0 10px 25px black;
-
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.5);
 
 }
 
 
+.dashboard-title h2,
+.section-header h2{
 
+    color:#D4AF37;
 
-.dashboard-title h2{
+    font-size:20px;
 
+    line-height:1.3;
 
-font-size:20px;
+    display:flex;
 
+    align-items:center;
 
-color:#D4AF37;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
+    gap:10px;
 
 }
 
 
+.dashboard-title p,
+.section-header p{
 
-.dashboard-title p{
+    margin-top:10px;
 
+    font-size:13px;
 
-margin-top:10px;
+    line-height:1.5;
 
-
-font-size:13px;
-
-
-color:#eee;
-
+    color:#eee;
 
 }
-
-
-
 
 
 /*==================================================
- CARTES STATISTIQUES PRESIDENTIELLES
+ CARTES STATISTIQUES
 ==================================================*/
 
+.dashboard-grid{
 
-.dashboard{
+    display:flex;
 
+    flex-direction:column;
 
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:18px;
-
+    gap:18px;
 
 }
-
-
 
 
 .card{
 
+    position:relative;
 
-background:
+    overflow:hidden;
 
-linear-gradient(
-145deg,
-#ffffff,
-#eee3d2
-);
+    background:
+    linear-gradient(
+        145deg,
+        #ffffff,
+        #eee3d2
+    );
 
+    color:#333;
 
-color:#333;
+    padding:22px;
 
+    border-radius:25px;
 
-padding:22px;
+    text-align:center;
 
+    border-left:
+    6px solid #7A0019;
 
-border-radius:25px;
+    border-bottom:
+    3px solid #D4AF37;
 
+    box-shadow:
+    0 12px 30px rgba(0,0,0,.35);
 
-text-align:center;
-
-
-border-left:
-
-6px solid #7A0019;
-
-
-border-bottom:
-
-3px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 12px 30px rgba(0,0,0,.35);
-
-
-position:relative;
-
-
-overflow:hidden;
-
+    transition:.3s ease;
 
 }
-
-
 
 
 .card::before{
 
+    content:"";
 
-content:"";
+    position:absolute;
 
+    width:120px;
 
-position:absolute;
+    height:120px;
 
+    right:-50px;
 
-width:120px;
+    top:-50px;
 
+    background:
+    rgba(212,175,55,.15);
 
-height:120px;
-
-
-right:-50px;
-
-
-top:-50px;
-
-
-background:
-
-rgba(212,175,55,.15);
-
-
-border-radius:50%;
-
+    border-radius:50%;
 
 }
-
-
-
 
 
 .card i{
 
+    position:relative;
 
-width:65px;
+    width:65px;
 
+    height:65px;
 
-height:65px;
+    display:flex;
 
+    justify-content:center;
 
-display:flex;
+    align-items:center;
 
+    margin:auto;
 
-justify-content:center;
+    border-radius:50%;
 
+    background:#7A0019;
 
-align-items:center;
+    color:#D4AF37;
 
+    font-size:28px;
 
-margin:auto;
-
-
-border-radius:50%;
-
-
-background:#7A0019;
-
-
-color:#D4AF37;
-
-
-font-size:28px;
-
-
-box-shadow:
-
-
-0 8px 20px rgba(122,0,25,.4);
-
+    box-shadow:
+    0 8px 20px rgba(122,0,25,.4);
 
 }
-
-
 
 
 .card h3{
 
+    margin-top:15px;
 
-margin-top:15px;
+    font-size:17px;
 
-
-font-size:17px;
-
-
-color:#7A0019;
-
+    color:#7A0019;
 
 }
-
-
 
 
 .card h2{
 
+    margin:12px 0;
 
-margin:12px 0;
+    font-size:30px;
 
+    color:#7A0019;
 
-font-size:30px;
-
-
-color:#7A0019;
-
-
-font-weight:900;
-
+    font-weight:900;
 
 }
-
-
 
 
 .card span{
 
+    font-size:13px;
 
-font-size:13px;
-
-
-color:#666;
-
+    color:#666;
 
 }
-
-
-
 
 
 .card:active{
 
-
-transform:scale(.97);
-
+    transform:scale(.97);
 
 }
-
-
-
-
-
-/*==================================================
- PANNEAUX DE COMMANDE
-==================================================*/
-
-
-.command-center{
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:20px;
-
-
-margin-top:30px;
-
-
-}
-
-
-
-
-.panel{
-
-
-background:
-
-rgba(255,255,255,.96);
-
-
-color:#333;
-
-
-padding:20px;
-
-
-border-radius:25px;
-
-
-border-top:
-
-5px solid #7A0019;
-
-
-border-bottom:
-
-2px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 12px 30px rgba(0,0,0,.35);
-
-
-}
-
-
-
-.panel h2{
-
-
-font-size:18px;
-
-
-color:#7A0019;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-margin-bottom:15px;
-
-
-}
-
-
-
-.panel h2 i{
-
-
-color:#D4AF37;
-
-
-}
-
-
-
-.panel p{
-
-
-background:#f8f1e4;
-
-
-padding:15px;
-
-
-border-radius:15px;
-
-
-font-size:14px;
-
-
-color:#777;
-
-
-   }
-
-/*==================================================
- CENTRE DE DECISION PRESIDENTIELLE
- PARTIE 3/4
-==================================================*/
-
-
-.president-office{
-
-
-margin-top:35px;
-
-
-}
-
-
-
-
-.section-header{
-
-
-background:
-
-linear-gradient(
-135deg,
-#650018,
-#170004
-);
-
-
-padding:20px;
-
-
-border-radius:22px;
-
-
-border-bottom:
-
-3px solid #D4AF37;
-
-
-margin-bottom:20px;
-
-
-box-shadow:
-
-0 10px 25px rgba(0,0,0,.5);
-
-
-}
-
-
-
-
-.section-header h2{
-
-
-color:#D4AF37;
-
-
-font-size:20px;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-}
-
-
-
-
-.section-header p{
-
-
-color:#eee;
-
-
-font-size:13px;
-
-
-margin-top:10px;
-
-
-}
-
-
-
-
-
-/* GRILLE DECISION */
-
-
-.office-grid{
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:18px;
-
-
-}
-
-
-
-
-.office-card{
-
-
-background:white;
-
-
-color:#333;
-
-
-padding:22px;
-
-
-border-radius:25px;
-
-
-border-left:
-
-6px solid #7A0019;
-
-
-border-bottom:
-
-3px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 12px 30px rgba(0,0,0,.35);
-
-
-}
-
-
-
-
-.office-card h3{
-
-
-font-size:17px;
-
-
-color:#7A0019;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-margin-bottom:18px;
-
-
-}
-
-
-
-.office-card h3 i{
-
-
-color:#D4AF37;
-
-
-}
-
-
-
-
-/*==================================================
- SIGNATURE PRESIDENTIELLE
-==================================================*/
-
-
-.signature-box{
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:15px;
-
-
-}
-
-
-
-.signature-box p{
-
-
-background:#f7f0e2;
-
-
-padding:15px;
-
-
-border-radius:15px;
-
-
-font-size:14px;
-
-
-color:#555;
-
-
-}
-
-
-
-
-.signature-box button{
-
-
-width:100%;
-
-
-padding:15px;
-
-
-border-radius:18px;
-
-
-border:none;
-
-
-font-size:15px;
-
-
-font-weight:bold;
-
-
-background:
-
-linear-gradient(
-135deg,
-#7A0019,
-#35000b
-);
-
-
-color:white;
-
-
-border:
-
-2px solid #D4AF37;
-
-
-}
-
-
-
-.signature-box button i{
-
-
-color:#D4AF37;
-
-
-margin-right:10px;
-
-
-}
-
-
-
-
-
-/*==================================================
- APPROBATIONS OFFICIELLES
-==================================================*/
-
-
-.approval-center{
-
-
-margin-top:35px;
-
-
-}
-
-
-
-#approbations{
-
-
-background:white;
-
-
-padding:20px;
-
-
-border-radius:22px;
-
-
-color:#777;
-
-
-border-left:
-
-5px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 10px 25px rgba(0,0,0,.3);
-
-
-}
-
-
-
-
-/*==================================================
- ACCES RAPIDE APPLICATION MOBILE
-==================================================*/
-
-
-.quick-access{
-
-
-margin-top:35px;
-
-
-}
-
-
-
-.quick-grid{
-
-
-display:grid;
-
-
-grid-template-columns:
-
-repeat(2,1fr);
-
-
-gap:15px;
-
-
-}
-
-
-
-
-.quick-card{
-
-
-background:
-
-linear-gradient(
-145deg,
-#ffffff,
-#eee2cc
-);
-
-
-padding:20px 10px;
-
-
-border-radius:22px;
-
-
-text-align:center;
-
-
-text-decoration:none;
-
-
-color:#333;
-
-
-border-top:
-
-5px solid #7A0019;
-
-
-box-shadow:
-
-
-0 10px 25px rgba(0,0,0,.3);
-
-
-}
-
-
-
-.quick-card i{
-
-
-font-size:32px;
-
-
-color:#7A0019;
-
-
-margin-bottom:12px;
-
-
-}
-
-
-
-.quick-card h3{
-
-
-font-size:15px;
-
-
-color:#7A0019;
-
-
-margin-bottom:8px;
-
-
-}
-
-
-
-.quick-card p{
-
-
-font-size:12px;
-
-
-color:#666;
-
-
-}
-
-
-
-
-.quick-card:active{
-
-
-transform:scale(.95);
-
-
-}
-
-
-
-
-
-/*==================================================
- GESTION DES DIRECTIONS
-==================================================*/
-
-
-.directions-control{
-
-
-margin-top:35px;
-
-
-}
-
-
-
-.direction-grid{
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:18px;
-
-
-}
-
-
-
-.direction-card{
-
-
-background:white;
-
-
-padding:22px;
-
-
-border-radius:22px;
-
-
-border-top:
-
-4px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 10px 25px rgba(0,0,0,.3);
-
-
-}
-
-
-
-
-.direction-card i{
-
-
-font-size:35px;
-
-
-color:#7A0019;
-
-
-margin-bottom:15px;
-
-
-}
-
-
-
-.direction-card h3{
-
-
-color:#7A0019;
-
-
-font-size:18px;
-
-
-}
-
-
-
-.direction-card p{
-
-
-color:#555;
-
-
-font-size:14px;
-
-
-margin:10px 0;
-
-
-}
-
-
-
-.direction-card span{
-
-
-display:block;
-
-
-padding:10px;
-
-
-background:#f7f0e2;
-
-
-border-radius:12px;
-
-
-font-size:13px;
-
-
-color:#7A0019;
-
-
-font-weight:bold;
-
-
-                }
-
-
-/*==================================================
- FINITION MOBILE PRESIDENTIELLE
- PARTIE 4/4
-==================================================*/
-
-
-/*==================================================
- JOURNAL PRESIDENTIEL
-==================================================*/
-
-
-.bottom-section{
-
-
-margin-top:35px;
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:20px;
-
-
-}
-
-
-
-.bottom-card{
-
-
-background:white;
-
-
-color:#333;
-
-
-padding:22px;
-
-
-border-radius:25px;
-
-
-border-top:
-
-5px solid #7A0019;
-
-
-border-bottom:
-
-3px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 12px 30px rgba(0,0,0,.35);
-
-
-}
-
-
-
-.bottom-card h2{
-
-
-color:#7A0019;
-
-
-font-size:19px;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-margin-bottom:18px;
-
-
-}
-
-
-
-.bottom-card h2 i{
-
-
-color:#D4AF37;
-
-
-}
-
-
-
-
-#journalPresident{
-
-
-max-height:300px;
-
-
-overflow-y:auto;
-
-
-}
-
-
-
-#journalPresident p{
-
-
-background:#f8f1e4;
-
-
-padding:15px;
-
-
-border-radius:15px;
-
-
-margin-bottom:10px;
-
-
-font-size:14px;
-
-
-color:#666;
-
-
-border-left:
-
-4px solid #D4AF37;
-
-
-}
-
-
-
-
-
-/*==================================================
- CENTRE DE SECURITE
-==================================================*/
-
-
-.security-status{
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:12px;
-
-
-}
-
-
-
-
-.security-item{
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:15px;
-
-
-background:#f8f1e4;
-
-
-padding:15px;
-
-
-border-radius:15px;
-
-
-font-size:14px;
-
-
-font-weight:bold;
-
-
-color:#555;
-
-
-}
-
-
-
-
-.security-item i{
-
-
-width:42px;
-
-
-height:42px;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-justify-content:center;
-
-
-background:#7A0019;
-
-
-color:#D4AF37;
-
-
-border-radius:50%;
-
-
-}
-
-
-
-
-
-/*==================================================
- AUTORISATION PRESIDENT
-==================================================*/
-
-
-.president-signature-panel{
-
-
-margin-top:35px;
-
-
-background:
-
-
-linear-gradient(
-145deg,
-#650018,
-#180005
-);
-
-
-padding:25px;
-
-
-border-radius:25px;
-
-
-border:
-
-2px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 15px 40px rgba(0,0,0,.6);
-
-
-}
-
-
-
-.president-signature-panel h2{
-
-
-color:#D4AF37;
-
-
-font-size:20px;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-}
-
-
-
-.signature-information p{
-
-
-color:white;
-
-
-font-size:14px;
-
-
-margin-top:15px;
-
-
-line-height:1.5;
-
-
-}
-
-
-
-.signature-status{
-
-
-margin-top:20px;
-
-
-background:
-
-rgba(255,255,255,.1);
-
-
-padding:15px;
-
-
-border-radius:15px;
-
-
-color:#00ff88;
-
-
-font-weight:bold;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-gap:10px;
-
-
-}
-
-
-
-
-
-/*==================================================
- FOOTER PRESIDENTIEL
-==================================================*/
-
-
-.footer{
-
-
-margin-top:40px;
-
-
-padding:30px 15px;
-
-
-text-align:center;
-
-
-background:
-
-
-linear-gradient(
-145deg,
-#650018,
-#120004
-);
-
-
-border-radius:25px;
-
-
-border-top:
-
-4px solid #D4AF37;
-
-
-box-shadow:
-
-
-0 15px 40px rgba(0,0,0,.7);
-
-
-}
-
-
-
-.footer-logo{
-
-
-width:80px;
-
-
-height:80px;
-
-
-object-fit:contain;
-
-
-background:white;
-
-
-padding:8px;
-
-
-border-radius:50%;
-
-
-border:
-
-3px solid #D4AF37;
-
-
-}
-
-
-
-.footer h3{
-
-
-margin-top:15px;
-
-
-font-size:16px;
-
-
-color:#D4AF37;
-
-
-}
-
-
-
-.footer p{
-
-
-font-size:13px;
-
-
-color:white;
-
-
-margin-top:8px;
-
-
-}
-
-
-
-
-
-/*==================================================
- WHATSAPP FLOTTANT
-==================================================*/
-
-
-.whatsapp{
-
-
-position:fixed;
-
-
-right:20px;
-
-
-bottom:20px;
-
-
-width:60px;
-
-
-height:60px;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-justify-content:center;
-
-
-background:#25D366;
-
-
-color:white;
-
-
-border-radius:50%;
-
-
-font-size:30px;
-
-
-text-decoration:none;
-
-
-z-index:5000;
-
-
-box-shadow:
-
-
-0 10px 30px rgba(0,0,0,.5);
-
-
-animation:
-
-floatWhatsapp 3s infinite;
-
-
-}
-
-
-
-
-@keyframes floatWhatsapp{
-
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-
-50%{
-
-transform:translateY(-10px);
-
-}
-
-
-}
-
-
-
-
-
-/*==================================================
- ANIMATIONS APPLICATION
-==================================================*/
-
-
-.card,
-.panel,
-.office-card,
-.quick-card,
-.direction-card,
-.bottom-card{
-
-
-animation:
-
-slideUp .5s ease;
-
-
-}
-
-
-
-
-@keyframes slideUp{
-
-
-from{
-
-
-opacity:0;
-
-
-transform:translateY(30px);
-
-
-}
-
-
-
-to{
-
-
-opacity:1;
-
-
-transform:translateY(0);
-
-
-}
-
-
-}
-
-
 
 
 /*==================================================
  PETITS ECRANS
 ==================================================*/
 
-
 @media(max-width:380px){
 
+    .header-left h1{
 
+        font-size:17px;
 
-.quick-grid{
+    }
 
 
-grid-template-columns:1fr;
+    .card h2{
 
+        font-size:25px;
 
-}
+    }
 
 
+    .mobile-menu-btn{
 
-.header-left h1{
+        width:45px;
 
+        height:45px;
 
-font-size:17px;
-
-
-}
-
-
-
-.card h2{
-
-
-font-size:25px;
-
-
-}
-
-
-
-.mobile-menu-btn{
-
-
-width:45px;
-
-
-height:45px;
-
-
-}
-
-
-
-}
-
-
-
-
-/*==================================================
- MODE APPLICATION MOBILE
-==================================================*/
-
-
-body::after{
-
-
-content:"";
-
-
-position:fixed;
-
-
-inset:0;
-
-
-pointer-events:none;
-
-
-background:
-
-
-radial-gradient(
-circle at top,
-rgba(212,175,55,.08),
-transparent 40%
-);
-
-
-z-index:-1;
-
-
-}
-
-
-
-/* FIN VERSION TELEPHONE PREMIUM */
-
-
-/*==================================================
- MODE APPLICATION PC
-==================================================*/
-
-@media (min-width:1000px){
-
-/*==================================================
-   FOND
-==================================================*/
-
-body{
-
-background:
-linear-gradient(135deg,#03150d,#082519,#0d2b1e);
-
-overflow-x:hidden;
-
-}
-
-
-/*==================================================
-   CONTENEUR PRINCIPAL
-==================================================*/
-
-.bureau-container{
-
-display:grid;
-
-grid-template-columns:280px 1fr;
-
-grid-template-areas:
-"sidebar header"
-"sidebar main";
-
-gap:25px;
-
-max-width:1900px;
-
-padding:25px;
-
-margin:auto;
-
-}
-
-
-/*==================================================
-   SIDEBAR PRESIDENT
-==================================================*/
-
-.sidebar{
-
-grid-area:sidebar;
-
-position:sticky;
-
-top:20px;
-
-height:calc(100vh - 40px);
-
-overflow-y:auto;
-
-border-radius:30px;
-
-background:
-linear-gradient(180deg,#042a18,#01180d);
-
-border:1px solid rgba(212,175,55,.25);
-
-box-shadow:
-0 20px 60px rgba(0,0,0,.45);
-
-}
-
-
-/*==================================================
-   HEADER
-==================================================*/
-
-.header{
-
-grid-area:header;
-
-padding:22px 30px;
-
-border-radius:28px;
-
-background:
-rgba(7,22,16,.94);
-
-backdrop-filter:blur(20px);
-
-border:1px solid rgba(212,175,55,.25);
-
-box-shadow:
-0 18px 45px rgba(0,0,0,.40);
-
-}
-
-
-/*==================================================
-   CONTENU
-==================================================*/
-
-.main-content{
-
-grid-area:main;
-
-margin-top:0;
-
-display:flex;
-
-flex-direction:column;
-
-gap:35px;
-
-}
-
-
-/*==================================================
-   PHOTO PRESIDENT
-==================================================*/
-
-.president-card{
-
-display:grid;
-
-grid-template-columns:340px 1fr;
-
-align-items:center;
-
-padding:35px;
-
-border-radius:35px;
-
-background:
-linear-gradient(135deg,#1d1203,#39240a,#122617);
-
-border:2px solid rgba(212,175,55,.35);
-
-overflow:hidden;
-
-position:relative;
-
-min-height:360px;
-
-}
-
-.president-card::before{
-
-content:"";
-
-position:absolute;
-
-right:-120px;
-
-top:-120px;
-
-width:420px;
-
-height:420px;
-
-border-radius:50%;
-
-background:
-rgba(212,175,55,.08);
-
-}
-
-.photo img{
-
-width:290px;
-
-height:290px;
-
-border-radius:22px;
-
-object-fit:cover;
-
-border:4px solid #D4AF37;
-
-box-shadow:
-
-0 20px 50px rgba(0,0,0,.45);
+    }
 
  }
 
- /*==================================================
-   VERSION PC PREMIUM - PARTIE 2
-   TABLEAU DE BORD PRESIDENTIEL
+/*==================================================
+ MWANA MBOKA
+ BUREAU NUMERIQUE DU PRESIDENT
+ CSS PREMIUM RESPONSIVE
+ PARTIE 2/4
 ==================================================*/
 
-.dashboard{
 
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:22px;
-
-align-items:stretch;
-
-}
-
-
-
-.dashboard-title{
-
-grid-column:1/-1;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:25px 30px;
-
-border-radius:24px;
-
-background:rgba(6,27,17,.95);
-
-border:1px solid rgba(212,175,55,.20);
-
-}
-
-
-
-.dashboard-title h2{
-
-font-size:30px;
-
-color:#D4AF37;
-
-font-weight:700;
-
-}
-
-
-
-.dashboard-title p{
-
-color:#d8d8d8;
-
-font-size:16px;
-
-}
-
-
-
-.card{
-
-position:relative;
-
-overflow:hidden;
-
-padding:28px;
-
-border-radius:22px;
-
-background:
-
-linear-gradient(145deg,#062a19,#07311e);
-
-border:1px solid rgba(212,175,55,.18);
-
-transition:.35s;
-
-cursor:pointer;
-
-}
-
-
-
-.card::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:6px;
-
-background:linear-gradient(90deg,#D4AF37,#ffd56b);
-
-}
-
-
-
-.card::after{
-
-content:"";
-
-position:absolute;
-
-right:-60px;
-
-bottom:-60px;
-
-width:180px;
-
-height:180px;
-
-border-radius:50%;
-
-background:rgba(212,175,55,.05);
-
-}
-
-
-
-.card:hover{
-
-transform:translateY(-8px);
-
-box-shadow:
-
-0 25px 45px rgba(0,0,0,.45);
-
-}
-
-
-
-.card i{
-
-width:72px;
-
-height:72px;
-
-border-radius:18px;
-
-background:
-
-linear-gradient(135deg,#D4AF37,#f6c94f);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:30px;
-
-color:#07311e;
-
-margin-bottom:22px;
-
-}
-
-
-
-.card h3{
-
-font-size:18px;
-
-font-weight:600;
-
-color:#ffffff;
-
-margin-bottom:15px;
-
-}
-
-
-
-.card h2{
-
-font-size:42px;
-
-font-weight:800;
-
-color:#D4AF37;
-
-margin-bottom:15px;
-
-}
-
-
-
-.card span{
-
-font-size:15px;
-
-color:#bdbdbd;
-
-display:block;
-
-}
-
-
-
-.card:hover h2{
-
-transform:scale(1.05);
-
-transition:.3s;
-
-}
-
-
+/*==================================================
+ PANNEAUX DE COMMANDE
+==================================================*/
 
 .command-center{
 
-display:grid;
+    display:flex;
 
-grid-template-columns:repeat(3,1fr);
+    flex-direction:column;
 
-gap:24px;
+    gap:20px;
+
+    margin-top:30px;
 
 }
-
 
 
 .panel{
 
-padding:28px;
+    background:
+    rgba(255,255,255,.96);
 
-border-radius:24px;
+    color:#333;
 
-background:
+    padding:20px;
 
-linear-gradient(145deg,#042315,#082f1c);
+    border-radius:25px;
 
-border:1px solid rgba(212,175,55,.15);
+    border-top:
+    5px solid #7A0019;
 
-box-shadow:
+    border-bottom:
+    2px solid #D4AF37;
 
-0 18px 40px rgba(0,0,0,.35);
+    box-shadow:
+    0 12px 30px rgba(0,0,0,.35);
 
 }
-
 
 
 .panel h2{
 
-display:flex;
+    font-size:18px;
 
-align-items:center;
+    color:#7A0019;
 
-gap:12px;
+    display:flex;
 
-font-size:22px;
+    align-items:center;
 
-color:#D4AF37;
+    gap:10px;
 
-margin-bottom:20px;
+    margin-bottom:15px;
 
 }
 
+
+.panel h2 i{
+
+    color:#D4AF37;
+
+}
 
 
 .panel p{
 
-background:rgba(255,255,255,.05);
+    background:#f8f1e4;
 
-border:1px solid rgba(212,175,55,.12);
+    padding:15px;
 
-padding:18px;
+    border-radius:15px;
 
-border-radius:16px;
+    font-size:14px;
 
-color:#d8d8d8;
+    color:#555;
 
-line-height:1.7;
-
-}
-
-
-
-.panel:hover{
-
-transform:translateY(-5px);
-
-transition:.3s;
-
- }
-
-
-/*==================================================
-      VERSION PC - PARTIE 3
-      CENTRE PRESIDENTIEL
-==================================================*/
-
-/* Sections */
-
-.president-office,
-.approval-center,
-.quick-access,
-.directions-control,
-.bottom-section,
-.president-signature-panel{
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(212,175,55,.15);
-
-border-radius:28px;
-
-padding:30px;
-
-backdrop-filter:blur(10px);
-
-margin-top:30px;
-
-box-shadow:
-
-0 15px 40px rgba(0,0,0,.25);
-
-}
-
-
-/* Titres */
-
-.section-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:30px;
-
-}
-
-
-.section-header h2{
-
-font-size:32px;
-
-color:#D4AF37;
-
-font-weight:700;
-
-}
-
-
-.section-header p{
-
-font-size:16px;
-
-color:#d8d8d8;
-
-margin-top:10px;
+    line-height:1.5;
 
 }
 
 
 /*==================================================
-      CENTRE DE DECISION
+ CENTRE GS ORGANIGRAMME
 ==================================================*/
+
+.organigramme-president{
+
+    margin-top:35px;
+
+}
+
 
 .office-grid{
 
-display:grid;
+    display:flex;
 
-grid-template-columns:repeat(2,1fr);
+    flex-direction:column;
 
-gap:25px;
+    gap:18px;
 
 }
 
 
 .office-card{
 
-background:
+    position:relative;
 
-linear-gradient(145deg,#072515,#0b3220);
+    background:white;
 
-border-radius:24px;
+    color:#333;
 
-padding:28px;
+    padding:22px;
 
-border:1px solid rgba(212,175,55,.18);
+    border-radius:25px;
 
-transition:.35s;
+    border-left:
+    6px solid #7A0019;
 
-min-height:260px;
+    border-bottom:
+    3px solid #D4AF37;
 
-position:relative;
+    box-shadow:
+    0 12px 30px rgba(0,0,0,.35);
 
-overflow:hidden;
+    overflow:hidden;
 
 }
 
 
 .office-card::before{
 
-content:"";
+    content:"";
 
-position:absolute;
+    position:absolute;
 
-right:-70px;
+    top:-50px;
 
-top:-70px;
+    right:-50px;
 
-width:180px;
+    width:120px;
 
-height:180px;
+    height:120px;
 
-border-radius:50%;
+    border-radius:50%;
 
-background:rgba(212,175,55,.05);
-
-}
-
-
-.office-card:hover{
-
-transform:translateY(-8px);
-
-box-shadow:
-
-0 18px 40px rgba(0,0,0,.35);
+    background:
+    rgba(212,175,55,.08);
 
 }
 
 
 .office-card h3{
 
-font-size:24px;
+    position:relative;
 
-margin-bottom:22px;
+    font-size:17px;
 
-color:#D4AF37;
+    color:#7A0019;
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:12px;
+    gap:10px;
+
+    margin-bottom:18px;
+
+    line-height:1.35;
+
+}
+
+
+.office-card h3 i{
+
+    color:#D4AF37;
 
 }
 
 
 .office-card p{
 
-color:#e3e3e3;
+    color:#555;
 
-line-height:1.8;
+    font-size:14px;
+
+    line-height:1.5;
+
+    margin-bottom:15px;
 
 }
 
 
 /*==================================================
-      SIGNATURE
+ CONTENU DYNAMIQUE
+==================================================*/
+
+.dynamic-content{
+
+    background:#f8f1e4;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    color:#666;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    min-height:45px;
+
+}
+
+
+.dynamic-content p{
+
+    margin:0;
+
+    color:#666;
+
+}
+
+
+/*==================================================
+ BOUTONS D'ACTION
+==================================================*/
+
+.action-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    width:100%;
+
+    padding:14px 18px;
+
+    border-radius:16px;
+
+    text-decoration:none;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7A0019,
+        #35000b
+    );
+
+    color:white;
+
+    border:
+    2px solid #D4AF37;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    transition:.3s ease;
+
+}
+
+
+.action-btn i{
+
+    color:#D4AF37;
+
+}
+
+
+.action-btn:active{
+
+    transform:scale(.97);
+
+}
+
+
+/*==================================================
+ MINI SECURITE ORGANIGRAMME
+==================================================*/
+
+.security-mini{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border-radius:13px;
+
+    background:#f8f1e4;
+
+    color:#7A0019;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+
+
+.security-mini i{
+
+    color:#D4AF37;
+
+}
+
+
+/*==================================================
+ CENTRE DE DECISION
+==================================================*/
+
+.president-office{
+
+    margin-top:35px;
+
+}
+
+
+/*==================================================
+ SIGNATURE PRESIDENTIELLE
 ==================================================*/
 
 .signature-box{
 
-display:flex;
+    display:flex;
 
-flex-direction:column;
+    flex-direction:column;
 
-gap:18px;
-
-margin-top:25px;
+    gap:15px;
 
 }
 
+
+.signature-box p{
+
+    background:#f7f0e2;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    font-size:14px;
+
+    color:#555;
+
+    line-height:1.5;
+
+}
+
+
+.signature-box ul{
+
+    list-style:none;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+.signature-box li{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px;
+
+    background:#fafafa;
+
+    border-radius:10px;
+
+    color:#555;
+
+    font-size:13px;
+
+}
+
+
+.signature-box li i{
+
+    color:#7A0019;
+
+    width:20px;
+
+    text-align:center;
+
+}
+
+
+.signature-actions{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-top:5px;
+
+}
+
+
+.signature-actions button{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    border:none;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7A0019,
+        #35000b
+    );
+
+    color:white;
+
+    border:
+    2px solid #D4AF37;
+
+    transition:.3s ease;
+
+}
+
+
+.signature-actions button i{
+
+    color:#D4AF37;
+
+    margin-right:10px;
+
+}
+
+
+.signature-actions button:active{
+
+    transform:scale(.97);
+
+}
+
+
+/* Compatibilité avec l'ancien HTML */
 
 .signature-box button{
 
-height:58px;
+    width:100%;
 
-border:none;
+    padding:15px;
 
-border-radius:18px;
+    border-radius:18px;
 
-font-size:17px;
+    border:none;
 
-font-weight:700;
+    font-size:15px;
 
-cursor:pointer;
+    font-weight:bold;
 
-background:
+    background:
+    linear-gradient(
+        135deg,
+        #7A0019,
+        #35000b
+    );
 
-linear-gradient(135deg,#D4AF37,#f0cb60);
+    color:white;
 
-color:#082116;
-
-transition:.35s;
-
-}
-
-
-.signature-box button:hover{
-
-transform:translateY(-5px);
-
-box-shadow:
-
-0 10px 25px rgba(212,175,55,.35);
+    border:
+    2px solid #D4AF37;
 
 }
 
 
-/*==================================================
-      APPROBATIONS
-==================================================*/
+.signature-box button i{
 
-#approbations{
+    color:#D4AF37;
 
-display:flex;
-
-flex-direction:column;
-
-gap:18px;
-
-}
-
-
-#approbations p{
-
-padding:18px;
-
-border-radius:16px;
-
-background:rgba(255,255,255,.06);
-
-color:#ddd;
+    margin-right:10px;
 
 }
 
 
 /*==================================================
-      ACCES RAPIDE
+ APPROBATIONS OFFICIELLES
 ==================================================*/
+
+.approval-center{
+
+    margin-top:35px;
+
+}
+
+
+.approval-grid{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+.approval-card{
+
+    position:relative;
+
+    background:white;
+
+    color:#333;
+
+    padding:22px;
+
+    border-radius:22px;
+
+    border-top:
+    5px solid #7A0019;
+
+    border-bottom:
+    3px solid #D4AF37;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.3);
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+
+.approval-card > i{
+
+    width:60px;
+
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
+    background:#7A0019;
+
+    color:#D4AF37;
+
+    font-size:25px;
+
+}
+
+
+.approval-card h3{
+
+    color:#7A0019;
+
+    font-size:17px;
+
+    margin-bottom:10px;
+
+}
+
+
+.approval-card p{
+
+    padding:12px;
+
+    background:#f8f1e4;
+
+    border-radius:12px;
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.4;
+
+}
+
+
+/*==================================================
+ ACCES RAPIDE
+==================================================*/
+
+.quick-access{
+
+    margin-top:35px;
+
+}
+
 
 .quick-grid{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+    repeat(2,1fr);
 
-gap:22px;
+    gap:15px;
 
 }
 
 
 .quick-card{
 
-min-height:220px;
+    display:block;
 
-border-radius:22px;
+    background:
+    linear-gradient(
+        145deg,
+        #ffffff,
+        #eee2cc
+    );
 
-display:flex;
+    padding:20px 10px;
 
-flex-direction:column;
+    border-radius:22px;
 
-justify-content:center;
+    text-align:center;
 
-align-items:center;
+    text-decoration:none;
 
-text-align:center;
+    color:#333;
 
-padding:25px;
+    border-top:
+    5px solid #7A0019;
 
-background:
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.3);
 
-linear-gradient(145deg,#062716,#0a3320);
-
-transition:.35s;
-
-}
-
-
-.quick-card:hover{
-
-transform:translateY(-10px);
-
-background:
-
-linear-gradient(145deg,#0d4428,#145737);
+    transition:.3s ease;
 
 }
 
 
 .quick-card i{
 
-font-size:48px;
+    display:block;
 
-margin-bottom:18px;
+    font-size:32px;
+
+    color:#7A0019;
+
+    margin-bottom:12px;
 
 }
 
 
 .quick-card h3{
 
-font-size:22px;
+    font-size:15px;
 
-margin-bottom:12px;
+    color:#7A0019;
+
+    margin-bottom:8px;
 
 }
 
 
 .quick-card p{
 
-font-size:15px;
+    font-size:12px;
 
-line-height:1.6;
+    color:#666;
 
-                 }
+    line-height:1.4;
 
- /*==================================================
-      VERSION PC - PARTIE 4
-      FINITIONS PRESIDENTIELLES
-==================================================*/
+}
+
+
+.quick-card:active{
+
+    transform:scale(.95);
+
+}
 
 
 /*==================================================
-      GESTION DES DIRECTIONS
+ SUPERVISION DES DIRECTIONS
 ==================================================*/
+
+.directions-control{
+
+    margin-top:35px;
+
+}
+
 
 .direction-grid{
 
-display:grid;
+    display:flex;
 
-grid-template-columns:repeat(3,1fr);
+    flex-direction:column;
 
-gap:25px;
-
-margin-top:25px;
+    gap:18px;
 
 }
 
 
 .direction-card{
 
-background:
-linear-gradient(145deg,#08281a,#0c3723);
+    background:white;
 
-padding:30px;
+    padding:22px;
 
-border-radius:25px;
+    border-radius:22px;
 
-border:1px solid rgba(212,175,55,.18);
+    border-top:
+    4px solid #D4AF37;
 
-transition:.35s;
+    border-left:
+    4px solid #7A0019;
 
-position:relative;
-
-overflow:hidden;
-
-}
-
-
-.direction-card::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:5px;
-
-background:#D4AF37;
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.3);
 
 }
 
 
-.direction-card:hover{
+.direction-card > i{
 
-transform:translateY(-8px);
+    display:block;
 
-box-shadow:
-0 20px 45px rgba(0,0,0,.35);
+    font-size:35px;
 
-}
+    color:#7A0019;
 
-
-.direction-card i{
-
-font-size:48px;
-
-color:#D4AF37;
-
-margin-bottom:20px;
+    margin-bottom:15px;
 
 }
 
 
 .direction-card h3{
 
-font-size:24px;
+    color:#7A0019;
 
-color:#ffffff;
+    font-size:18px;
 
-margin-bottom:15px;
+    line-height:1.3;
 
 }
 
 
 .direction-card p{
 
-color:#d8d8d8;
+    color:#555;
 
-line-height:1.8;
+    font-size:14px;
 
-margin-bottom:18px;
+    line-height:1.5;
+
+    margin:10px 0;
 
 }
 
 
 .direction-card span{
 
-display:inline-block;
+    display:block;
 
-padding:10px 18px;
+    padding:10px;
 
-border-radius:30px;
+    background:#f7f0e2;
 
-background:#D4AF37;
+    border-radius:12px;
 
-color:#072416;
+    font-size:13px;
 
-font-weight:700;
+    color:#7A0019;
+
+    font-weight:bold;
+
+    line-height:1.4;
+
+}
+
+
+.direction-card span i{
+
+    font-size:13px;
+
+    color:#D4AF37;
+
+    margin:0 5px 0 0;
 
 }
 
 
 /*==================================================
-      JOURNAL + SECURITE
+ RESPONSIVE PETITS TELEPHONES
+==================================================*/
+
+@media(max-width:380px){
+
+    .quick-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .office-card,
+    .direction-card,
+    .bottom-card{
+
+        padding:18px;
+
+    }
+
+
+    .section-header h2{
+
+        font-size:18px;
+
+    }
+
+
+    .section-header p{
+
+        font-size:12px;
+
+    }
+
+ }
+
+/*==================================================
+ MWANA MBOKA
+ BUREAU NUMERIQUE DU PRESIDENT
+ CSS PREMIUM RESPONSIVE
+ PARTIE 3/4
+==================================================*/
+
+
+/*==================================================
+ SECTION INFERIEURE
 ==================================================*/
 
 .bottom-section{
-
-display:grid;
-
-grid-template-columns:2fr 1fr;
-
-gap:25px;
-
+    margin-top:35px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
 }
-
 
 .bottom-card{
-
-background:
-linear-gradient(145deg,#082819,#103723);
-
-padding:30px;
-
-border-radius:28px;
-
-border:1px solid rgba(212,175,55,.18);
-
+    position:relative;
+    background:white;
+    color:#333;
+    padding:22px;
+    border-radius:22px;
+    border-top:5px solid #7A0019;
+    border-bottom:3px solid #D4AF37;
+    box-shadow:0 10px 25px rgba(0,0,0,.30);
+    overflow:hidden;
 }
 
+.bottom-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    background:linear-gradient(
+        90deg,
+        #7A0019,
+        #D4AF37,
+        #7A0019
+    );
+}
 
 .bottom-card h2{
-
-font-size:28px;
-
-color:#D4AF37;
-
-margin-bottom:25px;
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#7A0019;
+    font-size:19px;
+    margin-bottom:15px;
 }
 
-
-#journalPresident{
-
-max-height:520px;
-
-overflow-y:auto;
-
-padding-right:8px;
-
+.bottom-card h2 i{
+    color:#D4AF37;
 }
 
-
-#journalPresident p{
-
-padding:18px;
-
-margin-bottom:15px;
-
-border-radius:18px;
-
-background:rgba(255,255,255,.05);
-
-color:#dddddd;
-
-border-left:5px solid #D4AF37;
-
-}
-
-
-.security-status{
-
-display:flex;
-
-flex-direction:column;
-
-gap:18px;
-
-}
-
-
-.security-item{
-
-display:flex;
-
-align-items:center;
-
-gap:18px;
-
-padding:18px;
-
-border-radius:18px;
-
-background:rgba(255,255,255,.05);
-
-}
-
-
-.security-item i{
-
-width:55px;
-
-height:55px;
-
-border-radius:18px;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-background:#D4AF37;
-
-color:#082518;
-
-font-size:22px;
-
-}
-
-
-.security-item span{
-
-font-size:17px;
-
-color:#f1f1f1;
-
+.bottom-card p{
+    color:#555;
+    line-height:1.5;
+    font-size:14px;
 }
 
 
 /*==================================================
-      AUTORISATION PRESIDENT
+ DESCRIPTION DES CARTES
+==================================================*/
+
+.card-description{
+    margin-top:8px;
+    color:#666;
+    font-size:13px;
+    line-height:1.45;
+}
+
+.card-description strong{
+    color:#7A0019;
+}
+
+
+/*==================================================
+ JOURNAL PRESIDENTIEL
+==================================================*/
+
+#journalPresident{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-height:320px;
+    overflow-y:auto;
+    padding-right:4px;
+}
+
+#journalPresident::-webkit-scrollbar{
+    width:5px;
+}
+
+#journalPresident::-webkit-scrollbar-thumb{
+    background:#7A0019;
+    border-radius:10px;
+}
+
+#journalPresident::-webkit-scrollbar-track{
+    background:#eee;
+}
+
+.journal-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:13px;
+    border-radius:13px;
+    background:#f8f1e4;
+    border-left:4px solid #7A0019;
+}
+
+.journal-item i{
+    color:#D4AF37;
+    margin-top:2px;
+}
+
+.journal-item strong{
+    display:block;
+    color:#7A0019;
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.journal-item span{
+    display:block;
+    color:#666;
+    font-size:12px;
+    line-height:1.4;
+}
+
+
+/*==================================================
+ SECURITE PRESIDENTIELLE
+==================================================*/
+
+.security-status{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.security-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px;
+    background:#f8f1e4;
+    border-radius:13px;
+    border-left:4px solid #7A0019;
+}
+
+.security-item > i{
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border-radius:50%;
+    background:#7A0019;
+    color:#D4AF37;
+}
+
+.security-item div{
+    flex:1;
+}
+
+.security-item strong{
+    display:block;
+    color:#7A0019;
+    font-size:13px;
+    margin-bottom:3px;
+}
+
+.security-item span{
+    display:block;
+    color:#666;
+    font-size:12px;
+    line-height:1.35;
+}
+
+
+/*==================================================
+ PANNEAU SIGNATURE PRESIDENTIELLE
 ==================================================*/
 
 .president-signature-panel{
-
-text-align:center;
-
-padding:40px;
-
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    padding:22px;
+    border-radius:22px;
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #f5ead6
+        );
+    border:2px solid #D4AF37;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-
-.president-signature-panel h2{
-
-font-size:34px;
-
-color:#D4AF37;
-
-margin-bottom:20px;
-
+.signature-panel-icon{
+    width:70px;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto;
+    border-radius:50%;
+    background:#7A0019;
+    color:#D4AF37;
+    font-size:30px;
+    box-shadow:0 8px 20px rgba(122,0,25,.35);
 }
 
-
-.signature-information{
-
-max-width:900px;
-
-margin:auto;
-
+.signature-panel-content{
+    text-align:center;
 }
 
+.signature-panel-content h3{
+    color:#7A0019;
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.signature-panel-content p{
+    color:#555;
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:15px;
+}
 
 .signature-status{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:9px 15px;
+    border-radius:20px;
+    background:#7A0019;
+    color:white;
+    font-size:12px;
+    font-weight:800;
+}
 
-margin-top:25px;
-
-padding:18px;
-
-border-radius:18px;
-
-background:rgba(212,175,55,.12);
-
-border:1px solid rgba(212,175,55,.30);
-
-color:#ffffff;
-
-font-size:18px;
-
-font-weight:600;
-
+.signature-status i{
+    color:#D4AF37;
 }
 
 
 /*==================================================
-      FOOTER
+ ETAT GENERAL
+==================================================*/
+
+.status-online{
+    color:#16803c !important;
+}
+
+.status-warning{
+    color:#b06a00 !important;
+}
+
+.status-offline{
+    color:#a00000 !important;
+}
+
+
+/*==================================================
+ FOOTER
 ==================================================*/
 
 .footer{
-
-margin-top:40px;
-
-padding:45px;
-
-border-radius:30px;
-
-background:
-linear-gradient(135deg,#082518,#04120b);
-
-border-top:4px solid #D4AF37;
-
-text-align:center;
-
+    margin-top:45px;
+    padding:30px 20px;
+    text-align:center;
+    background:
+        linear-gradient(
+            135deg,
+            #35000b,
+            #7A0019
+        );
+    color:white;
+    border-top:3px solid #D4AF37;
 }
-
-
-.footer-logo{
-
-width:110px;
-
-margin-bottom:20px;
-
-}
-
-
-.footer h3{
-
-font-size:28px;
-
-color:#D4AF37;
-
-margin-bottom:15px;
-
-}
-
 
 .footer p{
+    margin:8px 0;
+    font-size:13px;
+    line-height:1.5;
+}
 
-font-size:17px;
+.footer strong{
+    color:#D4AF37;
+}
 
-color:#dddddd;
+.footer a{
+    color:white;
+    text-decoration:none;
+}
 
-margin:8px 0;
-
+.footer a:hover{
+    color:#D4AF37;
 }
 
 
 /*==================================================
-      EFFETS PREMIUM
+ LOGO FOOTER
 ==================================================*/
 
+.footer-logo-box{
+    width:65px;
+    height:65px;
+    margin:0 auto 15px;
+    padding:7px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+    border-radius:18px;
+    border:2px solid #D4AF37;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+
+.footer-logo{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+
+/*==================================================
+ BOUTON WHATSAPP FLOTTANT
+==================================================*/
+
+.whatsapp{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:58px;
+    height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    border-radius:50%;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    font-size:29px;
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.35);
+    transition:.3s ease;
+}
+
+.whatsapp:hover{
+    transform:scale(1.08);
+}
+
+.whatsapp:active{
+    transform:scale(.92);
+}
+
+
+/*==================================================
+ ANIMATIONS
+==================================================*/
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes pulse{
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.04);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+@keyframes glow{
+    0%{
+        box-shadow:0 0 0 rgba(212,175,55,0);
+    }
+
+    50%{
+        box-shadow:0 0 18px rgba(212,175,55,.35);
+    }
+
+    100%{
+        box-shadow:0 0 0 rgba(212,175,55,0);
+    }
+}
+
 .card,
-.panel,
 .office-card,
-.direction-card,
+.approval-card,
 .quick-card,
+.direction-card,
 .bottom-card{
+    animation:fadeIn .45s ease both;
+}
 
-transition:all .35s ease;
+.president-card{
+    animation:fadeIn .6s ease both;
+}
 
+.signature-panel-icon{
+    animation:glow 3s ease-in-out infinite;
 }
 
 
-.card:hover,
-.panel:hover,
-.office-card:hover,
-.direction-card:hover,
-.quick-card:hover,
-.bottom-card:hover{
+/*==================================================
+ ACCESSIBILITE / TOUCH
+==================================================*/
 
-transform:translateY(-8px);
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+}
 
-box-shadow:
-0 25px 50px rgba(0,0,0,.35);
+button{
+    font-family:inherit;
+}
 
+button:focus-visible,
+a:focus-visible{
+    outline:3px solid #D4AF37;
+    outline-offset:3px;
 }
 
 
- }
+/*==================================================
+ PETITS ECRANS
+==================================================*/
+
+@media(max-width:480px){
+
+    .bottom-card{
+        padding:18px;
+    }
+
+    .president-signature-panel{
+        padding:18px;
+    }
+
+    .signature-panel-content h3{
+        font-size:17px;
+    }
+
+    .signature-panel-content p{
+        font-size:12px;
+    }
+
+    .footer{
+        padding:25px 15px;
+    }
+
+    .whatsapp{
+        width:54px;
+        height:54px;
+        right:15px;
+        bottom:15px;
+        font-size:26px;
+    }
+     }
+
+/*==================================================
+ MWANA MBOKA
+ BUREAU NUMERIQUE DU PRESIDENT
+ CSS PREMIUM RESPONSIVE
+ PARTIE 4/4
+==================================================*/
+
+
+/*==================================================
+ VERSION PC / DESKTOP
+==================================================*/
+
+@media (min-width:769px){
+
+    /*----------------------------------------------
+      STRUCTURE GENERALE
+    ----------------------------------------------*/
+
+    .bureau-container{
+        min-height:100vh;
+        display:flex;
+        flex-direction:column;
+    }
+
+    /*----------------------------------------------
+      HEADER
+    ----------------------------------------------*/
+
+    .header{
+        min-height:82px;
+        padding:12px 25px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px;
+    }
+
+    .header-left{
+        display:flex;
+        align-items:center;
+        gap:15px;
+        min-width:0;
+    }
+
+    .header-left .logo{
+        width:58px;
+        height:58px;
+    }
+
+    .header-left h1{
+        font-size:24px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+
+    .header-right{
+        display:flex;
+        align-items:center;
+        justify-content:flex-end;
+        gap:12px;
+        flex-wrap:wrap;
+    }
+
+    .date-box,
+    .time-box,
+    .system-status{
+        min-height:42px;
+        display:flex;
+        align-items:center;
+        gap:8px;
+        padding:9px 13px;
+        border-radius:12px;
+    }
+
+    .member-space-btn,
+    .logout-btn{
+        min-height:44px;
+        white-space:nowrap;
+    }
+
+
+    /*----------------------------------------------
+      MENU MOBILE
+    ----------------------------------------------*/
+
+    .mobile-menu-btn{
+        display:none !important;
+    }
+
+
+    /*----------------------------------------------
+      CARTE PRESIDENT
+    ----------------------------------------------*/
+
+    .president-card{
+        position:fixed;
+        top:100px;
+        left:22px;
+        width:245px;
+        z-index:900;
+    }
+
+    .president-photo{
+        width:105px;
+        height:105px;
+    }
+
+
+    /*----------------------------------------------
+      SIDEBAR
+    ----------------------------------------------*/
+
+    .sidebar{
+        position:fixed;
+        top:0;
+        left:0;
+        bottom:0;
+        width:275px;
+        padding:285px 15px 25px;
+        overflow-y:auto;
+        overflow-x:hidden;
+        z-index:800;
+    }
+
+    .sidebar::-webkit-scrollbar{
+        width:5px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb{
+        background:#7A0019;
+        border-radius:10px;
+    }
+
+    .sidebar::-webkit-scrollbar-track{
+        background:#eee;
+    }
+
+    .sidebar.active{
+        transform:none;
+    }
+
+    .sidebar nav{
+        display:flex;
+        flex-direction:column;
+        gap:7px;
+    }
+
+    .sidebar a{
+        min-height:45px;
+        display:flex;
+        align-items:center;
+        gap:12px;
+        padding:11px 13px;
+        border-radius:12px;
+        font-size:13px;
+        transition:.25s ease;
+    }
+
+    .sidebar a:hover{
+        padding-left:18px;
+        background:#f8f1e4;
+        color:#7A0019;
+    }
+
+    .sidebar a.active{
+        background:#7A0019;
+        color:white;
+        border-left:4px solid #D4AF37;
+    }
+
+    .sidebar a.active i{
+        color:#D4AF37;
+    }
+
+
+    /*----------------------------------------------
+      CONTENU PRINCIPAL
+    ----------------------------------------------*/
+
+    .main-content{
+        margin-left:275px;
+        width:calc(100% - 275px);
+        padding:30px 35px 50px;
+    }
+
+    .dashboard-title{
+        margin-bottom:28px;
+    }
+
+    .dashboard-title h2{
+        font-size:30px;
+    }
+
+    .dashboard-title p{
+        max-width:850px;
+        font-size:15px;
+    }
+
+
+    /*----------------------------------------------
+      GRILLE TABLEAU DE BORD
+    ----------------------------------------------*/
+
+    .dashboard-grid{
+        display:grid;
+        grid-template-columns:
+            repeat(4,minmax(0,1fr));
+        gap:20px;
+    }
+
+    .card{
+        min-height:150px;
+        padding:23px;
+    }
+
+    .card:hover{
+        transform:translateY(-5px);
+    }
+
+
+    /*----------------------------------------------
+      CENTRES DE COMMANDE
+    ----------------------------------------------*/
+
+    .command-center{
+        margin-top:40px;
+    }
+
+    .panel{
+        padding:28px;
+    }
+
+    .panel h2{
+        font-size:22px;
+    }
+
+    .panel p{
+        font-size:14px;
+    }
+
+
+    /*----------------------------------------------
+      GS ORGANIGRAMME
+    ----------------------------------------------*/
+
+    .organigramme-president{
+        margin-top:40px;
+    }
+
+    .office-grid{
+        display:grid;
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+        gap:22px;
+    }
+
+    .office-card{
+        min-height:220px;
+        padding:25px;
+    }
+
+    .office-card h3{
+        font-size:19px;
+    }
+
+    .office-card p{
+        font-size:14px;
+    }
+
+
+    /*----------------------------------------------
+      CENTRE DE DECISION
+    ----------------------------------------------*/
+
+    .president-office{
+        margin-top:40px;
+    }
+
+    .signature-box{
+        display:grid;
+        grid-template-columns:
+            1.3fr 1fr;
+        gap:25px;
+        align-items:start;
+    }
+
+    .signature-box p{
+        margin:0;
+    }
+
+    .signature-box ul{
+        margin:0;
+    }
+
+    .signature-actions{
+        grid-column:1 / -1;
+        display:grid;
+        grid-template-columns:
+            repeat(2,1fr);
+        gap:15px;
+    }
+
+    .signature-actions button:hover{
+        transform:translateY(-2px);
+    }
+
+
+    /*----------------------------------------------
+      VALIDATIONS
+    ----------------------------------------------*/
+
+    .approval-center{
+        margin-top:40px;
+    }
+
+    .approval-grid{
+        display:grid;
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+        gap:20px;
+    }
+
+    .approval-card{
+        min-height:210px;
+        padding:25px;
+    }
+
+    .approval-card:hover{
+        transform:translateY(-4px);
+    }
+
+
+    /*----------------------------------------------
+      ACCES RAPIDE
+    ----------------------------------------------*/
+
+    .quick-access{
+        margin-top:40px;
+    }
+
+    .quick-grid{
+        display:grid;
+        grid-template-columns:
+            repeat(4,minmax(0,1fr));
+        gap:18px;
+    }
+
+    .quick-card{
+        min-height:160px;
+        padding:22px 15px;
+    }
+
+    .quick-card:hover{
+        transform:translateY(-5px);
+    }
+
+
+    /*----------------------------------------------
+      DIRECTIONS
+    ----------------------------------------------*/
+
+    .directions-control{
+        margin-top:40px;
+    }
+
+    .direction-grid{
+        display:grid;
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+        gap:20px;
+    }
+
+    .direction-card{
+        min-height:190px;
+        padding:24px;
+        transition:.3s ease;
+    }
+
+    .direction-card:hover{
+        transform:translateY(-4px);
+    }
+
+
+    /*----------------------------------------------
+      SECTION INFERIEURE
+    ----------------------------------------------*/
+
+    .bottom-section{
+        margin-top:40px;
+        display:grid;
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+        gap:22px;
+    }
+
+    .bottom-card{
+        min-height:220px;
+        padding:25px;
+    }
+
+
+    /*----------------------------------------------
+      PANNEAU SIGNATURE
+    ----------------------------------------------*/
+
+    .president-signature-panel{
+        grid-column:1 / -1;
+        display:grid;
+        grid-template-columns:100px 1fr;
+        align-items:center;
+        gap:25px;
+        padding:28px;
+    }
+
+    .signature-panel-icon{
+        width:82px;
+        height:82px;
+        margin:0;
+        font-size:34px;
+    }
+
+    .signature-panel-content{
+        text-align:left;
+    }
+
+    .signature-panel-content h3{
+        font-size:21px;
+    }
+
+    .signature-panel-content p{
+        max-width:850px;
+        font-size:14px;
+    }
+
+
+    /*----------------------------------------------
+      FOOTER
+    ----------------------------------------------*/
+
+    .footer{
+        margin-left:275px;
+        padding:35px;
+    }
+
+    .footer-logo-box{
+        width:72px;
+        height:72px;
+    }
+
+
+    /*----------------------------------------------
+      WHATSAPP
+    ----------------------------------------------*/
+
+    .whatsapp{
+        width:62px;
+        height:62px;
+        right:25px;
+        bottom:25px;
+    }
+}
+
+
+/*==================================================
+ GRAND ECRAN
+==================================================*/
+
+@media (min-width:1200px){
+
+    .header{
+        padding-left:30px;
+        padding-right:30px;
+    }
+
+    .main-content{
+        padding-left:45px;
+        padding-right:45px;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .office-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .direction-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .bottom-section{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+/*==================================================
+ TRES GRAND ECRAN
+==================================================*/
+
+@media (min-width:1600px){
+
+    .sidebar{
+        width:300px;
+    }
+
+    .main-content{
+        margin-left:300px;
+        width:calc(100% - 300px);
+        padding-left:55px;
+        padding-right:55px;
+    }
+
+    .footer{
+        margin-left:300px;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+        gap:25px;
+    }
+
+    .office-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+        gap:25px;
+    }
+
+    .approval-grid{
+        gap:25px;
+    }
+
+    .quick-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+        gap:22px;
+    }
+}
+
+
+/*==================================================
+ FIN CSS
+==================================================*/
