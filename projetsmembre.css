@@ -1,0 +1,876 @@
+/*==================================================
+  PROJETSMEMBRE.CSS
+  COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+  ESPACE PROJETS DES MEMBRES
+==================================================*/
+
+
+/*==================================================
+  RESET
+==================================================*/
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',Arial,sans-serif;
+}
+
+
+body{
+    background:#f4f6f8;
+    color:#222;
+    line-height:1.6;
+}
+
+
+.container{
+    width:100%;
+    min-height:100vh;
+}
+
+
+
+/*==================================================
+  HEADER
+==================================================*/
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#009245;
+    color:white;
+    padding:15px 25px;
+    box-shadow:0 3px 12px #0002;
+}
+
+
+.logo-zone{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+
+.logo-zone img{
+    width:65px;
+    height:65px;
+    object-fit:contain;
+    border-radius:50%;
+    background:white;
+    padding:5px;
+}
+
+
+.logo-zone h1{
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+
+.logo-zone p{
+    font-size:14px;
+    opacity:.95;
+}
+
+
+.back{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:white;
+    color:#009245;
+    padding:11px 17px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.2s;
+}
+
+
+.back:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px #0002;
+}
+
+
+
+/*==================================================
+  CONTENU
+==================================================*/
+
+.projets-content{
+    width:100%;
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 15px 35px;
+}
+
+
+
+/*==================================================
+  HERO
+==================================================*/
+
+.hero-projets{
+    background:linear-gradient(
+        135deg,
+        #009245,
+        #007c3b
+    );
+    color:white;
+    border-radius:22px;
+    padding:35px;
+    margin-bottom:25px;
+    box-shadow:0 7px 22px #0002;
+    position:relative;
+    overflow:hidden;
+}
+
+
+.hero-projets::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border:35px solid #ffffff18;
+    border-radius:50%;
+    right:-80px;
+    top:-80px;
+}
+
+
+.hero-projets > div{
+    position:relative;
+    z-index:1;
+    max-width:750px;
+}
+
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#ffffff20;
+    border:1px solid #ffffff35;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:.4px;
+}
+
+
+.hero-projets h2{
+    font-size:30px;
+    margin:12px 0 8px;
+    font-weight:800;
+}
+
+
+.hero-projets p{
+    font-size:15px;
+    opacity:.95;
+    max-width:700px;
+}
+
+
+
+/*==================================================
+  ACTIONS PRINCIPALES
+==================================================*/
+
+.actions-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+
+.action-card{
+    width:100%;
+    border:1px solid #e3e7e9;
+    background:white;
+    border-radius:18px;
+    padding:20px 16px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    text-align:left;
+    gap:13px;
+    cursor:pointer;
+    box-shadow:0 4px 15px #0001;
+    transition:.2s;
+}
+
+
+.action-card:hover{
+    transform:translateY(-4px);
+    border-color:#009245;
+    box-shadow:0 8px 20px #0002;
+}
+
+
+.action-icon{
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:#e9f8f0;
+    color:#009245;
+    font-size:21px;
+}
+
+
+.action-card h3{
+    font-size:15px;
+    color:#222;
+    margin-bottom:4px;
+}
+
+
+.action-card p{
+    color:#777;
+    font-size:12px;
+    line-height:1.5;
+}
+
+
+
+/*==================================================
+  CARTES GENERALES
+==================================================*/
+
+.dashboard-card,
+.section-card,
+.form-card{
+    background:white;
+    border-radius:20px;
+    padding:27px;
+    margin-top:25px;
+    box-shadow:0 5px 20px #0002;
+}
+
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+
+.small-title{
+    color:#009245;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+
+.section-title h2{
+    color:#222;
+    font-size:21px;
+    margin-top:3px;
+}
+
+
+
+/*==================================================
+  STATISTIQUES
+==================================================*/
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+
+.stat-box{
+    background:#f7f9fa;
+    border:1px solid #e5e8ea;
+    border-radius:15px;
+    padding:20px 12px;
+    text-align:center;
+    transition:.2s;
+}
+
+
+.stat-box:hover{
+    transform:translateY(-3px);
+    box-shadow:0 5px 15px #0001;
+}
+
+
+.stat-box i{
+    display:block;
+    color:#009245;
+    font-size:23px;
+    margin-bottom:6px;
+}
+
+
+.stat-box strong{
+    display:block;
+    color:#009245;
+    font-size:26px;
+    font-weight:800;
+}
+
+
+.stat-box span{
+    display:block;
+    color:#666;
+    font-size:12px;
+    margin-top:3px;
+}
+
+
+
+/*==================================================
+  LISTES DES PROJETS
+==================================================*/
+
+.projets-list,
+.financements-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+
+
+/*==================================================
+  CARTE PROJET
+  Préparée pour le JS
+==================================================*/
+
+.projet-card{
+    background:#fff;
+    border:1px solid #e2e6e8;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 3px 12px #0001;
+    transition:.2s;
+}
+
+
+.projet-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 18px #0002;
+}
+
+
+.projet-card h3{
+    color:#009245;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+
+.projet-card p{
+    color:#666;
+    font-size:13px;
+    margin:5px 0;
+}
+
+
+.projet-card .categorie{
+    display:inline-block;
+    background:#e8f7ef;
+    color:#009245;
+    padding:4px 9px;
+    border-radius:15px;
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+
+.projet-card .statut{
+    display:inline-block;
+    padding:4px 9px;
+    border-radius:15px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+
+.projet-card .statut.attente{
+    background:#fff3cd;
+    color:#856404;
+}
+
+
+.projet-card .statut.valide{
+    background:#d4edda;
+    color:#155724;
+}
+
+
+.projet-card .statut.encours{
+    background:#d9edf7;
+    color:#31708f;
+}
+
+
+.projet-card .statut.realise{
+    background:#d4edda;
+    color:#155724;
+}
+
+
+.projet-card .statut.refuse{
+    background:#f8d7da;
+    color:#721c24;
+}
+
+
+
+/*==================================================
+  FINANCEMENT
+==================================================*/
+
+.financement-card{
+    background:white;
+    border:1px solid #e2e6e8;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 3px 12px #0001;
+}
+
+
+.financement-card h3{
+    color:#009245;
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+
+.financement-card p{
+    color:#666;
+    font-size:13px;
+    margin:5px 0;
+}
+
+
+.financement-card .montant{
+    font-size:18px;
+    color:#009245;
+    font-weight:800;
+    margin:10px 0;
+}
+
+
+
+/*==================================================
+  ETAT VIDE
+==================================================*/
+
+.empty-state{
+    grid-column:1 / -1;
+    text-align:center;
+    padding:40px 20px;
+    background:#f7f9fa;
+    border:1px dashed #ccd2d5;
+    border-radius:15px;
+}
+
+
+.empty-state i{
+    color:#009245;
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+
+.empty-state h3{
+    color:#444;
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+
+.empty-state p{
+    color:#777;
+    font-size:13px;
+}
+
+
+
+/*==================================================
+  FORMULAIRE
+==================================================*/
+
+.form-card{
+    border-top:4px solid #009245;
+}
+
+
+.form-intro{
+    background:#f1faf5;
+    color:#555;
+    padding:13px 15px;
+    border-radius:10px;
+    font-size:13px;
+    margin-bottom:22px;
+}
+
+
+.form-group{
+    margin-bottom:18px;
+}
+
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    font-size:14px;
+    color:#333;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #d3d7da;
+    border-radius:10px;
+    background:white;
+    color:#222;
+    font-size:14px;
+    outline:none;
+    transition:.2s;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#009245;
+    box-shadow:0 0 0 3px #00924518;
+}
+
+
+.form-group textarea{
+    resize:vertical;
+    min-height:110px;
+}
+
+
+.form-row{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+
+
+/*==================================================
+  BOUTON FERMER
+==================================================*/
+
+.close-btn{
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:50%;
+    background:#f1f3f4;
+    color:#555;
+    cursor:pointer;
+    font-size:17px;
+    transition:.2s;
+}
+
+
+.close-btn:hover{
+    background:#009245;
+    color:white;
+}
+
+
+
+/*==================================================
+  BOUTON SOUMISSION
+==================================================*/
+
+.submit-btn{
+    width:100%;
+    margin-top:8px;
+    padding:15px 20px;
+    border:none;
+    border-radius:12px;
+    background:#009245;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+
+.submit-btn:hover{
+    opacity:.88;
+    transform:translateY(-1px);
+}
+
+
+.submit-btn i{
+    margin-right:7px;
+}
+
+
+
+/*==================================================
+  MESSAGE
+==================================================*/
+
+#message{
+    margin-top:20px;
+    padding:12px 15px;
+    text-align:center;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+
+#message:empty{
+    display:none;
+}
+
+
+.success{
+    background:#d4edda;
+    color:#155724;
+}
+
+
+.error{
+    background:#f8d7da;
+    color:#721c24;
+}
+
+
+.info{
+    background:#d9edf7;
+    color:#31708f;
+}
+
+
+
+/*==================================================
+  FOOTER
+==================================================*/
+
+footer{
+    text-align:center;
+    background:#009245;
+    color:white;
+    padding:25px 15px;
+    margin-top:40px;
+    font-size:14px;
+}
+
+
+footer strong{
+    font-size:15px;
+}
+
+
+
+/*==================================================
+  TABLETTE
+==================================================*/
+
+@media(max-width:950px){
+
+    .actions-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+
+    .projets-list,
+    .financements-list{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+
+/*==================================================
+  MOBILE
+==================================================*/
+
+@media(max-width:700px){
+
+    .header{
+        flex-direction:column;
+        gap:15px;
+        padding:15px;
+        text-align:center;
+    }
+
+
+    .logo-zone{
+        justify-content:center;
+    }
+
+
+    .logo-zone img{
+        width:58px;
+        height:58px;
+    }
+
+
+    .logo-zone h1{
+        font-size:19px;
+    }
+
+
+    .logo-zone p{
+        font-size:12px;
+    }
+
+
+    .back{
+        width:100%;
+        justify-content:center;
+    }
+
+
+    .projets-content{
+        padding:0 10px 25px;
+        margin:20px auto;
+    }
+
+
+    .hero-projets{
+        padding:25px 20px;
+        border-radius:18px;
+    }
+
+
+    .hero-projets h2{
+        font-size:23px;
+    }
+
+
+    .hero-projets p{
+        font-size:13px;
+    }
+
+
+    .actions-grid{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+
+    .action-card{
+        flex-direction:row;
+        align-items:center;
+        padding:16px;
+    }
+
+
+    .action-icon{
+        flex-shrink:0;
+    }
+
+
+    .dashboard-card,
+    .section-card,
+    .form-card{
+        padding:20px 15px;
+        border-radius:16px;
+    }
+
+
+    .section-title h2{
+        font-size:18px;
+    }
+
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+
+    .stat-box{
+        padding:15px 8px;
+    }
+
+
+    .stat-box strong{
+        font-size:23px;
+    }
+
+
+    .form-row{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+        font-size:14px;
+    }
+
+}
+
+
+
+/*==================================================
+  PETIT MOBILE
+==================================================*/
+
+@media(max-width:400px){
+
+    .logo-zone{
+        gap:9px;
+    }
+
+
+    .logo-zone h1{
+        font-size:17px;
+    }
+
+
+    .hero-projets h2{
+        font-size:21px;
+    }
+
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+
+    .action-card h3{
+        font-size:14px;
+    }
+
+
+    .action-card p{
+        font-size:11px;
+    }
+
+}
