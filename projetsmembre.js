@@ -787,10 +787,16 @@ async function chargerDonnees() {
 
 
 /*==================================================
- AFFICHER / CACHER LES SECTIONS
+ AFFICHER UNE SECTION
 ==================================================*/
 
 function afficherSection(id) {
+
+    console.log(
+        "OUVERTURE SECTION :",
+        id
+    );
+
 
     const sections = [
 
@@ -805,84 +811,102 @@ function afficherSection(id) {
     ];
 
 
-    sections.forEach(function (sectionId) {
+    /*------------------------------------------
+     CACHER TOUTES LES SECTIONS
+    ------------------------------------------*/
 
-        const section =
-            document.getElementById(sectionId);
+    sections.forEach(
+        function (sectionId) {
 
-        if (section) {
+            const section =
+                document.getElementById(
+                    sectionId
+                );
 
-            section.style.display =
-                "none";
+
+            if (section) {
+
+                section.style.display =
+                    "none";
+
+            }
+
         }
+    );
 
-    });
 
+    /*------------------------------------------
+     AFFICHER LA SECTION DEMANDÉE
+    ------------------------------------------*/
 
     const sectionActive =
         document.getElementById(id);
 
 
-    if (sectionActive) {
+    if (!sectionActive) {
 
-        sectionActive.style.display =
-            id === "formulaireProjet"
-                ? "block"
-                : "block";
+        console.error(
+            "SECTION INTROUVABLE :",
+            id
+        );
 
-
-        sectionActive.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+        return;
 
     }
 
 
+    sectionActive.style.display =
+        "block";
+
+
     /*------------------------------------------
-     ACTUALISER LA LISTE SELON LA SECTION
+     REMONTER LÉGÈREMENT VERS LA SECTION
     ------------------------------------------*/
 
-    if (id === "sectionProjets") {
+    setTimeout(
+        function () {
+
+            sectionActive.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        },
+        50
+    );
+
+
+    /*------------------------------------------
+     CHARGER LES DONNÉES CORRESPONDANTES
+    ------------------------------------------*/
+
+    if (
+        id === "sectionProjets"
+    ) {
 
         afficherProjetsDisponibles();
 
     }
 
 
-    if (id === "sectionMesProjets") {
+    if (
+        id === "sectionMesProjets"
+    ) {
 
         afficherMesProjets();
 
     }
 
 
-    if (id === "sectionFinancements") {
+    if (
+        id === "sectionFinancements"
+    ) {
 
         afficherMesFinancements();
 
     }
 
-}
-
-
-/*==================================================
- CACHER UNE SECTION
-==================================================*/
-
-function cacherSection(id) {
-
-    const element =
-        document.getElementById(id);
-
-
-    if (element) {
-
-        element.style.display =
-            "none";
-    }
-
-}
+                 }
 
 
 /*==================================================
