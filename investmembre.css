@@ -1,23 +1,36 @@
-/* ==================================================
+/* =========================================================
    INVESTMEMBRE.CSS
    ESPACE INVESTISSEMENTS MEMBRE
    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-   ================================================== */
+   VERSION MOBILE + DESKTOP
+   ========================================================= */
+
+/* =========================================================
+   1. VARIABLES
+   ========================================================= */
 
 :root{
     --vert:#009245;
-    --vert-fonce:#007a39;
-    --vert-clair:#eaf8f0;
+    --vert-fonce:#007a3d;
+    --vert-clair:#e9f7ef;
+
     --blanc:#ffffff;
     --noir:#222222;
     --gris:#666666;
     --gris-clair:#f5f7f6;
-    --bordure:#dfe7e2;
+
+    --bordure:#dce5df;
+
     --orange:#f39c12;
     --rouge:#d63031;
     --bleu:#2980b9;
-    --ombre:0 5px 18px rgba(0,0,0,.08);
+
+    --ombre:0 4px 16px rgba(0,0,0,.08);
 }
+
+/* =========================================================
+   2. RESET
+   ========================================================= */
 
 *{
     margin:0;
@@ -25,79 +38,159 @@
     box-sizing:border-box;
 }
 
+html{
+    width:100%;
+    min-height:100%;
+    scroll-behavior:smooth;
+}
+
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f7f6;
+    width:100%;
+    min-height:100vh;
+
+    margin:0;
+    padding:0;
+
+    background:var(--gris-clair);
     color:var(--noir);
-    line-height:1.6;
+
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:16px;
+    line-height:1.5;
+
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
 }
 
 button,
 input,
 select,
 textarea{
-    font-family:inherit;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 button{
     cursor:pointer;
 }
 
-/* ==================================================
-   HEADER
-   ================================================== */
+/* =========================================================
+   3. HEADER
+   ========================================================= */
 
 header{
+    width:100%;
+    min-height:72px;
+
     background:var(--blanc);
-    border-bottom:2px solid var(--bordure);
-    padding:15px 25px;
+
+    border-bottom:1px solid var(--bordure);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
+
+    padding:10px 20px;
+
     position:sticky;
     top:0;
-    z-index:100;
+    z-index:1000;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
 .header-left{
+    min-width:0;
+
     display:flex;
     align-items:center;
-    gap:14px;
+
+    gap:12px;
 }
 
-.logo{
-    width:55px;
-    height:55px;
+/* Logo du header uniquement */
+header .logo{
+    width:48px;
+    height:48px;
+
+    max-width:48px;
+    max-height:48px;
+
     object-fit:contain;
-    border-radius:10px;
+    object-position:center;
+
+    display:block;
+
+    flex:0 0 48px;
+
+    border-radius:8px;
+}
+
+/* =========================================================
+   TITRE HEADER
+   ========================================================= */
+
+.header-title{
+    min-width:0;
 }
 
 .header-title h1{
+    margin:0;
+
     color:var(--vert);
-    font-size:22px;
+
+    font-size:21px;
     font-weight:800;
+
+    line-height:1.2;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .header-title p{
+    margin:2px 0 0;
+
     color:var(--gris);
-    font-size:13px;
+
+    font-size:12px;
+    line-height:1.3;
 }
+
+/* =========================================================
+   BOUTONS HEADER
+   ========================================================= */
 
 .header-actions{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
+
+    flex-shrink:0;
 }
 
 .header-actions button{
-    width:42px;
-    height:42px;
+    width:40px;
+    height:40px;
+
     border:none;
     border-radius:50%;
+
     background:var(--vert-clair);
     color:var(--vert);
-    font-size:17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+
+    transition:.2s ease;
 }
 
 .header-actions button:hover{
@@ -105,352 +198,603 @@ header{
     color:var(--blanc);
 }
 
-/* ==================================================
-   CONTAINER
-   ================================================== */
+/* =========================================================
+   4. CONTAINER PRINCIPAL
+   ========================================================= */
 
 .container{
     width:100%;
-    max-width:1200px;
+    max-width:1150px;
+
     margin:0 auto;
-    padding:25px 20px 40px;
+
+    padding:22px 20px 40px;
 }
 
-/* ==================================================
-   BARRE MEMBRE
-   ================================================== */
+/* =========================================================
+   5. BARRE MEMBRE
+   ========================================================= */
 
 .membre-bar{
+    width:100%;
+
     background:var(--blanc);
+
     border:1px solid var(--bordure);
     border-radius:15px;
-    padding:14px 18px;
+
+    padding:12px 16px;
+
     display:flex;
     align-items:center;
-    gap:14px;
+
+    gap:12px;
+
     box-shadow:var(--ombre);
-    margin-bottom:22px;
+
+    margin-bottom:20px;
 }
 
-.photo-membre,
-#photoMembre{
-    width:55px;
-    height:55px;
+/* Photo membre */
+#photoMembre,
+.photo-membre{
+    width:52px;
+    height:52px;
+
+    min-width:52px;
+    max-width:52px;
+
+    min-height:52px;
+    max-height:52px;
+
     border-radius:50%;
+
     object-fit:cover;
-    border:3px solid var(--vert);
+
+    border:2px solid var(--vert);
+
     background:var(--vert-clair);
+
+    display:block;
 }
 
+/* Informations membre */
 .membre-info{
+    min-width:0;
     flex:1;
 }
 
 .membre-info h3{
-    font-size:17px;
+    margin:0 0 2px;
+
+    font-size:16px;
+    font-weight:700;
+
     color:var(--noir);
-    margin-bottom:2px;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
 .membre-info p{
-    font-size:13px;
+    margin:0;
+
+    font-size:12px;
     color:var(--gris);
 }
 
 #matriculeMembre{
-    font-weight:700;
     color:var(--vert);
+    font-weight:700;
 }
 
-/* ==================================================
-   HERO
-   ================================================== */
+/* =========================================================
+   6. HERO
+   ========================================================= */
 
 .hero{
-    background:linear-gradient(135deg,var(--vert),var(--vert-fonce));
+    width:100%;
+
+    background:linear-gradient(
+        135deg,
+        var(--vert),
+        var(--vert-fonce)
+    );
+
     color:var(--blanc);
-    padding:30px 25px;
-    border-radius:20px;
-    margin-bottom:25px;
+
+    border-radius:18px;
+
+    padding:28px 25px;
+
+    margin-bottom:22px;
+
     box-shadow:var(--ombre);
 }
 
 .hero h2{
-    font-size:30px;
-    margin-bottom:8px;
+    margin:0 0 7px;
+
+    font-size:28px;
+    line-height:1.25;
+
+    font-weight:800;
 }
 
 .hero p{
+    margin:0;
+
     max-width:800px;
-    font-size:15px;
-    opacity:.95;
+
+    font-size:14px;
+    line-height:1.6;
+
+    color:rgba(255,255,255,.95);
 }
 
-/* ==================================================
-   ACTIONS PRINCIPALES
-   ================================================== */
+/* =========================================================
+   7. LIENS / ÉLÉMENTS GÉNÉRAUX
+   ========================================================= */
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.hidden{
+    display:none !important;
+   }
+
+/* =========================================================
+   8. ACTIONS PRINCIPALES
+   ========================================================= */
 
 .actions-grid{
+    width:100%;
+
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-bottom:25px;
+
+    gap:14px;
+
+    margin-bottom:24px;
 }
 
 .action-card{
-    border:none;
+    width:100%;
+    min-width:0;
+
+    min-height:125px;
+
     background:var(--blanc);
+
     border:1px solid var(--bordure);
     border-radius:15px;
-    padding:20px 15px;
-    min-height:130px;
-    box-shadow:var(--ombre);
+
+    padding:18px 14px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
     color:var(--noir);
-    transition:.2s ease;
+
+    box-shadow:var(--ombre);
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
 .action-card:hover{
     transform:translateY(-3px);
+
     border-color:var(--vert);
+
+    box-shadow:0 7px 20px rgba(0,0,0,.10);
 }
 
 .action-card i{
     display:block;
-    font-size:28px;
+
     color:var(--vert);
-    margin-bottom:10px;
+
+    font-size:28px;
+
+    margin-bottom:9px;
 }
 
 .action-card strong{
     display:block;
+
     font-size:15px;
+    font-weight:700;
+
+    line-height:1.3;
+
     margin-bottom:4px;
 }
 
 .action-card span{
     display:block;
+
     color:var(--gris);
+
     font-size:12px;
+
+    line-height:1.4;
 }
 
-/* ==================================================
-   STATISTIQUES
-   ================================================== */
+/* =========================================================
+   9. TABLEAU DE BORD
+   ========================================================= */
 
 .stats-grid{
+    width:100%;
+
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-bottom:30px;
+
+    gap:14px;
+
+    margin-bottom:25px;
 }
 
 .stat-box{
+    width:100%;
+    min-width:0;
+
     background:var(--blanc);
+
     border:1px solid var(--bordure);
-    border-radius:15px;
-    padding:20px;
+    border-radius:14px;
+
+    padding:17px;
+
     box-shadow:var(--ombre);
 }
 
 .stat-box i{
+    display:block;
+
     color:var(--vert);
+
     font-size:22px;
+
     margin-bottom:8px;
 }
 
 .stat-box strong{
     display:block;
-    font-size:24px;
+
     color:var(--vert);
+
+    font-size:23px;
+    font-weight:800;
+
+    line-height:1.2;
+
+    margin-bottom:4px;
+
+    word-break:break-word;
 }
 
 .stat-box span{
+    display:block;
+
     color:var(--gris);
-    font-size:13px;
+
+    font-size:12px;
+
+    line-height:1.4;
 }
 
-/* ==================================================
-   SECTIONS
-   ================================================== */
+/* =========================================================
+   10. SECTIONS
+   ========================================================= */
 
 .section{
+    width:100%;
+
     background:var(--blanc);
-    border-radius:18px;
-    padding:22px;
-    margin-bottom:25px;
+
+    border:1px solid var(--bordure);
+    border-radius:17px;
+
+    padding:21px;
+
+    margin-bottom:22px;
+
     box-shadow:var(--ombre);
 }
 
 .section-header{
+    width:100%;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
-    margin-bottom:20px;
+
+    gap:12px;
+
     padding-bottom:12px;
+
+    margin-bottom:18px;
+
     border-bottom:1px solid var(--bordure);
 }
 
 .section-header h2{
+    margin:0;
+
     color:var(--vert);
-    font-size:21px;
+
+    font-size:20px;
+    font-weight:800;
+
+    line-height:1.3;
 }
 
 .section-header i{
-    margin-right:7px;
+    margin-right:6px;
 }
 
-/* ==================================================
-   LISTES
-   ================================================== */
+/* =========================================================
+   11. LISTES
+   ========================================================= */
 
 .liste{
+    width:100%;
+
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:16px;
 }
 
-/* ==================================================
-   CARTES OPPORTUNITÉS
-   ================================================== */
+/* =========================================================
+   12. CARTES D'OPPORTUNITÉS
+   ========================================================= */
 
 .opportunite-card,
 .projet-card,
 .proposition-card,
 .participation-card{
+    width:100%;
+    min-width:0;
+
     background:var(--blanc);
+
     border:1px solid var(--bordure);
-    border-radius:15px;
-    padding:20px;
+    border-radius:14px;
+
+    padding:18px;
+
     box-shadow:0 3px 12px rgba(0,0,0,.05);
+
+    overflow:hidden;
 }
 
 .opportunite-card h3,
 .projet-card h3,
 .proposition-card h3,
 .participation-card h3{
+    margin:0 0 8px;
+
     color:var(--vert);
-    font-size:18px;
-    margin-bottom:8px;
+
+    font-size:17px;
+    font-weight:800;
+
+    line-height:1.35;
+
+    overflow-wrap:anywhere;
 }
 
 .opportunite-card p,
 .projet-card p,
 .proposition-card p,
 .participation-card p{
+    margin:0 0 7px;
+
     color:var(--gris);
-    font-size:14px;
-    margin-bottom:8px;
+
+    font-size:13px;
+
+    line-height:1.55;
+
+    overflow-wrap:anywhere;
 }
 
-/* ==================================================
-   CATÉGORIE
-   ================================================== */
+/* =========================================================
+   13. CATÉGORIE
+   ========================================================= */
 
 .categorie{
     display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
+
+    max-width:100%;
+
     background:var(--vert-clair);
+
     color:var(--vert-fonce);
-    font-size:12px;
+
+    border-radius:20px;
+
+    padding:5px 10px;
+
+    margin-bottom:9px;
+
+    font-size:11px;
     font-weight:700;
-    margin-bottom:10px;
+
+    line-height:1.3;
+
+    overflow-wrap:anywhere;
 }
 
-/* ==================================================
-   STATUTS
-   ================================================== */
+/* =========================================================
+   14. STATUTS
+   ========================================================= */
 
 .statut{
     display:inline-block;
+
+    max-width:100%;
+
     padding:5px 10px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:700;
+
     margin-top:8px;
+
+    border-radius:20px;
+
+    font-size:11px;
+    font-weight:700;
+
+    line-height:1.3;
 }
 
+/* En attente */
 .statut.attente{
     background:#fff3cd;
     color:#856404;
 }
 
+/* Validé */
 .statut.valide{
     background:#d4edda;
     color:#155724;
 }
 
+/* En cours */
 .statut.encours{
     background:#d6ecff;
     color:#14527a;
 }
 
+/* Réalisé */
 .statut.realise{
     background:#dff5e7;
     color:#176b3a;
 }
 
+/* Refusé */
 .statut.refuse{
     background:#f8d7da;
     color:#721c24;
 }
 
-/* ==================================================
-   MONTANTS
-   ================================================== */
+/* =========================================================
+   15. BLOCS MONTANTS
+   ========================================================= */
 
 .montants-projet,
 .montants-investissement{
+    width:100%;
+
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin:15px 0;
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:9px;
+
+    margin:14px 0;
 }
 
 .montant{
+    min-width:0;
+
     background:var(--gris-clair);
-    border-radius:10px;
+
+    border-radius:9px;
+
     padding:10px;
 }
 
 .montant span{
     display:block;
+
     color:var(--gris);
-    font-size:11px;
-    margin-bottom:3px;
+
+    font-size:10px;
+
+    line-height:1.3;
+
+    margin-bottom:4px;
 }
 
 .montant strong{
     display:block;
+
     color:var(--vert);
-    font-size:15px;
+
+    font-size:14px;
+    font-weight:800;
+
+    line-height:1.3;
+
+    overflow-wrap:anywhere;
 }
 
-/* ==================================================
-   ACTIONS DES CARTES
-   ================================================== */
+/* =========================================================
+   16. ACTIONS DES CARTES
+   ========================================================= */
 
 .projet-actions,
 .investissement-actions{
+    width:100%;
+
     display:flex;
     flex-wrap:wrap;
+
     gap:8px;
-    margin-top:15px;
+
+    margin-top:14px;
 }
 
 .projet-actions button,
 .investissement-actions button{
     border:none;
+
     border-radius:8px;
-    padding:9px 13px;
+
+    padding:9px 12px;
+
     font-size:12px;
     font-weight:700;
+
+    line-height:1.3;
+
+    transition:.2s ease;
 }
+
+.projet-actions button:hover,
+.investissement-actions button:hover{
+    transform:translateY(-1px);
+}
+
+/* =========================================================
+   17. BOUTONS
+   ========================================================= */
 
 .btn-primary{
     background:var(--vert);
     color:var(--blanc);
+
+    border:none;
+
+    border-radius:9px;
+
+    padding:11px 16px;
+
+    font-size:13px;
+    font-weight:700;
 }
 
 .btn-primary:hover{
@@ -460,48 +804,86 @@ header{
 .btn-secondary{
     background:#eef2ef;
     color:var(--noir);
+
+    border:none;
+
+    border-radius:9px;
+
+    padding:11px 16px;
+
+    font-size:13px;
+    font-weight:700;
 }
 
 .btn-secondary:hover{
-    background:#e1e7e3;
-}
+    background:#dfe7e2;
+   }
 
-/* ==================================================
-   FORMULAIRE INVESTISSEMENT
-   ================================================== */
+/* =========================================================
+   18. FORMULAIRE D'INVESTISSEMENT
+   ========================================================= */
 
 .formulaire{
+    width:100%;
+
     background:var(--blanc);
+
     border:1px solid var(--bordure);
-    border-radius:18px;
-    padding:25px;
-    margin-bottom:25px;
+    border-radius:17px;
+
+    padding:22px;
+
+    margin-bottom:22px;
+
     box-shadow:var(--ombre);
 }
 
 .formulaire-header{
+    width:100%;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
+
+    gap:12px;
+
+    padding-bottom:13px;
+
     margin-bottom:20px;
-    padding-bottom:15px;
+
     border-bottom:1px solid var(--bordure);
 }
 
 .formulaire-header h2{
+    margin:0;
+
     color:var(--vert);
-    font-size:22px;
+
+    font-size:21px;
+    font-weight:800;
+
+    line-height:1.3;
 }
 
 .formulaire-header button{
     width:38px;
     height:38px;
+
+    min-width:38px;
+
     border:none;
     border-radius:50%;
-    background:#f1f1f1;
+
+    background:#f1f3f2;
     color:var(--gris);
-    font-size:17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+
+    transition:.2s ease;
 }
 
 .formulaire-header button:hover{
@@ -509,211 +891,320 @@ header{
     color:var(--blanc);
 }
 
+/* =========================================================
+   19. GROUPES DU FORMULAIRE
+   ========================================================= */
+
 .form-group{
-    margin-bottom:17px;
+    width:100%;
+
+    margin-bottom:16px;
 }
 
 .form-group label{
     display:block;
-    margin-bottom:6px;
+
+    color:var(--noir);
+
     font-size:13px;
     font-weight:700;
-    color:var(--noir);
+
+    line-height:1.4;
+
+    margin-bottom:6px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea{
     width:100%;
-    border:1px solid #ccd7d1;
+    max-width:100%;
+
+    border:1px solid #ccd8d1;
+
     border-radius:9px;
-    padding:12px 13px;
-    font-size:14px;
-    color:var(--noir);
+
     background:var(--blanc);
+    color:var(--noir);
+
+    padding:11px 12px;
+
+    font-size:14px;
+
+    line-height:1.5;
+
     outline:none;
-    transition:.2s ease;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.form-group input{
+    height:44px;
+}
+
+.form-group select{
+    height:44px;
+}
+
+.form-group textarea{
+    min-height:105px;
+
+    resize:vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color:#999;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus{
     border-color:var(--vert);
-    box-shadow:0 0 0 3px rgba(0,146,69,.10);
+
+    box-shadow:
+        0 0 0 3px rgba(0,146,69,.10);
 }
 
-.form-group textarea{
-    min-height:110px;
-    resize:vertical;
-}
+/* =========================================================
+   20. LIGNE À DEUX COLONNES
+   ========================================================= */
 
 .form-row{
+    width:100%;
+
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        minmax(0,1fr);
+
+    gap:14px;
 }
 
+/* =========================================================
+   21. BOUTON ENVOYER
+   ========================================================= */
+
 .form-submit{
+    width:100%;
+
     margin-top:20px;
 }
 
 .form-submit button{
     width:100%;
+
+    min-height:46px;
+
     border:none;
-    border-radius:10px;
-    padding:13px 18px;
+
+    border-radius:9px;
+
     background:var(--vert);
+
     color:var(--blanc);
+
+    padding:12px 18px;
+
     font-size:14px;
     font-weight:700;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:7px;
+
+    transition:.2s ease;
 }
 
 .form-submit button:hover{
     background:var(--vert-fonce);
 }
 
-/* ==================================================
-   BOÎTE D'INFORMATION
-   ================================================== */
+.form-submit button:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
+}
+
+/* =========================================================
+   22. BOÎTE D'INFORMATION
+   ========================================================= */
 
 .info-box{
+    width:100%;
+
     background:var(--vert-clair);
+
     border-left:4px solid var(--vert);
+
     border-radius:10px;
-    padding:15px 18px;
-    margin-bottom:25px;
+
+    padding:15px 17px;
+
+    margin-bottom:22px;
 }
 
 .info-box h3{
+    margin:0 0 5px;
+
     color:var(--vert-fonce);
+
     font-size:16px;
-    margin-bottom:5px;
+    font-weight:800;
+
+    line-height:1.4;
 }
 
 .info-box p{
-    color:#385343;
-    font-size:13px;
     margin:0;
+
+    color:#385343;
+
+    font-size:13px;
+
+    line-height:1.6;
 }
 
-/* ==================================================
-   ÉTAT VIDE
-   ================================================== */
+/* =========================================================
+   23. ÉTAT VIDE
+   ========================================================= */
 
 .etat-vide{
+    width:100%;
+
     text-align:center;
-    padding:40px 20px;
-    color:var(--gris);
+
+    padding:38px 20px;
 }
 
 .etat-vide i{
     display:block;
-    font-size:42px;
-    color:#b8c7be;
-    margin-bottom:12px;
+
+    color:#b7c5bd;
+
+    font-size:40px;
+
+    margin-bottom:10px;
 }
 
 .etat-vide h3{
+    margin:0 0 5px;
+
     color:var(--noir);
+
     font-size:17px;
-    margin-bottom:5px;
+    font-weight:700;
+
+    line-height:1.4;
 }
 
 .etat-vide p{
+    margin:0;
+
+    color:var(--gris);
+
     font-size:13px;
+
+    line-height:1.5;
 }
 
-/* ==================================================
-   MESSAGES
-   ================================================== */
+/* =========================================================
+   24. MESSAGES
+   ========================================================= */
 
 .message{
+    width:100%;
+
     display:none;
-    padding:12px 15px;
+
     border-radius:9px;
+
+    padding:12px 14px;
+
     margin:15px 0;
+
     font-size:13px;
     font-weight:600;
+
+    line-height:1.5;
 }
 
 .message.success{
     display:block;
+
     background:#dff5e7;
+
     color:#176b3a;
+
     border:1px solid #b9e5c8;
 }
 
 .message.error{
     display:block;
+
     background:#f8d7da;
+
     color:#721c24;
+
     border:1px solid #efb8be;
 }
 
 .message.info{
     display:block;
+
     background:#d6ecff;
+
     color:#14527a;
+
     border:1px solid #b7d9f4;
 }
 
-/* ==================================================
-   ACTION RETOUR
-   ================================================== */
+/* =========================================================
+   25. ACTIONS DU BAS
+   ========================================================= */
 
 .bottom-actions{
+    width:100%;
+
     display:flex;
+
+    align-items:center;
     justify-content:center;
-    margin:25px 0;
+
+    margin:24px 0;
 }
 
 .bottom-actions button{
     border:none;
-    border-radius:10px;
-    padding:12px 22px;
-    font-size:14px;
+
+    border-radius:9px;
+
+    padding:11px 20px;
+
+    font-size:13px;
     font-weight:700;
+
+    line-height:1.4;
+
+    transition:.2s ease;
+}
+
+.bottom-actions button:hover{
+    transform:translateY(-1px);
 }
 
 .bottom-actions button i{
-    margin-right:7px;
+    margin-right:6px;
 }
 
-/* ==================================================
-   FOOTER
-   ================================================== */
-
-footer{
-    background:var(--blanc);
-    border-top:1px solid var(--bordure);
-    text-align:center;
-    padding:25px 20px;
-    margin-top:30px;
-}
-
-.footer-logo{
-    width:50px;
-    height:50px;
-    object-fit:contain;
-    margin-bottom:8px;
-}
-
-footer p{
-    color:var(--gris);
-    font-size:12px;
-}
-
-footer strong{
-    color:var(--vert);
-}
-
-/* ==================================================
-   UTILITAIRES
-   ================================================== */
-
-.hidden{
-    display:none !important;
-}
+/* =========================================================
+   26. PETITS UTILITAIRES
+   ========================================================= */
 
 .text-center{
     text-align:center;
@@ -725,201 +1216,615 @@ footer strong{
 
 .mb-20{
     margin-bottom:20px;
+   }
+
+/* =========================================================
+   27. FOOTER
+   ========================================================= */
+
+footer{
+    width:100%;
+
+    background:var(--blanc);
+
+    border-top:1px solid var(--bordure);
+
+    text-align:center;
+
+    padding:22px 15px;
+
+    margin-top:30px;
+
+    overflow:hidden;
 }
 
-/* ==================================================
-   TABLETTE
-   ================================================== */
+/* Logo du footer */
+footer .footer-logo,
+footer img{
+    display:block;
+
+    width:50px !important;
+    height:50px !important;
+
+    max-width:50px !important;
+    max-height:50px !important;
+
+    min-width:50px !important;
+    min-height:50px !important;
+
+    object-fit:contain !important;
+
+    object-position:center;
+
+    margin:0 auto 9px;
+
+    border:none;
+
+    border-radius:0;
+}
+
+footer p{
+    margin:0;
+
+    color:var(--gris);
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+footer strong{
+    color:var(--vert);
+}
+
+/* =========================================================
+   28. RESPONSIVE — TABLETTE
+   ========================================================= */
 
 @media(max-width:900px){
 
+    .container{
+        max-width:100%;
+
+        padding:20px 16px 35px;
+    }
+
     .actions-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
     .stats-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
     .liste{
         grid-template-columns:1fr;
     }
 
-    .container{
-        padding:20px 15px 35px;
-    }
-
     .hero h2{
-        font-size:26px;
+        font-size:25px;
     }
 }
 
-/* ==================================================
-   MOBILE
-   ================================================== */
+/* =========================================================
+   29. RESPONSIVE — MOBILE
+   ========================================================= */
 
 @media(max-width:600px){
 
-    header{
-        padding:12px 15px;
+    /* ---------- BODY ---------- */
+
+    body{
+        width:100%;
+        max-width:100%;
+
+        font-size:14px;
+
+        overflow-x:hidden;
     }
 
-    .logo{
-        width:45px;
-        height:45px;
+    /* ---------- HEADER ---------- */
+
+    header{
+        min-height:62px;
+
+        padding:8px 12px;
+
+        gap:8px;
+    }
+
+    header .logo{
+        width:42px;
+        height:42px;
+
+        max-width:42px;
+        max-height:42px;
+
+        flex:0 0 42px;
+    }
+
+    .header-left{
+        gap:9px;
     }
 
     .header-title h1{
         font-size:17px;
+
+        line-height:1.2;
     }
 
     .header-title p{
-        font-size:11px;
+        font-size:10px;
+    }
+
+    .header-actions{
+        gap:5px;
     }
 
     .header-actions button{
-        width:38px;
-        height:38px;
+        width:36px;
+        height:36px;
+
+        font-size:14px;
     }
+
+    /* ---------- CONTAINER ---------- */
 
     .container{
-        padding:15px 12px 30px;
+        width:100%;
+        max-width:100%;
+
+        padding:14px 12px 30px;
+
+        margin:0;
     }
+
+    /* ---------- MEMBRE ---------- */
 
     .membre-bar{
-        padding:12px;
+        width:100%;
+
+        padding:10px 12px;
+
+        margin-bottom:15px;
+
+        border-radius:13px;
     }
 
-    .photo-membre,
-    #photoMembre{
-        width:48px;
-        height:48px;
+    #photoMembre,
+    .photo-membre{
+        width:45px;
+        height:45px;
+
+        min-width:45px;
+        max-width:45px;
+
+        min-height:45px;
+        max-height:45px;
     }
 
     .membre-info h3{
-        font-size:15px;
+        font-size:14px;
     }
 
+    .membre-info p{
+        font-size:11px;
+    }
+
+    /* ---------- HERO ---------- */
+
     .hero{
-        padding:23px 18px;
+        width:100%;
+
+        padding:20px 16px;
+
+        margin-bottom:16px;
+
         border-radius:15px;
     }
 
     .hero h2{
-        font-size:23px;
+        font-size:22px;
+
+        line-height:1.3;
     }
 
     .hero p{
         font-size:13px;
+
+        line-height:1.5;
     }
 
+    /* ---------- ACTIONS ---------- */
+
     .actions-grid{
-        grid-template-columns:1fr 1fr;
+        width:100%;
+
+        grid-template-columns:repeat(2,minmax(0,1fr));
+
         gap:10px;
+
+        margin-bottom:18px;
     }
 
     .action-card{
-        min-height:115px;
-        padding:15px 10px;
+        min-height:110px;
+
+        padding:14px 9px;
+
+        border-radius:13px;
     }
 
     .action-card i{
         font-size:24px;
+
+        margin-bottom:7px;
     }
 
     .action-card strong{
         font-size:13px;
+
+        line-height:1.3;
     }
 
     .action-card span{
-        font-size:11px;
+        font-size:10px;
+
+        line-height:1.35;
     }
 
+    /* ---------- STATISTIQUES ---------- */
+
     .stats-grid{
-        grid-template-columns:1fr 1fr;
+        width:100%;
+
+        grid-template-columns:repeat(2,minmax(0,1fr));
+
         gap:10px;
+
+        margin-bottom:18px;
     }
 
     .stat-box{
-        padding:15px 12px;
+        padding:13px 10px;
+
+        border-radius:12px;
+    }
+
+    .stat-box i{
+        font-size:20px;
+
+        margin-bottom:6px;
     }
 
     .stat-box strong{
-        font-size:20px;
+        font-size:19px;
+
+        line-height:1.2;
     }
 
     .stat-box span{
-        font-size:11px;
+        font-size:10px;
+
+        line-height:1.35;
     }
 
+    /* ---------- SECTIONS ---------- */
+
     .section{
-        padding:16px;
+        width:100%;
+
+        padding:15px;
+
+        margin-bottom:17px;
+
         border-radius:14px;
+    }
+
+    .section-header{
+        margin-bottom:14px;
+
+        padding-bottom:10px;
+
+        gap:8px;
     }
 
     .section-header h2{
         font-size:18px;
+
+        line-height:1.3;
     }
+
+    /* ---------- LISTES ---------- */
+
+    .liste{
+        width:100%;
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+    }
+
+    /* ---------- CARTES ---------- */
 
     .opportunite-card,
     .projet-card,
     .proposition-card,
     .participation-card{
-        padding:16px;
+        width:100%;
+
+        padding:15px;
+
+        border-radius:12px;
     }
+
+    .opportunite-card h3,
+    .projet-card h3,
+    .proposition-card h3,
+    .participation-card h3{
+        font-size:16px;
+    }
+
+    .opportunite-card p,
+    .projet-card p,
+    .proposition-card p,
+    .participation-card p{
+        font-size:12px;
+    }
+
+    /* ---------- MONTANTS ---------- */
 
     .montants-projet,
     .montants-investissement{
         grid-template-columns:1fr;
+
+        gap:8px;
+
+        margin:12px 0;
     }
 
-    .formulaire{
-        padding:18px 15px;
+    .montant{
+        padding:9px;
     }
 
-    .formulaire-header h2{
-        font-size:19px;
+    .montant span{
+        font-size:10px;
     }
 
-    .form-row{
-        grid-template-columns:1fr;
-        gap:0;
+    .montant strong{
+        font-size:13px;
     }
+
+    /* ---------- ACTIONS CARTES ---------- */
 
     .projet-actions,
     .investissement-actions{
+        width:100%;
+
+        display:flex;
+
         flex-direction:column;
+
+        gap:7px;
     }
 
     .projet-actions button,
     .investissement-actions button{
         width:100%;
+
+        padding:10px;
+
+        font-size:12px;
+    }
+
+    /* ---------- FORMULAIRE ---------- */
+
+    .formulaire{
+        width:100%;
+
+        padding:17px 13px;
+
+        border-radius:14px;
+    }
+
+    .formulaire-header{
+        margin-bottom:16px;
+    }
+
+    .formulaire-header h2{
+        font-size:18px;
+    }
+
+    .formulaire-header button{
+        width:35px;
+        height:35px;
+
+        min-width:35px;
+    }
+
+    .form-row{
+        width:100%;
+
+        grid-template-columns:1fr;
+
+        gap:0;
+    }
+
+    .form-group{
+        margin-bottom:14px;
+    }
+
+    .form-group label{
+        font-size:12px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+        font-size:13px;
+    }
+
+    .form-group input,
+    .form-group select{
+        height:42px;
+    }
+
+    .form-group textarea{
+        min-height:95px;
+    }
+
+    .form-submit{
+        margin-top:16px;
+    }
+
+    .form-submit button{
+        min-height:44px;
+
+        font-size:13px;
+    }
+
+    /* ---------- INFO ---------- */
+
+    .info-box{
+        padding:13px 14px;
+
+        margin-bottom:17px;
+    }
+
+    .info-box h3{
+        font-size:15px;
+    }
+
+    .info-box p{
+        font-size:12px;
+
+        line-height:1.5;
+    }
+
+    /* ---------- ÉTAT VIDE ---------- */
+
+    .etat-vide{
+        padding:30px 12px;
+    }
+
+    .etat-vide i{
+        font-size:35px;
+    }
+
+    .etat-vide h3{
+        font-size:16px;
+    }
+
+    .etat-vide p{
+        font-size:12px;
+    }
+
+    /* ---------- MESSAGE ---------- */
+
+    .message{
+        padding:10px 12px;
+
+        font-size:12px;
+    }
+
+    /* ---------- BOUTON RETOUR ---------- */
+
+    .bottom-actions{
+        margin:18px 0;
     }
 
     .bottom-actions button{
         width:100%;
+
+        padding:11px 15px;
+
+        font-size:13px;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer{
+        width:100%;
+
+        padding:18px 10px;
+
+        margin-top:20px;
+    }
+
+    footer .footer-logo,
+    footer img{
+        width:45px !important;
+        height:45px !important;
+
+        max-width:45px !important;
+        max-height:45px !important;
+
+        min-width:45px !important;
+        min-height:45px !important;
+
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    footer p{
+        font-size:11px;
     }
 }
 
-/* ==================================================
-   TRÈS PETITS ÉCRANS
-   ================================================== */
+/* =========================================================
+   30. TRÈS PETITS ÉCRANS
+   ========================================================= */
 
 @media(max-width:380px){
 
+    .container{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
     .actions-grid{
-        grid-template-columns:1fr;
+        gap:8px;
+    }
+
+    .action-card{
+        min-height:105px;
+
+        padding:12px 7px;
+    }
+
+    .action-card i{
+        font-size:22px;
+    }
+
+    .action-card strong{
+        font-size:12px;
+    }
+
+    .action-card span{
+        font-size:9px;
     }
 
     .stats-grid{
-        grid-template-columns:1fr;
+        gap:8px;
     }
 
-    .header-title p{
-        display:none;
+    .stat-box{
+        padding:12px 8px;
+    }
+
+    .stat-box strong{
+        font-size:17px;
+    }
+
+    .stat-box span{
+        font-size:9px;
     }
 
     .hero h2{
-        font-size:21px;
+        font-size:20px;
     }
-}
+
+    .hero p{
+        font-size:12px;
+    }
+   }
