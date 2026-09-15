@@ -1761,3 +1761,1138 @@ async function soumettreProjet(
 
 }
 
+
+/*==================================================
+ PROPOSER UN FINANCEMENT
+==================================================*/
+
+async function proposerFinancement(
+    projetId,
+    projet
+) {
+
+    if (!firebaseReady) {
+
+        afficherMessage(
+            "La connexion à la base de données n'est pas disponible.",
+            "erreur"
+        );
+
+        return;
+    }
+
+
+    /*
+     Le membre ne finance pas directement le projet.
+
+     Il propose un montant.
+     La demande est ensuite envoyée au Président
+     pour étude et décision.
+    */
+
+    const montant =
+        prompt(
+            "Quel montant souhaitez-vous proposer pour ce projet ?"
+        );
+
+
+    if (montant === null) {
+        return;
+    }
+
+
+    const montantNettoye =
+        montant
+            .replace(/\s/g, "")
+            .replace(/,/g, ".")
+            .trim();
+
+
+    const montantNombre =
+        Number(
+            montantNettoye
+        );
+
+
+    if (
+        !montantNettoye ||
+        !Number.isFinite(montantNombre) ||
+        montantNombre <= 0
+    ) {
+
+        afficherMessage(
+            "Veuillez saisir un montant valide.",
+            "erreur"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const {
+            ref,
+            push,
+            set
+        } = firebaseDatabase;
+
+
+        const financementsRef =
+            ref(
+                realtime,
+                "financements"
+            );
+
+
+        const nouveauFinancementRef =
+            push(
+                financementsRef
+            );
+
+
+        const financement = {
+
+            projetId:
+                projetId,
+
+            projetNom:
+                projet.nomProjet ||
+                projet.nom ||
+                "Projet",
+
+            membreId:
+                membre.id || "",
+
+            matricule:
+                membre.matricule || "",
+
+            nomMembre:
+                membre.nom || "",
+
+            montant:
+                montantNombre,
+
+            statut:
+                "en_attente",
+
+            date:
+                new Date().toISOString()
+
+        };
+
+
+        await set(
+            nouveauFinancementRef,
+            financement
+        );
+
+
+        console.log(
+            "DEMANDE DE FINANCEMENT ENVOYÉE :",
+            financement
+        );
+
+
+        afficherMessage(
+            "Votre proposition de financement a été transmise au Président pour étude.",
+            "succes"
+        );
+
+
+        await chargerDonnees();
+
+
+    } catch (erreur) {
+
+        console.error(
+            "ERREUR FINANCEMENT :",
+            erreur
+        );
+
+
+        afficherMessage(
+            "Impossible d'envoyer la proposition de financement.",
+            "erreur"
+        );
+
+    }
+
+}
+
+
+/*==================================================
+ DONNER UN AVIS SUR UN PROJET
+==================================================*/
+
+async function donnerAvis(
+    projetId,
+    projet
+) {
+
+    if (!firebaseReady) {
+
+        afficherMessage(
+            "La connexion à la base de données n'est pas disponible.",
+            "erreur"
+        );
+
+        return;
+    }
+
+
+    const avis =
+        prompt(
+            "Votre avis sur ce projet :"
+        );
+
+
+    if (avis === null) {
+        return;
+    }
+
+
+    const avisNettoye =
+        avis.trim();
+
+
+    if (!avisNettoye) {
+
+        afficherMessage(
+            "Veuillez saisir votre avis.",
+            "erreur"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const {
+            ref,
+            push,
+            set
+        } = firebaseDatabase;
+
+
+        const avisRef =
+            ref(
+                realtime,
+                "avisProjets"
+            );
+
+
+        const nouvelAvisRef =
+            push(
+                avisRef
+            );
+
+
+        const nouvelAvis = {
+
+            projetId:
+                projetId,
+
+            projetNom:
+                projet.nomProjet ||
+                projet.nom ||
+                "Projet",
+
+            membreId:
+                membre.id || "",
+
+            matricule:
+                membre.matricule || "",
+
+            nomMembre:
+                membre.nom || "",
+
+            avis:
+                avisNettoye,
+
+            date:
+                new Date().toISOString()
+
+        };
+
+
+        await set(
+            nouvelAvisRef,
+            nouvelAvis
+        );
+
+
+        console.log(
+            "AVIS ENREGISTRÉ :",
+            nouvelAvis
+        );
+
+
+        afficherMessage(
+            "Votre avis a été enregistré avec succès.",
+            "succes"
+        );
+
+
+        await chargerDonnees();
+
+
+    } catch (erreur) {
+
+        console.error(
+            "ERREUR AVIS :",
+            erreur
+        );
+
+
+        afficherMessage(
+            "Impossible d'enregistrer votre avis.",
+            "erreur"
+        );
+
+    }
+
+}
+
+
+/*==================================================
+ AFFICHER MES FINANCEMENTS
+==================================================*/
+
+function afficherMesFinancements() {
+
+    const container =
+        document.getElementById(
+            "listeFinancements"
+        );
+
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const mesFinancements =
+        Object.entries(
+            financements || {}
+        ).filter(
+            function ([id, financement]) {
+
+                if (!financement) {
+                    return false;
+                }
+
+
+                return estMonFinancement(
+                    financement
+                );
+
+            }
+        );
+
+
+    if (
+        mesFinancements.length === 0
+    ) {
+
+        afficherEtatVide(
+            "etatVideFinancements",
+            container
+        );
+
+        return;
+
+    }
+
+
+    cacherEtatVide(
+        "etatVideFinancements"
+    );
+
+
+    mesFinancements.sort(
+        function (a, b) {
+
+            const dateA =
+                convertirDate(
+                    a[1].date ||
+                    a[1].dateDemande ||
+                    0
+                );
+
+
+            const dateB =
+                convertirDate(
+                    b[1].date ||
+                    b[1].dateDemande ||
+                    0
+                );
+
+
+            return dateB - dateA;
+
+        }
+    );
+
+
+    mesFinancements.forEach(
+        function ([id, financement]) {
+
+            container.appendChild(
+                creerCarteFinancement(
+                    id,
+                    financement
+                )
+            );
+
+        }
+    );
+
+}
+
+
+/*==================================================
+ CARTE FINANCEMENT
+==================================================*/
+
+function creerCarteFinancement(
+    id,
+    financement
+) {
+
+    const carte =
+        document.createElement(
+            "article"
+        );
+
+
+    carte.className =
+        "financement-card";
+
+
+    /*------------------------------------------
+     PROJET
+    ------------------------------------------*/
+
+    const titre =
+        document.createElement(
+            "h3"
+        );
+
+
+    titre.textContent =
+        financement.projetNom ||
+        "Projet";
+
+
+    carte.appendChild(
+        titre
+    );
+
+
+    /*------------------------------------------
+     MONTANT
+    ------------------------------------------*/
+
+    const montant =
+        document.createElement(
+            "div"
+        );
+
+
+    montant.className =
+        "montant";
+
+
+    montant.textContent =
+        formatMontant(
+            financement.montant
+        );
+
+
+    carte.appendChild(
+        montant
+    );
+
+
+    /*------------------------------------------
+     STATUT
+    ------------------------------------------*/
+
+    const statut =
+        normaliserStatut(
+            financement.statut ||
+            "en_attente"
+        );
+
+
+    const statutElement =
+        document.createElement(
+            "span"
+        );
+
+
+    statutElement.className =
+        "statut " +
+        classeStatutFinancement(
+            statut
+        );
+
+
+    statutElement.textContent =
+        libelleStatutFinancement(
+            statut
+        );
+
+
+    carte.appendChild(
+        statutElement
+    );
+
+
+    /*------------------------------------------
+     DATE
+    ------------------------------------------*/
+
+    if (
+        financement.date ||
+        financement.dateDemande
+    ) {
+
+        const date =
+            document.createElement(
+                "small"
+            );
+
+
+        date.textContent =
+            "Demande du " +
+            formaterDate(
+                financement.date ||
+                financement.dateDemande
+            );
+
+
+        carte.appendChild(
+            date
+        );
+
+    }
+
+
+    return carte;
+}
+
+
+/*==================================================
+ VÉRIFIER SI LE PROJET APPARTIENT AU MEMBRE
+==================================================*/
+
+function estMonProjet(
+    projet
+) {
+
+    if (!projet) {
+        return false;
+    }
+
+
+    if (
+        membre.id &&
+        String(
+            projet.porteurId || ""
+        ) === String(
+            membre.id
+        )
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        membre.matricule &&
+        String(
+            projet.porteurMatricule || ""
+        ) === String(
+            membre.matricule
+        )
+    ) {
+
+        return true;
+
+    }
+
+
+    return false;
+}
+
+
+/*==================================================
+ VÉRIFIER SI LE FINANCEMENT APPARTIENT AU MEMBRE
+==================================================*/
+
+function estMonFinancement(
+    financement
+) {
+
+    if (!financement) {
+        return false;
+    }
+
+
+    if (
+        membre.id &&
+        String(
+            financement.membreId || ""
+        ) === String(
+            membre.id
+        )
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        membre.matricule &&
+        String(
+            financement.matricule || ""
+        ) === String(
+            membre.matricule
+        )
+    ) {
+
+        return true;
+
+    }
+
+
+    return false;
+}
+
+
+/*==================================================
+ NORMALISER UN STATUT
+==================================================*/
+
+function normaliserStatut(
+    statut
+) {
+
+    return String(
+        statut || ""
+    )
+        .toLowerCase()
+        .trim()
+        .replace(/[\s-]+/g, "_");
+
+}
+
+
+/*==================================================
+ CLASSE CSS DU STATUT
+==================================================*/
+
+function classeStatut(
+    statut
+) {
+
+    switch (
+        normaliserStatut(statut)
+    ) {
+
+        case "en_attente":
+        case "attente":
+        case "pending":
+
+            return "attente";
+
+
+        case "valide":
+        case "validé":
+        case "approved":
+
+            return "valide";
+
+
+        case "en_cours":
+        case "encours":
+
+            return "encours";
+
+
+        case "realise":
+        case "réalisé":
+        case "termine":
+        case "terminé":
+
+            return "realise";
+
+
+        case "refuse":
+        case "refusé":
+        case "rejected":
+
+            return "refuse";
+
+
+        default:
+
+            return "attente";
+
+    }
+
+}
+
+
+/*==================================================
+ LIBELLÉ DU STATUT PROJET
+==================================================*/
+
+function libelleStatut(
+    statut
+) {
+
+    switch (
+        normaliserStatut(statut)
+    ) {
+
+        case "valide":
+        case "validé":
+        case "approved":
+
+            return "Projet validé";
+
+
+        case "en_cours":
+        case "encours":
+
+            return "En cours";
+
+
+        case "realise":
+        case "réalisé":
+        case "termine":
+        case "terminé":
+
+            return "Projet réalisé";
+
+
+        case "refuse":
+        case "refusé":
+        case "rejected":
+
+            return "Projet refusé";
+
+
+        case "en_attente":
+        case "attente":
+        case "pending":
+
+            return "En attente de validation";
+
+
+        default:
+
+            return "En attente";
+
+    }
+
+}
+
+
+/*==================================================
+ CLASSE CSS FINANCEMENT
+==================================================*/
+
+function classeStatutFinancement(
+    statut
+) {
+
+    switch (
+        normaliserStatut(statut)
+    ) {
+
+        case "valide":
+        case "approved":
+        case "approuve":
+        case "approuvé":
+
+            return "valide";
+
+
+        case "refuse":
+        case "refusé":
+        case "rejected":
+
+            return "refuse";
+
+
+        case "en_attente":
+        case "attente":
+        case "pending":
+
+            return "attente";
+
+
+        default:
+
+            return "attente";
+
+    }
+
+}
+
+
+/*==================================================
+ LIBELLÉ FINANCEMENT
+==================================================*/
+
+function libelleStatutFinancement(
+    statut
+) {
+
+    switch (
+        normaliserStatut(statut)
+    ) {
+
+        case "valide":
+        case "approved":
+        case "approuve":
+        case "approuvé":
+
+            return "Financement approuvé";
+
+
+        case "refuse":
+        case "refusé":
+        case "rejected":
+
+            return "Financement refusé";
+
+
+        case "en_attente":
+        case "attente":
+        case "pending":
+
+            return "En attente de décision";
+
+
+        default:
+
+            return "En attente de décision";
+
+    }
+
+}
+
+
+/*==================================================
+ AFFICHER ÉTAT VIDE
+==================================================*/
+
+function afficherEtatVide(
+    id,
+    container
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.style.display =
+            "block";
+
+        /*
+         L'élément d'état vide est déplacé
+         dans son conteneur uniquement s'il
+         n'y est pas déjà.
+        */
+
+        if (
+            container &&
+            element.parentElement !== container
+        ) {
+
+            container.appendChild(
+                element
+            );
+
+        }
+
+    }
+
+}
+
+
+/*==================================================
+ CACHER ÉTAT VIDE
+==================================================*/
+
+function cacherEtatVide(
+    id
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.style.display =
+            "none";
+
+    }
+
+}
+
+
+/*==================================================
+ DÉFINIR UN TEXTE
+==================================================*/
+
+function definirTexte(
+    id,
+    valeur
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.textContent =
+            valeur;
+
+    }
+
+}
+
+
+/*==================================================
+ RÉCUPÉRER LA VALEUR D'UN CHAMP
+==================================================*/
+
+function valeur(
+    id
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+        return "";
+    }
+
+
+    return String(
+        element.value || ""
+    ).trim();
+
+}
+
+
+/*==================================================
+ AFFICHER UN MESSAGE
+==================================================*/
+
+function afficherMessage(
+    texte,
+    type
+) {
+
+    const element =
+        document.getElementById(
+            "message"
+        );
+
+
+    if (!element) {
+
+        console.log(
+            texte
+        );
+
+        return;
+
+    }
+
+
+    element.textContent =
+        texte;
+
+
+    element.className =
+        "message " +
+        (
+            type ||
+            "info"
+        );
+
+
+    element.style.display =
+        "block";
+
+
+    clearTimeout(
+        afficherMessage.timer
+    );
+
+
+    afficherMessage.timer =
+        setTimeout(
+            function () {
+
+                element.style.display =
+                    "none";
+
+            },
+            6000
+        );
+
+}
+
+
+/*==================================================
+ FORMATAGE DES MONTANTS
+==================================================*/
+
+function formatMontant(
+    montant
+) {
+
+    const nombre =
+        Number(
+            String(
+                montant || 0
+            )
+                .replace(/\s/g, "")
+                .replace(/,/g, ".")
+        );
+
+
+    if (
+        !Number.isFinite(nombre)
+    ) {
+
+        return "0 FCFA";
+
+    }
+
+
+    return (
+        new Intl.NumberFormat(
+            "fr-FR"
+        ).format(
+            nombre
+        ) +
+        " FCFA"
+    );
+
+}
+
+
+/*==================================================
+ CONVERTIR UNE DATE
+==================================================*/
+
+function convertirDate(
+    date
+) {
+
+    if (!date) {
+        return 0;
+    }
+
+
+    const resultat =
+        new Date(date).getTime();
+
+
+    if (
+        Number.isNaN(
+            resultat
+        )
+    ) {
+
+        return 0;
+
+    }
+
+
+    return resultat;
+
+}
+
+
+/*==================================================
+ FORMATER UNE DATE
+==================================================*/
+
+function formaterDate(
+    date
+) {
+
+    const valeurDate =
+        new Date(date);
+
+
+    if (
+        Number.isNaN(
+            valeurDate.getTime()
+        )
+    ) {
+
+        return "---";
+
+    }
+
+
+    return valeurDate.toLocaleDateString(
+        "fr-FR",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/*==================================================
+ ÉCHAPPER LE HTML
+==================================================*/
+
+function echapperHTML(
+    texte
+) {
+
+    return String(
+        texte || ""
+    )
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/*==================================================
+ FIN DU FICHIER
+==================================================*/
+
+console.log(
+    "PROJETSMEMBRE.JS — VERSION COMPLÈTE CHARGÉE"
+);
