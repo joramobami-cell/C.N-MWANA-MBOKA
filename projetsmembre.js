@@ -344,14 +344,19 @@ function initialiserInterface() {
 
 
 /*==================================================
- INITIALISER LES ÉVÉNEMENTS
+ INITIALISER LES BOUTONS DES PROJETS
 ==================================================*/
 
 function initialiserEvenements() {
 
-    /*------------------------------------------
-     BOUTON : SOUMETTRE
-    ------------------------------------------*/
+    console.log(
+        "INITIALISATION DES BOUTONS PROJETS..."
+    );
+
+
+    /*==============================================
+     SOUMETTRE UN PROJET
+    ==============================================*/
 
     const btnSoumettre =
         document.getElementById(
@@ -363,7 +368,14 @@ function initialiserEvenements() {
 
         btnSoumettre.addEventListener(
             "click",
-            function () {
+            function (event) {
+
+                event.preventDefault();
+
+                console.log(
+                    "BOUTON SOUMETTRE CLIQUÉ"
+                );
+
 
                 afficherSection(
                     "formulaireProjet"
@@ -371,12 +383,13 @@ function initialiserEvenements() {
 
             }
         );
+
     }
 
 
-    /*------------------------------------------
-     BOUTON : PROJETS DISPONIBLES
-    ------------------------------------------*/
+    /*==============================================
+     PROJETS DISPONIBLES
+    ==============================================*/
 
     const btnProjets =
         document.getElementById(
@@ -388,20 +401,31 @@ function initialiserEvenements() {
 
         btnProjets.addEventListener(
             "click",
-            function () {
+            function (event) {
+
+                event.preventDefault();
+
+                console.log(
+                    "BOUTON PROJETS DISPONIBLES CLIQUÉ"
+                );
+
 
                 afficherSection(
                     "sectionProjets"
                 );
 
+
+                afficherProjetsDisponibles();
+
             }
         );
+
     }
 
 
-    /*------------------------------------------
-     BOUTON : MES PROJETS
-    ------------------------------------------*/
+    /*==============================================
+     MES PROJETS
+    ==============================================*/
 
     const btnMesProjets =
         document.getElementById(
@@ -413,20 +437,31 @@ function initialiserEvenements() {
 
         btnMesProjets.addEventListener(
             "click",
-            function () {
+            function (event) {
+
+                event.preventDefault();
+
+                console.log(
+                    "BOUTON MES PROJETS CLIQUÉ"
+                );
+
 
                 afficherSection(
                     "sectionMesProjets"
                 );
 
+
+                afficherMesProjets();
+
             }
         );
+
     }
 
 
-    /*------------------------------------------
-     BOUTON : MES FINANCEMENTS
-    ------------------------------------------*/
+    /*==============================================
+     MES FINANCEMENTS
+    ==============================================*/
 
     const btnFinancements =
         document.getElementById(
@@ -438,20 +473,31 @@ function initialiserEvenements() {
 
         btnFinancements.addEventListener(
             "click",
-            function () {
+            function (event) {
+
+                event.preventDefault();
+
+                console.log(
+                    "BOUTON MES FINANCEMENTS CLIQUÉ"
+                );
+
 
                 afficherSection(
                     "sectionFinancements"
                 );
 
+
+                afficherMesFinancements();
+
             }
         );
+
     }
 
 
-    /*------------------------------------------
-     BOUTON : FERMER FORMULAIRE
-    ------------------------------------------*/
+    /*==============================================
+     FERMER LE FORMULAIRE
+    ==============================================*/
 
     const btnFermer =
         document.getElementById(
@@ -463,7 +509,10 @@ function initialiserEvenements() {
 
         btnFermer.addEventListener(
             "click",
-            function () {
+            function (event) {
+
+                event.preventDefault();
+
 
                 cacherSection(
                     "formulaireProjet"
@@ -471,12 +520,13 @@ function initialiserEvenements() {
 
             }
         );
+
     }
 
 
-    /*------------------------------------------
-     FORMULAIRE
-    ------------------------------------------*/
+    /*==============================================
+     FORMULAIRE DE PROJET
+    ==============================================*/
 
     const formulaire =
         document.getElementById(
@@ -490,13 +540,15 @@ function initialiserEvenements() {
             "submit",
             soumettreProjet
         );
+
     }
 
 
     console.log(
-        "ÉVÉNEMENTS PROJETS INITIALISÉS"
+        "BOUTONS PROJETS PRÊTS"
     );
-}
+
+         }
 
 
 /*==================================================
