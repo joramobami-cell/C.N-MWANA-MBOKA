@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Investissements - Espace membre | MWANA MBOKA
+    </title>
+
+
+    <!--
+    CSS PRINCIPAL
+    -->
+
+    <link
+        rel="stylesheet"
+        href="investmembre.css"
+    >
+
+
+    <!--
+    FONT AWESOME
+    -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!--==================================================
+ EN-TÊTE
+===================================================-->
+
+<header class="header">
+
+    <div class="header-left">
+
+        <img
+            src="logo.png"
+            alt="Logo MWANA MBOKA"
+            class="logo"
+        >
+
+        <div>
+
+            <h1>
+                MWANA MBOKA
+            </h1>
+
+            <p>
+                Espace investissements
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <button
+            type="button"
+            class="icon-btn"
+            id="btnNotifications"
+            title="Notifications"
+        >
+
+            <i class="fa-solid fa-bell"></i>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="icon-btn"
+            id="btnRetour"
+            title="Retour à l'espace membre"
+        >
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!--==================================================
+ CONTENU PRINCIPAL
+===================================================-->
+
+<main class="container">
+
+
+    <!--================================================
+     IDENTIFICATION MEMBRE
+    =================================================-->
+
+    <section class="membre-bar">
+
+        <div class="membre-photo">
+
+            <img
+                id="photoMembre"
+                src="logo.png"
+                alt="Photo du membre"
+            >
+
+        </div>
+
+
+        <div class="membre-informations">
+
+            <strong id="nomMembre">
+                Membre
+            </strong>
+
+            <span>
+                Matricule :
+                <b id="matriculeMembre">
+                    ---
+                </b>
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!--================================================
+     BANNIÈRE
+    =================================================-->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-label">
+                INVESTISSEMENT COMMUNAUTAIRE
+            </span>
+
+
+            <h2>
+                Investissons ensemble,
+                construisons notre avenir
+            </h2>
+
+
+            <p>
+                Découvrez les opportunités d'investissement
+                de la communauté numérique MWANA MBOKA,
+                participez aux initiatives des membres
+                et suivez vos propositions.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!--================================================
+     ACTIONS PRINCIPALES
+    =================================================-->
+
+    <section class="actions-grid">
+
+
+        <!--============================================
+         OPPORTUNITÉS
+        =============================================-->
+
+        <button
+            type="button"
+            class="action-card"
+            id="btnOpportunites"
+        >
+
+            <div class="action-icon">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+            </div>
+
+
+            <div class="action-content">
+
+                <h3>
+                    Opportunités disponibles
+                </h3>
+
+                <p>
+                    Découvrez les opportunités
+                    d'investissement validées.
+                </p>
+
+            </div>
+
+        </button>
+
+
+
+        <!--============================================
+         MES PROPOSITIONS
+        =============================================-->
+
+        <button
+            type="button"
+            class="action-card"
+            id="btnMesPropositions"
+        >
+
+            <div class="action-icon">
+
+                <i class="fa-solid fa-file-signature"></i>
+
+            </div>
+
+
+            <div class="action-content">
+
+                <h3>
+                    Mes propositions
+                </h3>
+
+                <p>
+                    Consultez vos propositions
+                    d'investissement.
+                </p>
+
+            </div>
+
+        </button>
+
+
+
+        <!--============================================
+         MES PARTICIPATIONS
+        =============================================-->
+
+        <button
+            type="button"
+            class="action-card"
+            id="btnParticipations"
+        >
+
+            <div class="action-icon">
+
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+
+            </div>
+
+
+            <div class="action-content">
+
+                <h3>
+                    Mes participations
+                </h3>
+
+                <p>
+                    Suivez vos investissements
+                    et participations.
+                </p>
+
+            </div>
+
+        </button>
+
+
+
+        <!--============================================
+         SOUMETTRE UNE OPPORTUNITÉ
+        =============================================-->
+
+        <button
+            type="button"
+            class="action-card"
+            id="btnSoumettre"
+        >
+
+            <div class="action-icon">
+
+                <i class="fa-solid fa-plus"></i>
+
+            </div>
+
+
+            <div class="action-content">
+
+                <h3>
+                    Proposer une opportunité
+                </h3>
+
+                <p>
+                    Soumettez une opportunité
+                    à l'étude du Président.
+                </p>
+
+            </div>
+
+        </button>
+
+    </section>
+
+
+
+    <!--================================================
+     SUITE DANS LA PARTIE 2
+    =================================================-->
+
+      <!--================================================
+     TABLEAU DE BORD
+    =================================================-->
+
+    <section class="dashboard">
+
+        <div class="section-title">
+
+            <span>
+                MON ACTIVITÉ
+            </span>
+
+            <h2>
+                Tableau de bord investissements
+            </h2>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+            <!--========================================
+             OPPORTUNITÉS
+            =========================================-->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </div>
+
+                <div>
+
+                    <strong id="totalOpportunites">
+                        0
+                    </strong>
+
+                    <span>
+                        Opportunités
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!--========================================
+             PROPOSITIONS
+            =========================================-->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-file-circle-check"></i>
+
+                </div>
+
+                <div>
+
+                    <strong id="totalPropositions">
+                        0
+                    </strong>
+
+                    <span>
+                        Mes propositions
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!--========================================
+             PARTICIPATIONS
+            =========================================-->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-coins"></i>
+
+                </div>
+
+                <div>
+
+                    <strong id="totalParticipations">
+                        0
+                    </strong>
+
+                    <span>
+                        Participations
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!--========================================
+             MONTANT
+            =========================================-->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+
+                </div>
+
+                <div>
+
+                    <strong id="montantInvesti">
+                        0 FCFA
+                    </strong>
+
+                    <span>
+                        Montant engagé
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!--================================================
+     SECTION OPPORTUNITÉS
+    =================================================-->
+
+    <section
+        class="content-section"
+        id="sectionOpportunites"
+    >
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-label">
+                    INVESTISSEMENTS
+                </span>
+
+                <h2>
+                    Opportunités disponibles
+                </h2>
+
+                <p>
+                    Consultez les opportunités
+                    validées par la communauté.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="listeOpportunites"
+            class="cards-container"
+        >
+
+            <!--
+            Les opportunités seront chargées
+            automatiquement par investmembre.js.
+            -->
+
+        </div>
+
+
+        <div
+            id="etatVideOpportunites"
+            class="empty-state"
+            style="display:none;"
+        >
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>
+                Aucune opportunité disponible
+            </h3>
+
+            <p>
+                Les nouvelles opportunités
+                apparaîtront ici après validation.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!--================================================
+     MES PROPOSITIONS
+    =================================================-->
+
+    <section
+        class="content-section"
+        id="sectionMesPropositions"
+        style="display:none;"
+    >
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-label">
+                    MES DEMANDES
+                </span>
+
+                <h2>
+                    Mes propositions
+                </h2>
+
+                <p>
+                    Suivez les propositions
+                    d'investissement que vous avez
+                    envoyées.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="listePropositions"
+            class="cards-container"
+        >
+
+        </div>
+
+
+        <div
+            id="etatVidePropositions"
+            class="empty-state"
+            style="display:none;"
+        >
+
+            <i class="fa-solid fa-file-signature"></i>
+
+            <h3>
+                Aucune proposition
+            </h3>
+
+            <p>
+                Vos propositions d'investissement
+                apparaîtront ici.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!--================================================
+     MES PARTICIPATIONS
+    =================================================-->
+
+    <section
+        class="content-section"
+        id="sectionParticipations"
+        style="display:none;"
+    >
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-label">
+                    MON PORTEFEUILLE
+                </span>
+
+                <h2>
+                    Mes participations
+                </h2>
+
+                <p>
+                    Consultez les investissements
+                    auxquels vous participez.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="listeParticipations"
+            class="cards-container"
+        >
+
+        </div>
+
+
+        <div
+            id="etatVideParticipations"
+            class="empty-state"
+            style="display:none;"
+        >
+
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+
+            <h3>
+                Aucune participation
+            </h3>
+
+            <p>
+                Vos participations validées
+                apparaîtront ici.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!--================================================
+     FORMULAIRE : PROPOSER UNE OPPORTUNITÉ
+    =================================================-->
+
+    <section
+        class="content-section"
+        id="formulaireInvestissement"
+        style="display:none;"
+    >
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-label">
+                    NOUVELLE OPPORTUNITÉ
+                </span>
+
+                <h2>
+                    Proposer une opportunité
+                </h2>
+
+                <p>
+                    Présentez une opportunité
+                    d'investissement au Président
+                    pour étude et validation.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn-fermer"
+                id="btnFermerFormulaire"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+                Fermer
+
+            </button>
+
+        </div>
+
+
+
+        <!--============================================
+         FORMULAIRE
+        =============================================-->
+
+        <form
+            id="formInvestissement"
+            class="investment-form"
+        >
+
+
+            <!--========================================
+             NOM
+            =========================================-->
+
+            <div class="form-group">
+
+                <label for="nomOpportunite">
+
+                    Nom de l'opportunité
+
+                </label>
+
+                <input
+                    type="text"
+                    id="nomOpportunite"
+                    name="nomOpportunite"
+                    placeholder="Ex. Projet agricole communautaire"
+                    required
+                >
+
+            </div>
+
+
+
+            <!--========================================
+             CATÉGORIE
+            =========================================-->
+
+            <div class="form-group">
+
+                <label for="categorieInvestissement">
+
+                    Catégorie
+
+                </label>
+
+                <select
+                    id="categorieInvestissement"
+                    name="categorieInvestissement"
+                    required
+                >
+
+                    <option value="">
+                        Sélectionner une catégorie
+                    </option>
+
+                    <option value="Agriculture">
+                        Agriculture
+                    </option>
+
+                    <option value="Commerce">
+                        Commerce
+                    </option>
+
+                    <option value="Numérique">
+                        Numérique
+                    </option>
+
+                    <option value="Immobilier">
+                        Immobilier
+                    </option>
+
+                    <option value="Élevage">
+                        Élevage
+                    </option>
+
+                    <option value="Transport">
+                        Transport
+                    </option>
+
+                    <option value="Services">
+                        Services
+                    </option>
+
+                    <option value="Entrepreneuriat">
+                        Entrepreneuriat
+                    </option>
+
+                    <option value="Autre">
+                        Autre
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!--========================================
+             LOCALISATION
+            =========================================-->
+
+            <div class="form-group">
+
+                <label for="localisationInvestissement">
+
+                    Localisation
+
+                </label>
+
+                <input
+                    type="text"
+                    id="localisationInvestissement"
+                    name="localisationInvestissement"
+                    placeholder="Ville / département / pays"
+                >
+
+            </div>
+
+
+
+            <!--========================================
+             DESCRIPTION
+            =========================================-->
+
+            <div class="form-group full-width">
+
+                <label for="descriptionInvestissement">
+
+                    Description de l'opportunité
+
+                </label>
+
+                <textarea
+                    id="descriptionInvestissement"
+                    name="descriptionInvestissement"
+                    rows="5"
+                    placeholder="Présentez clairement l'opportunité..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+
+            <!--========================================
+             OBJECTIFS
+            =========================================-->
+
+            <div class="form-group full-width">
+
+                <label for="objectifsInvestissement">
+
+                    Objectifs
+
+                </label>
+
+                <textarea
+                    id="objectifsInvestissement"
+                    name="objectifsInvestissement"
+                    rows="4"
+                    placeholder="Quels sont les objectifs de cette opportunité ?"
+                ></textarea>
+
+            </div>
+
+
+
+            <!--========================================
+             MONTANT TOTAL
+            =========================================-->
+
+            <div class="form-group">
+
+                <label for="montantTotal">
+
+                    Montant total nécessaire
+
+                </label>
+
+                <input
+                    type="number"
+                    id="montantTotal"
+                    name="montantTotal"
+                    min="0"
+                    placeholder="Ex. 5000000"
+                >
+
+            </div>
+
+
+
+            <!--========================================
+             MONTANT RECHERCHÉ
+            =========================================-->
+
+            <div class="form-group">
+
+                <label for="montantRechercheInvestissement">
+
+                    Montant recherché
+
+                </label>
+
+                <input
+                    type="number"
+                    id="montantRechercheInvestissement"
+                    name="montantRechercheInvestissement"
+                    min="0"
+                    placeholder="Ex. 3000000"
+                >
+
+            </div>
+
+
+
+            <!--========================================
+             BESOINS
+            =========================================-->
+
+            <div class="form-group full-width">
+
+                <label for="besoinsInvestissement">
+
+                    Besoins / utilisation des fonds
+
+                </label>
+
+                <textarea
+                    id="besoinsInvestissement"
+                    name="besoinsInvestissement"
+                    rows="4"
+                    placeholder="Expliquez comment les fonds seront utilisés..."
+                ></textarea>
+
+            </div>
+
+
+
+            <!--========================================
+             BOUTON ENVOI
+            =========================================-->
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                    id="btnEnvoyerInvestissement"
+                >
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Envoyer au Président
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+
+    <!--================================================
+     MESSAGE
+    =================================================-->
+
+    <div
+        id="message"
+        class="message"
+        style="display:none;"
+    ></div>
+
+      <!--================================================
+     INFORMATIONS IMPORTANTES
+    =================================================-->
+
+    <section class="information-box">
+
+        <div class="information-icon">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Comment fonctionnent les investissements ?
+            </h3>
+
+            <p>
+                Les opportunités proposées par les membres
+                sont soumises à l'étude et à la validation
+                du Président avant leur publication.
+            </p>
+
+            <p>
+                Toute proposition de participation est
+                également examinée avant toute décision.
+            </p>
+
+            <p>
+                Une demande envoyée depuis cet espace
+                constitue une <strong>proposition</strong>
+                et non une transaction financière immédiate.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!--================================================
+     ZONE DE RETOUR
+    =================================================-->
+
+    <div class="bottom-actions">
+
+        <button
+            type="button"
+            class="btn-secondary"
+            id="btnRetourEspace"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour à l'espace membre
+
+        </button>
+
+    </div>
+
+</main>
+
+
+
+<!--==================================================
+ PIED DE PAGE
+===================================================-->
+
+<footer class="footer">
+
+    <div class="footer-logo">
+
+        <img
+            src="logo.png"
+            alt="MWANA MBOKA"
+        >
+
+    </div>
+
+
+    <div class="footer-content">
+
+        <strong>
+            COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+        </strong>
+
+        <span>
+            Ensemble nous irons plus loin.
+        </span>
+
+        <small>
+            © <span id="annee"></span>
+            MWANA MBOKA — Tous droits réservés.
+        </small>
+
+    </div>
+
+</footer>
+
+
+
+<!--==================================================
+ JAVASCRIPT
+===================================================-->
+
+<script
+    type="module"
+    src="investmembre.js"
+></script>
+
+
+</body>
+
+  </html>
