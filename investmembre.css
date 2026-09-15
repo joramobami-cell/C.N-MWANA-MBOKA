@@ -1,0 +1,925 @@
+/* ==================================================
+   INVESTMEMBRE.CSS
+   ESPACE INVESTISSEMENTS MEMBRE
+   COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+   ================================================== */
+
+:root{
+    --vert:#009245;
+    --vert-fonce:#007a39;
+    --vert-clair:#eaf8f0;
+    --blanc:#ffffff;
+    --noir:#222222;
+    --gris:#666666;
+    --gris-clair:#f5f7f6;
+    --bordure:#dfe7e2;
+    --orange:#f39c12;
+    --rouge:#d63031;
+    --bleu:#2980b9;
+    --ombre:0 5px 18px rgba(0,0,0,.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7f6;
+    color:var(--noir);
+    line-height:1.6;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* ==================================================
+   HEADER
+   ================================================== */
+
+header{
+    background:var(--blanc);
+    border-bottom:2px solid var(--bordure);
+    padding:15px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.logo{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+    border-radius:10px;
+}
+
+.header-title h1{
+    color:var(--vert);
+    font-size:22px;
+    font-weight:800;
+}
+
+.header-title p{
+    color:var(--gris);
+    font-size:13px;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.header-actions button{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:var(--vert-clair);
+    color:var(--vert);
+    font-size:17px;
+}
+
+.header-actions button:hover{
+    background:var(--vert);
+    color:var(--blanc);
+}
+
+/* ==================================================
+   CONTAINER
+   ================================================== */
+
+.container{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:25px 20px 40px;
+}
+
+/* ==================================================
+   BARRE MEMBRE
+   ================================================== */
+
+.membre-bar{
+    background:var(--blanc);
+    border:1px solid var(--bordure);
+    border-radius:15px;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    box-shadow:var(--ombre);
+    margin-bottom:22px;
+}
+
+.photo-membre,
+#photoMembre{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--vert);
+    background:var(--vert-clair);
+}
+
+.membre-info{
+    flex:1;
+}
+
+.membre-info h3{
+    font-size:17px;
+    color:var(--noir);
+    margin-bottom:2px;
+}
+
+.membre-info p{
+    font-size:13px;
+    color:var(--gris);
+}
+
+#matriculeMembre{
+    font-weight:700;
+    color:var(--vert);
+}
+
+/* ==================================================
+   HERO
+   ================================================== */
+
+.hero{
+    background:linear-gradient(135deg,var(--vert),var(--vert-fonce));
+    color:var(--blanc);
+    padding:30px 25px;
+    border-radius:20px;
+    margin-bottom:25px;
+    box-shadow:var(--ombre);
+}
+
+.hero h2{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    max-width:800px;
+    font-size:15px;
+    opacity:.95;
+}
+
+/* ==================================================
+   ACTIONS PRINCIPALES
+   ================================================== */
+
+.actions-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.action-card{
+    border:none;
+    background:var(--blanc);
+    border:1px solid var(--bordure);
+    border-radius:15px;
+    padding:20px 15px;
+    min-height:130px;
+    box-shadow:var(--ombre);
+    color:var(--noir);
+    transition:.2s ease;
+}
+
+.action-card:hover{
+    transform:translateY(-3px);
+    border-color:var(--vert);
+}
+
+.action-card i{
+    display:block;
+    font-size:28px;
+    color:var(--vert);
+    margin-bottom:10px;
+}
+
+.action-card strong{
+    display:block;
+    font-size:15px;
+    margin-bottom:4px;
+}
+
+.action-card span{
+    display:block;
+    color:var(--gris);
+    font-size:12px;
+}
+
+/* ==================================================
+   STATISTIQUES
+   ================================================== */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.stat-box{
+    background:var(--blanc);
+    border:1px solid var(--bordure);
+    border-radius:15px;
+    padding:20px;
+    box-shadow:var(--ombre);
+}
+
+.stat-box i{
+    color:var(--vert);
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.stat-box strong{
+    display:block;
+    font-size:24px;
+    color:var(--vert);
+}
+
+.stat-box span{
+    color:var(--gris);
+    font-size:13px;
+}
+
+/* ==================================================
+   SECTIONS
+   ================================================== */
+
+.section{
+    background:var(--blanc);
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:25px;
+    box-shadow:var(--ombre);
+}
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:20px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--bordure);
+}
+
+.section-header h2{
+    color:var(--vert);
+    font-size:21px;
+}
+
+.section-header i{
+    margin-right:7px;
+}
+
+/* ==================================================
+   LISTES
+   ================================================== */
+
+.liste{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+/* ==================================================
+   CARTES OPPORTUNITÉS
+   ================================================== */
+
+.opportunite-card,
+.projet-card,
+.proposition-card,
+.participation-card{
+    background:var(--blanc);
+    border:1px solid var(--bordure);
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.opportunite-card h3,
+.projet-card h3,
+.proposition-card h3,
+.participation-card h3{
+    color:var(--vert);
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.opportunite-card p,
+.projet-card p,
+.proposition-card p,
+.participation-card p{
+    color:var(--gris);
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+/* ==================================================
+   CATÉGORIE
+   ================================================== */
+
+.categorie{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    background:var(--vert-clair);
+    color:var(--vert-fonce);
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+/* ==================================================
+   STATUTS
+   ================================================== */
+
+.statut{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    margin-top:8px;
+}
+
+.statut.attente{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.statut.valide{
+    background:#d4edda;
+    color:#155724;
+}
+
+.statut.encours{
+    background:#d6ecff;
+    color:#14527a;
+}
+
+.statut.realise{
+    background:#dff5e7;
+    color:#176b3a;
+}
+
+.statut.refuse{
+    background:#f8d7da;
+    color:#721c24;
+}
+
+/* ==================================================
+   MONTANTS
+   ================================================== */
+
+.montants-projet,
+.montants-investissement{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin:15px 0;
+}
+
+.montant{
+    background:var(--gris-clair);
+    border-radius:10px;
+    padding:10px;
+}
+
+.montant span{
+    display:block;
+    color:var(--gris);
+    font-size:11px;
+    margin-bottom:3px;
+}
+
+.montant strong{
+    display:block;
+    color:var(--vert);
+    font-size:15px;
+}
+
+/* ==================================================
+   ACTIONS DES CARTES
+   ================================================== */
+
+.projet-actions,
+.investissement-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:15px;
+}
+
+.projet-actions button,
+.investissement-actions button{
+    border:none;
+    border-radius:8px;
+    padding:9px 13px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.btn-primary{
+    background:var(--vert);
+    color:var(--blanc);
+}
+
+.btn-primary:hover{
+    background:var(--vert-fonce);
+}
+
+.btn-secondary{
+    background:#eef2ef;
+    color:var(--noir);
+}
+
+.btn-secondary:hover{
+    background:#e1e7e3;
+}
+
+/* ==================================================
+   FORMULAIRE INVESTISSEMENT
+   ================================================== */
+
+.formulaire{
+    background:var(--blanc);
+    border:1px solid var(--bordure);
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:var(--ombre);
+}
+
+.formulaire-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:20px;
+    padding-bottom:15px;
+    border-bottom:1px solid var(--bordure);
+}
+
+.formulaire-header h2{
+    color:var(--vert);
+    font-size:22px;
+}
+
+.formulaire-header button{
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:50%;
+    background:#f1f1f1;
+    color:var(--gris);
+    font-size:17px;
+}
+
+.formulaire-header button:hover{
+    background:var(--rouge);
+    color:var(--blanc);
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--noir);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    border:1px solid #ccd7d1;
+    border-radius:9px;
+    padding:12px 13px;
+    font-size:14px;
+    color:var(--noir);
+    background:var(--blanc);
+    outline:none;
+    transition:.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:var(--vert);
+    box-shadow:0 0 0 3px rgba(0,146,69,.10);
+}
+
+.form-group textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-submit{
+    margin-top:20px;
+}
+
+.form-submit button{
+    width:100%;
+    border:none;
+    border-radius:10px;
+    padding:13px 18px;
+    background:var(--vert);
+    color:var(--blanc);
+    font-size:14px;
+    font-weight:700;
+}
+
+.form-submit button:hover{
+    background:var(--vert-fonce);
+}
+
+/* ==================================================
+   BOÎTE D'INFORMATION
+   ================================================== */
+
+.info-box{
+    background:var(--vert-clair);
+    border-left:4px solid var(--vert);
+    border-radius:10px;
+    padding:15px 18px;
+    margin-bottom:25px;
+}
+
+.info-box h3{
+    color:var(--vert-fonce);
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.info-box p{
+    color:#385343;
+    font-size:13px;
+    margin:0;
+}
+
+/* ==================================================
+   ÉTAT VIDE
+   ================================================== */
+
+.etat-vide{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--gris);
+}
+
+.etat-vide i{
+    display:block;
+    font-size:42px;
+    color:#b8c7be;
+    margin-bottom:12px;
+}
+
+.etat-vide h3{
+    color:var(--noir);
+    font-size:17px;
+    margin-bottom:5px;
+}
+
+.etat-vide p{
+    font-size:13px;
+}
+
+/* ==================================================
+   MESSAGES
+   ================================================== */
+
+.message{
+    display:none;
+    padding:12px 15px;
+    border-radius:9px;
+    margin:15px 0;
+    font-size:13px;
+    font-weight:600;
+}
+
+.message.success{
+    display:block;
+    background:#dff5e7;
+    color:#176b3a;
+    border:1px solid #b9e5c8;
+}
+
+.message.error{
+    display:block;
+    background:#f8d7da;
+    color:#721c24;
+    border:1px solid #efb8be;
+}
+
+.message.info{
+    display:block;
+    background:#d6ecff;
+    color:#14527a;
+    border:1px solid #b7d9f4;
+}
+
+/* ==================================================
+   ACTION RETOUR
+   ================================================== */
+
+.bottom-actions{
+    display:flex;
+    justify-content:center;
+    margin:25px 0;
+}
+
+.bottom-actions button{
+    border:none;
+    border-radius:10px;
+    padding:12px 22px;
+    font-size:14px;
+    font-weight:700;
+}
+
+.bottom-actions button i{
+    margin-right:7px;
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+footer{
+    background:var(--blanc);
+    border-top:1px solid var(--bordure);
+    text-align:center;
+    padding:25px 20px;
+    margin-top:30px;
+}
+
+.footer-logo{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+    margin-bottom:8px;
+}
+
+footer p{
+    color:var(--gris);
+    font-size:12px;
+}
+
+footer strong{
+    color:var(--vert);
+}
+
+/* ==================================================
+   UTILITAIRES
+   ================================================== */
+
+.hidden{
+    display:none !important;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.mt-20{
+    margin-top:20px;
+}
+
+.mb-20{
+    margin-bottom:20px;
+}
+
+/* ==================================================
+   TABLETTE
+   ================================================== */
+
+@media(max-width:900px){
+
+    .actions-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .liste{
+        grid-template-columns:1fr;
+    }
+
+    .container{
+        padding:20px 15px 35px;
+    }
+
+    .hero h2{
+        font-size:26px;
+    }
+}
+
+/* ==================================================
+   MOBILE
+   ================================================== */
+
+@media(max-width:600px){
+
+    header{
+        padding:12px 15px;
+    }
+
+    .logo{
+        width:45px;
+        height:45px;
+    }
+
+    .header-title h1{
+        font-size:17px;
+    }
+
+    .header-title p{
+        font-size:11px;
+    }
+
+    .header-actions button{
+        width:38px;
+        height:38px;
+    }
+
+    .container{
+        padding:15px 12px 30px;
+    }
+
+    .membre-bar{
+        padding:12px;
+    }
+
+    .photo-membre,
+    #photoMembre{
+        width:48px;
+        height:48px;
+    }
+
+    .membre-info h3{
+        font-size:15px;
+    }
+
+    .hero{
+        padding:23px 18px;
+        border-radius:15px;
+    }
+
+    .hero h2{
+        font-size:23px;
+    }
+
+    .hero p{
+        font-size:13px;
+    }
+
+    .actions-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .action-card{
+        min-height:115px;
+        padding:15px 10px;
+    }
+
+    .action-card i{
+        font-size:24px;
+    }
+
+    .action-card strong{
+        font-size:13px;
+    }
+
+    .action-card span{
+        font-size:11px;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat-box{
+        padding:15px 12px;
+    }
+
+    .stat-box strong{
+        font-size:20px;
+    }
+
+    .stat-box span{
+        font-size:11px;
+    }
+
+    .section{
+        padding:16px;
+        border-radius:14px;
+    }
+
+    .section-header h2{
+        font-size:18px;
+    }
+
+    .opportunite-card,
+    .projet-card,
+    .proposition-card,
+    .participation-card{
+        padding:16px;
+    }
+
+    .montants-projet,
+    .montants-investissement{
+        grid-template-columns:1fr;
+    }
+
+    .formulaire{
+        padding:18px 15px;
+    }
+
+    .formulaire-header h2{
+        font-size:19px;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+    .projet-actions,
+    .investissement-actions{
+        flex-direction:column;
+    }
+
+    .projet-actions button,
+    .investissement-actions button{
+        width:100%;
+    }
+
+    .bottom-actions button{
+        width:100%;
+    }
+}
+
+/* ==================================================
+   TRÈS PETITS ÉCRANS
+   ================================================== */
+
+@media(max-width:380px){
+
+    .actions-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .header-title p{
+        display:none;
+    }
+
+    .hero h2{
+        font-size:21px;
+    }
+}
