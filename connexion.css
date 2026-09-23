@@ -1,0 +1,919 @@
+/*==================================================
+  MWANA MBOKA
+  PAGE CONNEXION MEMBRE
+  VERSION PREMIUM RESPONSIVE
+==================================================*/
+
+
+/*==================================================
+  RESET
+==================================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+html{
+
+    width:100%;
+
+    min-height:100%;
+
+    overflow-x:hidden;
+
+    overflow-y:auto;
+
+}
+
+
+body{
+
+    width:100%;
+
+    min-height:100vh;
+
+    margin:0;
+
+    padding:25px 15px 40px;
+
+    font-family:
+    "Poppins",
+    Arial,
+    sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #003b1f,
+        #006837,
+        #009245
+    );
+
+    color:#222;
+
+    overflow-x:hidden;
+
+    overflow-y:auto;
+
+    position:relative;
+
+}
+
+
+/*==================================================
+  DECORATION FOND
+==================================================*/
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:-180px;
+
+    right:-180px;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.08);
+
+    pointer-events:none;
+
+}
+
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    bottom:-200px;
+
+    left:-200px;
+
+    width:480px;
+
+    height:480px;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,215,0,.08);
+
+    pointer-events:none;
+
+}
+
+
+/*==================================================
+  CONTENEUR
+==================================================*/
+
+.connexion-page{
+
+    width:100%;
+
+    max-width:620px;
+
+    margin:0 auto;
+
+    position:relative;
+
+    z-index:2;
+
+    animation:
+    apparition .7s ease;
+
+}
+
+
+@keyframes apparition{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+
+/*==================================================
+  BANNIERE
+==================================================*/
+
+.banner{
+
+    display:block;
+
+    width:100%;
+
+    height:auto;
+
+    max-height:280px;
+
+    object-fit:cover;
+
+    border-radius:25px;
+
+    margin:0 auto 22px;
+
+    box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.35);
+
+}
+
+
+/*==================================================
+  CARTE
+==================================================*/
+
+.connexion-card{
+
+    width:100%;
+
+    background:#fff;
+
+    padding:38px;
+
+    border-radius:30px;
+
+    box-shadow:
+    0 20px 55px
+    rgba(0,0,0,.30);
+
+    text-align:center;
+
+}
+
+
+/*==================================================
+  LOGO
+==================================================*/
+
+.logo-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+
+.logo{
+
+    width:105px;
+
+    height:105px;
+
+    object-fit:contain;
+
+    padding:8px;
+
+    background:#fff;
+
+    border-radius:22px;
+
+    border:
+    3px solid #009245;
+
+    box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.18);
+
+}
+
+
+/*==================================================
+  TITRE
+==================================================*/
+
+h1{
+
+    color:#008f45;
+
+    font-size:30px;
+
+    line-height:1.2;
+
+    margin-bottom:12px;
+
+}
+
+
+/*==================================================
+  SLOGAN
+==================================================*/
+
+.slogan{
+
+    color:#666;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+    margin-bottom:30px;
+
+}
+
+
+.slogan strong{
+
+    color:#333;
+
+}
+
+
+/*==================================================
+  FORMULAIRE
+==================================================*/
+
+#connexionForm{
+
+    width:100%;
+
+}
+
+
+/*==================================================
+  CHAMPS
+==================================================*/
+
+.input-box{
+
+    position:relative;
+
+    width:100%;
+
+    margin-bottom:18px;
+
+}
+
+
+.input-box input{
+
+    display:block;
+
+    width:100%;
+
+    height:60px;
+
+    padding:
+    0 55px
+    0 52px;
+
+    border:
+    2px solid #ddd;
+
+    border-radius:17px;
+
+    background:#fff;
+
+    color:#333;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:
+    border-color .25s,
+    box-shadow .25s;
+
+}
+
+
+.input-box input::placeholder{
+
+    color:#888;
+
+}
+
+
+.input-box input:focus{
+
+    border-color:#009245;
+
+    box-shadow:
+    0 0 0 4px
+    rgba(0,146,69,.10);
+
+}
+
+
+/*==================================================
+  ICONE GAUCHE
+==================================================*/
+
+.input-icon{
+
+    position:absolute;
+
+    left:18px;
+
+    top:50%;
+
+    transform:
+    translateY(-50%);
+
+    color:#009245;
+
+    font-size:18px;
+
+    pointer-events:none;
+
+    z-index:2;
+
+}
+
+
+/*==================================================
+  BOUTON OEIL
+==================================================*/
+
+.password-toggle{
+
+    position:absolute;
+
+    right:8px;
+
+    top:50%;
+
+    transform:
+    translateY(-50%);
+
+    width:44px;
+
+    height:44px;
+
+    margin:0;
+
+    padding:0;
+
+    border:none;
+
+    background:transparent;
+
+    color:#777;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:none;
+
+}
+
+
+.password-toggle:hover{
+
+    transform:
+    translateY(-50%);
+
+    box-shadow:none;
+
+    color:#009245;
+
+}
+
+
+.password-toggle i{
+
+    font-size:17px;
+
+}
+
+
+/*==================================================
+  BOUTON CONNEXION
+==================================================*/
+
+.btn-connexion{
+
+    width:100%;
+
+    min-height:60px;
+
+    margin-top:5px;
+
+    border:none;
+
+    border-radius:17px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #009245,
+        #006837
+    );
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:
+    transform .25s,
+    box-shadow .25s,
+    opacity .25s;
+
+}
+
+
+.btn-connexion:hover{
+
+    transform:
+    translateY(-2px);
+
+    box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.22);
+
+}
+
+
+.btn-connexion:active{
+
+    transform:
+    translateY(0);
+
+}
+
+
+.btn-connexion:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+
+/*==================================================
+  BOUTON DEVENIR MEMBRE
+==================================================*/
+
+.btn-member{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    width:100%;
+
+    min-height:56px;
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border-radius:17px;
+
+    text-decoration:none;
+
+    background:
+    linear-gradient(
+        135deg,
+        #FFD700,
+        #F1C40F
+    );
+
+    color:#222;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    transition:
+    transform .25s,
+    box-shadow .25s;
+
+}
+
+
+.btn-member:hover{
+
+    transform:
+    translateY(-2px);
+
+    box-shadow:
+    0 10px 20px
+    rgba(0,0,0,.18);
+
+}
+
+
+/*==================================================
+  MESSAGE
+==================================================*/
+
+.message{
+
+    min-height:30px;
+
+    margin-top:20px;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    font-weight:700;
+
+}
+
+
+.message.error{
+
+    color:#d00000;
+
+}
+
+
+.message.success{
+
+    color:#008f45;
+
+}
+
+
+.message.normal{
+
+    color:#666;
+
+}
+
+
+/*==================================================
+  FOOTER
+==================================================*/
+
+.footer{
+
+    margin-top:28px;
+
+    padding-top:20px;
+
+    border-top:
+    1px solid #eee;
+
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+}
+
+
+.footer strong{
+
+    color:#009245;
+
+}
+
+
+/*==================================================
+  TABLETTES
+==================================================*/
+
+@media(
+    min-width:600px
+){
+
+    body{
+
+        padding:
+        35px 25px 60px;
+
+    }
+
+
+    .connexion-page{
+
+        max-width:650px;
+
+    }
+
+
+    .banner{
+
+        max-height:300px;
+
+    }
+
+
+    .connexion-card{
+
+        padding:45px;
+
+    }
+
+}
+
+
+/*==================================================
+  ORDINATEUR
+==================================================*/
+
+@media(
+    min-width:1000px
+){
+
+    body{
+
+        padding:
+        45px 25px 70px;
+
+    }
+
+
+    .connexion-page{
+
+        max-width:720px;
+
+    }
+
+
+    .banner{
+
+        max-height:320px;
+
+        border-radius:28px;
+
+        margin-bottom:28px;
+
+    }
+
+
+    .connexion-card{
+
+        padding:
+        50px 55px;
+
+        border-radius:35px;
+
+    }
+
+
+    h1{
+
+        font-size:32px;
+
+    }
+
+}
+
+
+/*==================================================
+  TELEPHONE
+==================================================*/
+
+@media(
+    max-width:599px
+){
+
+    body{
+
+        padding:
+        12px 10px 35px;
+
+    }
+
+
+    .connexion-page{
+
+        width:100%;
+
+    }
+
+
+    .banner{
+
+        border-radius:18px;
+
+        margin-bottom:15px;
+
+    }
+
+
+    .connexion-card{
+
+        padding:
+        25px 18px 30px;
+
+        border-radius:25px;
+
+    }
+
+
+    .logo{
+
+        width:88px;
+
+        height:88px;
+
+        border-radius:18px;
+
+    }
+
+
+    h1{
+
+        font-size:25px;
+
+    }
+
+
+    .slogan{
+
+        font-size:14px;
+
+        margin-bottom:25px;
+
+    }
+
+
+    .input-box input{
+
+        height:58px;
+
+        font-size:16px;
+
+    }
+
+
+    .btn-connexion{
+
+        min-height:58px;
+
+        font-size:17px;
+
+    }
+
+
+    .btn-member{
+
+        min-height:54px;
+
+    }
+
+}
+
+
+/*==================================================
+  PETITS TELEPHONES
+==================================================*/
+
+@media(
+    max-width:380px
+){
+
+    body{
+
+        padding:
+        8px 8px 30px;
+
+    }
+
+
+    .connexion-card{
+
+        padding:
+        22px 15px 28px;
+
+        border-radius:22px;
+
+    }
+
+
+    h1{
+
+        font-size:22px;
+
+    }
+
+
+    .slogan{
+
+        font-size:13px;
+
+    }
+
+
+    .logo{
+
+        width:78px;
+
+        height:78px;
+
+    }
+
+
+    .input-box input{
+
+        height:55px;
+
+    }
+
+}
+
+
+/*==================================================
+  ACCESSIBILITE
+==================================================*/
+
+@media(
+    prefers-reduced-motion:reduce
+){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+    }
+
+}
