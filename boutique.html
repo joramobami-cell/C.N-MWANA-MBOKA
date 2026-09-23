@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#006b3f">
+
+<title>
+Boutique | COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet"
+href="boutique.css">
+
+</head>
+
+<body>
+
+<!-- =========================
+     EN-TÊTE
+========================= -->
+
+<header class="top-header">
+
+    <div class="header-left">
+
+        <img
+        src="logo.png"
+        alt="Logo MWANA MBOKA"
+        class="logo">
+
+        <div class="header-title">
+
+            <strong>
+                MWANA MBOKA
+            </strong>
+
+            <span>
+                Boutique
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <button
+        id="btnNotifications"
+        class="header-btn"
+        title="Notifications">
+
+            <i class="fa-solid fa-bell"></i>
+
+        </button>
+
+
+        <button
+        id="btnAccueil"
+        class="header-btn"
+        title="Accueil">
+
+            <i class="fa-solid fa-house"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     CONTENU PRINCIPAL
+========================= -->
+
+<main class="main-container">
+
+
+    <!-- IDENTITÉ DU MEMBRE -->
+
+    <section class="member-bar">
+
+        <div class="member-icon">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+        <div>
+
+            <span class="member-label">
+                Membre connecté
+            </span>
+
+            <strong id="nomMembre">
+                Membre
+            </strong>
+
+            <small id="matriculeMembre">
+                Matricule
+            </small>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="boutique-hero">
+
+        <div class="hero-icon">
+
+            <i class="fa-solid fa-store"></i>
+
+        </div>
+
+        <div>
+
+            <h1>
+                Boutique MWANA MBOKA
+            </h1>
+
+            <p>
+                Achetez, vendez et développez vos activités
+                au sein de la communauté.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ACTIONS
+    ========================== -->
+
+    <section class="quick-actions">
+
+        <button
+        id="btnVendre"
+        class="sell-button">
+
+            <i class="fa-solid fa-plus"></i>
+
+            <span>
+                Mettre un produit en vente
+            </span>
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =========================
+         RECHERCHE
+    ========================== -->
+
+    <section class="search-section">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+            type="search"
+            id="rechercheProduit"
+            placeholder="Rechercher un produit, un service..."
+            autocomplete="off">
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CATÉGORIES
+    ========================== -->
+
+    <section class="categories-section">
+
+        <div class="section-title">
+
+            <h2>
+                Catégories
+            </h2>
+
+        </div>
+
+
+        <div class="categories-list">
+
+            <button
+            class="category-btn active"
+            data-category="tous">
+
+                <i class="fa-solid fa-border-all"></i>
+
+                <span>
+                    Tous
+                </span>
+
+            </button>
+
+
+            <button
+            class="category-btn"
+            data-category="alimentation">
+
+                <i class="fa-solid fa-utensils"></i>
+
+                <span>
+                    Alimentation
+                </span>
+
+            </button>
+
+
+            <button
+            class="category-btn"
+            data-category="agriculture">
+
+                <i class="fa-solid fa-seedling"></i>
+
+                <span>
+                    Agriculture
+                </span>
+
+            </button>
+
+
+            <button
+            class="category-btn"
+            data-category="mode">
+
+                <i class="fa-solid fa-shirt"></i>
+
+                <span>
+                    Mode
+                </span>
+
+            </button>
+
+
+            <button
+            class="category-btn"
+            data-category="technologie">
+
+                <i class="fa-solid fa-mobile-screen"></i>
+
+                <span>
+                    Technologie
+                </span>
+
+            </button>
+
+
+            <button
+            class="category-btn"
+            data-category="services">
+
+                <i class="fa-solid fa-handshake"></i>
+
+                <span>
+                    Services
+                </span>
+
+            </button>
+
+
+            <button
+            class="category-btn"
+            data-category="autres">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>
+                    Autres
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         INFORMATIONS
+    ========================== -->
+
+    <section class="info-card">
+
+        <div class="info-icon">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+        </div>
+
+        <div>
+
+            <strong>
+                Vendez vos produits
+            </strong>
+
+            <p>
+                Chaque membre peut proposer ses produits
+                ou services à la communauté. Les annonces
+                sont vérifiées avant leur publication.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CHARGEMENT
+    ========================== -->
+
+    <div
+    id="chargementProduits"
+    class="loading-box">
+
+        <div class="spinner"></div>
+
+        <span>
+            Chargement des produits...
+        </span>
+
+    </div>
+
+
+
+    <!-- =========================
+         LISTE DES PRODUITS
+    ========================== -->
+
+    <section class="products-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Produits disponibles
+                </h2>
+
+                <span id="nombreProduits">
+                    0 produit
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div
+        id="listeProduits"
+        class="products-grid">
+        </div>
+
+
+        <!-- AUCUN PRODUIT -->
+
+        <div
+        id="aucunProduit"
+        class="empty-state"
+        style="display:none;">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-store-slash"></i>
+
+            </div>
+
+            <h3>
+                Aucun produit trouvé
+            </h3>
+
+            <p>
+                Aucun produit ne correspond actuellement
+                à votre recherche.
+            </p>
+
+            <button
+            id="btnVendreVide"
+            class="empty-button">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Mettre un produit en vente
+
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     FENÊTRE AJOUT PRODUIT
+========================= -->
+
+<div
+id="modalProduit"
+class="modal-overlay"
+style="display:none;">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Mettre un produit en vente
+                </h2>
+
+                <p>
+                    Présentez votre produit à la communauté.
+                </p>
+
+            </div>
+
+            <button
+            id="btnFermerModal"
+            class="close-modal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <form
+        id="formProduit"
+        autocomplete="off">
+
+
+            <!-- NOM -->
+
+            <div class="form-group">
+
+                <label for="nomProduit">
+
+                    Nom du produit
+                    <span>*</span>
+
+                </label>
+
+                <input
+                type="text"
+                id="nomProduit"
+                required
+                maxlength="100"
+                placeholder="Ex : Poulet de ferme">
+
+            </div>
+
+
+            <!-- CATÉGORIE -->
+
+            <div class="form-group">
+
+                <label for="categorieProduit">
+
+                    Catégorie
+                    <span>*</span>
+
+                </label>
+
+                <select
+                id="categorieProduit"
+                required>
+
+                    <option value="">
+                        Sélectionner une catégorie
+                    </option>
+
+                    <option value="alimentation">
+                        Alimentation
+                    </option>
+
+                    <option value="agriculture">
+                        Agriculture
+                    </option>
+
+                    <option value="mode">
+                        Mode
+                    </option>
+
+                    <option value="technologie">
+                        Technologie
+                    </option>
+
+                    <option value="services">
+                        Services
+                    </option>
+
+                    <option value="autres">
+                        Autres
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label for="descriptionProduit">
+
+                    Description
+                    <span>*</span>
+
+                </label>
+
+                <textarea
+                id="descriptionProduit"
+                required
+                maxlength="1000"
+                rows="5"
+                placeholder="Décrivez votre produit ou service..."></textarea>
+
+            </div>
+
+
+            <!-- PRIX -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="prixProduit">
+
+                        Prix
+                        <span>*</span>
+
+                    </label>
+
+                    <input
+                    type="number"
+                    id="prixProduit"
+                    min="0"
+                    step="1"
+                    required
+                    placeholder="Ex : 15000">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="deviseProduit">
+
+                        Devise
+                        <span>*</span>
+
+                    </label>
+
+                    <select
+                    id="deviseProduit"
+                    required>
+
+                        <option value="FCFA">
+                            FCFA
+                        </option>
+
+                        <option value="USD">
+                            USD
+                        </option>
+
+                        <option value="EUR">
+                            EUR
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- VILLE -->
+
+            <div class="form-group">
+
+                <label for="villeProduit">
+
+                    Ville / Localisation
+                    <span>*</span>
+
+                </label>
+
+                <input
+                type="text"
+                id="villeProduit"
+                required
+                maxlength="100"
+                placeholder="Ex : Brazzaville">
+
+            </div>
+
+
+            <!-- TÉLÉPHONE -->
+
+            <div class="form-group">
+
+                <label for="telephoneProduit">
+
+                    Téléphone / WhatsApp
+                    <span>*</span>
+
+                </label>
+
+                <input
+                type="tel"
+                id="telephoneProduit"
+                required
+                maxlength="30"
+                placeholder="Ex : 06 544 75 41">
+
+            </div>
+
+
+            <!-- DISPONIBILITÉ -->
+
+            <div class="form-group">
+
+                <label for="disponibiliteProduit">
+
+                    Disponibilité
+                    <span>*</span>
+
+                </label>
+
+                <select
+                id="disponibiliteProduit"
+                required>
+
+                    <option value="disponible">
+                        Disponible
+                    </option>
+
+                    <option value="stock_limite">
+                        Stock limité
+                    </option>
+
+                    <option value="sur_commande">
+                        Sur commande
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PHOTO -->
+
+            <div class="form-group">
+
+                <label for="photoProduit">
+
+                    Photo du produit
+                </label>
+
+                <input
+                type="url"
+                id="photoProduit"
+                maxlength="500"
+                placeholder="Lien de la photo">
+
+                <small>
+                    La gestion avancée des photos sera reliée
+                    à Firebase Storage.
+                </small>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div
+            id="messageFormulaire"
+            class="form-message"
+            style="display:none;">
+            </div>
+
+
+            <!-- BOUTONS -->
+
+            <div class="form-actions">
+
+                <button
+                type="button"
+                id="btnAnnulerProduit"
+                class="cancel-button">
+
+                    Annuler
+
+                </button>
+
+
+                <button
+                type="submit"
+                id="btnSoumettreProduit"
+                class="submit-button">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Soumettre l'annonce
+
+                </button>
+
+            </div>
+
+
+            <p class="validation-note">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Votre annonce sera soumise à validation
+                avant sa publication.
+
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     NAVIGATION MOBILE
+========================= -->
+
+<nav class="bottom-nav">
+
+    <a
+    href="espace.html"
+    class="bottom-nav-item">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+            Accueil
+        </span>
+
+    </a>
+
+
+    <a
+    href="emplois.html"
+    class="bottom-nav-item">
+
+        <i class="fa-solid fa-briefcase"></i>
+
+        <span>
+            Emplois
+        </span>
+
+    </a>
+
+
+    <a
+    href="entreprises.html"
+    class="bottom-nav-item">
+
+        <i class="fa-solid fa-building"></i>
+
+        <span>
+            Entreprises
+        </span>
+
+    </a>
+
+
+    <a
+    href="boutique.html"
+    class="bottom-nav-item active">
+
+        <i class="fa-solid fa-store"></i>
+
+        <span>
+            Boutique
+        </span>
+
+    </a>
+
+
+    <a
+    href="profil.html"
+    class="bottom-nav-item">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>
+            Profil
+        </span>
+
+    </a>
+
+</nav>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script
+type="module"
+src="boutique.js">
+</script>
+
+</body>
+
+</html>
