@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Emplois | MWANA MBOKA</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f7f5;
+    color:#222;
+    padding-bottom:90px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+    background:linear-gradient(135deg,#006b3f,#008f53);
+    color:white;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
+}
+
+.logo-zone{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-app{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+    background:white;
+    border-radius:12px;
+    padding:4px;
+}
+
+.logo-zone h2{
+    font-size:17px;
+    font-weight:700;
+}
+
+.logo-zone p{
+    font-size:11px;
+    opacity:.9;
+}
+
+.member-mini{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-left:auto;
+}
+
+.member-mini img{
+    width:38px;
+    height:38px;
+    object-fit:contain;
+    background:white;
+    border-radius:50%;
+}
+
+.member-mini strong{
+    display:block;
+    font-size:12px;
+}
+
+.member-mini small{
+    font-size:10px;
+    opacity:.85;
+}
+
+.top-icons{
+    display:flex;
+    gap:14px;
+}
+
+.top-icons a{
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+/* =========================
+   RETOUR
+========================= */
+
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    text-decoration:none;
+    color:#006b3f;
+    font-weight:600;
+    margin-bottom:18px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    background:linear-gradient(135deg,#006b3f,#00965a);
+    color:white;
+    border-radius:18px;
+    padding:25px 20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:13px;
+    line-height:1.7;
+    opacity:.95;
+}
+
+.hero-icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+/* =========================
+   FILTRES
+========================= */
+
+.filters{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    margin-bottom:20px;
+    padding-bottom:5px;
+}
+
+.filter-btn{
+    border:0;
+    background:white;
+    color:#006b3f;
+    padding:10px 15px;
+    border-radius:25px;
+    font-family:inherit;
+    font-weight:600;
+    white-space:nowrap;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.filter-btn.active{
+    background:#006b3f;
+    color:white;
+}
+
+/* =========================
+   RECHERCHE
+========================= */
+
+.search-box{
+    background:white;
+    padding:12px 15px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.search-box i{
+    color:#006b3f;
+}
+
+.search-box input{
+    width:100%;
+    border:0;
+    outline:0;
+    font-family:inherit;
+    font-size:14px;
+}
+
+/* =========================
+   TITRE
+========================= */
+
+.section-title{
+    margin:20px 0 14px;
+    font-size:20px;
+    color:#006b3f;
+}
+
+/* =========================
+   OFFRES
+========================= */
+
+.offres{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:18px;
+}
+
+.offre{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    border-left:5px solid #006b3f;
+}
+
+.offre.externe{
+    border-left-color:#d4af37;
+}
+
+.offre-header{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.offre h3{
+    font-size:17px;
+    color:#222;
+}
+
+.badge{
+    font-size:10px;
+    font-weight:700;
+    padding:5px 9px;
+    border-radius:20px;
+    height:max-content;
+    white-space:nowrap;
+}
+
+.badge-interne{
+    background:#e5f6ed;
+    color:#006b3f;
+}
+
+.badge-externe{
+    background:#fff4cf;
+    color:#806500;
+}
+
+.offre-company{
+    font-size:12px;
+    color:#555;
+    margin-bottom:12px;
+}
+
+.offre-info{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    font-size:12px;
+    color:#555;
+    margin-bottom:15px;
+}
+
+.offre-info i{
+    width:18px;
+    color:#006b3f;
+}
+
+.offre-description{
+    font-size:12px;
+    line-height:1.7;
+    color:#666;
+    margin-bottom:16px;
+}
+
+.offre-date{
+    font-size:10px;
+    color:#888;
+    margin-bottom:14px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    width:100%;
+    padding:11px;
+    border-radius:10px;
+    border:0;
+    cursor:pointer;
+    text-decoration:none;
+    font-family:inherit;
+    font-weight:600;
+    font-size:12px;
+}
+
+.btn-details{
+    background:#006b3f;
+    color:white;
+}
+
+.btn-externe{
+    background:#d4af37;
+    color:#222;
+}
+
+/* =========================
+   ETAT VIDE
+========================= */
+
+.empty{
+    background:white;
+    border-radius:16px;
+    padding:35px 20px;
+    text-align:center;
+    color:#777;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.empty i{
+    font-size:40px;
+    color:#006b3f;
+    margin-bottom:12px;
+}
+
+/* =========================
+   INFORMATION
+========================= */
+
+.info-box{
+    margin-top:25px;
+    background:#eaf7f0;
+    border-radius:15px;
+    padding:16px;
+    font-size:12px;
+    line-height:1.7;
+    color:#355b48;
+}
+
+.info-box strong{
+    color:#006b3f;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    padding:9px 4px;
+    box-shadow:0 -3px 15px rgba(0,0,0,.12);
+    z-index:1000;
+}
+
+.bottom-nav a{
+    color:#777;
+    text-decoration:none;
+    text-align:center;
+    font-size:10px;
+}
+
+.bottom-nav i{
+    display:block;
+    font-size:17px;
+    margin-bottom:3px;
+}
+
+.bottom-nav a.active{
+    color:#006b3f;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer-app{
+    text-align:center;
+    margin-top:35px;
+    padding:25px 10px;
+    color:#777;
+}
+
+.footer-logo{
+    width:45px;
+    margin-bottom:8px;
+}
+
+.footer-app h3{
+    font-size:12px;
+    color:#006b3f;
+}
+
+.footer-app p{
+    font-size:10px;
+}
+
+.copyright{
+    margin-top:8px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .logo-zone h2{
+        font-size:14px;
+    }
+
+    .logo-zone p{
+        font-size:9px;
+    }
+
+    .member-mini{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:23px;
+    }
+
+    .container{
+        padding:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="topbar">
+
+    <div class="logo-zone">
+
+        <img
+        src="logo.png"
+        class="logo-app"
+        alt="MWANA MBOKA">
+
+        <div>
+
+            <h2>
+                MWANA MBOKA
+            </h2>
+
+            <p>
+                Communauté Numérique
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="member-mini">
+
+        <img
+        src="logo.png"
+        alt="Membre">
+
+        <div>
+
+            <strong id="nom">
+                Membre
+            </strong>
+
+            <small id="matricule">
+                MMB-0000
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-icons">
+
+        <a href="notifications.html"
+        aria-label="Notifications">
+
+            <i class="fa-solid fa-bell"></i>
+
+        </a>
+
+        <a href="espace.html"
+        aria-label="Retour">
+
+            <i class="fa-solid fa-house"></i>
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- RETOUR -->
+
+<a href="espace.html"
+class="back-btn">
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+    Retour à mon espace
+
+</a>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-icon">
+
+        <i class="fa-solid fa-briefcase"></i>
+
+    </div>
+
+    <h1>
+        Emplois
+    </h1>
+
+    <p>
+        Découvrez les opportunités professionnelles
+        annoncées par la Présidence de la Communauté
+        Numérique MWANA MBOKA.
+    </p>
+
+</section>
+
+
+<!-- RECHERCHE -->
+
+<div class="search-box">
+
+    <i class="fa-solid fa-magnifying-glass"></i>
+
+    <input
+    type="search"
+    id="searchInput"
+    placeholder="Rechercher un poste, métier ou secteur...">
+
+</div>
+
+
+<!-- FILTRES -->
+
+<div class="filters">
+
+    <button
+    class="filter-btn active"
+    data-filter="tous">
+
+        Toutes les offres
+
+    </button>
+
+    <button
+    class="filter-btn"
+    data-filter="interne">
+
+        Emplois internes
+
+    </button>
+
+    <button
+    class="filter-btn"
+    data-filter="externe">
+
+        Emplois externes
+
+    </button>
+
+</div>
+
+
+<h2 class="section-title">
+
+    <i class="fa-solid fa-bullhorn"></i>
+
+    Annonces de la Présidence
+
+</h2>
+
+
+<!-- OFFRES -->
+
+<section
+class="offres"
+id="offresContainer">
+
+
+    <!-- OFFRE INTERNE -->
+
+    <article
+    class="offre"
+    data-type="interne"
+    data-search="chauffeur mwana mboka transport">
+
+        <div class="offre-header">
+
+            <h3>
+                Chauffeur
+            </h3>
+
+            <span class="badge badge-interne">
+                INTERNE
+            </span>
+
+        </div>
+
+
+        <div class="offre-company">
+
+            <i class="fa-solid fa-building"></i>
+
+            Communauté Numérique MWANA MBOKA
+
+        </div>
+
+
+        <div class="offre-info">
+
+            <span>
+                <i class="fa-solid fa-location-dot"></i>
+                Brazzaville
+            </span>
+
+            <span>
+                <i class="fa-solid fa-file-contract"></i>
+                Contrat selon le poste
+            </span>
+
+            <span>
+                <i class="fa-solid fa-user-check"></i>
+                Expérience selon les exigences
+            </span>
+
+        </div>
+
+
+        <p class="offre-description">
+
+            Poste à pourvoir au sein de la Communauté
+            Numérique MWANA MBOKA.
+
+        </p>
+
+
+        <div class="offre-date">
+
+            <i class="fa-regular fa-calendar"></i>
+
+            Annonce publiée par la Présidence
+
+        </div>
+
+
+        <button
+        class="btn btn-details"
+        onclick="postulerInterne('Chauffeur')">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+            Postuler
+
+        </button>
+
+    </article>
+
+
+    <!-- OFFRE EXTERNE -->
+
+    <article
+    class="offre externe"
+    data-type="externe"
+    data-search="chauffeur poids lourd entreprise transport">
+
+        <div class="offre-header">
+
+            <h3>
+                Chauffeur poids lourd
+            </h3>
+
+            <span class="badge badge-externe">
+                EXTERNE
+            </span>
+
+        </div>
+
+
+        <div class="offre-company">
+
+            <i class="fa-solid fa-building"></i>
+
+            Entreprise partenaire
+
+        </div>
+
+
+        <div class="offre-info">
+
+            <span>
+                <i class="fa-solid fa-location-dot"></i>
+                Brazzaville
+            </span>
+
+            <span>
+                <i class="fa-solid fa-file-contract"></i>
+                CDI
+            </span>
+
+            <span>
+                <i class="fa-solid fa-user-check"></i>
+                Expérience requise
+            </span>
+
+        </div>
+
+
+        <p class="offre-description">
+
+            Une entreprise partenaire recherche
+            un chauffeur poids lourd.
+
+        </p>
+
+
+        <div class="offre-date">
+
+            <i class="fa-regular fa-calendar"></i>
+
+            Annonce publiée par la Présidence
+
+        </div>
+
+
+        <button
+        class="btn btn-externe"
+        onclick="postulerExterne(
+        'Chauffeur poids lourd',
+        'Entreprise partenaire',
+        '242060000000',
+        'WhatsApp'
+        )">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            Candidater auprès de l'employeur
+
+        </button>
+
+    </article>
+
+
+</section>
+
+
+<!-- INFORMATION -->
+
+<div class="info-box">
+
+    <strong>
+        <i class="fa-solid fa-circle-info"></i>
+        Fonctionnement
+    </strong>
+
+    <br><br>
+
+    Toutes les offres visibles ici sont publiées
+    par la Présidence de MWANA MBOKA.
+
+    <br><br>
+
+    <strong>Emploi interne :</strong>
+    votre candidature est transmise à la Présidence.
+
+    <br>
+
+    <strong>Emploi externe :</strong>
+    votre candidature est dirigée vers le contact
+    indiqué par l'employeur, avec la recommandation
+    de la Communauté Numérique MWANA MBOKA.
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer-app">
+
+    <img
+    src="logo.png"
+    class="footer-logo"
+    alt="MWANA MBOKA">
+
+    <h3>
+        COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    </h3>
+
+    <p>
+        Ensemble nous irons plus loin.
+    </p>
+
+    <p class="copyright">
+        © 2026 MWANA MBOKA
+    </p>
+
+</footer>
+
+
+</div>
+
+
+<!-- NAVIGATION -->
+
+<nav class="bottom-nav">
+
+    <a
+    href="espace.html"
+    class="active">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Accueil</span>
+
+    </a>
+
+
+    <a
+    href="messages.html">
+
+        <i class="fa-solid fa-comments"></i>
+
+        <span>Messages</span>
+
+    </a>
+
+
+    <a
+    href="notifications.html">
+
+        <i class="fa-solid fa-bell"></i>
+
+        <span>Notifications</span>
+
+    </a>
+
+
+    <a
+    href="profil.html">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>Profil</span>
+
+    </a>
+
+
+    <a
+    href="parametres.html">
+
+        <i class="fa-solid fa-gear"></i>
+
+        <span>Paramètres</span>
+
+    </a>
+
+</nav>
+
+
+<script>
+
+
+
+// ==================================================
+// FILTRAGE DES OFFRES
+// ==================================================
+
+const filterButtons =
+document.querySelectorAll(".filter-btn");
+
+const offres =
+document.querySelectorAll(".offre");
+
+const searchInput =
+document.getElementById("searchInput");
+
+
+function filtrerOffres(){
+
+    const filtreActif =
+    document.querySelector(".filter-btn.active")
+    .dataset.filter;
+
+    const recherche =
+    searchInput.value
+    .toLowerCase()
+    .trim();
+
+
+    offres.forEach(offre => {
+
+        const type =
+        offre.dataset.type;
+
+        const texte =
+        offre.dataset.search
+        .toLowerCase();
+
+
+        const correspondType =
+        filtreActif === "tous" ||
+        type === filtreActif;
+
+
+        const correspondRecherche =
+        recherche === "" ||
+        texte.includes(recherche);
+
+
+        if(
+            correspondType &&
+            correspondRecherche
+        ){
+
+            offre.style.display = "";
+
+        }else{
+
+            offre.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+filterButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            filterButtons.forEach(btn => {
+
+                btn.classList.remove("active");
+
+            });
+
+            button.classList.add("active");
+
+            filtrerOffres();
+
+        }
+    );
+
+});
+
+
+searchInput.addEventListener(
+    "input",
+    filtrerOffres
+);
+
+
+
+// ==================================================
+// EMPLOI INTERNE
+// ==================================================
+
+function postulerInterne(poste){
+
+    const message =
+    encodeURIComponent(
+        "Bonjour Monsieur le Président, " +
+        "je souhaite présenter ma candidature " +
+        "pour le poste interne de " +
+        poste +
+        " publié dans l'espace Emploi " +
+        "de MWANA MBOKA."
+    );
+
+
+    /*
+       Pour l'instant nous ouvrons WhatsApp.
+       Cette fonction sera ensuite remplacée
+       par l'enregistrement Firebase de la
+       candidature vers le Bureau du Président.
+    */
+
+    window.open(
+        "https://wa.me/242060000000?text=" + message,
+        "_blank"
+    );
+
+}
+
+
+
+// ==================================================
+// EMPLOI EXTERNE
+// ==================================================
+
+function postulerExterne(
+    poste,
+    employeur,
+    contact,
+    canal
+){
+
+    const message =
+    encodeURIComponent(
+        "Bonjour, " +
+        "je vous contacte concernant l'offre " +
+        poste +
+        " publiée sur la plateforme " +
+        "de la Communauté Numérique MWANA MBOKA. " +
+        "Je souhaite présenter ma candidature. " +
+        "Je vous contacte avec la recommandation " +
+        "de MWANA MBOKA."
+    );
+
+
+    if(canal === "WhatsApp"){
+
+        window.open(
+            "https://wa.me/" +
+            contact +
+            "?text=" +
+            message,
+            "_blank"
+        );
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
