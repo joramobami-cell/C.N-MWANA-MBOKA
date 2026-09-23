@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Entreprises | COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    </title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="entreprises.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     EN-TÊTE
+===================================================== -->
+
+<header class="top-header">
+
+    <div class="header-left">
+
+        <img
+            src="logo.png"
+            alt="Logo MWANA MBOKA"
+            class="logo"
+        >
+
+        <div class="header-title">
+
+            <h1>MWANA MBOKA</h1>
+
+            <span>
+                Espace Entreprises
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <button
+            id="btnNotifications"
+            class="icon-btn"
+            title="Notifications"
+        >
+
+            <i class="fa-solid fa-bell"></i>
+
+        </button>
+
+
+        <button
+            id="btnAccueil"
+            class="icon-btn"
+            title="Espace membre"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     CONTENU PRINCIPAL
+===================================================== -->
+
+<main class="main-container">
+
+
+    <!-- HERO -->
+
+    <section class="hero-entreprise">
+
+        <div class="hero-icon">
+
+            <i class="fa-solid fa-building"></i>
+
+        </div>
+
+
+        <div class="hero-content">
+
+            <h2>
+                Espace Entreprises
+            </h2>
+
+            <p>
+
+                Découvrez les entreprises présentes dans
+                l'écosystème de la COMMUNAUTÉ NUMÉRIQUE
+                MWANA MBOKA et les opportunités qu'elles
+                peuvent proposer aux membres.
+
+            </p>
+
+
+            <div class="hero-info">
+
+                <span>
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <strong id="nomMembre">
+                        Membre
+                    </strong>
+
+                </span>
+
+
+                <span>
+
+                    <i class="fa-solid fa-id-card"></i>
+
+                    <strong id="matriculeMembre">
+                        ---
+                    </strong>
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RECHERCHE
+    ================================================== -->
+
+    <section class="search-section">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="rechercheEntreprise"
+                placeholder="Rechercher une entreprise, secteur, ville..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FILTRES
+    ================================================== -->
+
+    <section class="filters-section">
+
+
+        <button
+            class="filter-btn active"
+            data-filter="tous"
+        >
+
+            <i class="fa-solid fa-list"></i>
+
+            Toutes
+
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="partenaire"
+        >
+
+            <i class="fa-solid fa-handshake"></i>
+
+            Partenaires
+
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="non-partenaire"
+        >
+
+            <i class="fa-solid fa-building"></i>
+
+            Entreprises
+
+        </button>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     INFORMATION
+===================================================== -->
+
+<section class="publication-info">
+
+    <div class="info-icon">
+
+        <i class="fa-solid fa-circle-info"></i>
+
+    </div>
+
+
+    <div>
+
+        <strong>
+            Annuaire des entreprises
+        </strong>
+
+        <p>
+
+            Les entreprises affichées sont publiées dans
+            l'espace membre par la COMMUNAUTÉ NUMÉRIQUE
+            MWANA MBOKA.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CHARGEMENT
+===================================================== -->
+
+<div
+    id="chargementEntreprises"
+    class="loading-box"
+>
+
+    <div class="spinner"></div>
+
+    <p>
+        Chargement des entreprises...
+    </p>
+
+</div>
+
+
+
+<!-- =====================================================
+     LISTE DES ENTREPRISES
+===================================================== -->
+
+<section
+    id="listeEntreprises"
+    class="companies-grid"
+></section>
+
+
+
+<!-- =====================================================
+     AUCUNE ENTREPRISE
+===================================================== -->
+
+<section
+    id="aucuneEntreprise"
+    class="empty-box hidden"
+>
+
+    <div class="empty-icon">
+
+        <i class="fa-solid fa-building"></i>
+
+    </div>
+
+
+    <h3>
+        Aucune entreprise disponible
+    </h3>
+
+
+    <p>
+
+        Aucune entreprise ne correspond actuellement
+        à votre recherche.
+
+    </p>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     NAVIGATION BAS
+===================================================== -->
+
+<nav class="bottom-nav">
+
+
+    <a href="espace.html">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+            Accueil
+        </span>
+
+    </a>
+
+
+    <a href="messages.html">
+
+        <i class="fa-solid fa-comments"></i>
+
+        <span>
+            Messages
+        </span>
+
+    </a>
+
+
+    <a href="notifications.html">
+
+        <i class="fa-solid fa-bell"></i>
+
+        <span>
+            Notifications
+        </span>
+
+    </a>
+
+
+    <a href="profil.html">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>
+            Profil
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script
+    type="module"
+    src="entreprises.js"
+></script>
+
+
+</body>
+
+</html>
