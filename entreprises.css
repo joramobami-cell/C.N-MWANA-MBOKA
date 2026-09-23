@@ -1,0 +1,1343 @@
+/* =========================================================
+   COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+   ESPACE ENTREPRISES
+========================================================= */
+
+
+/* ==============================
+   RESET
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f4f6f9;
+
+    color: #222;
+
+    min-height: 100vh;
+
+    padding-bottom: 90px;
+
+}
+
+
+
+/* ==============================
+   EN-TÊTE
+============================== */
+
+.top-header {
+
+    width: 100%;
+
+    min-height: 72px;
+
+    background: #006b3f;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 10px 20px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.15);
+
+}
+
+
+.header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.logo {
+
+    width: 48px;
+
+    height: 48px;
+
+    object-fit: contain;
+
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 3px;
+
+}
+
+
+.header-title h1 {
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+}
+
+
+.header-title span {
+
+    display: block;
+
+    font-size: 12px;
+
+    opacity: 0.9;
+
+    margin-top: 3px;
+
+}
+
+
+.header-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+.icon-btn {
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+}
+
+
+.icon-btn:hover {
+
+    background:
+        rgba(255, 255, 255, 0.25);
+
+}
+
+
+.icon-btn:active {
+
+    transform: scale(0.94);
+
+}
+
+
+
+/* ==============================
+   CONTENEUR
+============================== */
+
+.main-container {
+
+    width: min(1200px, 94%);
+
+    margin: 25px auto;
+
+}
+
+
+
+/* ==============================
+   HERO
+============================== */
+
+.hero-entreprise {
+
+    background:
+        linear-gradient(
+            135deg,
+            #006b3f,
+            #008f55
+        );
+
+    color: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 107, 63, 0.18);
+
+}
+
+
+.hero-icon {
+
+    width: 72px;
+
+    height: 72px;
+
+    flex-shrink: 0;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.16);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 32px;
+
+}
+
+
+.hero-content h2 {
+
+    font-size: 27px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.hero-content p {
+
+    line-height: 1.6;
+
+    font-size: 14px;
+
+    opacity: 0.95;
+
+    max-width: 750px;
+
+}
+
+
+.hero-info {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    margin-top: 14px;
+
+    font-size: 13px;
+
+}
+
+
+.hero-info span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+
+/* ==============================
+   RECHERCHE
+============================== */
+
+.search-section {
+
+    margin-top: 20px;
+
+}
+
+
+.search-box {
+
+    width: 100%;
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    border: 1px solid #e2e6ea;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.04);
+
+}
+
+
+.search-box i {
+
+    color: #006b3f;
+
+    font-size: 17px;
+
+}
+
+
+.search-box input {
+
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    padding: 16px 12px;
+
+    font-size: 14px;
+
+    background: transparent;
+
+}
+
+
+
+/* ==============================
+   FILTRES
+============================== */
+
+.filters-section {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 18px 0;
+
+}
+
+
+.filter-btn {
+
+    border: 1px solid #dfe5e2;
+
+    background: white;
+
+    color: #444;
+
+    border-radius: 25px;
+
+    padding: 10px 15px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.filter-btn:hover {
+
+    border-color: #006b3f;
+
+    color: #006b3f;
+
+}
+
+
+.filter-btn.active {
+
+    background: #006b3f;
+
+    color: white;
+
+    border-color: #006b3f;
+
+}
+
+
+
+/* ==============================
+   INFORMATION
+============================== */
+
+.publication-info {
+
+    background: white;
+
+    border-left: 4px solid #006b3f;
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+    display: flex;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.04);
+
+}
+
+
+.info-icon {
+
+    color: #006b3f;
+
+    font-size: 21px;
+
+}
+
+
+.publication-info strong {
+
+    font-size: 14px;
+
+}
+
+
+.publication-info p {
+
+    font-size: 12px;
+
+    color: #666;
+
+    line-height: 1.5;
+
+    margin-top: 5px;
+
+}
+
+
+
+/* ==============================
+   CHARGEMENT
+============================== */
+
+.loading-box {
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.04);
+
+}
+
+
+.loading-box p {
+
+    margin-top: 12px;
+
+    color: #666;
+
+    font-size: 14px;
+
+}
+
+
+.spinner {
+
+    width: 40px;
+
+    height: 40px;
+
+    margin: auto;
+
+    border: 4px solid #e4eee9;
+
+    border-top-color: #006b3f;
+
+    border-radius: 50%;
+
+    animation:
+        rotation 0.8s linear infinite;
+
+}
+
+
+@keyframes rotation {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+
+/* ==============================
+   GRILLE ENTREPRISES
+============================== */
+
+.companies-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+
+}
+
+
+
+/* ==============================
+   CARTE ENTREPRISE
+============================== */
+
+.company-card {
+
+    background: white;
+
+    border-radius: 17px;
+
+    overflow: hidden;
+
+    border: 1px solid #e6e9eb;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.05);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+
+}
+
+
+.company-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 22px
+        rgba(0, 0, 0, 0.08);
+
+}
+
+
+
+/* ==============================
+   EN-TÊTE CARTE
+============================== */
+
+.company-header {
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0faf5,
+            #ffffff
+        );
+
+    border-bottom:
+        1px solid #edf0ee;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.company-logo {
+
+    width: 58px;
+
+    height: 58px;
+
+    border-radius: 12px;
+
+    background: #e8f3ed;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+
+}
+
+
+.company-logo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+.company-logo i {
+
+    color: #006b3f;
+
+    font-size: 25px;
+
+}
+
+
+.company-title {
+
+    min-width: 0;
+
+}
+
+
+.company-title h3 {
+
+    font-size: 18px;
+
+    line-height: 1.3;
+
+    margin-bottom: 6px;
+
+}
+
+
+.company-sector {
+
+    color: #666;
+
+    font-size: 12px;
+
+}
+
+
+
+/* ==============================
+   BADGE PARTENAIRE
+============================== */
+
+.partner-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    background: #e5f5ed;
+
+    color: #006b3f;
+
+    border-radius: 20px;
+
+    padding: 5px 9px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    margin-top: 8px;
+
+}
+
+
+.normal-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    background: #f1f2f3;
+
+    color: #666;
+
+    border-radius: 20px;
+
+    padding: 5px 9px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    margin-top: 8px;
+
+}
+
+
+
+/* ==============================
+   CORPS CARTE
+============================== */
+
+.company-body {
+
+    padding: 18px;
+
+}
+
+
+.company-description {
+
+    color: #555;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-bottom: 15px;
+
+}
+
+
+.company-details {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.company-detail {
+
+    background: #f7f8f9;
+
+    border-radius: 9px;
+
+    padding: 9px;
+
+    font-size: 11px;
+
+    color: #666;
+
+}
+
+
+.company-detail i {
+
+    color: #006b3f;
+
+    margin-right: 4px;
+
+}
+
+
+.company-detail strong {
+
+    display: block;
+
+    color: #333;
+
+    font-size: 12px;
+
+    margin-top: 3px;
+
+}
+
+
+
+/* ==============================
+   OPPORTUNITÉS
+============================== */
+
+.opportunities {
+
+    border-top:
+        1px solid #edf0ee;
+
+    padding-top: 14px;
+
+    margin-top: 5px;
+
+}
+
+
+.opportunities-title {
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 9px;
+
+    color: #333;
+
+}
+
+
+.opportunity-list {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+}
+
+
+.opportunity-tag {
+
+    background: #eef7f2;
+
+    color: #006b3f;
+
+    border-radius: 15px;
+
+    padding: 5px 8px;
+
+    font-size: 10px;
+
+}
+
+
+
+/* ==============================
+   CONTACTS
+============================== */
+
+.company-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 16px;
+
+}
+
+
+.company-action {
+
+    flex: 1;
+
+    min-width: 110px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    padding: 10px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+}
+
+
+.company-action.whatsapp {
+
+    background: #e8f7ee;
+
+    color: #006b3f;
+
+}
+
+
+.company-action.phone {
+
+    background: #f1f4f5;
+
+    color: #444;
+
+}
+
+
+.company-action.email {
+
+    background: #f1f4f5;
+
+    color: #444;
+
+}
+
+
+.company-action.website {
+
+    background: #006b3f;
+
+    color: white;
+
+}
+
+
+.company-action:hover {
+
+    opacity: 0.85;
+
+}
+
+
+
+/* ==============================
+   AUCUNE ENTREPRISE
+============================== */
+
+.empty-box {
+
+    background: white;
+
+    border-radius: 17px;
+
+    text-align: center;
+
+    padding: 50px 20px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.04);
+
+}
+
+
+.empty-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #edf5f1;
+
+    color: #006b3f;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 26px;
+
+}
+
+
+.empty-box h3 {
+
+    font-size: 18px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.empty-box p {
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+
+/* ==============================
+   CACHÉ
+============================== */
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+
+/* ==============================
+   NAVIGATION BAS
+============================== */
+
+.bottom-nav {
+
+    position: fixed;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 70px;
+
+    background: white;
+
+    border-top:
+        1px solid #e4e7e5;
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    z-index: 1100;
+
+    box-shadow:
+        0 -3px 15px
+        rgba(0, 0, 0, 0.07);
+
+}
+
+
+.bottom-nav a {
+
+    color: #777;
+
+    text-decoration: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 11px;
+
+    min-width: 65px;
+
+}
+
+
+.bottom-nav a i {
+
+    font-size: 19px;
+
+}
+
+
+.bottom-nav a:hover {
+
+    color: #006b3f;
+
+}
+
+
+.bottom-nav a:first-child {
+
+    color: #006b3f;
+
+}
+
+
+
+/* ==============================
+   TABLETTE
+============================== */
+
+@media (max-width: 850px) {
+
+    .companies-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media (max-width: 600px) {
+
+    .top-header {
+
+        padding: 9px 12px;
+
+    }
+
+
+    .logo {
+
+        width: 43px;
+
+        height: 43px;
+
+    }
+
+
+    .header-title h1 {
+
+        font-size: 15px;
+
+    }
+
+
+    .header-title span {
+
+        font-size: 11px;
+
+    }
+
+
+    .icon-btn {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+
+    .main-container {
+
+        width: 94%;
+
+        margin-top: 15px;
+
+    }
+
+
+    .hero-entreprise {
+
+        padding: 18px;
+
+        align-items: flex-start;
+
+        gap: 13px;
+
+    }
+
+
+    .hero-icon {
+
+        width: 52px;
+
+        height: 52px;
+
+        border-radius: 14px;
+
+        font-size: 22px;
+
+    }
+
+
+    .hero-content h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .hero-content p {
+
+        font-size: 12px;
+
+    }
+
+
+    .hero-info {
+
+        flex-direction: column;
+
+        gap: 7px;
+
+        font-size: 11px;
+
+    }
+
+
+    .filters-section {
+
+        gap: 7px;
+
+    }
+
+
+    .filter-btn {
+
+        padding: 8px 11px;
+
+        font-size: 11px;
+
+    }
+
+
+    .company-header {
+
+        padding: 15px;
+
+    }
+
+
+    .company-body {
+
+        padding: 15px;
+
+    }
+
+
+    .company-details {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .company-title h3 {
+
+        font-size: 17px;
+
+    }
+
+
+    .bottom-nav {
+
+        height: 65px;
+
+    }
+
+
+    .bottom-nav a {
+
+        font-size: 10px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size: 17px;
+
+    }
+
+}
+
+
+
+/* ==============================
+   PETITS ÉCRANS
+============================== */
+
+@media (max-width: 380px) {
+
+    .header-title h1 {
+
+        font-size: 13px;
+
+    }
+
+
+    .hero-content h2 {
+
+        font-size: 19px;
+
+    }
+
+
+    .hero-entreprise {
+
+        padding: 15px;
+
+    }
+
+
+    .filter-btn {
+
+        padding: 7px 9px;
+
+    }
+
+  }
