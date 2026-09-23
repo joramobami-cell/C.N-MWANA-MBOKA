@@ -1129,20 +1129,31 @@ function afficherMessageFormulaire(message, type = "info"){
 
     messageFormulaire.textContent = message;
 
-    messageFormulaire.className = "form-message";
+    messageFormulaire.className =
+        "form-message";
+
+    messageFormulaire.style.display =
+        "block";
 
     if(type === "success"){
+
         messageFormulaire.classList.add("success");
+
     }
 
     if(type === "error"){
+
         messageFormulaire.classList.add("error");
+
     }
 
     if(type === "info"){
+
         messageFormulaire.classList.add("info");
+
     }
-}
+
+       }
 
 
 /* =========================================================
