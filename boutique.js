@@ -1011,22 +1011,39 @@ function ouvrirModalProduit(){
 
     if(!modalProduit) return;
 
+    /* Affichage réel du modal */
+    modalProduit.style.display = "flex";
+
+    /* Classe active pour le CSS */
     modalProduit.classList.add("active");
 
+    /* Bloquer le défilement de la page */
     document.body.style.overflow = "hidden";
 
     /* Préremplir le téléphone du membre */
-    const telephoneChamp = document.getElementById("telephoneProduit");
+    const telephoneChamp =
+        document.getElementById("telephoneProduit");
 
     if(telephoneChamp && telephoneMembre){
-        telephoneChamp.value = telephoneMembre;
+
+        telephoneChamp.value =
+            telephoneMembre;
+
     }
 
     /* Réinitialiser le message */
     if(messageFormulaire){
+
         messageFormulaire.textContent = "";
-        messageFormulaire.className = "form-message";
+
+        messageFormulaire.className =
+            "form-message";
+
+        messageFormulaire.style.display =
+            "none";
+
     }
+
 }
 
 
@@ -1038,8 +1055,13 @@ function fermerModalProduit(){
 
     if(!modalProduit) return;
 
+    /* Retirer la classe */
     modalProduit.classList.remove("active");
 
+    /* Cacher réellement le modal */
+    modalProduit.style.display = "none";
+
+    /* Rétablir le défilement */
     document.body.style.overflow = "";
 
 }
