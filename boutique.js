@@ -1,6 +1,6 @@
 /* =========================================================
    MWANA MBOKA — BOUTIQUE
-   JAVASCRIPT — PARTIE 1/3
+   JAVASCRIPT COMPLET — PARTIE 1/4
 ========================================================= */
 
 import { realtime } from "./firebase-config.js";
@@ -18,40 +18,55 @@ import {
 ========================================================= */
 
 const membreId =
-    localStorage.getItem("membreId") || "";
+    localStorage.getItem("membreId") ||
+    localStorage.getItem("idMembre") ||
+    "";
 
 const nomMembre =
-    localStorage.getItem("nom") || "";
+    localStorage.getItem("nom") ||
+    localStorage.getItem("nomMembre") ||
+    "";
 
 const matriculeMembre =
-    localStorage.getItem("matricule") || "";
+    localStorage.getItem("matricule") ||
+    localStorage.getItem("matriculeMembre") ||
+    "";
 
 const telephoneMembre =
-    localStorage.getItem("telephone") || "";
+    localStorage.getItem("telephone") ||
+    localStorage.getItem("telephoneMembre") ||
+    "";
 
 const photoMembre =
-    localStorage.getItem("photo") || "";
+    localStorage.getItem("photo") ||
+    "";
 
 const statutMembre =
-    localStorage.getItem("statut") || "";
+    localStorage.getItem("statut") ||
+    "";
 
 const roleMembre =
-    localStorage.getItem("role") || "";
+    localStorage.getItem("role") ||
+    "";
 
 
-/* =========================================================
-   VÉRIFICATION SESSION
-========================================================= */
+/*
+ * On ne bloque PAS la page si membreId est absent.
+ * Le nom et le matricule suffisent pour utiliser
+ * la boutique dans cette version.
+ */
 
 if(!nomMembre || !matriculeMembre){
 
-    window.location.href = "connexion.html";
+    console.warn(
+        "Informations membre incomplètes."
+    );
 
 }
 
 
 /* =========================================================
-   ÉLÉMENTS HTML
+   ELEMENTS HTML
 ========================================================= */
 
 const nomMembreElement =
@@ -110,20 +125,20 @@ const btnNotifications =
 
 
 /* =========================================================
-   AFFICHAGE MEMBRE
+   AFFICHAGE IDENTITÉ
 ========================================================= */
 
 if(nomMembreElement){
 
     nomMembreElement.textContent =
-        nomMembre;
+        nomMembre || "Membre";
 
 }
 
 if(matriculeMembreElement){
 
     matriculeMembreElement.textContent =
-        matriculeMembre;
+        matriculeMembre || "Matricule non disponible";
 
 }
 
@@ -155,19 +170,21 @@ function normaliser(valeur){
 function echapperHTML(valeur){
 
     return String(valeur ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
 
 
-function formaterPrix(prix, devise = "FCFA"){
+function formaterPrix(
+    prix,
+    devise = "FCFA"
+){
 
-    const nombre =
-        Number(prix);
+    const nombre = Number(prix);
 
     if(!Number.isFinite(nombre)){
 
@@ -177,10 +194,12 @@ function formaterPrix(prix, devise = "FCFA"){
 
     try{
 
-        return new Intl.NumberFormat("fr-FR")
-            .format(nombre)
+        return (
+            new Intl.NumberFormat("fr-FR")
+                .format(nombre)
             + " "
-            + devise;
+            + devise
+        );
 
     }catch(error){
 
@@ -199,17 +218,8 @@ function formaterDate(date){
 
     }
 
-    let valeur;
-
-    if(typeof date === "number"){
-
-        valeur = new Date(date);
-
-    }else{
-
-        valeur = new Date(date);
-
-    }
+    const valeur =
+        new Date(date);
 
     if(Number.isNaN(valeur.getTime())){
 
@@ -220,14 +230,18 @@ function formaterDate(date){
     return valeur.toLocaleDateString(
         "fr-FR",
         {
-            day:"2-digit",
-            month:"2-digit",
-            year:"numeric"
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
         }
     );
 
 }
 
+
+/* =========================================================
+   NORMALISATION CATÉGORIE
+========================================================= */
 
 function normaliserCategorie(categorie){
 
@@ -236,61 +250,72 @@ function normaliserCategorie(categorie){
 
     const correspondances = {
 
-        "alimentaire":"alimentation",
+        "alimentaire": "alimentation",
 
-        "alimentation":"alimentation",
+        "alimentation": "alimentation",
 
-        "agriculture":"agriculture",
+        "agriculture": "agriculture",
 
-        "mode":"mode",
+        "mode": "mode",
 
-        "habillement":"mode",
+        "habillement": "mode",
 
-        "technologie":"technologie",
+        "technologie": "technologie",
 
-        "informatique":"technologie",
+        "informatique": "technologie",
 
-        "services":"services",
+        "services": "services",
 
-        "service":"services",
+        "service": "services",
 
-        "autres":"autres",
+        "autres": "autres",
 
-        "autre":"autres"
+        "autre": "autres"
 
     };
 
-    return correspondances[valeur] || valeur;
+    return (
+        correspondances[valeur] ||
+        valeur
+    );
 
 }
 
 
-function normaliserDisponibilite(disponibilite){
+/* =========================================================
+   NORMALISATION DISPONIBILITÉ
+========================================================= */
+
+function normaliserDisponibilite(
+    disponibilite
+){
 
     const valeur =
         normaliser(disponibilite);
 
     const correspondances = {
 
-        "disponible":"Disponible",
+        "disponible": "Disponible",
 
-        "stock_limite":"Stock limité",
+        "stock_limite": "Stock limité",
 
-        "stock limité":"Stock limité",
+        "stock limité": "Stock limité",
 
-        "sur_commande":"Sur commande",
+        "sur_commande": "Sur commande",
 
-        "sur commande":"Sur commande",
+        "sur commande": "Sur commande",
 
-        "indisponible":"Indisponible",
+        "indisponible": "Indisponible",
 
-        "vendu":"Vendu"
+        "vendu": "Vendu"
 
     };
 
-    return correspondances[valeur] ||
-           disponibilite ||
-           "Disponible";
+    return (
+        correspondances[valeur] ||
+        disponibilite ||
+        "Disponible"
+    );
 
 }
 
@@ -301,50 +326,62 @@ function normaliserDisponibilite(disponibilite){
 
 function chargerProduits(){
 
+    if(!realtime){
+
+        console.error(
+            "Firebase Realtime Database indisponible."
+        );
+
+        afficherErreurChargement();
+
+        return;
+
+    }
+
     const produitsRef =
-        ref(realtime,"boutique");
+        ref(realtime, "boutique");
 
     onValue(
+
         produitsRef,
+
         snapshot => {
 
             tousLesProduits = [];
 
             if(snapshot.exists()){
 
-                snapshot.forEach(
-                    enfant => {
+                snapshot.forEach(enfant => {
 
-                        const produit =
-                            enfant.val() || {};
+                    const produit =
+                        enfant.val() || {};
 
-                        produit.id =
-                            enfant.key;
+                    produit.id =
+                        enfant.key;
 
-                        /*
-                         * Seuls les produits publiés
-                         * apparaissent dans la boutique.
-                         */
+                    /*
+                     * Seuls les produits publiés
+                     * apparaissent dans la boutique.
+                     */
 
-                        if(
-                            normaliser(
-                                produit.statut
-                            ) === "publie"
-                        ){
+                    if(
+                        normaliser(
+                            produit.statut
+                        ) === "publie"
+                    ){
 
-                            tousLesProduits.push(
-                                produit
-                            );
-
-                        }
+                        tousLesProduits.push(
+                            produit
+                        );
 
                     }
-                );
+
+                });
 
             }
 
             tousLesProduits.sort(
-                (a,b) => {
+                (a, b) => {
 
                     const dateA =
                         Number(a.dateAjout) || 0;
@@ -357,7 +394,9 @@ function chargerProduits(){
                 }
             );
 
+
             afficherProduits();
+
 
             if(chargementProduits){
 
@@ -385,6 +424,7 @@ function chargerProduits(){
             afficherErreurChargement();
 
         }
+
     );
 
 }
@@ -407,6 +447,7 @@ function afficherProduits(){
 
     listeProduits.innerHTML = "";
 
+
     if(nombreProduits){
 
         const nombre =
@@ -416,8 +457,8 @@ function afficherProduits(){
             nombre +
             (
                 nombre > 1
-                    ? " produits"
-                    : " produit"
+                ? " produits"
+                : " produit"
             );
 
     }
@@ -443,6 +484,7 @@ function afficherProduits(){
     listeProduits.style.display =
         "grid";
 
+
     if(aucunProduit){
 
         aucunProduit.style.display =
@@ -451,15 +493,13 @@ function afficherProduits(){
     }
 
 
-    produitsFiltres.forEach(
-        produit => {
+    produitsFiltres.forEach(produit => {
 
-            listeProduits.appendChild(
-                creerCarteProduit(produit)
-            );
+        listeProduits.appendChild(
+            creerCarteProduit(produit)
+        );
 
-        }
-    );
+    });
 
 }
 
@@ -480,6 +520,7 @@ function filtrerProduits(){
                 normaliserCategorie(
                     produit.categorie
                 );
+
 
             if(
                 categorieActive !== "tous" &&
@@ -530,7 +571,6 @@ function filtrerProduits(){
 
 }
 
-
 /* =========================================================
    CARTE PRODUIT
 ========================================================= */
@@ -543,18 +583,22 @@ function creerCarteProduit(produit){
     carte.className =
         "product-card";
 
+
     const nom =
         produit.nom ||
         "Produit sans nom";
+
 
     const categorie =
         normaliserCategorie(
             produit.categorie
         ) || "autres";
 
+
     const description =
         produit.description ||
         "Aucune description disponible.";
+
 
     const prix =
         formaterPrix(
@@ -562,24 +606,29 @@ function creerCarteProduit(produit){
             produit.devise || "FCFA"
         );
 
+
     const ville =
         produit.ville ||
         "Localisation non précisée";
+
 
     const disponibilite =
         normaliserDisponibilite(
             produit.disponibilite
         );
 
+
     const vendeur =
         produit.nomVendeur ||
         produit.vendeur ||
         "Membre MWANA MBOKA";
 
+
     const telephone =
         produit.whatsapp ||
         produit.telephone ||
         "";
+
 
     const date =
         formaterDate(
@@ -588,10 +637,15 @@ function creerCarteProduit(produit){
 
 
     let imageHTML = `
+
         <div class="product-image">
+
             <div class="product-image-placeholder">
+
                 <i class="fa-solid fa-box-open"></i>
+
             </div>
+
     `;
 
 
@@ -602,7 +656,9 @@ function creerCarteProduit(produit){
                 produit.photo
             );
 
+
         imageHTML = `
+
             <div class="product-image">
 
                 <img
@@ -619,8 +675,11 @@ function creerCarteProduit(produit){
                     class="product-image-placeholder"
                     style="display:none;"
                 >
+
                     <i class="fa-solid fa-box-open"></i>
+
                 </div>
+
         `;
 
     }
@@ -628,15 +687,16 @@ function creerCarteProduit(produit){
 
     imageHTML += `
 
-        <span class="product-status">
+            <span class="product-status">
 
-            <i class="fa-solid fa-circle-check"></i>
+                <i class="fa-solid fa-circle-check"></i>
 
-            ${echapperHTML(disponibilite)}
+                ${echapperHTML(disponibilite)}
 
-        </span>
+            </span>
 
         </div>
+
     `;
 
 
@@ -699,9 +759,11 @@ function creerCarteProduit(produit){
 
                 </div>
 
+
                 ${
                     date
                     ? `
+
                     <div class="product-detail">
 
                         <i class="fa-solid fa-calendar"></i>
@@ -711,6 +773,7 @@ function creerCarteProduit(produit){
                         </span>
 
                     </div>
+
                     `
                     : ""
                 }
@@ -725,6 +788,7 @@ function creerCarteProduit(produit){
                     Vendeur
 
                 </div>
+
 
                 <div class="product-seller-name">
 
@@ -748,6 +812,7 @@ function creerCarteProduit(produit){
                 ${
                     whatsappURL
                     ? `
+
                     <a
                         href="${whatsappURL}"
                         target="_blank"
@@ -760,6 +825,7 @@ function creerCarteProduit(produit){
                         WhatsApp
 
                     </a>
+
                     `
                     : ""
                 }
@@ -768,6 +834,7 @@ function creerCarteProduit(produit){
                 ${
                     telephoneURL
                     ? `
+
                     <a
                         href="${telephoneURL}"
                         class="product-action phone"
@@ -778,6 +845,7 @@ function creerCarteProduit(produit){
                         Appeler
 
                     </a>
+
                     `
                     : ""
                 }
@@ -786,13 +854,13 @@ function creerCarteProduit(produit){
 
 
             ${
-                !whatsappURL && !telephoneURL
+                !whatsappURL &&
+                !telephoneURL
                 ? `
+
                 <div class="product-actions">
 
-                    <span
-                        class="product-action secondary"
-                    >
+                    <span class="product-action secondary">
 
                         <i class="fa-solid fa-phone-slash"></i>
 
@@ -801,6 +869,7 @@ function creerCarteProduit(produit){
                     </span>
 
                 </div>
+
                 `
                 : ""
             }
@@ -816,7 +885,7 @@ function creerCarteProduit(produit){
 
 
 /* =========================================================
-   LIENS DE CONTACT
+   NETTOYAGE NUMÉRO
 ========================================================= */
 
 function nettoyerTelephone(numero){
@@ -828,10 +897,14 @@ function nettoyerTelephone(numero){
     }
 
     return String(numero)
-        .replace(/[^\d+]/g,"");
+        .replace(/[^\d+]/g, "");
 
 }
 
+
+/* =========================================================
+   LIEN TÉLÉPHONE
+========================================================= */
 
 function creerLienTelephone(numero){
 
@@ -849,7 +922,14 @@ function creerLienTelephone(numero){
 }
 
 
-function creerLienWhatsApp(numero,nomProduit){
+/* =========================================================
+   LIEN WHATSAPP
+========================================================= */
+
+function creerLienWhatsApp(
+    numero,
+    nomProduit
+){
 
     const propre =
         nettoyerTelephone(numero);
@@ -862,13 +942,8 @@ function creerLienWhatsApp(numero,nomProduit){
 
 
     let numeroWhatsApp =
-        propre.replace(/\+/g,"");
+        propre.replace(/\+/g, "");
 
-
-    /*
-     * Si le numéro congolais commence par 0,
-     * on le transforme en indicatif +242.
-     */
 
     if(
         numeroWhatsApp.startsWith("0")
@@ -883,6 +958,7 @@ function creerLienWhatsApp(numero,nomProduit){
 
     const message =
         `Bonjour, je viens de voir votre produit "${nomProduit}" dans la Boutique MWANA MBOKA. Je souhaite avoir plus d'informations.`;
+
 
     return (
         "https://wa.me/" +
@@ -906,6 +982,7 @@ function afficherErreurChargement(){
 
     }
 
+
     listeProduits.innerHTML = `
 
         <div
@@ -919,18 +996,20 @@ function afficherErreurChargement(){
 
             </div>
 
+
             <h3>
                 Impossible de charger la boutique
             </h3>
 
+
             <p>
-                Vérifiez votre connexion puis
-                actualisez la page.
+                Vérifiez votre connexion puis actualisez la page.
             </p>
 
         </div>
 
     `;
+
 
     listeProduits.style.display =
         "grid";
@@ -980,13 +1059,16 @@ boutonsCategories.forEach(
                     }
                 );
 
+
                 bouton.classList.add(
                     "active"
                 );
 
+
                 categorieActive =
                     bouton.dataset.category ||
                     "tous";
+
 
                 afficherProduits();
 
@@ -997,44 +1079,66 @@ boutonsCategories.forEach(
 );
 
 /* =========================================================
-   MWANA MBOKA — BOUTIQUE
-   JAVASCRIPT — PARTIE 2/3
-   FORMULAIRE + AJOUT D'UN PRODUIT
-========================================================= */
-
-
-/* =========================================================
    OUVERTURE DU MODAL
 ========================================================= */
 
 function ouvrirModalProduit(){
 
-    if(!modalProduit) return;
+    if(!modalProduit){
 
-    /* Affichage réel du modal */
-    modalProduit.style.display = "flex";
+        console.error(
+            "modalProduit introuvable."
+        );
 
-    /* Classe active pour le CSS */
-    modalProduit.classList.add("active");
+        return;
 
-    /* Bloquer le défilement de la page */
-    document.body.style.overflow = "hidden";
+    }
 
-    /* Préremplir le téléphone du membre */
+
+    /*
+     * IMPORTANT :
+     * le HTML possède style="display:none".
+     * On force donc ici display:flex.
+     */
+
+    modalProduit.style.display =
+        "flex";
+
+
+    modalProduit.classList.add(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    /* Téléphone du membre */
+
     const telephoneChamp =
-        document.getElementById("telephoneProduit");
+        document.getElementById(
+            "telephoneProduit"
+        );
 
-    if(telephoneChamp && telephoneMembre){
+
+    if(
+        telephoneChamp &&
+        telephoneMembre
+    ){
 
         telephoneChamp.value =
             telephoneMembre;
 
     }
 
-    /* Réinitialiser le message */
+
+    /* Message */
+
     if(messageFormulaire){
 
-        messageFormulaire.textContent = "";
+        messageFormulaire.textContent =
+            "";
 
         messageFormulaire.className =
             "form-message";
@@ -1053,68 +1157,109 @@ function ouvrirModalProduit(){
 
 function fermerModalProduit(){
 
-    if(!modalProduit) return;
+    if(!modalProduit){
 
-    /* Retirer la classe */
-    modalProduit.classList.remove("active");
+        return;
 
-    /* Cacher réellement le modal */
-    modalProduit.style.display = "none";
+    }
 
-    /* Rétablir le défilement */
-    document.body.style.overflow = "";
+
+    modalProduit.classList.remove(
+        "active"
+    );
+
+
+    /*
+     * IMPORTANT :
+     * on cache réellement le modal.
+     */
+
+    modalProduit.style.display =
+        "none";
+
+
+    document.body.style.overflow =
+        "";
 
 }
 
 
 /* =========================================================
-   BOUTONS OUVERTURE
+   OUVRIR AVEC LE BOUTON PRINCIPAL
 ========================================================= */
 
 if(btnVendre){
 
-    btnVendre.addEventListener("click", () => {
+    btnVendre.addEventListener(
+        "click",
+        event => {
 
-        ouvrirModalProduit();
+            event.preventDefault();
 
-    });
+            ouvrirModalProduit();
 
-}
-
-
-if(btnVendreVide){
-
-    btnVendreVide.addEventListener("click", () => {
-
-        ouvrirModalProduit();
-
-    });
+        }
+    );
 
 }
 
 
 /* =========================================================
-   BOUTONS FERMETURE
+   OUVRIR DEPUIS L'ÉTAT VIDE
 ========================================================= */
 
-if(btnFermerModal){
+if(btnVendreVide){
 
-    btnFermerModal.addEventListener("click", () => {
+    btnVendreVide.addEventListener(
+        "click",
+        event => {
 
-        fermerModalProduit();
+            event.preventDefault();
 
-    });
+            ouvrirModalProduit();
+
+        }
+    );
 
 }
 
 
+/* =========================================================
+   FERMER AVEC X
+========================================================= */
+
+if(btnFermerModal){
+
+    btnFermerModal.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+
+            fermerModalProduit();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FERMER AVEC ANNULER
+========================================================= */
+
 if(btnAnnulerProduit){
 
-    btnAnnulerProduit.addEventListener("click", () => {
+    btnAnnulerProduit.addEventListener(
+        "click",
+        event => {
 
-        fermerModalProduit();
+            event.preventDefault();
 
-    });
+            fermerModalProduit();
+
+        }
+    );
 
 }
 
@@ -1123,48 +1268,75 @@ if(btnAnnulerProduit){
    MESSAGE FORMULAIRE
 ========================================================= */
 
-function afficherMessageFormulaire(message, type = "info"){
+function afficherMessageFormulaire(
+    message,
+    type = "info"
+){
 
-    if(!messageFormulaire) return;
+    if(!messageFormulaire){
 
-    messageFormulaire.textContent = message;
+        return;
+
+    }
+
+
+    messageFormulaire.textContent =
+        message;
+
 
     messageFormulaire.className =
         "form-message";
 
+
     messageFormulaire.style.display =
         "block";
 
+
     if(type === "success"){
 
-        messageFormulaire.classList.add("success");
+        messageFormulaire.classList.add(
+            "success"
+        );
 
     }
+
 
     if(type === "error"){
 
-        messageFormulaire.classList.add("error");
+        messageFormulaire.classList.add(
+            "error"
+        );
 
     }
+
 
     if(type === "info"){
 
-        messageFormulaire.classList.add("info");
+        messageFormulaire.classList.add(
+            "info"
+        );
 
     }
 
-       }
+}
 
 
 /* =========================================================
-   RÉCUPÉRATION DES CHAMPS
+   RÉCUPÉRER UNE VALEUR
 ========================================================= */
 
 function recupererValeurChamp(id){
 
-    const champ = document.getElementById(id);
+    const champ =
+        document.getElementById(id);
 
-    if(!champ) return "";
+
+    if(!champ){
+
+        return "";
+
+    }
+
 
     return champ.value.trim();
 
@@ -1177,14 +1349,53 @@ function recupererValeurChamp(id){
 
 function validerProduit(){
 
-    const nom = recupererValeurChamp("nomProduit");
-    const categorie = recupererValeurChamp("categorieProduit");
-    const description = recupererValeurChamp("descriptionProduit");
-    const prix = recupererValeurChamp("prixProduit");
-    const devise = recupererValeurChamp("deviseProduit");
-    const ville = recupererValeurChamp("villeProduit");
-    const telephone = recupererValeurChamp("telephoneProduit");
-    const disponibilite = recupererValeurChamp("disponibiliteProduit");
+    const nom =
+        recupererValeurChamp(
+            "nomProduit"
+        );
+
+
+    const categorie =
+        recupererValeurChamp(
+            "categorieProduit"
+        );
+
+
+    const description =
+        recupererValeurChamp(
+            "descriptionProduit"
+        );
+
+
+    const prix =
+        recupererValeurChamp(
+            "prixProduit"
+        );
+
+
+    const devise =
+        recupererValeurChamp(
+            "deviseProduit"
+        );
+
+
+    const ville =
+        recupererValeurChamp(
+            "villeProduit"
+        );
+
+
+    const telephone =
+        recupererValeurChamp(
+            "telephoneProduit"
+        );
+
+
+    const disponibilite =
+        recupererValeurChamp(
+            "disponibiliteProduit"
+        );
+
 
     if(!nom){
 
@@ -1246,9 +1457,14 @@ function validerProduit(){
     }
 
 
-    const nombrePrix = Number(prix);
+    const nombrePrix =
+        Number(prix);
 
-    if(!Number.isFinite(nombrePrix) || nombrePrix < 0){
+
+    if(
+        !Number.isFinite(nombrePrix) ||
+        nombrePrix < 0
+    ){
 
         afficherMessageFormulaire(
             "Veuillez renseigner un prix valide.",
@@ -1296,9 +1512,15 @@ function validerProduit(){
     }
 
 
-    const telephoneNettoye = nettoyerTelephone(telephone);
+    const telephoneNettoye =
+        nettoyerTelephone(
+            telephone
+        );
 
-    if(telephoneNettoye.length < 8){
+
+    if(
+        telephoneNettoye.length < 8
+    ){
 
         afficherMessageFormulaire(
             "Veuillez renseigner un numéro de téléphone valide.",
@@ -1328,227 +1550,266 @@ function validerProduit(){
 
 
 /* =========================================================
-   SOUMISSION DU PRODUIT
+   SOUMISSION
 ========================================================= */
 
 if(formProduit){
 
-    formProduit.addEventListener("submit", async event => {
-
-        event.preventDefault();
-
-
-        /* Vérification session */
-
-        if(!membreId || !nomMembre || !matriculeMembre){
-
-            afficherMessageFormulaire(
-                "Votre session membre est invalide. Veuillez vous reconnecter.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* Validation */
-
-        if(!validerProduit()){
-
-            return;
-
-        }
-
-
-        /* Récupération */
-
-        const nom = recupererValeurChamp("nomProduit");
-
-        const categorie =
-            recupererValeurChamp("categorieProduit");
-
-        const description =
-            recupererValeurChamp("descriptionProduit");
-
-        const prix =
-            recupererValeurChamp("prixProduit");
-
-        const devise =
-            recupererValeurChamp("deviseProduit") || "FCFA";
-
-        const ville =
-            recupererValeurChamp("villeProduit");
-
-        const telephone =
-            recupererValeurChamp("telephoneProduit");
-
-        const disponibilite =
-            recupererValeurChamp("disponibiliteProduit");
-
-        const photo =
-            recupererValeurChamp("photoProduit");
-
-
-        /* État bouton */
-
-        const texteOriginal =
-            btnSoumettreProduit
-            ? btnSoumettreProduit.innerHTML
-            : "";
-
-
-        if(btnSoumettreProduit){
-
-            btnSoumettreProduit.disabled = true;
-
-            btnSoumettreProduit.innerHTML = `
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                Envoi en cours...
-            `;
-
-        }
-
-
-        try{
-
-            /* Référence Boutique */
-
-            const boutiqueRef =
-                ref(realtime, "boutique");
-
-
-            /* Création automatique de l'identifiant */
-
-            const nouvelleAnnonceRef =
-                push(boutiqueRef);
-
-
-            /* Données du produit */
-
-            const produit = {
-
-                nom: nom,
-
-                categorie: categorie,
-
-                description: description,
-
-                prix: Number(prix),
-
-                devise: devise,
-
-                photo: photo,
-
-                vendeur: nomMembre,
-
-                nomVendeur: nomMembre,
-
-                matriculeVendeur: matriculeMembre,
-
-                membreId: membreId,
-
-                telephone: telephone,
-
-                whatsapp: telephone,
-
-                ville: ville,
-
-                disponibilite: disponibilite,
-
-                statut: "en_attente",
-
-                dateAjout: Date.now()
-
-            };
-
-
-            /* Enregistrement Firebase */
-
-            await set(
-                nouvelleAnnonceRef,
-                produit
-            );
-
-
-            /* Succès */
-
-            afficherMessageFormulaire(
-                "Votre produit a bien été envoyé. Il est maintenant en attente de validation par le Président.",
-                "success"
-            );
-
-
-            /* Réinitialisation du formulaire */
-
-            formProduit.reset();
-
-
-            /* Restaurer automatiquement le téléphone */
-
-            const telephoneChamp =
-                document.getElementById("telephoneProduit");
-
-            if(telephoneChamp && telephoneMembre){
-
-                telephoneChamp.value =
-                    telephoneMembre;
-
-            }
-
-
-            /* Restaurer le bouton */
-
-            if(btnSoumettreProduit){
-
-                btnSoumettreProduit.disabled = false;
-
-                btnSoumettreProduit.innerHTML =
-                    texteOriginal;
-
-            }
+    formProduit.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
 
 
             /*
-             * Fermeture automatique après quelques secondes
+             * IMPORTANT :
+             * on ne demande plus membreId.
+             *
+             * Nom + matricule suffisent.
              */
 
-            setTimeout(() => {
+            if(
+                !nomMembre ||
+                !matriculeMembre
+            ){
 
-                fermerModalProduit();
+                afficherMessageFormulaire(
+                    "Les informations de votre compte membre sont incomplètes. Veuillez vous reconnecter.",
+                    "error"
+                );
 
-            }, 2500);
+                return;
 
-
-        }catch(error){
-
-            console.error(
-                "Erreur ajout produit :",
-                error
-            );
+            }
 
 
-            afficherMessageFormulaire(
-                "Impossible d'envoyer votre produit. Vérifiez votre connexion et réessayez.",
-                "error"
-            );
+            if(!validerProduit()){
+
+                return;
+
+            }
+
+
+            const nom =
+                recupererValeurChamp(
+                    "nomProduit"
+                );
+
+
+            const categorie =
+                recupererValeurChamp(
+                    "categorieProduit"
+                );
+
+
+            const description =
+                recupererValeurChamp(
+                    "descriptionProduit"
+                );
+
+
+            const prix =
+                recupererValeurChamp(
+                    "prixProduit"
+                );
+
+
+            const devise =
+                recupererValeurChamp(
+                    "deviseProduit"
+                ) || "FCFA";
+
+
+            const ville =
+                recupererValeurChamp(
+                    "villeProduit"
+                );
+
+
+            const telephone =
+                recupererValeurChamp(
+                    "telephoneProduit"
+                );
+
+
+            const disponibilite =
+                recupererValeurChamp(
+                    "disponibiliteProduit"
+                );
+
+
+            const photo =
+                recupererValeurChamp(
+                    "photoProduit"
+                );
+
+
+            const texteOriginal =
+                btnSoumettreProduit
+                ? btnSoumettreProduit.innerHTML
+                : "";
 
 
             if(btnSoumettreProduit){
 
-                btnSoumettreProduit.disabled = false;
+                btnSoumettreProduit.disabled =
+                    true;
 
-                btnSoumettreProduit.innerHTML =
-                    texteOriginal;
+
+                btnSoumettreProduit.innerHTML = `
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    Envoi en cours...
+
+                `;
+
+            }
+
+
+            try{
+
+                const boutiqueRef =
+                    ref(
+                        realtime,
+                        "boutique"
+                    );
+
+
+                const nouvelleAnnonceRef =
+                    push(
+                        boutiqueRef
+                    );
+
+
+                const produit = {
+
+                    nom: nom,
+
+                    categorie: categorie,
+
+                    description: description,
+
+                    prix: Number(prix),
+
+                    devise: devise,
+
+                    photo: photo,
+
+                    vendeur: nomMembre,
+
+                    nomVendeur: nomMembre,
+
+                    matriculeVendeur:
+                        matriculeMembre,
+
+                    membreId:
+                        membreId || "",
+
+                    telephone: telephone,
+
+                    whatsapp: telephone,
+
+                    ville: ville,
+
+                    disponibilite:
+                        disponibilite,
+
+                    statut:
+                        "en_attente",
+
+                    dateAjout:
+                        Date.now()
+
+                };
+
+
+                await set(
+                    nouvelleAnnonceRef,
+                    produit
+                );
+
+
+                afficherMessageFormulaire(
+                    "Votre produit a bien été envoyé. Il est maintenant en attente de validation par le Président.",
+                    "success"
+                );
+
+
+                formProduit.reset();
+
+
+                const telephoneChamp =
+                    document.getElementById(
+                        "telephoneProduit"
+                    );
+
+
+                if(
+                    telephoneChamp &&
+                    telephoneMembre
+                ){
+
+                    telephoneChamp.value =
+                        telephoneMembre;
+
+                }
+
+
+                if(btnSoumettreProduit){
+
+                    btnSoumettreProduit.disabled =
+                        false;
+
+
+                    btnSoumettreProduit.innerHTML =
+                        texteOriginal;
+
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        fermerModalProduit();
+
+                    },
+                    2500
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    "Erreur ajout produit :",
+                    error
+                );
+
+
+                afficherMessageFormulaire(
+                    "Impossible d'envoyer votre produit. Vérifiez votre connexion et réessayez.",
+                    "error"
+                );
+
+
+                if(btnSoumettreProduit){
+
+                    btnSoumettreProduit.disabled =
+                        false;
+
+
+                    btnSoumettreProduit.innerHTML =
+                        texteOriginal;
+
+                }
 
             }
 
         }
-
-    });
+    );
 
 }
-
 
 /* =========================================================
    FERMETURE EN CLIQUANT SUR L'EXTÉRIEUR
@@ -1556,15 +1817,21 @@ if(formProduit){
 
 if(modalProduit){
 
-    modalProduit.addEventListener("click", event => {
+    modalProduit.addEventListener(
+        "click",
+        event => {
 
-        if(event.target === modalProduit){
+            if(
+                event.target ===
+                modalProduit
+            ){
 
-            fermerModalProduit();
+                fermerModalProduit();
+
+            }
 
         }
-
-    });
+    );
 
 }
 
@@ -1573,41 +1840,44 @@ if(modalProduit){
    TOUCHE ÉCHAP
 ========================================================= */
 
-document.addEventListener("keydown", event => {
+document.addEventListener(
+    "keydown",
+    event => {
 
-    if(event.key === "Escape"){
+        if(event.key === "Escape"){
 
-        if(
-            modalProduit &&
-            modalProduit.classList.contains("active")
-        ){
+            if(
+                modalProduit &&
+                modalProduit.style.display !== "none"
+            ){
 
-            fermerModalProduit();
+                fermerModalProduit();
+
+            }
 
         }
 
     }
-
-});
-
-/* =========================================================
-   MWANA MBOKA — BOUTIQUE
-   JAVASCRIPT — PARTIE 3/3
-   NAVIGATION + INITIALISATION
-========================================================= */
+);
 
 
 /* =========================================================
-   ACCUEIL / ESPACE MEMBRE
+   ACCUEIL
 ========================================================= */
 
 if(btnAccueil){
 
-    btnAccueil.addEventListener("click", () => {
+    btnAccueil.addEventListener(
+        "click",
+        event => {
 
-        window.location.href = "espace.html";
+            event.preventDefault();
 
-    });
+            window.location.href =
+                "espace.html";
+
+        }
+    );
 
 }
 
@@ -1618,11 +1888,17 @@ if(btnAccueil){
 
 if(btnNotifications){
 
-    btnNotifications.addEventListener("click", () => {
+    btnNotifications.addEventListener(
+        "click",
+        event => {
 
-        window.location.href = "notifications.html";
+            event.preventDefault();
 
-    });
+            window.location.href =
+                "notifications.html";
+
+        }
+    );
 
 }
 
@@ -1632,123 +1908,101 @@ if(btnNotifications){
 ========================================================= */
 
 const liensNavigation =
-    document.querySelectorAll(".bottom-nav a");
-
-liensNavigation.forEach(lien => {
-
-    lien.addEventListener("click", event => {
-
-        const destination =
-            lien.getAttribute("href");
-
-        if(!destination){
-
-            event.preventDefault();
-
-            return;
-
-        }
-
-        /*
-         * Si le lien correspond déjà à la page
-         * actuelle, on évite un rechargement inutile.
-         */
-
-        const pageActuelle =
-            window.location.pathname
-                .split("/")
-                .pop();
-
-        const pageDestination =
-            destination
-                .split("/")
-                .pop();
-
-        if(
-            pageActuelle === pageDestination ||
-            (
-                pageActuelle === "" &&
-                pageDestination === "boutique.html"
-            )
-        ){
-
-            event.preventDefault();
-
-        }
-
-    });
-
-});
+    document.querySelectorAll(
+        ".bottom-nav a"
+    );
 
 
-/* =========================================================
-   PROTECTION CONTRE LE DOUBLE ENVOI
-========================================================= */
+liensNavigation.forEach(
+    lien => {
 
-if(formProduit){
+        lien.addEventListener(
+            "click",
+            event => {
 
-    formProduit.addEventListener("keydown", event => {
+                const destination =
+                    lien.getAttribute(
+                        "href"
+                    );
 
-        if(
-            event.key === "Enter" &&
-            event.target.tagName !== "TEXTAREA"
-        ){
 
-            /*
-             * Le bouton submit gère déjà l'envoi.
-             * Cette protection évite certains doubles
-             * déclenchements sur mobile.
-             */
+                if(!destination){
 
-            if(
-                btnSoumettreProduit &&
-                btnSoumettreProduit.disabled
-            ){
+                    event.preventDefault();
 
-                event.preventDefault();
+                    return;
+
+                }
+
+
+                const pageActuelle =
+                    window.location.pathname
+                        .split("/")
+                        .pop();
+
+
+                const pageDestination =
+                    destination
+                        .split("/")
+                        .pop();
+
+
+                if(
+                    pageActuelle ===
+                    pageDestination
+                ){
+
+                    event.preventDefault();
+
+                }
 
             }
+        );
 
-        }
-
-    });
-
-}
+    }
+);
 
 
 /* =========================================================
-   VÉRIFICATION DU TÉLÉPHONE
+   TÉLÉPHONE
 ========================================================= */
 
 const champTelephone =
-    document.getElementById("telephoneProduit");
+    document.getElementById(
+        "telephoneProduit"
+    );
+
 
 if(champTelephone){
 
-    champTelephone.addEventListener("input", () => {
+    champTelephone.addEventListener(
+        "input",
+        () => {
 
-        /*
-         * On conserve les chiffres et le signe +
-         */
+            let valeur =
+                champTelephone.value
+                    .replace(/[^\d+]/g, "");
 
-        let valeur =
-            champTelephone.value.replace(/[^\d+]/g,"");
 
-        /*
-         * Un seul + est autorisé au début.
-         */
+            if(
+                valeur.includes("+")
+            ){
 
-        if(valeur.includes("+")){
+                valeur =
+                    "+" +
+                    valeur.replace(
+                        /\+/g,
+                        ""
+                    );
 
-            valeur =
-                "+" +
-                valeur.replace(/\+/g,"");
+            }
+
+
+            champTelephone.value =
+                valeur;
 
         }
-
-        champTelephone.value = valeur;
-
-    });
+    );
 
 }
 
@@ -1758,102 +2012,144 @@ if(champTelephone){
 ========================================================= */
 
 const champPrix =
-    document.getElementById("prixProduit");
+    document.getElementById(
+        "prixProduit"
+    );
+
 
 if(champPrix){
 
-    champPrix.addEventListener("input", () => {
+    champPrix.addEventListener(
+        "input",
+        () => {
 
-        if(Number(champPrix.value) < 0){
+            if(
+                Number(champPrix.value) < 0
+            ){
 
-            champPrix.value = "";
+                champPrix.value = "";
+
+            }
 
         }
-
-    });
+    );
 
 }
 
 
 /* =========================================================
-   PHOTO — URL
+   PHOTO URL
 ========================================================= */
 
 const champPhoto =
-    document.getElementById("photoProduit");
+    document.getElementById(
+        "photoProduit"
+    );
+
 
 if(champPhoto){
 
-    champPhoto.addEventListener("blur", () => {
+    champPhoto.addEventListener(
+        "blur",
+        () => {
 
-        const valeur =
-            champPhoto.value.trim();
+            const valeur =
+                champPhoto.value.trim();
 
-        if(!valeur){
 
-            return;
+            if(!valeur){
+
+                champPhoto.style.borderColor =
+                    "";
+
+                return;
+
+            }
+
+
+            try{
+
+                new URL(valeur);
+
+                champPhoto.style.borderColor =
+                    "";
+
+            }catch(error){
+
+                champPhoto.style.borderColor =
+                    "#dc3545";
+
+            }
 
         }
-
-        /*
-         * Pour cette première version,
-         * la photo est enregistrée comme URL.
-         */
-
-        try{
-
-            new URL(valeur);
-
-            champPhoto.style.borderColor = "";
-
-        }catch(error){
-
-            champPhoto.style.borderColor =
-                "#dc3545";
-
-        }
-
-    });
+    );
 
 }
 
 
 /* =========================================================
-   FERMETURE PROPRE AVANT CHANGEMENT DE PAGE
+   NETTOYAGE AVANT QUITTER
 ========================================================= */
 
-window.addEventListener("beforeunload", () => {
+window.addEventListener(
+    "beforeunload",
+    () => {
 
-    document.body.style.overflow = "";
+        document.body.style.overflow =
+            "";
 
-});
+    }
+);
 
 
 /* =========================================================
-   INITIALISATION BOUTIQUE
+   INITIALISATION
 ========================================================= */
 
 function initialiserBoutique(){
 
     /*
-     * Vérification minimale de la session
+     * Affichage de l'identité,
+     * même si certaines données secondaires
+     * sont absentes.
      */
 
-    if(
-        !nomMembre ||
-        !matriculeMembre
-    ){
+    if(nomMembreElement){
 
-        window.location.href =
-            "connexion.html";
+        nomMembreElement.textContent =
+            nomMembre ||
+            "Membre";
 
-        return;
+    }
+
+
+    if(matriculeMembreElement){
+
+        matriculeMembreElement.textContent =
+            matriculeMembre ||
+            "Matricule";
 
     }
 
 
     /*
-     * Chargement des produits publiés
+     * Le modal doit être fermé au démarrage.
+     */
+
+    if(modalProduit){
+
+        modalProduit.classList.remove(
+            "active"
+        );
+
+        modalProduit.style.display =
+            "none";
+
+    }
+
+
+    /*
+     * Chargement de la boutique.
      */
 
     chargerProduits();
@@ -1866,7 +2162,8 @@ function initialiserBoutique(){
 ========================================================= */
 
 if(
-    document.readyState === "loading"
+    document.readyState ===
+    "loading"
 ){
 
     document.addEventListener(
@@ -1882,5 +2179,5 @@ if(
 
 
 /* =========================================================
-   FIN BOUTIQUE.JS
+   FIN DE BOUTIQUE.JS
 ========================================================= */
