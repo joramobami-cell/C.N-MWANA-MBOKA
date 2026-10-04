@@ -51,30 +51,19 @@ const firebaseConfig = {
   INITIALISATION FIREBASE
 ==================================================*/
 
-const app = initializeApp(firebaseConfig);
+const app =
+    initializeApp(firebaseConfig);
 
-const database = getDatabase(app);
+const database =
+    getDatabase(app);
 
 
 /*==================================================
   PARAMETRES DE SESSION
 ==================================================*/
 
-/*
-  Fermeture automatique après
-  10 minutes sans activité.
-*/
-
 const DUREE_INACTIVITE =
     10 * 60 * 1000;
-
-
-/*
-  Durée maximale absolue d'une session.
-
-  Cette limite sera également contrôlée
-  dans les pages protégées.
-*/
 
 const DUREE_MAX_SESSION =
     8 * 60 * 60 * 1000;
@@ -85,25 +74,39 @@ const DUREE_MAX_SESSION =
 ==================================================*/
 
 const connexionForm =
-    document.getElementById("connexionForm");
+    document.getElementById(
+        "connexionForm"
+    );
 
 const matriculeInput =
-    document.getElementById("matricule");
+    document.getElementById(
+        "matricule"
+    );
 
 const motdepasseInput =
-    document.getElementById("motdepasse");
+    document.getElementById(
+        "motdepasse"
+    );
 
 const togglePassword =
-    document.getElementById("togglePassword");
+    document.getElementById(
+        "togglePassword"
+    );
 
 const boutonConnexion =
-    document.getElementById("boutonConnexion");
+    document.getElementById(
+        "boutonConnexion"
+    );
 
 const message =
-    document.getElementById("message");
+    document.getElementById(
+        "message"
+    );
 
 const annee =
-    document.getElementById("annee");
+    document.getElementById(
+        "annee"
+    );
 
 
 /*==================================================
@@ -119,24 +122,7 @@ if (annee) {
 
 
 /*==================================================
-  VERIFICATION DES ELEMENTS
-==================================================*/
-
-if (
-    !connexionForm ||
-    !matriculeInput ||
-    !motdepasseInput ||
-    !boutonConnexion
-) {
-
-    console.error(
-        "Erreur : éléments de connexion introuvables."
-    );
-
-}
-
-/*==================================================
-  AFFICHAGE DES MESSAGES
+  MESSAGE
 ==================================================*/
 
 function afficherMessage(
@@ -148,7 +134,8 @@ function afficherMessage(
         return;
     }
 
-    message.textContent = texte;
+    message.textContent =
+        texte;
 
     message.className =
         "message " + type;
@@ -157,7 +144,7 @@ function afficherMessage(
 
 
 /*==================================================
-  AFFICHER / MASQUER LE MOT DE PASSE
+  MOT DE PASSE
 ==================================================*/
 
 if (togglePassword) {
@@ -167,16 +154,18 @@ if (togglePassword) {
         () => {
 
             const estCache =
-                motdepasseInput.type === "password";
+                motdepasseInput.type ===
+                "password";
 
             motdepasseInput.type =
                 estCache
                     ? "text"
                     : "password";
 
-
             const icone =
-                togglePassword.querySelector("i");
+                togglePassword.querySelector(
+                    "i"
+                );
 
             if (icone) {
 
@@ -186,7 +175,6 @@ if (togglePassword) {
                         : "fa-solid fa-eye";
 
             }
-
 
             togglePassword.setAttribute(
                 "aria-label",
@@ -202,59 +190,42 @@ if (togglePassword) {
 
 
 /*==================================================
-  NETTOYAGE DE L'ANCIENNE SESSION
+  NETTOYAGE SESSION
 ==================================================*/
 
 function nettoyerAncienneSession() {
 
-    /*
-      On évite localStorage.clear()
-      afin de ne pas supprimer d'autres
-      paramètres éventuellement utilisés
-      par la plateforme.
-    */
-
-    const clesSession = [
+    const cles = [
 
         "utilisateurConnecte",
-
         "sessionDebut",
-
         "derniereActivite",
-
         "expirationSession",
-
         "sessionExpiree",
 
         "membreId",
-
         "nom",
-
         "matricule",
-
         "telephone",
-
         "statut",
-
         "dateAdhesion",
-
         "parrain",
-
         "photo",
-
         "role",
-
         "fonction",
-
+        "domaine",
+        "poste",
         "bureau"
 
     ];
 
 
-    clesSession.forEach(
+    cles.forEach(
         (cle) => {
 
-            localStorage.removeItem(cle);
+            localStorage.removeItem(
+                cle
+            );
 
         }
     );
@@ -263,7 +234,41 @@ function nettoyerAncienneSession() {
 
 
 /*==================================================
-  CREATION DE LA SESSION
+  OUTIL : PREMIERE VALEUR DISPONIBLE
+==================================================*/
+
+function valeurMembre(
+    membre,
+    cles,
+    valeurDefaut = ""
+) {
+
+    for (
+        const cle of cles
+    ) {
+
+        if (
+            membre &&
+            membre[cle] !== undefined &&
+            membre[cle] !== null &&
+            String(
+                membre[cle]
+            ).trim() !== ""
+        ) {
+
+            return membre[cle];
+
+        }
+
+    }
+
+    return valeurDefaut;
+
+}
+
+
+/*==================================================
+  CREATION SESSION
 ==================================================*/
 
 function creerSession(
@@ -274,105 +279,310 @@ function creerSession(
     const maintenant =
         Date.now();
 
-
     const expirationAbsolue =
         maintenant +
         DUREE_MAX_SESSION;
 
 
-    /*
-      Informations conservées
-      pour les autres pages de la plateforme.
-    */
+    /*----------------------------------------------
+      NORMALISATION DES INFORMATIONS
+    ----------------------------------------------*/
+
+    const id =
+        valeurMembre(
+            membre,
+            [
+                "id",
+                "membreId",
+                "uid"
+            ],
+            ""
+        );
+
+
+    const nom =
+        valeurMembre(
+            membre,
+            [
+                "nom",
+                "nomComplet",
+                "nom_complet",
+                "nomcomplet",
+                "fullName",
+                "fullname"
+            ],
+            ""
+        );
+
+
+    const matricule =
+        valeurMembre(
+            membre,
+            [
+                "matricule"
+            ],
+            ""
+        );
+
+
+    const telephone =
+        valeurMembre(
+            membre,
+            [
+                "telephone",
+                "téléphone",
+                "phone",
+                "numero",
+                "numeroTelephone"
+            ],
+            ""
+        );
+
+
+    const photo =
+        valeurMembre(
+            membre,
+            [
+                "photo",
+                "photoUrl",
+                "photoURL",
+                "image",
+                "avatar"
+            ],
+            ""
+        );
+
+
+    const statut =
+        valeurMembre(
+            membre,
+            [
+                "statut",
+                "status"
+            ],
+            "Actif"
+        );
+
+
+    const dateAdhesion =
+        valeurMembre(
+            membre,
+            [
+                "dateAdhesion",
+                "date_adhesion",
+                "dateInscription"
+            ],
+            ""
+        );
+
+
+    const parrain =
+        valeurMembre(
+            membre,
+            [
+                "parrain",
+                "codeParrain",
+                "matriculeParrain",
+                "parrainMatricule"
+            ],
+            ""
+        );
+
+
+    const role =
+        valeurMembre(
+            membre,
+            [
+                "role"
+            ],
+            "membre"
+        );
+
+
+    /*----------------------------------------------
+      OBJET SESSION
+    ----------------------------------------------*/
 
     const utilisateur = {
 
+        id:
+            id,
+
         nom:
-            membre.nom || "",
+            nom,
 
         matricule:
-            membre.matricule || "",
+            matricule,
 
         telephone:
-            membre.telephone || "",
+            telephone,
 
         photo:
-            membre.photo || "",
+            photo,
 
         statut:
-            membre.statut || "",
+            statut,
 
         dateAdhesion:
-            membre.dateAdhesion || "",
+            dateAdhesion,
 
         parrain:
-            membre.parrain || "",
+            parrain,
 
         role:
-            membre.role || "",
+            role,
 
         fonction:
-            informationsBureau.fonction || "",
+            informationsBureau.fonction ||
+            "",
+
+        domaine:
+            informationsBureau.domaine ||
+            "",
+
+        poste:
+            informationsBureau.poste ||
+            "",
 
         bureau:
-            informationsBureau.bureau || "espace.html"
+            informationsBureau.bureau ||
+            "espace.html",
+
+        sessionDebut:
+            maintenant,
+
+        derniereActivite:
+            maintenant,
+
+        expirationSession:
+            expirationAbsolue
 
     };
 
 
-    /*
-      Session principale.
-    */
-
     localStorage.setItem(
         "utilisateurConnecte",
-        JSON.stringify(utilisateur)
+        JSON.stringify(
+            utilisateur
+        )
     );
 
 
-    /*
-      Horodatage du début de session.
-    */
+    /*----------------------------------------------
+      COMPATIBILITE ANCIENNES PAGES
+    ----------------------------------------------*/
+
+    localStorage.setItem(
+        "membreId",
+        String(id)
+    );
+
+    localStorage.setItem(
+        "nom",
+        String(nom)
+    );
+
+    localStorage.setItem(
+        "matricule",
+        String(matricule)
+    );
+
+    localStorage.setItem(
+        "telephone",
+        String(telephone)
+    );
+
+    localStorage.setItem(
+        "statut",
+        String(statut)
+    );
+
+    localStorage.setItem(
+        "dateAdhesion",
+        String(dateAdhesion)
+    );
+
+    localStorage.setItem(
+        "parrain",
+        String(parrain)
+    );
+
+    localStorage.setItem(
+        "photo",
+        String(photo)
+    );
+
+    localStorage.setItem(
+        "role",
+        String(role)
+    );
+
+    localStorage.setItem(
+        "fonction",
+        String(
+            informationsBureau.fonction ||
+            ""
+        )
+    );
+
+    localStorage.setItem(
+        "domaine",
+        String(
+            informationsBureau.domaine ||
+            ""
+        )
+    );
+
+    localStorage.setItem(
+        "poste",
+        String(
+            informationsBureau.poste ||
+            ""
+        )
+    );
+
+    localStorage.setItem(
+        "bureau",
+        String(
+            informationsBureau.bureau ||
+            "espace.html"
+        )
+    );
+
+
+    /*----------------------------------------------
+      HORODATAGE
+    ----------------------------------------------*/
 
     localStorage.setItem(
         "sessionDebut",
         String(maintenant)
     );
 
-
-    /*
-      Dernière activité.
-    */
-
     localStorage.setItem(
         "derniereActivite",
         String(maintenant)
     );
-
-
-    /*
-      Expiration maximale.
-    */
 
     localStorage.setItem(
         "expirationSession",
         String(expirationAbsolue)
     );
 
-
-    /*
-      Indique qu'une nouvelle session
-      vient d'être créée.
-    */
-
     localStorage.removeItem(
         "sessionExpiree"
     );
 
-}
+
+    console.log(
+        "SESSION CRÉÉE :",
+        utilisateur
+    );
+
+  }
 
 /*==================================================
-  RECHERCHE DE LA FONCTION DANS L'ORGANIGRAMME
+  RECHERCHE FONCTION ORGANIGRAMME
 ==================================================*/
 
 function rechercherFonction(
@@ -408,16 +618,17 @@ function rechercherFonction(
         }
 
 
-        /*
-          Vérification du matricule
-          du responsable nommé.
-        */
+        /*------------------------------------------
+          RESPONSABLE TROUVE
+        ------------------------------------------*/
 
         if (
             element.responsableMatricule &&
             String(
                 element.responsableMatricule
-            ).toUpperCase() ===
+            )
+            .trim()
+            .toUpperCase() ===
             matriculeRecherche
         ) {
 
@@ -440,10 +651,9 @@ function rechercherFonction(
         }
 
 
-        /*
-          Recherche récursive dans
-          les sous-domaines.
-        */
+        /*------------------------------------------
+          RECHERCHE RECURSIVE
+        ------------------------------------------*/
 
         const resultat =
             rechercherFonction(
@@ -487,13 +697,14 @@ function determinerBureau(
         );
 
 
-    /*
+    /*------------------------------------------
       PRESIDENT
-    */
+    ------------------------------------------*/
 
     if (
-        fonctionNormalisee === "president" ||
-        fonctionNormalisee.includes("president")
+        fonctionNormalisee.includes(
+            "president"
+        )
     ) {
 
         return "prbureau.html";
@@ -501,10 +712,9 @@ function determinerBureau(
     }
 
 
-    /*
-      SECRETARIAT GENERAL /
-      ADMINISTRATION
-    */
+    /*------------------------------------------
+      SECRETARIAT / ADMINISTRATION
+    ------------------------------------------*/
 
     if (
         fonctionNormalisee.includes(
@@ -520,9 +730,9 @@ function determinerBureau(
     }
 
 
-    /*
+    /*------------------------------------------
       FORMATION
-    */
+    ------------------------------------------*/
 
     if (
         fonctionNormalisee.includes(
@@ -535,9 +745,9 @@ function determinerBureau(
     }
 
 
-    /*
+    /*------------------------------------------
       COMMUNICATION
-    */
+    ------------------------------------------*/
 
     if (
         fonctionNormalisee.includes(
@@ -553,9 +763,9 @@ function determinerBureau(
     }
 
 
-    /*
+    /*------------------------------------------
       PROJETS
-    */
+    ------------------------------------------*/
 
     if (
         fonctionNormalisee.includes(
@@ -568,9 +778,9 @@ function determinerBureau(
     }
 
 
-    /*
+    /*------------------------------------------
       CONSEIL ADMINISTRATIF
-    */
+    ------------------------------------------*/
 
     if (
         fonctionNormalisee.includes(
@@ -592,9 +802,9 @@ function determinerBureau(
     }
 
 
-    /*
-      FINANCES ET ECONOMIE
-    */
+    /*------------------------------------------
+      FINANCES / ECONOMIE
+    ------------------------------------------*/
 
     if (
         fonctionNormalisee.includes(
@@ -619,9 +829,9 @@ function determinerBureau(
     }
 
 
-    /*
+    /*------------------------------------------
       MEMBRE ORDINAIRE
-    */
+    ------------------------------------------*/
 
     return "espace.html";
 
@@ -629,7 +839,7 @@ function determinerBureau(
 
 
 /*==================================================
-  ENREGISTREMENT DE L'ACTIVITE
+  JOURNALISATION DE LA CONNEXION
 ==================================================*/
 
 async function enregistrerConnexion(
@@ -646,7 +856,9 @@ async function enregistrerConnexion(
 
 
         const nouvelleActivite =
-            push(journalRef);
+            push(
+                journalRef
+            );
 
 
         await set(
@@ -657,13 +869,17 @@ async function enregistrerConnexion(
                     "connexion",
 
                 matricule:
-                    membre.matricule || "",
+                    membre.matricule ||
+                    "",
 
                 nom:
-                    membre.nom || "",
+                    membre.nom ||
+                    membre.nomComplet ||
+                    "",
 
                 date:
-                    new Date().toISOString(),
+                    new Date()
+                    .toISOString(),
 
                 timestamp:
                     Date.now()
@@ -675,8 +891,8 @@ async function enregistrerConnexion(
     catch (erreur) {
 
         /*
-          Une erreur de journalisation
-          ne doit pas empêcher la connexion.
+          Le journal ne doit pas
+          empêcher la connexion.
         */
 
         console.warn(
@@ -690,7 +906,7 @@ async function enregistrerConnexion(
 
 
 /*==================================================
-  PREPARATION DU BOUTON
+  ETAT DU BOUTON CONNEXION
 ==================================================*/
 
 function definirEtatConnexion(
@@ -698,7 +914,9 @@ function definirEtatConnexion(
 ) {
 
     if (!boutonConnexion) {
+
         return;
+
     }
 
 
@@ -721,8 +939,9 @@ function definirEtatConnexion(
 
 }
 
+
 /*==================================================
-  CONNEXION
+  FORMULAIRE DE CONNEXION
 ==================================================*/
 
 if (connexionForm) {
@@ -734,24 +953,25 @@ if (connexionForm) {
             event.preventDefault();
 
 
-            /*------------------------------------------
-              RECUPERATION DES DONNEES
-            ------------------------------------------*/
+            /*--------------------------------------
+              DONNEES SAISIES
+            --------------------------------------*/
 
-            const matricule =
+            const matriculeSaisi =
                 matriculeInput.value
                     .trim()
                     .toUpperCase();
 
-            const motdepasse =
+
+            const motdepasseSaisi =
                 motdepasseInput.value;
 
 
-            /*------------------------------------------
-              VERIFICATION DES CHAMPS
-            ------------------------------------------*/
+            /*--------------------------------------
+              VERIFICATION MATRICULE
+            --------------------------------------*/
 
-            if (!matricule) {
+            if (!matriculeSaisi) {
 
                 afficherMessage(
                     "Veuillez saisir votre matricule.",
@@ -765,7 +985,11 @@ if (connexionForm) {
             }
 
 
-            if (!motdepasse) {
+            /*--------------------------------------
+              VERIFICATION MOT DE PASSE
+            --------------------------------------*/
+
+            if (!motdepasseSaisi) {
 
                 afficherMessage(
                     "Veuillez saisir votre mot de passe.",
@@ -779,11 +1003,14 @@ if (connexionForm) {
             }
 
 
-            /*------------------------------------------
-              ETAT CHARGEMENT
-            ------------------------------------------*/
+            /*--------------------------------------
+              CHARGEMENT
+            --------------------------------------*/
 
-            definirEtatConnexion(true);
+            definirEtatConnexion(
+                true
+            );
+
 
             afficherMessage(
                 "Vérification de vos informations...",
@@ -793,73 +1020,106 @@ if (connexionForm) {
 
             try {
 
-                /*--------------------------------------
+                /*==================================
                   RECHERCHE DU MEMBRE
-                --------------------------------------*/
+                ==================================*/
 
                 const membreRef =
                     ref(
                         database,
-                        "membres/" + matricule
+                        "membres/" +
+                        matriculeSaisi
                     );
 
 
                 const snapshot =
-                    await get(membreRef);
+                    await get(
+                        membreRef
+                    );
 
+
+                /*----------------------------------
+                  MEMBRE INTROUVABLE
+                ----------------------------------*/
 
                 if (!snapshot.exists()) {
 
-                    definirEtatConnexion(false);
+                    definirEtatConnexion(
+                        false
+                    );
+
 
                     afficherMessage(
                         "Matricule ou mot de passe incorrect.",
                         "error"
                     );
 
+
                     return;
 
                 }
 
+
+                /*----------------------------------
+                  DONNEES MEMBRE
+                ----------------------------------*/
 
                 const membre =
                     snapshot.val();
 
 
-                /*--------------------------------------
-                  VERIFICATION DU MOT DE PASSE
-                --------------------------------------*/
+                /*----------------------------------
+                  MATRICULE NORMALISE
+                ----------------------------------*/
+
+                membre.matricule =
+                    membre.matricule ||
+                    matriculeSaisi;
+
+
+                /*==================================
+                  VERIFICATION MOT DE PASSE
+                ==================================*/
 
                 const motdepasseEnregistre =
                     String(
-                        membre.motdepasse || ""
+                        membre.motdepasse ||
+                        membre.password ||
+                        ""
                     );
 
 
                 if (
                     motdepasseEnregistre !==
-                    String(motdepasse)
+                    String(
+                        motdepasseSaisi
+                    )
                 ) {
 
-                    definirEtatConnexion(false);
+                    definirEtatConnexion(
+                        false
+                    );
+
 
                     afficherMessage(
                         "Matricule ou mot de passe incorrect.",
                         "error"
                     );
 
+
                     return;
 
                 }
 
 
-                /*--------------------------------------
-                  VERIFICATION DU STATUT
-                --------------------------------------*/
+                /*==================================
+                  VERIFICATION STATUT
+                ==================================*/
 
                 const statut =
                     String(
-                        membre.statut || ""
+                        membre.statut ||
+                        "Actif"
                     )
                     .toLowerCase()
                     .trim();
@@ -867,39 +1127,48 @@ if (connexionForm) {
 
                 const statutsBloques = [
 
-                    "bloqué",
                     "bloque",
+                    "bloqué",
+
                     "suspendu",
                     "suspendue",
+
                     "inactif",
                     "inactive",
-                    "radié",
+
                     "radie",
-                    "radiée",
-                    "radiee"
+                    "radié",
+                    "radiee",
+                    "radiée"
 
                 ];
 
 
                 if (
-                    statutsBloques.includes(statut)
+                    statutsBloques.includes(
+                        statut
+                    )
                 ) {
 
-                    definirEtatConnexion(false);
+                    definirEtatConnexion(
+                        false
+                    );
+
 
                     afficherMessage(
                         "Votre compte est actuellement suspendu ou désactivé. Veuillez contacter l'administration.",
                         "error"
                     );
 
+
                     return;
 
                 }
 
 
-                /*--------------------------------------
-                  RECHERCHE DE LA FONCTION
-                --------------------------------------*/
+                /*==================================
+                  RECHERCHE ORGANIGRAMME
+                ==================================*/
 
                 let informationsFonction = {
 
@@ -941,7 +1210,7 @@ if (connexionForm) {
                         const resultat =
                             rechercherFonction(
                                 organigramme,
-                                matricule
+                                matriculeSaisi
                             );
 
 
@@ -955,19 +1224,25 @@ if (connexionForm) {
                     }
 
                 }
-                catch (erreurOrganigramme) {
+                catch (
+                    erreurOrganigramme
+                ) {
 
                     console.warn(
-                        "Lecture de l'organigramme impossible :",
+                        "Organigramme inaccessible :",
                         erreurOrganigramme
                     );
 
                 }
 
 
-                /*--------------------------------------
-                  RECONNAISSANCE DU PRESIDENT FONDATEUR
-                --------------------------------------*/
+                /*==================================
+                  FIN PARTIE 2
+                ==================================*/
+
+                          /*==================================
+                  RECONNAISSANCE DU PRESIDENT
+                ==================================*/
 
                 const roleNormalise =
                     String(
@@ -984,11 +1259,16 @@ if (connexionForm) {
 
                 const estPresident =
 
-                    roleNormalise === "president" ||
+                    roleNormalise ===
+                    "president"
+
+                    ||
 
                     roleNormalise.includes(
                         "president fondateur"
-                    ) ||
+                    )
+
+                    ||
 
                     membre.fondateur === true;
 
@@ -998,8 +1278,10 @@ if (connexionForm) {
                     informationsFonction.fonction =
                         "president";
 
+
                     informationsFonction.domaine =
                         "Présidence";
+
 
                     informationsFonction.poste =
                         "Président Fondateur";
@@ -1007,9 +1289,9 @@ if (connexionForm) {
                 }
 
 
-                /*--------------------------------------
+                /*==================================
                   DETERMINATION DU BUREAU
-                --------------------------------------*/
+                ==================================*/
 
                 const bureau =
                     estPresident
@@ -1019,84 +1301,288 @@ if (connexionForm) {
                         );
 
 
-                /*--------------------------------------
-                  NETTOYAGE DE L'ANCIENNE SESSION
-                --------------------------------------*/
+                /*==================================
+                  NETTOYAGE ANCIENNE SESSION
+                ==================================*/
 
                 nettoyerAncienneSession();
 
 
-                /*--------------------------------------
-                  CREATION DE LA NOUVELLE SESSION
-                --------------------------------------*/
+                /*==================================
+                  CREATION NOUVELLE SESSION
+                ==================================*/
 
-                creerSession(
+                const maintenant =
+                    Date.now();
 
-                    {
-                        ...membre,
 
-                        matricule:
-                            membre.matricule ||
-                            matricule
+                const expiration =
+                    maintenant +
+                    DUREE_MAX_SESSION;
 
-                    },
 
-                    {
+                /*
+                  IMPORTANT :
+                  On conserve les mêmes clés
+                  utilisées par espace.js.
+                */
 
-                        ...informationsFonction,
-
-                        bureau:
-                            bureau
-
-                    }
-
+                localStorage.setItem(
+                    "membreId",
+                    membre.id ||
+                    membre.matricule ||
+                    matriculeSaisi
                 );
 
 
-                /*--------------------------------------
+                localStorage.setItem(
+                    "nom",
+                    membre.nom ||
+                    membre.nomComplet ||
+                    membre.nomPrenom ||
+                    "Membre"
+                );
+
+
+                localStorage.setItem(
+                    "matricule",
+                    membre.matricule ||
+                    matriculeSaisi
+                );
+
+
+                localStorage.setItem(
+                    "telephone",
+                    membre.telephone ||
+                    ""
+                );
+
+
+                localStorage.setItem(
+                    "statut",
+                    membre.statut ||
+                    "Actif"
+                );
+
+
+                localStorage.setItem(
+                    "parrain",
+                    membre.parrain ||
+                    membre.parrainMatricule ||
+                    ""
+                );
+
+
+                localStorage.setItem(
+                    "dateAdhesion",
+                    membre.dateAdhesion ||
+                    ""
+                );
+
+
+                localStorage.setItem(
+                    "photo",
+                    membre.photo ||
+                    ""
+                );
+
+
+                localStorage.setItem(
+                    "role",
+                    membre.role ||
+                    ""
+                );
+
+
+                localStorage.setItem(
+                    "fonction",
+                    informationsFonction.fonction ||
+                    "membre"
+                );
+
+
+                localStorage.setItem(
+                    "bureau",
+                    bureau
+                );
+
+
+                /*==================================
+                  SESSION PRINCIPALE
+                ==================================*/
+
+                const utilisateurConnecte = {
+
+                    id:
+                        membre.id ||
+                        membre.matricule ||
+                        matriculeSaisi,
+
+                    nom:
+                        membre.nom ||
+                        membre.nomComplet ||
+                        membre.nomPrenom ||
+                        "Membre",
+
+                    matricule:
+                        membre.matricule ||
+                        matriculeSaisi,
+
+                    telephone:
+                        membre.telephone ||
+                        "",
+
+                    photo:
+                        membre.photo ||
+                        "",
+
+                    statut:
+                        membre.statut ||
+                        "Actif",
+
+                    dateAdhesion:
+                        membre.dateAdhesion ||
+                        "",
+
+                    parrain:
+                        membre.parrain ||
+                        membre.parrainMatricule ||
+                        "",
+
+                    role:
+                        membre.role ||
+                        "",
+
+                    fonction:
+                        informationsFonction.fonction ||
+                        "membre",
+
+                    domaine:
+                        informationsFonction.domaine ||
+                        "",
+
+                    poste:
+                        informationsFonction.poste ||
+                        "",
+
+                    bureau:
+                        bureau
+
+                };
+
+
+                localStorage.setItem(
+                    "utilisateurConnecte",
+                    JSON.stringify(
+                        utilisateurConnecte
+                    )
+                );
+
+
+                /*==================================
+                  CONTROLE SESSION
+                ==================================*/
+
+                localStorage.setItem(
+                    "sessionDebut",
+                    String(
+                        maintenant
+                    )
+                );
+
+
+                localStorage.setItem(
+                    "derniereActivite",
+                    String(
+                        maintenant
+                    )
+                );
+
+
+                localStorage.setItem(
+                    "expirationSession",
+                    String(
+                        expiration
+                    )
+                );
+
+
+                localStorage.removeItem(
+                    "sessionExpiree"
+                );
+
+
+                /*==================================
+                  VERIFICATION FINALE
+                ==================================*/
+
+                const sessionVerifiee =
+                    localStorage.getItem(
+                        "utilisateurConnecte"
+                    );
+
+
+                if (!sessionVerifiee) {
+
+                    definirEtatConnexion(
+                        false
+                    );
+
+
+                    afficherMessage(
+                        "Impossible de créer la session. Veuillez réessayer.",
+                        "error"
+                    );
+
+
+                    return;
+
+                }
+
+
+                /*==================================
                   JOURNAL DE CONNEXION
-                --------------------------------------*/
+                ==================================*/
 
                 await enregistrerConnexion(
-
-                    {
-
-                        ...membre,
-
-                        matricule:
-                            membre.matricule ||
-                            matricule
-
-                    }
-
+                    membre
                 );
 
 
-                /*--------------------------------------
+                /*==================================
                   MESSAGE DE SUCCES
-                --------------------------------------*/
-
-                definirEtatConnexion(false);
+                ==================================*/
 
                 afficherMessage(
-                    "Connexion réussie. Ouverture de votre espace...",
+                    "Connexion réussie. Bienvenue " +
+                    (
+                        membre.nom ||
+                        membre.nomComplet ||
+                        "Membre"
+                    ) +
+                    " !",
                     "success"
                 );
 
 
-                /*--------------------------------------
+                /*==================================
                   REDIRECTION
-                --------------------------------------*/
+                ==================================*/
+
+                definirEtatConnexion(
+                    true
+                );
+
 
                 setTimeout(
                     () => {
 
                         /*
                           Tous les membres arrivent
-                          d'abord dans l'espace membre.
+                          dans leur espace.
 
-                          Le bureau autorisé est conservé
-                          dans la session.
+                          Le bureau autorisé est
+                          conservé dans la session.
                         */
 
                         window.location.href =
@@ -1110,16 +1596,18 @@ if (connexionForm) {
             catch (erreur) {
 
                 console.error(
-                    "Erreur de connexion :",
+                    "ERREUR CONNEXION :",
                     erreur
                 );
 
 
-                definirEtatConnexion(false);
+                definirEtatConnexion(
+                    false
+                );
 
 
                 afficherMessage(
-                    "Une erreur est survenue lors de la connexion. Veuillez réessayer.",
+                    "Une erreur est survenue lors de la connexion. Vérifiez votre connexion Internet puis réessayez.",
                     "error"
                 );
 
@@ -1132,29 +1620,37 @@ if (connexionForm) {
 
 
 /*==================================================
-  PROTECTION CONTRE UN DOUBLE CLIC
+  PROTECTION CONTRE LE RETOUR
 ==================================================*/
 
-if (connexionForm) {
+window.addEventListener(
+    "pageshow",
+    () => {
 
-    connexionForm.addEventListener(
-        "keydown",
-        (event) => {
+        /*
+          Si une ancienne session expirée
+          existe encore, elle est supprimée.
+        */
 
-            if (
-                event.key === "Enter" &&
-                boutonConnexion &&
-                boutonConnexion.disabled
-            ) {
+        const expiration =
+            Number(
+                localStorage.getItem(
+                    "expirationSession"
+                )
+            );
 
-                event.preventDefault();
 
-            }
+        if (
+            expiration &&
+            Date.now() >= expiration
+        ) {
+
+            nettoyerAncienneSession();
 
         }
-    );
 
-}
+    }
+);
 
 
 /*==================================================
@@ -1162,13 +1658,5 @@ if (connexionForm) {
 ==================================================*/
 
 console.log(
-    "MWANA MBOKA - connexion.js chargé."
-);
-
-console.log(
-    "Session : 10 minutes d'inactivité."
-);
-
-console.log(
-    "Durée maximale : 8 heures."
+    "CONNEXION.JS chargé - session 10 minutes d'inactivité"
 );
