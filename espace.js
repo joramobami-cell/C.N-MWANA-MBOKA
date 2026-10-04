@@ -6,23 +6,22 @@
     - Session membre sécurisée
     - Profil membre
     - Accès Président
-    - Statistiques tableau de bord
+    - Tableau de bord
     - Déconnexion
 ==================================================*/
 
 
 /*==================================================
-  IMPORT DU SYSTEME DE SESSION
+  SYSTEME DE SESSION
 ==================================================*/
 
 import {
-    utilisateur,
     deconnexion
 } from "./permissions.js";
 
 
 /*==================================================
-  INITIALISATION ESPACE MEMBRE
+  INITIALISATION
 ==================================================*/
 
 document.addEventListener(
@@ -35,22 +34,19 @@ document.addEventListener(
 
 
         /*==========================================
-          VERIFICATION DE LA SESSION
-          
-          permissions.js a déjà effectué :
-          - vérification de la session
-          - contrôle des 10 minutes
-          - contrôle des 8 heures
+          RECUPERATION DIRECTE DE LA SESSION
         ==========================================*/
 
-        if (
-            !utilisateur ||
-            !utilisateur.nom ||
-            !utilisateur.matricule
-        ) {
+        const sessionStockee =
+            localStorage.getItem(
+                "utilisateurConnecte"
+            );
+
+
+        if (!sessionStockee) {
 
             console.warn(
-                "Session membre invalide."
+                "Aucune session membre trouvée."
             );
 
             deconnexion(
@@ -63,15 +59,61 @@ document.addEventListener(
 
 
         /*==========================================
-          SESSION ACTIVE
+          LECTURE DE LA SESSION
         ==========================================*/
 
-        const membre =
-            utilisateur;
+        let membre = null;
+
+
+        try {
+
+            membre =
+                JSON.parse(
+                    sessionStockee
+                );
+
+        }
+        catch (erreur) {
+
+            console.error(
+                "Session invalide :",
+                erreur
+            );
+
+            deconnexion(
+                "session_invalide"
+            );
+
+            return;
+
+        }
+
+
+        /*==========================================
+          VERIFICATION DES INFORMATIONS
+        ==========================================*/
+
+        if (
+            !membre ||
+            !membre.nom ||
+            !membre.matricule
+        ) {
+
+            console.warn(
+                "Données membre incomplètes."
+            );
+
+            deconnexion(
+                "session_invalide"
+            );
+
+            return;
+
+        }
 
 
         console.log(
-            "SESSION MEMBRE :",
+            "MEMBRE CONNECTÉ :",
             membre
         );
 
@@ -80,9 +122,10 @@ document.addEventListener(
           FONCTION AFFICHAGE
         ==========================================*/
 
-        function afficherInformation(
+        function afficher(
             id,
-            valeur
+            valeur,
+            valeurDefaut = "---"
         ) {
 
             const element =
@@ -91,35 +134,45 @@ document.addEventListener(
                 );
 
 
-            if (element) {
+            if (!element) {
 
-                element.textContent =
-                    valeur;
+                return;
 
             }
+
+
+            element.textContent =
+                valeur !== undefined &&
+                valeur !== null &&
+                String(valeur).trim() !== ""
+                    ? valeur
+                    : valeurDefaut;
 
         }
 
 
         /*==========================================
-          NOM DU MEMBRE
+          NOM
         ==========================================*/
 
-        afficherInformation(
+        afficher(
             "nom",
-            membre.nom
+            membre.nom,
+            "Membre"
         );
 
 
-        afficherInformation(
+        afficher(
             "nomBienvenue",
-            membre.nom
+            membre.nom,
+            "Membre"
         );
 
 
-        afficherInformation(
+        afficher(
             "nomMembre",
-            membre.nom
+            membre.nom,
+            "Nom du membre"
         );
 
 
@@ -127,15 +180,17 @@ document.addEventListener(
           MATRICULE
         ==========================================*/
 
-        afficherInformation(
+        afficher(
             "matricule",
-            membre.matricule
+            membre.matricule,
+            "MMB-0000"
         );
 
 
-        afficherInformation(
+        afficher(
             "matriculeCard",
-            membre.matricule
+            membre.matricule,
+            "MMB-0000"
         );
 
 
@@ -143,9 +198,9 @@ document.addEventListener(
           TELEPHONE
         ==========================================*/
 
-        afficherInformation(
+        afficher(
             "telephone",
-            membre.telephone ||
+            membre.telephone,
             "---"
         );
 
@@ -154,9 +209,9 @@ document.addEventListener(
           STATUT
         ==========================================*/
 
-        afficherInformation(
+        afficher(
             "statut",
-            membre.statut ||
+            membre.statut,
             "Actif"
         );
 
@@ -165,9 +220,9 @@ document.addEventListener(
           PARRAIN
         ==========================================*/
 
-        afficherInformation(
+        afficher(
             "parrain",
-            membre.parrain ||
+            membre.parrain,
             "---"
         );
 
@@ -176,15 +231,15 @@ document.addEventListener(
           DATE ADHESION
         ==========================================*/
 
-        afficherInformation(
+        afficher(
             "dateAdhesion",
-            membre.dateAdhesion ||
+            membre.dateAdhesion,
             "---"
         );
 
 
         /*==========================================
-          PHOTO PROFIL
+          PHOTO
         ==========================================*/
 
         const photo =
@@ -203,7 +258,28 @@ document.addEventListener(
 
 
         /*==========================================
-          ACCES BUREAU PRESIDENT
+          MINI PHOTO DU HEADER
+        ==========================================*/
+
+        const imagesHeader =
+            document.querySelectorAll(
+                ".member-mini img"
+            );
+
+
+        imagesHeader.forEach(
+            (image) => {
+
+                image.src =
+                    membre.photo ||
+                    "logo.png";
+
+            }
+        );
+
+
+        /*==========================================
+          ACCES PRESIDENT
         ==========================================*/
 
         const bureauPresident =
@@ -260,7 +336,7 @@ document.addEventListener(
 
 
         /*==========================================
-          STATISTIQUES TABLEAU DE BORD
+          STATISTIQUES
         ==========================================*/
 
         const statistiques = {
@@ -269,25 +345,25 @@ document.addEventListener(
                 "0 FCFA",
 
             filleuls:
-                0,
+                "0",
 
             revenus:
                 "0 FCFA",
 
             projets:
-                0,
+                "0",
 
             formations:
-                0,
+                "0",
 
             entraides:
-                0,
+                "0",
 
             investissements:
-                0,
+                "0",
 
             notifications:
-                0
+                "0"
 
         };
 
@@ -361,22 +437,17 @@ document.addEventListener(
         ==========================================*/
 
         console.log(
+            "Nom :",
+            membre.nom
+        );
+
+        console.log(
+            "Matricule :",
+            membre.matricule
+        );
+
+        console.log(
             "Espace membre opérationnel."
-        );
-
-
-        console.log(
-            "Session sécurisée active."
-        );
-
-
-        console.log(
-            "Inactivité maximale : 10 minutes."
-        );
-
-
-        console.log(
-            "Durée maximale de session : 8 heures."
         );
 
     }
