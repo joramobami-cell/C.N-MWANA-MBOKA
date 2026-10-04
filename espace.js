@@ -16,6 +16,7 @@
 ==================================================*/
 
 import {
+    utilisateur,
     deconnexion
 } from "./permissions.js";
 
@@ -34,80 +35,23 @@ document.addEventListener(
 
 
         /*==========================================
-          RECUPERATION DE LA SESSION
-        ==========================================*/
-
-        const sessionStockee =
-            localStorage.getItem(
-                "utilisateurConnecte"
-            );
-
-
-        /*==========================================
-          VERIFICATION SESSION
-        ==========================================*/
-
-        if (!sessionStockee) {
-
-            console.warn(
-                "Aucune session membre trouvée."
-            );
-
-            window.location.replace(
-                "connexion.html"
-            );
-
-            return;
-
-        }
-
-
-        /*==========================================
-          LECTURE DE LA SESSION
-        ==========================================*/
-
-        let membre = null;
-
-
-        try {
-
-            membre =
-                JSON.parse(
-                    sessionStockee
-                );
-
-        }
-        catch (erreur) {
-
-            console.error(
-                "Session membre invalide :",
-                erreur
-            );
-
-
-            deconnexion(
-                "session_invalide"
-            );
-
-            return;
-
-        }
-
-
-        /*==========================================
-          VERIFICATION DES DONNEES ESSENTIELLES
+          VERIFICATION DE LA SESSION
+          
+          permissions.js a déjà effectué :
+          - vérification de la session
+          - contrôle des 10 minutes
+          - contrôle des 8 heures
         ==========================================*/
 
         if (
-            !membre ||
-            !membre.nom ||
-            !membre.matricule
+            !utilisateur ||
+            !utilisateur.nom ||
+            !utilisateur.matricule
         ) {
 
             console.warn(
-                "Informations membre absentes."
+                "Session membre invalide."
             );
-
 
             deconnexion(
                 "session_invalide"
@@ -116,6 +60,14 @@ document.addEventListener(
             return;
 
         }
+
+
+        /*==========================================
+          SESSION ACTIVE
+        ==========================================*/
+
+        const membre =
+            utilisateur;
 
 
         console.log(
@@ -125,7 +77,7 @@ document.addEventListener(
 
 
         /*==========================================
-          AFFICHAGE INFORMATIONS MEMBRE
+          FONCTION AFFICHAGE
         ==========================================*/
 
         function afficherInformation(
@@ -149,9 +101,9 @@ document.addEventListener(
         }
 
 
-        /*------------------------------------------
-          NOM
-        ------------------------------------------*/
+        /*==========================================
+          NOM DU MEMBRE
+        ==========================================*/
 
         afficherInformation(
             "nom",
@@ -171,9 +123,9 @@ document.addEventListener(
         );
 
 
-        /*------------------------------------------
+        /*==========================================
           MATRICULE
-        ------------------------------------------*/
+        ==========================================*/
 
         afficherInformation(
             "matricule",
@@ -187,9 +139,9 @@ document.addEventListener(
         );
 
 
-        /*------------------------------------------
+        /*==========================================
           TELEPHONE
-        ------------------------------------------*/
+        ==========================================*/
 
         afficherInformation(
             "telephone",
@@ -198,9 +150,9 @@ document.addEventListener(
         );
 
 
-        /*------------------------------------------
+        /*==========================================
           STATUT
-        ------------------------------------------*/
+        ==========================================*/
 
         afficherInformation(
             "statut",
@@ -209,9 +161,9 @@ document.addEventListener(
         );
 
 
-        /*------------------------------------------
+        /*==========================================
           PARRAIN
-        ------------------------------------------*/
+        ==========================================*/
 
         afficherInformation(
             "parrain",
@@ -220,9 +172,9 @@ document.addEventListener(
         );
 
 
-        /*------------------------------------------
+        /*==========================================
           DATE ADHESION
-        ------------------------------------------*/
+        ==========================================*/
 
         afficherInformation(
             "dateAdhesion",
@@ -363,7 +315,7 @@ document.addEventListener(
 
 
         /*==========================================
-          DECONNEXION MANUELLE
+          DECONNEXION
         ==========================================*/
 
         const logout =
@@ -405,7 +357,7 @@ document.addEventListener(
 
 
         /*==========================================
-          FIN INITIALISATION
+          FIN
         ==========================================*/
 
         console.log(
@@ -420,6 +372,11 @@ document.addEventListener(
 
         console.log(
             "Inactivité maximale : 10 minutes."
+        );
+
+
+        console.log(
+            "Durée maximale de session : 8 heures."
         );
 
     }
