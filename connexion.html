@@ -3,993 +3,206 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>
-Connexion | COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-</title>
+    <meta
+        name="theme-color"
+        content="#006b3f"
+    >
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>
+        Connexion | COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+    </title>
 
-<link
-rel="stylesheet"
-href="connexion.css">
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- CSS de la page -->
+    <link
+        rel="stylesheet"
+        href="connexion.css"
+    >
 
 </head>
 
-
 <body>
 
+    <main class="connexion-page">
 
-<!-- ==================================================
-     CONTENEUR PRINCIPAL
-================================================== -->
+        <!-- Bannière -->
+        <img
+            src="banniere.png"
+            class="banner"
+            alt="Bannière COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA"
+        >
 
-<main class="connexion-page">
+        <section class="connexion-card">
 
+            <!-- Logo -->
+            <div class="logo-container">
 
-    <!-- ==================================================
-         BANNIÈRE
-    ================================================== -->
-
-    <img
-        src="banniere.png"
-        class="banner"
-        alt="Bannière COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA">
-
-
-    <!-- ==================================================
-         CARTE DE CONNEXION
-    ================================================== -->
-
-    <section class="connexion-card">
-
-
-        <!-- LOGO -->
-
-        <div class="logo-container">
-
-            <img
-                src="logo.png"
-                class="logo"
-                alt="Logo MWANA MBOKA">
-
-        </div>
-
-
-        <!-- TITRE -->
-
-        <h1>
-            Connexion Membre
-        </h1>
-
-
-        <p class="slogan">
-
-            Bienvenue sur la plateforme officielle de la
-
-            <strong>
-                COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-            </strong>
-
-        </p>
-
-
-        <!-- ==================================================
-             FORMULAIRE
-        ================================================== -->
-
-        <form
-            id="connexionForm"
-            autocomplete="on">
-
-
-            <!-- MATRICULE -->
-
-            <div class="input-box">
-
-                <i class="fa-solid fa-id-card input-icon"></i>
-
-                <input
-                    type="text"
-                    id="matricule"
-                    placeholder="Votre matricule"
-                    autocomplete="username"
-                    required>
+                <img
+                    src="logo.png"
+                    class="logo"
+                    alt="Logo MWANA MBOKA"
+                >
 
             </div>
 
+            <!-- Titre -->
+            <h1>
+                Connexion Membre
+            </h1>
 
-            <!-- MOT DE PASSE -->
+            <p class="slogan">
+                Bienvenue sur la plateforme officielle de la
+                <strong>
+                    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+                </strong>
+            </p>
 
-            <div class="input-box">
+            <!-- Formulaire -->
+            <form
+                id="connexionForm"
+                autocomplete="on"
+            >
 
-                <i class="fa-solid fa-lock input-icon"></i>
+                <!-- Matricule -->
+                <div class="input-box">
 
-                <input
-                    type="password"
-                    id="motdepasse"
-                    placeholder="Votre mot de passe"
-                    autocomplete="current-password"
-                    required>
+                    <i
+                        class="fa-solid fa-id-card input-icon"
+                    ></i>
 
+                    <input
+                        type="text"
+                        id="matricule"
+                        name="matricule"
+                        placeholder="Votre matricule"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+                <!-- Mot de passe -->
+                <div class="input-box">
+
+                    <i
+                        class="fa-solid fa-lock input-icon"
+                    ></i>
+
+                    <input
+                        type="password"
+                        id="motdepasse"
+                        name="motdepasse"
+                        placeholder="Votre mot de passe"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="togglePassword"
+                        aria-label="Afficher le mot de passe"
+                    >
+
+                        <i
+                            class="fa-solid fa-eye"
+                        ></i>
+
+                    </button>
+
+                </div>
+
+                                 <!-- Bouton de connexion -->
                 <button
-                    type="button"
-                    class="password-toggle"
-                    id="togglePassword"
-                    aria-label="Afficher le mot de passe">
+                    type="submit"
+                    id="boutonConnexion"
+                    class="btn-connexion"
+                >
 
-                    <i class="fa-solid fa-eye"></i>
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Se connecter
 
                 </button>
 
+            </form>
+
+
+            <!-- Inscription -->
+            <a
+                href="adhesion.html"
+                class="btn-member"
+            >
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Devenir membre
+
+            </a>
+
+
+            <!-- Message système -->
+            <div
+                id="message"
+                class="message"
+                role="alert"
+                aria-live="polite"
+            ></div>
+
+
+            <!-- Informations de sécurité -->
+            <div class="security-info">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    Votre session sera automatiquement fermée
+                    après 10 minutes d'inactivité.
+                </span>
+
+                 </div>
+
+                         <!-- Pied de page -->
+            <div class="footer">
+
+                <strong>
+                    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
+                </strong>
+
+                <br>
+
+                Ensemble nous irons plus loin.
+
+                <br><br>
+
+                ©
+                <span id="annee"></span>
+                Tous droits réservés.
+
             </div>
 
-
-            <!-- BOUTON CONNEXION -->
-
-            <button
-                type="submit"
-                id="boutonConnexion"
-                class="btn-connexion">
-
-                <i class="fa-solid fa-right-to-bracket"></i>
-
-                Se connecter
-
-            </button>
-
-
-        </form>
-
-
-        <!-- ==================================================
-             ADHESION
-        ================================================== -->
-
-        <a
-            href="adhesion.html"
-            class="btn-member">
-
-            <i class="fa-solid fa-user-plus"></i>
-
-            Devenir membre
-
-        </a>
-
-
-        <!-- MESSAGE -->
-
-        <div
-            id="message"
-            class="message">
-        </div>
-
-
-        <!-- ==================================================
-             FOOTER
-        ================================================== -->
-
-        <div class="footer">
-
-            <strong>
-                COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-            </strong>
-
-            <br>
-
-            Ensemble nous irons plus loin.
-
-            <br><br>
-
-            ©
-            <span id="annee"></span>
-
-            Tous droits réservés.
-
-        </div>
-
-
-    </section>
-
-
-</main>
-
-
-
-<!-- ==================================================
-     JAVASCRIPT
-================================================== -->
-
-<script type="module">
-
-
-/* ==================================================
-   FIREBASE
-================================================== */
-
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-
-
-import {
-    getDatabase,
-    ref,
-    get,
-    set,
-    push
-}
-from
-"https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
-
-
-/* ==================================================
-   CONFIGURATION FIREBASE
-================================================== */
-
-const firebaseConfig = {
-
-    apiKey:
-    "AIzaSyDHMovN3CpVl6fQUDZGRNqFu6mLUUPR8Sc",
-
-    authDomain:
-    "c-n-mwana-mboka.firebaseapp.com",
-
-    databaseURL:
-    "https://c-n-mwana-mboka-default-rtdb.europe-west1.firebasedatabase.app",
-
-    projectId:
-    "c-n-mwana-mboka",
-
-    storageBucket:
-    "c-n-mwana-mboka.firebasestorage.app",
-
-    messagingSenderId:
-    "757726608581",
-
-    appId:
-    "1:757726608581:web:27fa7003ffa955188304ac"
-
-};
-
-
-/* ==================================================
-   INITIALISATION
-================================================== */
-
-const app =
-initializeApp(firebaseConfig);
-
-const database =
-getDatabase(app);
-
-
-/* ==================================================
-   ELEMENTS
-================================================== */
-
-const form =
-document.getElementById("connexionForm");
-
-const matriculeInput =
-document.getElementById("matricule");
-
-const motdepasseInput =
-document.getElementById("motdepasse");
-
-const togglePassword =
-document.getElementById("togglePassword");
-
-const boutonConnexion =
-document.getElementById("boutonConnexion");
-
-const message =
-document.getElementById("message");
-
-const annee =
-document.getElementById("annee");
-
-
-/* ==================================================
-   ANNEE
-================================================== */
-
-annee.textContent =
-new Date().getFullYear();
-
-
-/* ==================================================
-   AFFICHER / MASQUER MOT DE PASSE
-================================================== */
-
-togglePassword.addEventListener(
-    "click",
-    () => {
-
-        const icon =
-        togglePassword.querySelector("i");
-
-        if(
-            motdepasseInput.type === "password"
-        ){
-
-            motdepasseInput.type = "text";
-
-            icon.classList.remove(
-                "fa-eye"
-            );
-
-            icon.classList.add(
-                "fa-eye-slash"
-            );
-
-        }
-        else{
-
-            motdepasseInput.type = "password";
-
-            icon.classList.remove(
-                "fa-eye-slash"
-            );
-
-            icon.classList.add(
-                "fa-eye"
-            );
-
-        }
-
-    }
-);
-
-
-/* ==================================================
-   MESSAGE
-================================================== */
-
-function afficherMessage(
-    texte,
-    type="normal"
-){
-
-    message.className =
-    "message " + type;
-
-    message.innerHTML =
-    texte;
-
-}
-
-
-/* ==================================================
-   RECHERCHE DU BUREAU
-================================================== */
-
-function rechercherFonction(
-    objet,
-    matricule
-){
-
-    let resultat = null;
-
-
-    function parcourir(
-        element
-    ){
-
-        if(
-            !element ||
-            typeof element !== "object"
-        ){
-
-            return;
-
-        }
-
-
-        for(
-            const cle in element
-        ){
-
-            const valeur =
-            element[cle];
-
-
-            if(
-                !valeur ||
-                typeof valeur !== "object"
-            ){
-
-                continue;
-
-            }
-
-
-            if(
-
-                valeur.responsableMatricule &&
-
-                String(
-                    valeur.responsableMatricule
-                )
-                .trim()
-                .toUpperCase()
-                === matricule
-
-            ){
-
-                resultat = {
-
-                    fonction:
-                    valeur.fonction || cle,
-
-                    domaine:
-                    valeur.domaine || "",
-
-                    poste:
-                    cle
-
-                };
-
-                return;
-
-            }
-
-
-            parcourir(valeur);
-
-
-            if(resultat){
-
-                return;
-
-            }
-
-        }
-
-    }
-
-
-    parcourir(objet);
-
-    return resultat;
-
-}
-
-
-/* ==================================================
-   DETERMINATION DU BUREAU
-================================================== */
-
-function determinerBureau(
-    fonction
-){
-
-    const f =
-    String(fonction || "")
-    .toLowerCase()
-    .trim();
-
-
-    switch(f){
-
-        case "president":
-
-        case "président":
-
-        case "president fondateur":
-
-        case "président fondateur":
-
-            return "prbureau.html";
-
-
-        case "secretariat_administration":
-
-        case "secrétariat_administration":
-
-            return "bureau-secretariat.html";
-
-
-        case "formation":
-
-            return "bureau-formation.html";
-
-
-        case "communication":
-
-            return "bureau-communication.html";
-
-
-        case "projets":
-
-            return "bureau-projets.html";
-
-
-        case "conseiller_administratif":
-
-        case "conseiller_juridique":
-
-        case "conseiller_financier":
-
-        case "conseiller_technique":
-
-            return "bureau-conseil.html";
-
-
-        case "tresorerie":
-
-        case "trésorerie":
-
-        case "comptabilite":
-
-        case "comptabilité":
-
-        case "economie":
-
-        case "économie":
-
-        case "etudes_investissements":
-
-        case "études_investissements":
-
-            return "bureau-finance.html";
-
-
-        default:
-
-            return "espace.html";
-
-    }
-
-}
-
-
-/* ==================================================
-   CONNEXION
-================================================== */
-
-form.addEventListener(
-    "submit",
-    async (event) => {
-
-        event.preventDefault();
-
-
-        afficherMessage("");
-
-
-        const matricule =
-        matriculeInput
-        .value
-        .trim()
-        .toUpperCase();
-
-
-        const motdepasse =
-        motdepasseInput
-        .value
-        .trim();
-
-
-        /* VALIDATION */
-
-        if(
-            matricule === "" ||
-            motdepasse === ""
-        ){
-
-            afficherMessage(
-                "Veuillez remplir tous les champs.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* BOUTON */
-
-        boutonConnexion.disabled =
-        true;
-
-        boutonConnexion.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin"></i> Connexion...';
-
-
-        try{
-
-
-            /* ==================================================
-               RECHERCHE MEMBRE
-            ================================================== */
-
-            const membreRef =
-            ref(
-                database,
-                "membres/" + matricule
-            );
-
-
-            const snapshot =
-            await get(membreRef);
-
-
-            if(
-                !snapshot.exists()
-            ){
-
-                afficherMessage(
-                    "Matricule introuvable.",
-                    "error"
-                );
-
-                boutonConnexion.disabled =
-                false;
-
-                boutonConnexion.innerHTML =
-                '<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
-
-                return;
-
-            }
-
-
-            const membre =
-            snapshot.val();
-
-
-            /* ==================================================
-               MOT DE PASSE
-            ================================================== */
-
-            if(
-                String(membre.motdepasse || "")
-                !== motdepasse
-            ){
-
-                afficherMessage(
-                    "Mot de passe incorrect.",
-                    "error"
-                );
-
-                boutonConnexion.disabled =
-                false;
-
-                boutonConnexion.innerHTML =
-                '<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
-
-                return;
-
-            }
-
-
-            /* ==================================================
-               DETERMINATION FONCTION
-            ================================================== */
-
-            let fonction =
-            "membre";
-
-
-            let bureau =
-            "espace.html";
-
-
-            const organigrammeRef =
-            ref(
-                database,
-                "organigramme"
-            );
-
-
-            const organigrammeSnap =
-            await get(
-                organigrammeRef
-            );
-
-
-            if(
-                organigrammeSnap.exists()
-            ){
-
-                const organigramme =
-                organigrammeSnap.val();
-
-
-                const resultat =
-                rechercherFonction(
-                    organigramme,
-                    matricule
-                );
-
-
-                if(resultat){
-
-                    fonction =
-                    resultat.fonction;
-
-                    bureau =
-                    determinerBureau(
-                        fonction
-                    );
-
-                }
-
-            }
-
-
-            /* ==================================================
-               PRESIDENT FONDATEUR
-            ================================================== */
-
-            const role =
-            String(
-                membre.role || ""
-            )
-            .toLowerCase()
-            .trim();
-
-
-            const estPresident =
-
-                role === "president" ||
-
-                role === "président" ||
-
-                membre.fondateur === true;
-
-
-            if(estPresident){
-
-                fonction =
-                "president";
-
-                bureau =
-                "prbureau.html";
-
-            }
-
-
-            /* ==================================================
-               SESSION
-            ================================================== */
-
-            localStorage.clear();
-
-
-            localStorage.setItem(
-                "matricule",
-                matricule
-            );
-
-
-            localStorage.setItem(
-                "nom",
-                membre.nom || ""
-            );
-
-
-            localStorage.setItem(
-                "telephone",
-                membre.telephone || ""
-            );
-
-
-            localStorage.setItem(
-                "photo",
-                membre.photo || ""
-            );
-
-
-            localStorage.setItem(
-                "statut",
-                membre.statut || "Actif"
-            );
-
-
-            localStorage.setItem(
-                "dateAdhesion",
-                membre.dateAdhesion || ""
-            );
-
-
-            localStorage.setItem(
-                "parrain",
-                membre.parrain || ""
-            );
-
-
-            localStorage.setItem(
-                "role",
-                estPresident
-                ? "president"
-                : role || "membre"
-            );
-
-
-            localStorage.setItem(
-                "fonction",
-                fonction
-            );
-
-
-            localStorage.setItem(
-                "bureau",
-                bureau
-            );
-
-
-            localStorage.setItem(
-
-                "utilisateurConnecte",
-
-                JSON.stringify({
-
-                    matricule:
-                    matricule,
-
-                    nom:
-                    membre.nom || "",
-
-                    fonction:
-                    fonction,
-
-                    bureau:
-                    bureau
-
-                })
-
-            );
-
-
-            /* ==================================================
-               JOURNAL
-            ================================================== */
-
-            try{
-
-                const journalRef =
-                push(
-                    ref(
-                        database,
-                        "journal_activites"
-                    )
-                );
-
-
-                await set(
-                    journalRef,
-                    {
-
-                        date:
-                        new Date()
-                        .toLocaleDateString(
-                            "fr-FR"
-                        ),
-
-                        heure:
-                        new Date()
-                        .toLocaleTimeString(
-                            "fr-FR"
-                        ),
-
-                        matricule:
-                        matricule,
-
-                        nom:
-                        membre.nom || "",
-
-                        fonction:
-                        fonction,
-
-                        bureau:
-                        bureau,
-
-                        action:
-                        "Connexion"
-
-                    }
-                );
-
-            }
-            catch(
-                erreurJournal
-            ){
-
-                console.warn(
-                    "Journal non enregistré :",
-                    erreurJournal
-                );
-
-            }
-
-
-            /* ==================================================
-               SUCCES
-            ================================================== */
-
-            afficherMessage(
-
-                '<i class="fa-solid fa-circle-check"></i> ' +
-                'Connexion réussie. Ouverture de votre espace membre...',
-
-                "success"
-
-            );
-
-
-            /* ==================================================
-               TOUS LES MEMBRES ARRIVENT DANS ESPACE.HTML
-            ================================================== */
-
-            setTimeout(
-                () => {
-
-                    window.location.href =
-                    "espace.html";
-
-                },
-                1000
-            );
-
-
-        }
-        catch(erreur){
-
-            console.error(
-                "Erreur connexion :",
-                erreur
-            );
-
-
-            afficherMessage(
-
-                '<i class="fa-solid fa-circle-xmark"></i> ' +
-                'Impossible de se connecter au serveur Firebase.',
-
-                "error"
-
-            );
-
-
-            boutonConnexion.disabled =
-            false;
-
-
-            boutonConnexion.innerHTML =
-            '<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
-
-        }
-
-    }
-);
-
-
-/* ==================================================
-   FOCUS
-================================================== */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        matriculeInput.focus();
-
-    }
-);
-
-
-</script>
+        </section>
+
+    </main>
+
+         <!-- JavaScript de connexion -->
+    <script
+        type="module"
+        src="connexion.js"
+    ></script>
 
 </body>
 
-                </html>
+</html>
