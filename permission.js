@@ -67,7 +67,7 @@ function redirigerConnexion() {
 
 
 //=========================================
-// VERIFICATION DE L'EXISTENCE DE SESSION
+// VERIFICATION EXISTENCE SESSION
 //=========================================
 
 if (!utilisateur) {
@@ -82,7 +82,7 @@ if (!utilisateur) {
 
 
 //=========================================
-// HORODATAGES DE SESSION
+// HORODATAGES SESSION
 //=========================================
 
 const sessionDebut =
@@ -151,13 +151,15 @@ if (sessionInvalide) {
         "Session expirée."
     );
 
-      }
+}
+
 
 //=========================================
 // ACTIVITE UTILISATEUR
 //=========================================
 
-let dernierEnregistrementActivite = 0;
+let dernierEnregistrementActivite =
+    0;
 
 
 function enregistrerActivite() {
@@ -188,22 +190,69 @@ function enregistrerActivite() {
 
     localStorage.setItem(
         "derniereActivite",
-        String(maintenant)
+        String(
+            maintenant
+        )
     );
+
+
+    /*
+      Mise à jour également
+      dans l'objet utilisateur.
+    */
+
+    try {
+
+        const sessionActuelle =
+            JSON.parse(
+                localStorage.getItem(
+                    "utilisateurConnecte"
+                )
+            );
+
+
+        if (sessionActuelle) {
+
+            sessionActuelle.derniereActivite =
+                maintenant;
+
+
+            localStorage.setItem(
+                "utilisateurConnecte",
+                JSON.stringify(
+                    sessionActuelle
+                )
+            );
+
+        }
+
+    }
+    catch (erreur) {
+
+        console.warn(
+            "Impossible de mettre à jour la session :",
+            erreur
+        );
+
+    }
 
 }
 
 
 //=========================================
-// EVENEMENTS CONSIDERES COMME ACTIVITE
+// EVENEMENTS ACTIVITE
 //=========================================
 
 const evenementsActivite = [
 
     "click",
+
     "keydown",
+
     "touchstart",
+
     "mousemove",
+
     "scroll"
 
 ];
@@ -225,84 +274,75 @@ evenementsActivite.forEach(
 
 
 //=========================================
-// VERIFICATION PERIODIQUE DE LA SESSION
+// VERIFICATION PERIODIQUE
 //=========================================
 
-const verifierSession =
-    () => {
+function verifierSession() {
 
-        const maintenant =
-            Date.now();
-
-
-        const derniereActiviteActuelle =
-            Number(
-                localStorage.getItem(
-                    "derniereActivite"
-                )
-            ) || 0;
+    const maintenant =
+        Date.now();
 
 
-        const expirationActuelle =
-            Number(
-                localStorage.getItem(
-                    "expirationSession"
-                )
-            ) || 0;
-
-
-        /*
-          Vérification de l'inactivité.
-        */
-
-        if (
-            !derniereActiviteActuelle ||
-            (
-                maintenant -
-                derniereActiviteActuelle
-                >=
-                DUREE_INACTIVITE
+    const derniereActiviteActuelle =
+        Number(
+            localStorage.getItem(
+                "derniereActivite"
             )
-        ) {
-
-            localStorage.setItem(
-                "sessionExpiree",
-                "true"
-            );
-
-            deconnexion(
-                "inactivite"
-            );
-
-            return;
-
-        }
+        ) || 0;
 
 
-        /*
-          Vérification de la durée maximale.
-        */
+    const expirationActuelle =
+        Number(
+            localStorage.getItem(
+                "expirationSession"
+            )
+        ) || 0;
 
-        if (
-            !expirationActuelle ||
-            maintenant >= expirationActuelle
-        ) {
 
-            localStorage.setItem(
-                "sessionExpiree",
-                "true"
-            );
+    //=====================================
+    // INACTIVITE
+    //=====================================
 
-            deconnexion(
-                "duree_maximale"
-            );
+    if (
+        !derniereActiviteActuelle ||
 
-            return;
+        (
+            maintenant -
+            derniereActiviteActuelle
+            >=
+            DUREE_INACTIVITE
+        )
+    ) {
 
-        }
+        deconnexion(
+            "inactivite"
+        );
 
-    };
+        return;
 
+    }
+
+
+    //=====================================
+    // DUREE MAXIMALE
+    //=====================================
+
+    if (
+        !expirationActuelle ||
+
+        maintenant >=
+        expirationActuelle
+    ) {
+
+        deconnexion(
+            "duree_maximale"
+        );
+
+        return;
+
+    }
+
+  }
 
 //=========================================
 // CONTROLE TOUTES LES 10 SECONDES
@@ -341,6 +381,7 @@ document.addEventListener(
     }
 );
 
+
 //=========================================
 // VARIABLES EXPORTEES
 //=========================================
@@ -378,8 +419,8 @@ export function autoriser(
 ) {
 
     /*
-      Le président possède toutes
-      les autorisations.
+      Le président possède
+      toutes les autorisations.
     */
 
     if (
@@ -392,7 +433,8 @@ export function autoriser(
 
 
     /*
-      Vérification du domaine autorisé.
+      Vérification du domaine
+      autorisé.
     */
 
     if (
@@ -500,28 +542,37 @@ export function deconnexion(
     }
 
 
-    /*
-      Conservation éventuelle de
-      l'information d'expiration.
-    */
+    //=====================================
+    // MESSAGE D'EXPIRATION
+    //=====================================
 
     if (
-        raison === "inactivite" ||
-        raison === "duree_maximale"
+        raison === "inactivite"
     ) {
 
         localStorage.setItem(
             "sessionExpiree",
-            raison
+            "inactivite"
         );
 
     }
 
 
-    /*
-      Suppression uniquement des
-      données liées à la session.
-    */
+    if (
+        raison === "duree_maximale"
+    ) {
+
+        localStorage.setItem(
+            "sessionExpiree",
+            "duree_maximale"
+        );
+
+    }
+
+
+    //=====================================
+    // SUPPRESSION SESSION
+    //=====================================
 
     const clesSession = [
 
@@ -553,6 +604,10 @@ export function deconnexion(
 
         "fonction",
 
+        "domaine",
+
+        "poste",
+
         "bureau"
 
     ];
@@ -569,9 +624,9 @@ export function deconnexion(
     );
 
 
-    /*
-      Retour à la page de connexion.
-    */
+    //=====================================
+    // RETOUR CONNEXION
+    //=====================================
 
     window.location.replace(
         "connexion.html"
@@ -589,9 +644,9 @@ console.log(
 );
 
 console.log(
-    "Inactivité maximale : 10 minutes."
+    "Session : 10 minutes d'inactivité."
 );
 
 console.log(
-    "Durée maximale de session : 8 heures."
+    "Session maximale : 8 heures."
 );
