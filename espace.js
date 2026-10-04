@@ -3,7 +3,7 @@
     COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
 
     Gestion :
-    - Session membre
+    - Session membre sécurisée
     - Profil membre
     - Accès Président
     - Statistiques tableau de bord
@@ -11,365 +11,416 @@
 ==================================================*/
 
 
-//==================================================
-// INITIALISATION ESPACE MEMBRE
-//==================================================
+/*==================================================
+  IMPORT DU SYSTEME DE SESSION
+==================================================*/
 
-document.addEventListener("DOMContentLoaded",()=>{
+import {
+    deconnexion
+} from "./permissions.js";
 
 
-console.log("ESPACE MEMBRE JS CHARGÉ");
+/*==================================================
+  INITIALISATION ESPACE MEMBRE
+==================================================*/
 
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
+        console.log(
+            "ESPACE MEMBRE JS CHARGÉ"
+        );
 
-//==================================================
-// CHARGEMENT SESSION MEMBRE
-//==================================================
 
+        /*==========================================
+          RECUPERATION DE LA SESSION
+        ==========================================*/
 
-const membre = {
+        const sessionStockee =
+            localStorage.getItem(
+                "utilisateurConnecte"
+            );
 
 
-    id:
-    localStorage.getItem("membreId"),
+        /*==========================================
+          VERIFICATION SESSION
+        ==========================================*/
 
+        if (!sessionStockee) {
 
-    nom:
-    localStorage.getItem("nom"),
+            console.warn(
+                "Aucune session membre trouvée."
+            );
 
+            window.location.replace(
+                "connexion.html"
+            );
 
-    matricule:
-    localStorage.getItem("matricule"),
+            return;
 
+        }
 
-    telephone:
-    localStorage.getItem("telephone"),
 
+        /*==========================================
+          LECTURE DE LA SESSION
+        ==========================================*/
 
-    statut:
-    localStorage.getItem("statut"),
+        let membre = null;
 
 
-    parrain:
-    localStorage.getItem("parrain"),
+        try {
 
+            membre =
+                JSON.parse(
+                    sessionStockee
+                );
 
-    dateAdhesion:
-    localStorage.getItem("dateAdhesion"),
+        }
+        catch (erreur) {
 
+            console.error(
+                "Session membre invalide :",
+                erreur
+            );
 
-    photo:
-    localStorage.getItem("photo"),
 
+            deconnexion(
+                "session_invalide"
+            );
 
-    role:
-    localStorage.getItem("role")
+            return;
 
+        }
 
-};
 
+        /*==========================================
+          VERIFICATION DES DONNEES ESSENTIELLES
+        ==========================================*/
 
+        if (
+            !membre ||
+            !membre.nom ||
+            !membre.matricule
+        ) {
 
+            console.warn(
+                "Informations membre absentes."
+            );
 
-console.log("SESSION MEMBRE :",membre);
 
+            deconnexion(
+                "session_invalide"
+            );
 
+            return;
 
+        }
 
 
-//==================================================
-// VERIFICATION CONNEXION
-//==================================================
+        console.log(
+            "SESSION MEMBRE :",
+            membre
+        );
 
 
-if(!membre.nom || !membre.matricule){
+        /*==========================================
+          AFFICHAGE INFORMATIONS MEMBRE
+        ==========================================*/
 
+        function afficherInformation(
+            id,
+            valeur
+        ) {
 
-alert("Session expirée. Veuillez vous reconnecter.");
+            const element =
+                document.getElementById(
+                    id
+                );
 
 
-window.location.href="connexion.html";
+            if (element) {
 
+                element.textContent =
+                    valeur;
 
-return;
+            }
 
+        }
 
-}
 
+        /*------------------------------------------
+          NOM
+        ------------------------------------------*/
 
+        afficherInformation(
+            "nom",
+            membre.nom
+        );
 
 
+        afficherInformation(
+            "nomBienvenue",
+            membre.nom
+        );
 
-//==================================================
-// AFFICHAGE INFORMATIONS MEMBRE
-//==================================================
 
+        afficherInformation(
+            "nomMembre",
+            membre.nom
+        );
 
-function afficherInformation(id,valeur){
 
+        /*------------------------------------------
+          MATRICULE
+        ------------------------------------------*/
 
-const element =
-document.getElementById(id);
+        afficherInformation(
+            "matricule",
+            membre.matricule
+        );
 
 
-if(element){
+        afficherInformation(
+            "matriculeCard",
+            membre.matricule
+        );
 
-element.textContent = valeur;
 
-}
+        /*------------------------------------------
+          TELEPHONE
+        ------------------------------------------*/
 
+        afficherInformation(
+            "telephone",
+            membre.telephone ||
+            "---"
+        );
 
-}
 
+        /*------------------------------------------
+          STATUT
+        ------------------------------------------*/
 
+        afficherInformation(
+            "statut",
+            membre.statut ||
+            "Actif"
+        );
 
 
+        /*------------------------------------------
+          PARRAIN
+        ------------------------------------------*/
 
-afficherInformation(
-"nom",
-membre.nom
+        afficherInformation(
+            "parrain",
+            membre.parrain ||
+            "---"
+        );
+
+
+        /*------------------------------------------
+          DATE ADHESION
+        ------------------------------------------*/
+
+        afficherInformation(
+            "dateAdhesion",
+            membre.dateAdhesion ||
+            "---"
+        );
+
+
+        /*==========================================
+          PHOTO PROFIL
+        ==========================================*/
+
+        const photo =
+            document.getElementById(
+                "photo"
+            );
+
+
+        if (photo) {
+
+            photo.src =
+                membre.photo ||
+                "logo.png";
+
+        }
+
+
+        /*==========================================
+          ACCES BUREAU PRESIDENT
+        ==========================================*/
+
+        const bureauPresident =
+            document.getElementById(
+                "bureauPresident"
+            );
+
+
+        if (bureauPresident) {
+
+            const role =
+                String(
+                    membre.role ||
+                    ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            const fonction =
+                String(
+                    membre.fonction ||
+                    ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            const estPresident =
+
+                role === "president" ||
+
+                role === "président" ||
+
+                fonction === "president" ||
+
+                fonction === "président";
+
+
+            if (estPresident) {
+
+                bureauPresident.style.display =
+                    "block";
+
+            }
+            else {
+
+                bureauPresident.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        /*==========================================
+          STATISTIQUES TABLEAU DE BORD
+        ==========================================*/
+
+        const statistiques = {
+
+            cotisations:
+                "0 FCFA",
+
+            filleuls:
+                0,
+
+            revenus:
+                "0 FCFA",
+
+            projets:
+                0,
+
+            formations:
+                0,
+
+            entraides:
+                0,
+
+            investissements:
+                0,
+
+            notifications:
+                0
+
+        };
+
+
+        Object.keys(
+            statistiques
+        ).forEach(
+            (id) => {
+
+                const element =
+                    document.getElementById(
+                        id
+                    );
+
+
+                if (element) {
+
+                    element.textContent =
+                        statistiques[id];
+
+                }
+
+            }
+        );
+
+
+        /*==========================================
+          DECONNEXION MANUELLE
+        ==========================================*/
+
+        const logout =
+            document.getElementById(
+                "logout"
+            );
+
+
+        if (logout) {
+
+            logout.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+
+
+                    const confirmation =
+                        confirm(
+                            "Voulez-vous vous déconnecter ?"
+                        );
+
+
+                    if (!confirmation) {
+
+                        return;
+
+                    }
+
+
+                    deconnexion(
+                        "manuelle"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*==========================================
+          FIN INITIALISATION
+        ==========================================*/
+
+        console.log(
+            "Espace membre opérationnel."
+        );
+
+
+        console.log(
+            "Session sécurisée active."
+        );
+
+
+        console.log(
+            "Inactivité maximale : 10 minutes."
+        );
+
+    }
 );
-
-
-
-afficherInformation(
-"nomBienvenue",
-membre.nom
-);
-
-
-
-afficherInformation(
-"nomMembre",
-membre.nom
-);
-
-
-
-
-afficherInformation(
-"matricule",
-membre.matricule
-);
-
-
-
-afficherInformation(
-"matriculeCard",
-membre.matricule
-);
-
-
-
-afficherInformation(
-"telephone",
-membre.telephone || "---"
-);
-
-
-
-afficherInformation(
-"statut",
-membre.statut || "Actif"
-);
-
-
-
-afficherInformation(
-"parrain",
-membre.parrain || "---"
-);
-
-
-
-afficherInformation(
-"dateAdhesion",
-membre.dateAdhesion || "---"
-);
-
-
-
-
-
-
-//==================================================
-// PHOTO PROFIL
-//==================================================
-
-
-const photo =
-document.getElementById("photo");
-
-
-if(photo){
-
-
-photo.src =
-membre.photo || "logo.png";
-
-
-}
-
-
-
-
-//==================================================
-// ACCES BUREAU PRESIDENT
-//==================================================
-
-
-const bureauPresident =
-document.getElementById("bureauPresident");
-
-
-
-if(bureauPresident){
-
-
-if(
-
-membre.role === "president"
-
-||
-
-
-membre.role === "Président"
-
-){
-
-
-bureauPresident.style.display="block";
-
-
-}else{
-
-
-bureauPresident.style.display="none";
-
-
-}
-
-
-}
-
-
-
-
-
-//==================================================
-// STATISTIQUES TABLEAU DE BORD
-//==================================================
-
-
-const statistiques = {
-
-
-cotisations:"0 FCFA",
-
-
-filleuls:0,
-
-
-revenus:"0 FCFA",
-
-
-projets:0,
-
-
-formations:0,
-
-
-entraides:0,
-
-
-investissements:0,
-
-
-notifications:0
-
-
-};
-
-
-
-
-Object.keys(statistiques).forEach((id)=>{
-
-
-const element =
-document.getElementById(id);
-
-
-
-if(element){
-
-
-element.textContent =
-statistiques[id];
-
-
-}
-
-
-});
-
-
-
-
-
-//==================================================
-// DECONNEXION
-//==================================================
-
-
-const logout =
-document.getElementById("logout");
-
-
-
-if(logout){
-
-
-logout.addEventListener("click",()=>{
-
-
-const confirmation =
-confirm(
-"Voulez-vous vous déconnecter ?"
-);
-
-
-
-if(!confirmation)
-
-return;
-
-
-
-localStorage.clear();
-
-
-window.location.href="connexion.html";
-
-
-});
-
-
-}
-
-
-
-
-
-//==================================================
-// FIN INITIALISATION
-//==================================================
-
-
-console.log(
-"Espace membre opérationnel"
-);
-
-
-
-});
