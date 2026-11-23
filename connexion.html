@@ -1,208 +1,179 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="theme-color"
-        content="#006b3f"
-    >
-
-    <title>
-        Connexion | COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-    </title>
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
-    <!-- CSS de la page -->
-    <link
-        rel="stylesheet"
-        href="connexion.css"
-    >
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotisations | Communauté Numérique MWANA MBOKA</title>
+  <link rel="stylesheet" href="cotisation.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
 <body>
 
-    <main class="connexion-page">
+  <!-- EN-TÊTE -->
+  <header>
+    <div class="header-gauche">
+      <img src="logo.png" alt="Logo MWANA MBOKA" class="header-logo" onerror="this.style.display='none'">
+      <div>
+        <h1><i class="fa-solid fa-wallet"></i> Gestion des cotisations</h1>
+        <p>Communauté Numérique MWANA MBOKA</p>
+      </div>
+    </div>
+    <button id="btnDeconnexion" type="button">
+      <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+    </button>
+  </header>
 
-        <!-- Bannière -->
-        <img
-            src="banniere.png"
-            class="banner"
-            alt="Bannière COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA"
-        >
+  <!-- TABLEAU DE BORD -->
+  <section class="tableau-bord">
+    <div class="carte">
+      <i class="fa-solid fa-users"></i>
+      <h2 id="nbCotisants">0</h2>
+      <p>Membres ayant payé</p>
+    </div>
+    <div class="carte">
+      <i class="fa-solid fa-money-bill-wave"></i>
+      <h2 id="totalCotisations">0 FCFA</h2>
+      <p>Total encaissé</p>
+    </div>
+    <div class="carte">
+      <i class="fa-solid fa-handshake"></i>
+      <h2 id="totalParrains">0 FCFA</h2>
+      <p>Part des parrains</p>
+    </div>
+    <div class="carte">
+      <i class="fa-solid fa-piggy-bank"></i>
+      <h2 id="totalCommunaute">0 FCFA</h2>
+      <p>Caisse communautaire</p>
+    </div>
+  </section>
 
-        <section class="connexion-card">
+  <!-- FORMULAIRE -->
+  <section class="formulaire">
+    <h2 id="titreFormulaire"><i class="fa-solid fa-plus-circle"></i> Nouvelle cotisation</h2>
 
-            <!-- Logo -->
-            <div class="logo-container">
+    <div class="groupe">
+      <label for="membre"><i class="fa-solid fa-user"></i> Membre</label>
+      <select id="membre">
+        <option value="">-- Sélectionner un membre --</option>
+      </select>
+    </div>
 
-                <img
-                    src="logo.png"
-                    class="logo"
-                    alt="Logo MWANA MBOKA"
-                >
+    <div id="infoMembre"></div>
 
+    <div class="groupe">
+      <label for="montant"><i class="fa-solid fa-coins"></i> Montant (FCFA)</label>
+      <input type="number" id="montant" value="2000" min="0" step="100" inputmode="numeric" placeholder="2000">
+      <small class="hint">Cotisation mensuelle recommandée : 2 000 FCFA</small>
+    </div>
+
+    <div class="groupe">
+      <label for="moisCotisation"><i class="fa-solid fa-calendar"></i> Mois et année concernés</label>
+      <input type="month" id="moisCotisation">
+    </div>
+
+    <div class="groupe">
+      <label><i class="fa-solid fa-credit-card"></i> Moyen de paiement</label>
+      <div class="methodes-paiement">
+
+        <label class="methode-radio" for="pay-especes">
+          <input type="radio" id="pay-especes" name="modePaiement" value="Espèces" checked>
+          <div class="methode-card methode-especes">
+            <div class="icone-paiement"><i class="fa-solid fa-money-bill-wave"></i></div>
+            <div class="texte-paiement"><strong>Espèces</strong><span>Paiement manuel</span></div>
+          </div>
+        </label>
+
+        <label class="methode-radio" for="pay-airtel">
+          <input type="radio" id="pay-airtel" name="modePaiement" value="Airtel Money">
+          <div class="methode-card methode-airtel">
+            <div class="logo-paiement airtel-logo">
+              <span class="airtel-nom">airtel</span>
+              <span class="airtel-money">money</span>
             </div>
+            <div class="texte-paiement"><strong>Airtel Money</strong><span>Paiement mobile</span></div>
+          </div>
+        </label>
 
-            <!-- Titre -->
-            <h1>
-                Connexion Membre
-            </h1>
-
-            <p class="slogan">
-                Bienvenue sur la plateforme officielle de la
-                <strong>
-                    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-                </strong>
-            </p>
-
-            <!-- Formulaire -->
-            <form
-                id="connexionForm"
-                autocomplete="on"
-            >
-
-                <!-- Matricule -->
-                <div class="input-box">
-
-                    <i
-                        class="fa-solid fa-id-card input-icon"
-                    ></i>
-
-                    <input
-                        type="text"
-                        id="matricule"
-                        name="matricule"
-                        placeholder="Votre matricule"
-                        autocomplete="username"
-                        required
-                    >
-
-                </div>
-
-                <!-- Mot de passe -->
-                <div class="input-box">
-
-                    <i
-                        class="fa-solid fa-lock input-icon"
-                    ></i>
-
-                    <input
-                        type="password"
-                        id="motdepasse"
-                        name="motdepasse"
-                        placeholder="Votre mot de passe"
-                        autocomplete="current-password"
-                        required
-                    >
-
-                    <button
-                        type="button"
-                        class="password-toggle"
-                        id="togglePassword"
-                        aria-label="Afficher le mot de passe"
-                    >
-
-                        <i
-                            class="fa-solid fa-eye"
-                        ></i>
-
-                    </button>
-
-                </div>
-
-                                 <!-- Bouton de connexion -->
-                <button
-                    type="submit"
-                    id="boutonConnexion"
-                    class="btn-connexion"
-                >
-
-                    <i class="fa-solid fa-right-to-bracket"></i>
-
-                    Se connecter
-
-                </button>
-
-            </form>
-
-
-            <!-- Inscription -->
-            <a
-                href="adhesion.html"
-                class="btn-member"
-            >
-
-                <i class="fa-solid fa-user-plus"></i>
-
-                Devenir membre
-
-            </a>
-
-
-            <!-- Message système -->
-            <div
-                id="message"
-                class="message"
-                role="alert"
-                aria-live="polite"
-            ></div>
-
-
-            <!-- Informations de sécurité -->
-            <div class="security-info">
-
-                <i class="fa-solid fa-shield-halved"></i>
-
-                <span>
-                    Votre session sera automatiquement fermée
-                    après 10 minutes d'inactivité.
-                </span>
-
-                 </div>
-
-                         <!-- Pied de page -->
-            <div class="footer">
-
-                <strong>
-                    COMMUNAUTÉ NUMÉRIQUE MWANA MBOKA
-                </strong>
-
-                <br>
-
-                Ensemble nous irons plus loin.
-
-                <br><br>
-
-                ©
-                <span id="annee"></span>
-                Tous droits réservés.
-
+        <label class="methode-radio" for="pay-mtn">
+          <input type="radio" id="pay-mtn" name="modePaiement" value="MTN Mobile Money">
+          <div class="methode-card methode-mtn">
+            <div class="logo-paiement mtn-logo">
+              <span class="mtn-nom">MTN</span>
+              <span class="mtn-momo">MoMo</span>
             </div>
+            <div class="texte-paiement"><strong>MTN Mobile Money</strong><span>Paiement mobile</span></div>
+          </div>
+        </label>
 
-        </section>
+      </div>
+    </div>
 
-    </main>
+    <div class="groupe" id="groupeNumero" style="display:none;">
+      <label for="numeroMobile">
+        <i class="fa-solid fa-mobile-screen-button"></i> Numéro <span id="labelOperateur"></span>
+      </label>
+      <input type="tel" id="numeroMobile" placeholder="06 XXX XX XX" maxlength="14" autocomplete="tel">
+    </div>
 
-         <!-- JavaScript de connexion -->
-    <script
-        type="module"
-        src="connexion.js"
-    ></script>
+    <div class="groupe" id="groupeRef" style="display:none;">
+      <label for="refTransaction"><i class="fa-solid fa-hashtag"></i> Référence de la transaction</label>
+      <input type="text" id="refTransaction" placeholder="Ex : TXN123456789" autocomplete="off">
+      <small class="hint">Obligatoire pour un paiement mobile validé « Payé ».</small>
+    </div>
+
+    <div class="groupe">
+      <label for="statut"><i class="fa-solid fa-circle-check"></i> Statut</label>
+      <select id="statut">
+        <option value="Payé">Payé</option>
+        <option value="En attente">En attente</option>
+        <option value="Retard">Retard</option>
+      </select>
+    </div>
+
+    <div class="groupe">
+      <label for="observation"><i class="fa-solid fa-note-sticky"></i> Observation</label>
+      <textarea id="observation" rows="3" placeholder="Remarque éventuelle..."></textarea>
+    </div>
+
+    <div id="zonePaiementAPI" class="zone-api" style="display:none;">
+      <div class="api-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+      <div>
+        <strong>Paiement mobile</strong>
+        <p>Le paiement automatique sera disponible après l'installation de l'API de paiement.
+           En attendant, saisissez la référence reçue par SMS.</p>
+      </div>
+    </div>
+
+    <div class="boutons">
+      <button id="btnEnregistrer" type="button">
+        <i class="fa-solid fa-floppy-disk"></i> Enregistrer la cotisation
+      </button>
+      <button id="btnAnnuler" type="button" style="display:none;">
+        <i class="fa-solid fa-xmark"></i> Annuler
+      </button>
+    </div>
+
+    <div id="msgRetour" class="msg-retour" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- HISTORIQUE -->
+  <section class="liste">
+    <div class="liste-header">
+      <h2><i class="fa-solid fa-clock-rotate-left"></i> Historique des cotisations</h2>
+      <input type="search" id="recherche" placeholder="Rechercher un membre, un mois, une référence..." autocomplete="off">
+    </div>
+
+    <div class="filtres">
+      <button class="filtre-btn actif" data-filtre="tous" type="button">Tous</button>
+      <button class="filtre-btn" data-filtre="Payé" type="button">Payés</button>
+      <button class="filtre-btn" data-filtre="En attente" type="button">En attente</button>
+      <button class="filtre-btn" data-filtre="Retard" type="button">Retard</button>
+    </div>
+
+    <div id="listeCotisations"></div>
+  </section>
+
+  <script type="module" src="cotisation.js"></script>
 
 </body>
-
 </html>
